@@ -1,0 +1,9 @@
+{
+  "env": {
+    "test": {
+      "plugins": ["transform-class-properties", "dynamic-import-node"]
+    }
+  },
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": ["transform-class-properties"]
+}

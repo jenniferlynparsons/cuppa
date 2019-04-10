@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
-import { AppState } from "../../../interfaces/general-interfaces";
-import { UserProps } from "../../../interfaces/auth-interfaces";
 import "./NavBar.scss";
-import tea from "../../../common_styles/tea.svg";
+import tea from "../../../assets/tea.svg";
 
 class NavBar extends Component {
   onLogoutClick = e => {
@@ -14,6 +12,7 @@ class NavBar extends Component {
   };
   render() {
     const isLoggedIn = this.props.auth.isAuthenticated;
+    console.log(tea);
     return (
       <nav
         className="navbar is-dark"

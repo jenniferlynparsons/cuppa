@@ -17,7 +17,7 @@ import TeaEditor from "../Tea/TeaEditor";
 import TeaList from "../Tea/TeaList";
 import TeaDetails from "../Tea/TeaDetails";
 // Styles
-import "../../../node_modules/bulma/bulma.sass";
+import "bulma/bulma.sass";
 import "../../common_styles/global.scss";
 
 // Check for token to keep user logged in
