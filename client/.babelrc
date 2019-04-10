@@ -1,0 +1,20 @@
+{
+  "env": {
+    "test": {
+      "plugins": ["transform-class-properties", "dynamic-import-node"]
+    }
+  },
+  "presets": [
+    "react",
+    "stage-0",
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions"]
+        }
+      }
+    ]
+  ],
+  "plugins": ["transform-class-properties"]
+}
