@@ -194,10 +194,18 @@ export class TeaEditor extends React.Component {
                   className="input"
                   type="text"
                   id="brand"
+                  list="brands"
                   onChange={this.handleBrandChange}
                   value={this.state.brand}
                   placeholder="Tea Brand"
                 />
+                <datalist id="brands">
+                  {this.state.brands.map(type => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </datalist>
               </div>
             </label>
           </div>
