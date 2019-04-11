@@ -1,4 +1,5 @@
 import { RSAA } from "redux-api-middleware";
+import API from '../lib/api';
 
 let backendHost;
 const hostname = window && window.location && window.location.hostname;
@@ -92,27 +93,14 @@ export function deleteTea(tea) {
 // Get Teas
 export function getTeas(listOwner) {
   console.log(listOwner);
-  return {
-    [RSAA]: {
-      endpoint: `${API_SERVER}/api/teas/teasList`,
-      method: "POST",
-      types: [
-        "REQUEST",
-        {
-          type: "GET_TEAS",
-          payload: async (_action, _state, res) => {
-            res = await res.json();
-            console.log(res);
-            return res;
-          }
-        },
-        {
-          type: "GET_ERRORS",
-          payload: async (_action, _state, res) => res.response.data
-        }
-      ],
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(listOwner)
-    }
+  return (dispatch) => {
+    API.get(`/teas/teasList/${listOwner}`).then((response) => {
+      // TODO: normalize response
+
+      dispatch({
+        type: 'GET_TEAS',
+        payload: response
+      });
+    });
   };
 }

@@ -266,7 +266,7 @@ const mapDispatchToProps = dispatch => ({
     }
   },
   getTeaList: userIDNum => {
-    dispatch(getTeas({ userID: userIDNum }));
+    dispatch(getTeas(userIDNum));
   },
   updateFlash: status => {
     dispatch(editTeaFlash(status));

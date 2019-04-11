@@ -37,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(deleteTea(tea));
   },
   getTeaList: userID => {
-    dispatch(getTeas({ listOwner: userID }));
+    dispatch(getTeas(userID));
   }
 });
 
