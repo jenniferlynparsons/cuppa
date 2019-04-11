@@ -22,7 +22,8 @@ export class TeaEditor extends React.Component {
     brand: "",
     teaType: "",
     servings: "",
-    edit: false
+    edit: false,
+    brands: []
   };
 
   validate = (name, servings) => {
@@ -112,11 +113,7 @@ export class TeaEditor extends React.Component {
     }
   };
 
-  componentDidMount() {
-    this.props.getTeaList(this.props.userID);
-  }
-
-  componentWillReceiveProps(teaProps) {
+  currentTeaFilter = teaProps => {
     const filterTeas = this.props.teas.filter(
       t => t.id === teaProps.match.params.id
     );
@@ -126,6 +123,21 @@ export class TeaEditor extends React.Component {
     } else {
       this.setState({ edit: false });
     }
+  };
+
+  teaBrandsFilter = teaProps => {
+    const filterBrands = this.props.teas.map(t => t.brand);
+    this.setState({ ...this.state, brands: filterBrands });
+    console.log(this.state);
+  };
+
+  componentDidMount() {
+    this.props.getTeaList(this.props.userID);
+  }
+
+  componentWillReceiveProps(teaProps) {
+    this.currentTeaFilter(teaProps);
+    this.teaBrandsFilter(teaProps);
   }
 
   render() {
@@ -182,10 +194,18 @@ export class TeaEditor extends React.Component {
                   className="input"
                   type="text"
                   id="brand"
+                  list="brands"
                   onChange={this.handleBrandChange}
                   value={this.state.brand}
                   placeholder="Tea Brand"
                 />
+                <datalist id="brands">
+                  {this.state.brands.map(type => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </datalist>
               </div>
             </label>
           </div>

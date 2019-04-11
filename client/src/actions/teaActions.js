@@ -1,5 +1,5 @@
 import { RSAA } from "redux-api-middleware";
-import API from '../lib/api';
+import API from "../lib/api";
 
 let backendHost;
 const hostname = window && window.location && window.location.hostname;
@@ -93,12 +93,12 @@ export function deleteTea(tea) {
 // Get Teas
 export function getTeas(listOwner) {
   console.log(listOwner);
-  return (dispatch) => {
-    API.get(`/teas/teasList/${listOwner}`).then((response) => {
+  return dispatch => {
+    API.get(`/teas/teasList/${listOwner}`).then(response => {
       // TODO: normalize response
 
       dispatch({
-        type: 'GET_TEAS',
+        type: "GET_TEAS",
         payload: response
       });
     });
