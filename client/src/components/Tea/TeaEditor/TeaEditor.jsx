@@ -5,6 +5,7 @@ import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";
+import Datalist from '../../Datalist';
 
 export class TeaEditor extends React.Component {
   state = {
@@ -125,19 +126,16 @@ export class TeaEditor extends React.Component {
     }
   };
 
-  teaBrandsFilter = teaProps => {
-    const filterBrands = this.props.teas.map(t => t.brand);
-    this.setState({ ...this.state, brands: filterBrands });
-    console.log(this.state);
-  };
+  getBrandsFromTeas = teas => {
+    return teas.map(tea => tea.brand);
+  }
 
   componentDidMount() {
-    this.props.getTeaList(this.props.userID);
+    getTeas(this.props.userID);
   }
 
   componentWillReceiveProps(teaProps) {
     this.currentTeaFilter(teaProps);
-    this.teaBrandsFilter(teaProps);
   }
 
   render() {
@@ -199,13 +197,7 @@ export class TeaEditor extends React.Component {
                   value={this.state.brand}
                   placeholder="Tea Brand"
                 />
-                <datalist id="brands">
-                  {this.state.brands.map(type => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </datalist>
+                <Datalist id="brands" options={this.props.teas} processOptions={this.getBrandsFromTeas} />
               </div>
             </label>
           </div>
@@ -284,9 +276,6 @@ const mapDispatchToProps = dispatch => ({
     } else {
       dispatch(addTea(tea));
     }
-  },
-  getTeaList: userIDNum => {
-    dispatch(getTeas(userIDNum));
   },
   updateFlash: status => {
     dispatch(editTeaFlash(status));
