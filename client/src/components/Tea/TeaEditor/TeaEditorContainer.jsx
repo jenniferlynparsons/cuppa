@@ -27,12 +27,12 @@ export class TeaEditorContainer extends React.Component {
     brands: []
   };
 
-  validate = (name, servings) => {
-    return {
-      name: name.length === 0,
-      servings: servings.length === 0
-    };
-  };
+  // validate = (name, servings) => {
+  //   return {
+  //     name: name.length === 0,
+  //     servings: servings.length === 0
+  //   };
+  // };
 
   handleBlur = field => () => {
     this.setState({
@@ -68,7 +68,7 @@ export class TeaEditorContainer extends React.Component {
     });
   };
 
-  handleSubmitButton = (e, errors) => {
+  handleSubmitButton = e => {
     if (!this.state.id) {
       this.setState({
         ...this.state,
@@ -78,40 +78,38 @@ export class TeaEditorContainer extends React.Component {
 
     this.setState({
       touched: {
-        ...this.state.touched,
-        name: errors.name,
-        servings: errors.servings
+        ...this.state.touched
       }
     });
   };
 
-  handleFormSubmit = (event, errors) => {
+  handleFormSubmit = event => {
     event.preventDefault();
-    if ((errors.servings || errors.name) === false) {
-      this.props.handleSubmit(this.state);
-      if (this.state.edit === true) {
-        this.props.updateFlash(true);
-        this.props.history.push("/tea/" + this.state.id);
-      } else {
-        this.setState({
-          flash: {
-            name: this.state.name,
-            id: this.state.id
-          },
-          touched: {
-            name: false,
-            servings: false
-          },
-          id: "",
-          userID: this.props.userID,
-          name: "",
-          brand: "",
-          teaType: "",
-          servings: "",
-          edit: false
-        });
-      }
+    // if ((errors.servings || errors.name) === false) {
+    this.props.handleSubmit(this.state);
+    if (this.state.edit === true) {
+      this.props.updateFlash(true);
+      this.props.history.push("/tea/" + this.state.id);
+    } else {
+      this.setState({
+        flash: {
+          name: this.state.name,
+          id: this.state.id
+        },
+        touched: {
+          name: false,
+          servings: false
+        },
+        id: "",
+        userID: this.props.userID,
+        name: "",
+        brand: "",
+        teaType: "",
+        servings: "",
+        edit: false
+      });
     }
+    // }
   };
 
   currentTeaFilter = teaProps => {
@@ -139,20 +137,21 @@ export class TeaEditorContainer extends React.Component {
   }
 
   render() {
-    const errors = this.validate(this.state.name, this.state.servings);
-    // // TODO refine validation on form submit
-    const isDisabled = Object.keys(errors).some(x => errors[x]);
-    const shouldMarkError = field => {
-      const hasError = errors[field];
-      const shouldShow = this.state.touched[field];
+    // const errors = this.validate(this.state.name, this.state.servings);
+    // // // TODO refine validation on form submit
+    // const isDisabled = Object.keys(errors).some(x => errors[x]);
+    // const shouldMarkError = field => {
+    //   const hasError = errors[field];
+    //   const shouldShow = this.state.touched[field];
 
-      return hasError ? shouldShow : false;
-    };
+    //   return hasError ? shouldShow : false;
+    // };
     return (
       <TeaEditor
-        validate={this.validate}
-        shouldMarkError={this.shouldMarkError}
-        isDisabled={this.isDisabled}
+        // validate={this.validate}
+        // shouldMarkError={this.shouldMarkError}
+        // isDisabled={this.isDisabled}
+        teaTypes={this.props.teaTypes}
         flash={this.state.flash}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}
@@ -192,5 +191,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(TeaEditor)
+  )(TeaEditorContainer)
 );

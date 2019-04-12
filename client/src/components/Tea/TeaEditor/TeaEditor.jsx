@@ -16,28 +16,29 @@ export const TeaEditor = props => {
         ""
       )}
 
-      <form onSubmit={e => this.handleFormSubmit(e, errors)}>
+      <form onSubmit={e => props.handleFormSubmit(e)}>
         <div className="field">
           <label htmlFor="name">
             Tea Name
             <div className="control">
               <input
-                className={
-                  props.shouldMarkError("name") ? "input is-danger" : "input"
-                }
+                className="input"
+                // className={
+                //   props.shouldMarkError("name") ? "input is-danger" : "input"
+                // }
                 type="text"
                 id="name"
-                onChange={this.handleNameChange}
+                onChange={props.handleNameChange}
                 value={props.name}
                 placeholder="Tea Name"
-                onBlur={this.handleBlur("name")}
+                onBlur={props.handleBlur("name")}
               />
             </div>
-            {props.shouldMarkError("name") ? (
+            {/* {props.shouldMarkError("name") ? (
               <p className="help is-danger">Add a Tea Name</p>
             ) : (
               ""
-            )}
+            )} */}
           </label>
         </div>
         <div className="field">
@@ -49,14 +50,14 @@ export const TeaEditor = props => {
                 type="text"
                 id="brand"
                 list="brands"
-                onChange={this.handleBrandChange}
+                onChange={props.handleBrandChange}
                 value={props.brand}
                 placeholder="Tea Brand"
               />
               <Datalist
                 id="brands"
                 options={props.teas}
-                processOptions={this.getBrandsFromTeas}
+                processOptions={props.getBrandsFromTeas}
               />
             </div>
           </label>
@@ -70,8 +71,8 @@ export const TeaEditor = props => {
                   disabled={!props.teaTypes.length}
                   id="type"
                   value={props.teaType}
-                  onChange={this.handleTypeChange}
-                  onBlur={this.handleTypeChange}
+                  onChange={props.handleTypeChange}
+                  onBlur={props.handleTypeChange}
                 >
                   <option />
                   {props.teaTypes.map(type => (
@@ -89,30 +90,32 @@ export const TeaEditor = props => {
             Servings Available
             <div className="control">
               <input
-                className={
-                  props.shouldMarkError("servings")
-                    ? "input is-danger"
-                    : "input"
-                }
+                className="input"
+                // className={
+                //   props.shouldMarkError("servings")
+                //     ? "input is-danger"
+                //     : "input"
+                // }
                 type="number"
                 id="servings"
-                onChange={this.handleServingsChange}
+                onChange={props.handleServingsChange}
                 value={props.servings}
                 placeholder="Servings Available"
-                onBlur={this.handleBlur("servings")}
+                onBlur={props.handleBlur("servings")}
               />
             </div>
-            {props.shouldMarkError("servings") ? (
+            {/* {props.shouldMarkError("servings") ? (
               <p className="help is-danger">Add a Number of Servings</p>
             ) : (
               ""
-            )}
+            )} */}
           </label>
         </div>
         <div className="control">
           <button
-            className={isDisabled ? "button is-disabled" : "button is-primary"}
-            onClick={e => this.handleSubmitButton(e, errors)}
+            className="button is-primary"
+            // className={isDisabled ? "button is-disabled" : "button is-primary"}
+            onClick={e => props.handleSubmitButton(e)}
           >
             Submit
           </button>
