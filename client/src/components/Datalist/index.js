@@ -1,8 +1,7 @@
 import React from "react";
 import { uniq } from "lodash";
 
-export class Datalist extends React.Component {
-
+class Datalist extends React.PureComponent {
   render() {
     let options = [];
 
