@@ -131,7 +131,7 @@ export class TeaEditor extends React.Component {
   }
 
   componentDidMount() {
-    getTeas(this.props.userID);
+    this.props.getTeaList(this.props.userID);
   }
 
   componentWillReceiveProps(teaProps) {
@@ -279,7 +279,10 @@ const mapDispatchToProps = dispatch => ({
   },
   updateFlash: status => {
     dispatch(editTeaFlash(status));
-  }
+  },
+  getTeaList: userIDNum => {
+    dispatch(getTeas(userIDNum));
+  },
 });
 
 export default withRouter(
