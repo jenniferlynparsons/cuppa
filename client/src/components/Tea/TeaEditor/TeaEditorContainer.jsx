@@ -3,6 +3,7 @@ import React from "react";
 import uuidv4 from "uuid/v4";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { find, isEmpty } from "lodash";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";
 import { TeaEditor } from "./TeaEditor";
@@ -11,19 +12,20 @@ export class TeaEditorContainer extends React.Component {
   state = {
     flash: {
       name: "",
-      id: ""
+      teaId: ""
     },
     touched: {
       name: false,
       servings: false
     },
     userID: this.props.userID,
-    id: "",
-    name: "",
-    brand: "",
-    teaType: "",
-    servings: "",
-    edit: false,
+    currentTea: this.props.currentTea || "",
+    teaId: this.props.currentTea.id || "",
+    name: this.props.currentTea.name || "",
+    brand: this.props.currentTea.brand || "",
+    teaType: this.props.currentTea.teaType || "",
+    servings: this.props.currentTea.servings || "",
+    edit: !isEmpty(this.props.currentTea),
     brands: []
   };
 
@@ -69,10 +71,10 @@ export class TeaEditorContainer extends React.Component {
   };
 
   handleSubmitButton = e => {
-    if (!this.state.id) {
+    if (!this.state.teaId) {
       this.setState({
         ...this.state,
-        id: uuidv4()
+        teaId: uuidv4()
       });
     }
 
@@ -89,18 +91,18 @@ export class TeaEditorContainer extends React.Component {
     this.props.handleSubmit(this.state);
     if (this.state.edit === true) {
       this.props.updateFlash(true);
-      this.props.history.push("/tea/" + this.state.id);
+      this.props.history.push("/tea/" + this.state.teaId);
     } else {
       this.setState({
         flash: {
           name: this.state.name,
-          id: this.state.id
+          teaId: this.state.teaId
         },
         touched: {
           name: false,
           servings: false
         },
-        id: "",
+        teaId: "",
         userID: this.props.userID,
         name: "",
         brand: "",
@@ -112,28 +114,12 @@ export class TeaEditorContainer extends React.Component {
     // }
   };
 
-  currentTeaFilter = teaProps => {
-    const filterTeas = this.props.teas.filter(
-      t => t.id === teaProps.match.params.id
-    );
-    const currentTea = { ...filterTeas[0] };
-    if (currentTea.id) {
-      this.setState({ ...currentTea, edit: true });
-    } else {
-      this.setState({ edit: false });
-    }
-  };
-
   getBrandsFromTeas = teas => {
     return teas.map(tea => tea.brand);
   };
 
   componentDidMount() {
     this.props.getTeaList(this.props.userID);
-  }
-
-  componentWillReceiveProps(teaProps) {
-    this.currentTeaFilter(teaProps);
   }
 
   render() {
@@ -151,7 +137,9 @@ export class TeaEditorContainer extends React.Component {
         // validate={this.validate}
         // shouldMarkError={this.shouldMarkError}
         // isDisabled={this.isDisabled}
+        currentTea={currentTea}
         teaTypes={this.props.teaTypes}
+        name={this.state.name}
         flash={this.state.flash}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}
@@ -165,11 +153,19 @@ export class TeaEditorContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  teas: state.teas,
-  teaTypes: state.teaTypes,
-  userID: state.auth.user.id
-});
+const mapStateToProps = (state, ownProps) => {
+  let currentTeaId = ownProps.match.params.id;
+  let currentTea = currentTeaId
+    ? find(state.teas, tea => tea.id === currentTeaId) || {}
+    : {};
+  console.log(currentTea);
+  return {
+    teas: state.teas,
+    teaTypes: state.teaTypes,
+    userID: state.auth.user.id,
+    currentTea: currentTea
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   handleSubmit: tea => {

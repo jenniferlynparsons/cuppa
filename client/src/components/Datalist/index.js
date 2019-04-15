@@ -1,8 +1,7 @@
 import React from "react";
 import { uniq } from "lodash";
 
-export class Datalist extends React.Component {
-
+class Datalist extends React.PureComponent {
   render() {
     let options = [];
 
@@ -10,7 +9,7 @@ export class Datalist extends React.Component {
       options = this.props.processOptions(this.props.options);
     } else if (this.props.options) {
       options = this.props.options;
-    };
+    }
 
     return (
       <datalist id={this.props.id}>
@@ -20,7 +19,7 @@ export class Datalist extends React.Component {
           </option>
         ))}
       </datalist>
-    )
+    );
   }
 }
 
