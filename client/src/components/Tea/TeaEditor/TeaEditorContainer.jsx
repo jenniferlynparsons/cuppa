@@ -137,9 +137,11 @@ export class TeaEditorContainer extends React.Component {
         // validate={this.validate}
         // shouldMarkError={this.shouldMarkError}
         // isDisabled={this.isDisabled}
-        currentTea={currentTea}
         teaTypes={this.props.teaTypes}
         name={this.state.name}
+        brand={this.state.brand}
+        teaType={this.state.teaType}
+        servings={this.state.servings}
         flash={this.state.flash}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}
@@ -158,7 +160,6 @@ const mapStateToProps = (state, ownProps) => {
   let currentTea = currentTeaId
     ? find(state.teas, tea => tea.id === currentTeaId) || {}
     : {};
-  console.log(currentTea);
   return {
     teas: state.teas,
     teaTypes: state.teaTypes,

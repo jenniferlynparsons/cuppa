@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Datalist from "../../Datalist";
 
 export const TeaEditor = props => {
+  console.log("props ");
   console.log(props);
   return (
     <div className="container">
