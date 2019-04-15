@@ -122,6 +122,22 @@ export class TeaEditorContainer extends React.Component {
     this.props.getTeaList(this.props.userID);
   }
 
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.currentTea.id !== prevProps.currentTea.id) {
+      this.setState({
+        ...this.state,
+        teas: this.props.teas,
+        teaId: this.props.currentTea.id,
+        name: this.props.currentTea.name,
+        brand: this.props.currentTea.brand,
+        teaType: this.props.currentTea.teaType,
+        servings: this.props.currentTea.servings,
+        edit: true
+      });
+    }
+  }
+
   render() {
     // const errors = this.validate(this.state.name, this.state.servings);
     // // // TODO refine validation on form submit
@@ -137,12 +153,14 @@ export class TeaEditorContainer extends React.Component {
         // validate={this.validate}
         // shouldMarkError={this.shouldMarkError}
         // isDisabled={this.isDisabled}
+        teas={this.props.teas}
         teaTypes={this.props.teaTypes}
         name={this.state.name}
         brand={this.state.brand}
         teaType={this.state.teaType}
         servings={this.state.servings}
         flash={this.state.flash}
+        getBrandsFromTeas={this.getBrandsFromTeas}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}
         handleBrandChange={this.handleBrandChange}
