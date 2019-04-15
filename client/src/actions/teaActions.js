@@ -14,6 +14,7 @@ const API_SERVER = `${backendHost}`;
 // Add Tea
 export function addTea(tea) {
   console.log("this one");
+  tea.id = tea.teaId;
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/new-tea`,
@@ -40,6 +41,7 @@ export function addTea(tea) {
 
 export function editTea(tea) {
   console.log("that one");
+  tea.id = tea.teaId;
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/update-tea`,
