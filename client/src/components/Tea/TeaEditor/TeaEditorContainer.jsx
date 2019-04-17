@@ -126,7 +126,6 @@ export class TeaEditorContainer extends React.Component {
     // Typical usage (don't forget to compare props):
     if (this.props.currentTea.id !== prevProps.currentTea.id) {
       this.setState({
-        ...this.state,
         teas: this.props.teas,
         teaId: this.props.currentTea.id,
         name: this.props.currentTea.name,
