@@ -27,7 +27,7 @@ export const TeaDetails = props => {
         </li>
       </ul>
       <Link
-        to={"/update-tea/" + props.tea.id}
+        to={"/update-tea/" + props.tea.teaId}
         className="button"
         onClick={e => props.onClick(e, false)}
       >

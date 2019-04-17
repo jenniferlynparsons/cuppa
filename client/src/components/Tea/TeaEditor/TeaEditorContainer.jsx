@@ -115,7 +115,9 @@ export class TeaEditorContainer extends React.Component {
   };
 
   getBrandsFromTeas = teas => {
-    return teas.map(tea => tea.brand);
+    return Object.keys(teas).map(teaId => {
+      return teas[teaId].brand;
+    });
   };
 
   componentDidMount() {

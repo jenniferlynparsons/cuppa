@@ -13,7 +13,6 @@ const API_SERVER = `${backendHost}`;
 
 // Add Tea
 export function addTea(tea) {
-  console.log("this one");
   tea.id = tea.teaId;
   return {
     [RSAA]: {
@@ -40,7 +39,6 @@ export function addTea(tea) {
 }
 
 export function editTea(tea) {
-  console.log("that one");
   tea.id = tea.teaId;
   return {
     [RSAA]: {
@@ -99,9 +97,21 @@ export function getTeas(listOwner) {
     API.get(`/teas/teasList/${listOwner}`).then(response => {
       // TODO: normalize response
 
+      let responseObj = {};
+
+      response.map(tea => {
+        responseObj[tea.id] = {
+          id: tea.id,
+          name: tea.name,
+          brand: tea.brand,
+          teaType: tea.teaType,
+          servings: tea.servings
+        };
+      });
+
       dispatch({
         type: "GET_TEAS",
-        payload: response
+        payload: responseObj
       });
     });
   };

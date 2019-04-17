@@ -2,22 +2,45 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { deleteTea } from "../../../actions/teaActions";
+import { deleteTea, getTeas } from "../../../actions/teaActions";
 import { TeaDetails } from "./TeaDetails";
 import { editTeaFlash } from "../../../actions/flashActions";
 
 class TeaDetailsContainer extends Component {
+  state = {
+    teaId: "",
+    name: "",
+    brand: "",
+    teaType: "",
+    servings: ""
+  };
+
   clickHandler = (e, status) => {
     this.props.updateFlash(status);
   };
 
+  componentDidMount() {
+    this.props.getTeaList(this.props.userID);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.tea.id !== prevState.teaId) {
+      this.setState({
+        teaId: this.props.tea.id,
+        name: this.props.tea.name,
+        brand: this.props.tea.brand,
+        teaType: this.props.tea.teaType,
+        servings: this.props.tea.servings
+      });
+    }
+  }
+
   render() {
     return (
       <TeaDetails
-        tea={this.props.tea}
+        tea={this.state}
         flash={this.props.flash}
         onClick={this.clickHandler}
-        handleDelete={this.props.handleDelete}
         updateFlash={this.props.updateFlash}
       />
     );
@@ -25,8 +48,10 @@ class TeaDetailsContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  tea: state.teas.find(tea => tea.id === ownProps.match.params.id),
-  flash: state.flash
+  teas: state.teas,
+  tea: state.teas[ownProps.match.params.id],
+  flash: state.flash,
+  userID: state.auth.user.id
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -35,6 +60,9 @@ const mapDispatchToProps = dispatch => ({
   },
   updateFlash: status => {
     dispatch(editTeaFlash(status));
+  },
+  getTeaList: userIDNum => {
+    dispatch(getTeas(userIDNum));
   }
 });
 

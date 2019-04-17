@@ -21,7 +21,9 @@ export class TeaList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.teas.map(tea => {
+            {Object.keys(this.props.teas).map(teaId => {
+              const tea = this.props.teas[teaId];
+
               return (
                 <tr key={tea.id}>
                   <td>
