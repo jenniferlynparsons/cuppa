@@ -5,10 +5,8 @@ export default (state = {}, action) => {
     case "DELETE_TEA":
       return state.filter(t => t.id !== action.payload.id);
     case "EDIT_TEA":
-      return Object.keys(state).map(stateId => {
-        stateId.id === action.payload.id ? action.payload : stateId;
-      });
-    // return state.map(t => (t.id === action.payload.id ? action.payload : t));
+      console.log({ ...state, ...{ [action.payload.id]: action.payload } });
+      return { ...state, ...{ [action.payload.id]: action.payload } };
     case "GET_TEAS":
       return { ...state, ...action.payload };
   }
