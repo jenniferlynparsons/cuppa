@@ -24,7 +24,13 @@ export function addTea(tea) {
           type: "ADD_TEA",
           payload: async (_action, _state, res) => {
             res = await res.json();
-            return res;
+            return {
+              id: res.id,
+              name: res.name,
+              brand: res.brand,
+              teaType: res.teaType,
+              servings: res.servings
+            };
           }
         },
         {
