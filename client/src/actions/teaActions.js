@@ -106,8 +106,6 @@ export function getTeas(listOwner) {
   console.log(listOwner);
   return dispatch => {
     API.get(`/teas/teasList/${listOwner}`).then(response => {
-      // TODO: normalize response
-
       let responseObj = {};
 
       response.map(tea => {
