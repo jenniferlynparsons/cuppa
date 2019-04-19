@@ -7,14 +7,6 @@ import { TeaDetails } from "./TeaDetails";
 import { editTeaFlash } from "../../../actions/flashActions";
 
 class TeaDetailsContainer extends Component {
-  state = {
-    teaId: "",
-    name: "",
-    brand: "",
-    teaType: "",
-    servings: ""
-  };
-
   clickHandler = (e, status) => {
     this.props.updateFlash(status);
   };
@@ -23,22 +15,10 @@ class TeaDetailsContainer extends Component {
     this.props.getTeaList(this.props.userID);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.tea.id !== prevState.teaId) {
-      this.setState({
-        teaId: this.props.tea.id,
-        name: this.props.tea.name,
-        brand: this.props.tea.brand,
-        teaType: this.props.tea.teaType,
-        servings: this.props.tea.servings
-      });
-    }
-  }
-
   render() {
-    return (
+    return !this.props.tea ? null : (
       <TeaDetails
-        tea={this.state}
+        tea={this.props.tea}
         flash={this.props.flash}
         onClick={this.clickHandler}
         updateFlash={this.props.updateFlash}
@@ -47,12 +27,13 @@ class TeaDetailsContainer extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  teas: state.teas,
-  tea: state.teas[ownProps.match.params.id],
-  flash: state.flash,
-  userID: state.auth.user.id
-});
+const mapStateToProps = (state, ownProps) => {
+  return {
+    tea: state.teas.allTeas[ownProps.match.params.id] || {},
+    flash: state.flash,
+    userID: state.auth.user.id
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   handleDelete: tea => {

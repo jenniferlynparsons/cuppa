@@ -1,15 +1,22 @@
-export default (state = {}, action) => {
+export default (state = { allTeas: {}, teaIDs: [] }, action) => {
   switch (action.type) {
     case "ADD_TEA":
     case "EDIT_TEA":
-      return { ...state, ...{ [action.payload.id]: action.payload } };
+      let updateAllTeas = {
+        ...state.allTeas,
+        ...{ [action.payload.id]: action.payload }
+      };
+      let updateIDsArr = [...state.teaIDs, action.payload.id];
+
+      return { allTeas: updateAllTeas, teaIDs: updateIDsArr };
 
     case "DELETE_TEA":
-      const { [action.payload.id]: val, ...newState } = state;
-      return newState;
+      let { [action.payload.id]: val, ...newAllTeas } = state.allTeas;
+      let newIDsArr = state.teaIDs.filter(teaID => teaID !== action.payload.id);
+
+      return { allTeas: newAllTeas, teaIDs: newIDsArr };
 
     case "GET_TEAS":
-      console.log({ ...state, ...action.payload });
       return { ...state, ...action.payload };
   }
   return state;

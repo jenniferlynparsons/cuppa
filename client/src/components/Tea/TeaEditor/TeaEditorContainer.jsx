@@ -3,7 +3,7 @@ import React from "react";
 import uuidv4 from "uuid/v4";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { find, isEmpty } from "lodash";
+import { isEmpty } from "lodash";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";
 import { TeaEditor } from "./TeaEditor";
@@ -115,8 +115,8 @@ export class TeaEditorContainer extends React.Component {
   };
 
   getBrandsFromTeas = teas => {
-    return Object.keys(teas).map(teaId => {
-      return teas[teaId].brand;
+    return teas.teaIDs.map(teaId => {
+      return teas.allTeas[teaId].brand;
     });
   };
 
@@ -175,15 +175,11 @@ export class TeaEditorContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let currentTeaId = ownProps.match.params.id;
-  let currentTea = currentTeaId
-    ? find(state.teas, tea => tea.id === currentTeaId) || {}
-    : {};
   return {
     teas: state.teas,
     teaTypes: state.teaTypes,
     userID: state.auth.user.id,
-    currentTea: currentTea
+    currentTea: state.teas.allTeas[ownProps.match.params.id] || {}
   };
 };
 
