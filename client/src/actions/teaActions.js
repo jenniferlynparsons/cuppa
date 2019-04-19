@@ -106,16 +106,18 @@ export function getTeas(listOwner) {
   console.log(listOwner);
   return dispatch => {
     API.get(`/teas/teasList/${listOwner}`).then(response => {
-      let responseObj = {};
+      let responseObj = { allTeas: {}, teaIDs: [] };
 
       response.map(tea => {
-        responseObj[tea.id] = {
+        responseObj["allTeas"][tea.id] = {
           id: tea.id,
           name: tea.name,
           brand: tea.brand,
           teaType: tea.teaType,
           servings: tea.servings
         };
+
+        responseObj["teaIDs"].push(tea.id);
       });
 
       dispatch({

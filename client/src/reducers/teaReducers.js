@@ -9,6 +9,7 @@ export default (state = {}, action) => {
       return newState;
 
     case "GET_TEAS":
+      console.log({ ...state, ...action.payload });
       return { ...state, ...action.payload };
   }
   return state;
