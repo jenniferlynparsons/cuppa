@@ -3,7 +3,6 @@ import React from "react";
 import uuidv4 from "uuid/v4";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { isEmpty } from "lodash";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";
 import { TeaEditor } from "./TeaEditor";
@@ -25,7 +24,7 @@ export class TeaEditorContainer extends React.Component {
     brand: this.props.currentTea.brand || "",
     teaType: this.props.currentTea.teaType || "",
     servings: this.props.currentTea.servings || "",
-    edit: !isEmpty(this.props.currentTea),
+    edit: this.props.currentTea.hasOwnProperty("id"),
     brands: []
   };
 
