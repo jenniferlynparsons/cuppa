@@ -11,8 +11,8 @@ export default (state = { allTeas: {}, teaIDs: [] }, action) => {
       return { allTeas: updateAllTeas, teaIDs: updateIDsArr };
 
     case "DELETE_TEA":
-      let { [action.payload.id]: val, ...newAllTeas } = state.allTeas;
-      let newIDsArr = state.teaIDs.filter(teaID => teaID !== action.payload.id);
+      let { [action.payload]: val, ...newAllTeas } = state.allTeas;
+      let newIDsArr = state.teaIDs.filter(teaID => teaID !== action.payload);
 
       return { allTeas: newAllTeas, teaIDs: newIDsArr };
 

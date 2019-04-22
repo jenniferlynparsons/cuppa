@@ -76,28 +76,15 @@ export function editTea(tea) {
   };
 }
 
-export function deleteTea(tea) {
-  return {
-    [RSAA]: {
-      endpoint: `${API_SERVER}/api/teas/delete-tea`,
-      method: "DELETE",
-      types: [
-        "REQUEST",
-        {
-          type: "DELETE_TEA",
-          payload: async (_action, _state, res) => {
-            res = await res.json();
-            return res;
-          }
-        },
-        {
-          type: "GET_ERRORS",
-          payload: async (_action, _state, res) => res.response.data
-        }
-      ],
-      body: JSON.stringify(tea),
-      headers: { "Content-Type": "application/json" }
-    }
+export function deleteTea(teaID) {
+  console.log(teaID);
+  return dispatch => {
+    API.delete(`/teas/delete-tea/${teaID}`).then(response => {
+      dispatch({
+        type: "DELETE_TEA",
+        payload: teaID
+      });
+    });
   };
 }
 

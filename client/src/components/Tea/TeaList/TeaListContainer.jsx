@@ -35,8 +35,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleDelete: tea => {
-    dispatch(deleteTea(tea));
+  handleDelete: teaID => {
+    dispatch(deleteTea(teaID));
   },
   getTeaList: userID => {
     dispatch(getTeas(userID));

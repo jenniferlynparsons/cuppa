@@ -38,7 +38,7 @@ export class TeaList extends React.Component {
                   <td>
                     <button
                       className="button is-danger is-small"
-                      onClick={() => this.handleDeleteClick(tea)}
+                      onClick={() => this.handleDeleteClick(tea.id)}
                     >
                       X
                     </button>
