@@ -1,85 +1,37 @@
-import { RSAA } from "redux-api-middleware";
 import API from "../lib/api";
-
-let backendHost;
-const hostname = window && window.location && window.location.hostname;
-
-if (hostname === "localhost") {
-  backendHost = "http://localhost:5000";
-} else {
-  backendHost = "";
-}
-const API_SERVER = `${backendHost}`;
+import teaNormalizer from "./normalizers/teaNormalizer";
 
 // Add Tea
 export function addTea(tea) {
-  tea.id = tea.teaId;
-  return {
-    [RSAA]: {
-      endpoint: `${API_SERVER}/api/teas/new-tea`,
-      method: "POST",
-      types: [
-        "REQUEST",
-        {
-          type: "ADD_TEA",
-          payload: async (_action, _state, res) => {
-            res = await res.json();
-            return {
-              id: res.id,
-              name: res.name,
-              brand: res.brand,
-              teaType: res.teaType,
-              servings: res.servings
-            };
-          }
-        },
-        {
-          type: "GET_ERRORS",
-          payload: async (_action, _state, res) => res.response.data
-        }
-      ],
-      body: JSON.stringify(tea),
-      headers: { "Content-Type": "application/json" }
-    }
-  };
-}
-
-export function editTea(tea) {
-  tea.id = tea.teaId;
-  return {
-    [RSAA]: {
-      endpoint: `${API_SERVER}/api/teas/update-tea`,
-      method: "PUT",
-      types: [
-        "REQUEST",
-        {
-          type: "EDIT_TEA",
-          payload: async (_action, _state, res) => {
-            res = await res.json();
-            return {
-              id: res.id,
-              name: res.name,
-              brand: res.brand,
-              teaType: res.teaType,
-              servings: res.servings
-            };
-          }
-        },
-        {
-          type: "GET_ERRORS",
-          payload: async (_action, _state, res) => res.response.data
-        }
-      ],
-      body: JSON.stringify(tea),
-      headers: { "Content-Type": "application/json" }
-    }
-  };
-}
-
-export function deleteTea(teaID) {
-  console.log(teaID);
+  tea.id = tea.teaID;
+  console.log(tea);
   return dispatch => {
-    API.delete(`/teas/delete-tea/${teaID}`).then(response => {
+    API.post(`/teas/new-tea`, tea).then(response => {
+      dispatch({
+        type: "EDIT_TEA",
+        payload: teaNormalizer(response)
+      });
+    });
+  };
+}
+
+// Edit Tea
+export function editTea(tea) {
+  tea.id = tea.teaID;
+  return dispatch => {
+    API.put(`/teas/update-tea`, tea).then(response => {
+      dispatch({
+        type: "EDIT_TEA",
+        payload: teaNormalizer(response)
+      });
+    });
+  };
+}
+
+// Delete Tea
+export function deleteTea(teaID) {
+  return dispatch => {
+    API.delete(`/teas/delete-tea/${teaID}`).then(() => {
       dispatch({
         type: "DELETE_TEA",
         payload: teaID
@@ -96,14 +48,7 @@ export function getTeas(listOwner) {
       let responseObj = { allTeas: {}, teaIDs: [] };
 
       response.map(tea => {
-        responseObj["allTeas"][tea.id] = {
-          id: tea.id,
-          name: tea.name,
-          brand: tea.brand,
-          teaType: tea.teaType,
-          servings: tea.servings
-        };
-
+        responseObj["allTeas"][tea.id] = teaNormalizer(tea);
         responseObj["teaIDs"].push(tea.id);
       });
 

@@ -12,7 +12,7 @@ export class TeaEditorContainer extends React.Component {
   state = {
     flash: {
       name: "",
-      teaId: ""
+      teaID: ""
     },
     touched: {
       name: false,
@@ -20,7 +20,7 @@ export class TeaEditorContainer extends React.Component {
     },
     userID: this.props.userID,
     currentTea: this.props.currentTea || "",
-    teaId: this.props.currentTea.id || "",
+    teaID: this.props.currentTea.id || "",
     name: this.props.currentTea.name || "",
     brand: this.props.currentTea.brand || "",
     teaType: this.props.currentTea.teaType || "",
@@ -71,10 +71,10 @@ export class TeaEditorContainer extends React.Component {
   };
 
   handleSubmitButton = e => {
-    if (!this.state.teaId) {
+    if (!this.state.teaID) {
       this.setState({
         ...this.state,
-        teaId: uuidv4()
+        teaID: uuidv4()
       });
     }
 
@@ -91,18 +91,18 @@ export class TeaEditorContainer extends React.Component {
     this.props.handleSubmit(this.state);
     if (this.state.edit === true) {
       this.props.updateFlash(true);
-      this.props.history.push("/tea/" + this.state.teaId);
+      this.props.history.push("/tea/" + this.state.teaID);
     } else {
       this.setState({
         flash: {
           name: this.state.name,
-          teaId: this.state.teaId
+          teaID: this.state.teaID
         },
         touched: {
           name: false,
           servings: false
         },
-        teaId: "",
+        teaID: "",
         userID: this.props.userID,
         name: "",
         brand: "",
@@ -115,8 +115,8 @@ export class TeaEditorContainer extends React.Component {
   };
 
   getBrandsFromTeas = teas => {
-    return teas.teaIDs.map(teaId => {
-      return teas.allTeas[teaId].brand;
+    return teas.teaIDs.map(teaID => {
+      return teas.allTeas[teaID].brand;
     });
   };
 
@@ -129,7 +129,7 @@ export class TeaEditorContainer extends React.Component {
     if (this.props.currentTea.id !== prevProps.currentTea.id) {
       this.setState({
         teas: this.props.teas,
-        teaId: this.props.currentTea.id,
+        teaID: this.props.currentTea.id,
         name: this.props.currentTea.name,
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,

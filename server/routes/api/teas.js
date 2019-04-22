@@ -18,6 +18,7 @@ router.post("/new-tea", (req, res) => {
   // }
 
   Tea.findOne({ id: req.body.id }).then(tea => {
+    console.log(req.body);
     if (tea) {
       return res.status(400).json({ id: "This tea already exists" });
     }
