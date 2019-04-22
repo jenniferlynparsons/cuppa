@@ -18,7 +18,6 @@ router.post("/new-tea", (req, res) => {
   // }
 
   Tea.findOne({ id: req.body.id }).then(tea => {
-    console.log(req.body);
     if (tea) {
       return res.status(400).json({ id: "This tea already exists" });
     }
@@ -50,7 +49,6 @@ router.put("/update-tea", (req, res) => {
 });
 
 router.delete("/delete-tea/:id", (req, res) => {
-  console.log(req.params);
   // The "tea" in this callback function represents the document that was found.
   // It allows you to pass a reference back to the client in case they need a reference for some reason.
   Tea.findOneAndDelete({ id: req.params.id }, {}, (err, todo) => {
