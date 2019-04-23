@@ -1,19 +1,26 @@
 export default (state = { allTeas: {}, teaIDs: [] }, action) => {
   switch (action.type) {
     case "ADD_TEA":
+      let addAllTeas = {
+        ...state.allTeas,
+        [action.payload.id]: action.payload
+      };
+      let addIDsArr = [...state.teaIDs, action.payload.id];
+
+      return { ...state, allTeas: addAllTeas, teaIDs: addIDsArr };
+
     case "EDIT_TEA":
       let updateAllTeas = {
         ...state.allTeas,
         [action.payload.id]: action.payload
       };
-      let updateIDsArr = [...state.teaIDs, action.payload.id];
 
-      return { allTeas: updateAllTeas, teaIDs: updateIDsArr };
+      return { ...state, allTeas: updateAllTeas };
 
     case "DELETE_TEA":
-      let newIDsArr = state.teaIDs.filter(teaID => teaID !== action.payload);
+      let deleteIDsArr = state.teaIDs.filter(teaID => teaID !== action.payload);
 
-      return { ...state, teaIDs: newIDsArr };
+      return { ...state, teaIDs: deleteIDsArr };
 
     case "GET_TEAS":
       let getAllTeas = {};
@@ -24,7 +31,7 @@ export default (state = { allTeas: {}, teaIDs: [] }, action) => {
         getIDsArr.push(tea.id);
       });
 
-      return { allTeas: getAllTeas, teaIDs: getIDsArr };
+      return { ...state, allTeas: getAllTeas, teaIDs: getIDsArr };
   }
   return state;
 };

@@ -27,9 +27,11 @@ class TeaDetailsContainer extends Component {
   }
 }
 
+let emptyObj = {};
+
 const mapStateToProps = (state, ownProps) => {
   return {
-    tea: state.teas.allTeas[ownProps.match.params.id] || {},
+    tea: state.teas.allTeas[ownProps.match.params.id] || emptyObj,
     flash: state.flash,
     userID: state.auth.user.id
   };
