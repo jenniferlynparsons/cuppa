@@ -173,14 +173,12 @@ export class TeaEditorContainer extends React.Component {
   }
 }
 
-let emptyObj = {};
-
 const mapStateToProps = (state, ownProps) => {
   return {
     teas: state.teas,
     teaTypes: state.teaTypes,
     userID: state.auth.user.id,
-    currentTea: state.teas.allTeas[ownProps.match.params.id] || emptyObj
+    currentTea: state.teas.allTeas[ownProps.match.params.id]
   };
 };
 
