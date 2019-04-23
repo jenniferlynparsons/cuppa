@@ -16,7 +16,15 @@ export default (state = { allTeas: {}, teaIDs: [] }, action) => {
       return { ...state, teaIDs: newIDsArr };
 
     case "GET_TEAS":
-      return { ...state, ...action.payload };
+      let getAllTeas = {};
+      let getIDsArr = [];
+
+      action.payload.map(tea => {
+        getAllTeas[tea.id] = tea;
+        getIDsArr.push(tea.id);
+      });
+
+      return { allTeas: getAllTeas, teaIDs: getIDsArr };
   }
   return state;
 };
