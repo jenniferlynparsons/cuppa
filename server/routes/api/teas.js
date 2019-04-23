@@ -81,11 +81,7 @@ router.get("/tea", (req, res) => {
 
 router.get("/teasList/:id", function(req, res) {
   Tea.find({ userID: req.params.id }, function(err, teas) {
-    let teaMap = teas.map(tea => {
-      return teaNormalizer(tea);
-    });
-
-    res.send(teaMap);
+    res.send(teas.map(teaNormalizer));
   });
 });
 
