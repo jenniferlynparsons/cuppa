@@ -1,4 +1,4 @@
-export default function teaNormalizer(rawTeaData) {
+const teaNormalizer = rawTeaData => {
   return {
     id: rawTeaData.id,
     name: rawTeaData.name,
@@ -6,4 +6,6 @@ export default function teaNormalizer(rawTeaData) {
     teaType: rawTeaData.teaType,
     servings: rawTeaData.servings
   };
-}
+};
+
+module.exports = teaNormalizer;

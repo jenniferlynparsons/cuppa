@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const teaNormalizer = require("../../normalizers/teaNormalizer");
 
 // Load Tea model
 const Tea = require("../../models/Tea");
@@ -33,7 +34,7 @@ router.post("/new-tea", (req, res) => {
 
     newTea
       .save()
-      .then(tea => res.json(tea))
+      .then(tea => res.json(teaNormalizer(tea)))
       .catch(err => console.log(err));
   });
 });
@@ -41,10 +42,10 @@ router.post("/new-tea", (req, res) => {
 router.put("/update-tea", (req, res) => {
   Tea.findOneAndUpdate({ id: req.body.id }, req.body, { new: true }, function(
     err,
-    doc
+    tea
   ) {
     if (err) return res.send(500, { error: err });
-    return res.json(doc);
+    return res.json(teaNormalizer(tea));
   });
 });
 
@@ -80,11 +81,11 @@ router.get("/tea", (req, res) => {
 
 router.get("/teasList/:id", function(req, res) {
   Tea.find({ userID: req.params.id }, function(err, teas) {
-    var teaMap = [];
-    var index = 0;
-    teas.forEach(function(tea) {
-      teaMap[index] = tea;
-      index++;
+    let teaMap = { allTeas: {}, teaIDs: [] };
+
+    teas.map(tea => {
+      teaMap["allTeas"][tea.id] = teaNormalizer(tea);
+      teaMap["teaIDs"].push(tea.id);
     });
 
     res.send(teaMap);

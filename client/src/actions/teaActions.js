@@ -1,5 +1,4 @@
 import API from "../lib/api";
-import teaNormalizer from "./normalizers/teaNormalizer";
 
 // Add Tea
 export function addTea(tea) {
@@ -8,8 +7,8 @@ export function addTea(tea) {
   return dispatch => {
     API.post(`/teas/new-tea`, tea).then(response => {
       dispatch({
-        type: "EDIT_TEA",
-        payload: teaNormalizer(response)
+        type: "ADD_TEA",
+        payload: response
       });
     });
   };
@@ -22,7 +21,7 @@ export function editTea(tea) {
     API.put(`/teas/update-tea`, tea).then(response => {
       dispatch({
         type: "EDIT_TEA",
-        payload: teaNormalizer(response)
+        payload: response
       });
     });
   };
@@ -42,19 +41,11 @@ export function deleteTea(teaID) {
 
 // Get Teas
 export function getTeas(listOwner) {
-  console.log(listOwner);
   return dispatch => {
     API.get(`/teas/teasList/${listOwner}`).then(response => {
-      let responseObj = { allTeas: {}, teaIDs: [] };
-
-      response.map(tea => {
-        responseObj["allTeas"][tea.id] = teaNormalizer(tea);
-        responseObj["teaIDs"].push(tea.id);
-      });
-
       dispatch({
         type: "GET_TEAS",
-        payload: responseObj
+        payload: response
       });
     });
   };
