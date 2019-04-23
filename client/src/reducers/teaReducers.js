@@ -26,7 +26,7 @@ export default (state = { allTeas: {}, teaIDs: [] }, action) => {
       let getAllTeas = {};
       let getIDsArr = [];
 
-      action.payload.map(tea => {
+      action.payload.forEach(tea => {
         getAllTeas[tea.id] = tea;
         getIDsArr.push(tea.id);
       });
