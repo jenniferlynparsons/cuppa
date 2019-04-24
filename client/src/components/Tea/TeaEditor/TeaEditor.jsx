@@ -9,7 +9,7 @@ export const TeaEditor = props => {
       {props.flash.name ? (
         <div className="notification is-success">
           {props.flash.name} has been succesfully saved.{" "}
-          <Link to={"../../tea/" + props.flash.id}>View details</Link>
+          <Link to={"../../tea/" + props.flash.teaID}>View details</Link>
         </div>
       ) : (
         ""

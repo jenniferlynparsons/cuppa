@@ -13,7 +13,7 @@ export class TeaListContainer extends React.Component {
   }
 
   render() {
-    return (
+    return !this.props.teas.allTeas ? null : (
       <TeaList
         userID={this.props.userID}
         teas={this.props.teas}
@@ -26,15 +26,17 @@ export class TeaListContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  teas: state.teas,
-  teaTypes: state.teaTypes,
-  userID: state.auth.user.id
-});
+const mapStateToProps = state => {
+  return {
+    teas: state.teas,
+    teaTypes: state.teaTypes,
+    userID: state.auth.user.id
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
-  handleDelete: tea => {
-    dispatch(deleteTea(tea));
+  handleDelete: teaID => {
+    dispatch(deleteTea(teaID));
   },
   getTeaList: userID => {
     dispatch(getTeas(userID));

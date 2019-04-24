@@ -21,7 +21,9 @@ export class TeaList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.teas.map(tea => {
+            {this.props.teas.teaIDs.map(teaID => {
+              const tea = this.props.teas.allTeas[teaID];
+
               return (
                 <tr key={tea.id}>
                   <td>
@@ -36,7 +38,7 @@ export class TeaList extends React.Component {
                   <td>
                     <button
                       className="button is-danger is-small"
-                      onClick={() => this.handleDeleteClick(tea)}
+                      onClick={() => this.handleDeleteClick(tea.id)}
                     >
                       X
                     </button>
