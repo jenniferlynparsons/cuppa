@@ -19,12 +19,12 @@ export class TeaEditorContainer extends React.Component {
     },
     userID: this.props.userID,
     currentTea: this.props.currentTea || "",
-    teaID: this.props.currentTea.id || "",
-    name: this.props.currentTea.name || "",
-    brand: this.props.currentTea.brand || "",
-    teaType: this.props.currentTea.teaType || "",
-    servings: this.props.currentTea.servings || "",
-    edit: this.props.currentTea.hasOwnProperty("id"),
+    teaID: this.props.currentTea ? this.props.currentTea.id : "",
+    name: this.props.currentTea ? this.props.currentTea.name : "",
+    brand: this.props.currentTea ? this.props.currentTea.brand : "",
+    teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
+    servings: this.props.currentTea ? this.props.currentTea.servings : "",
+    edit: !!this.props.currentTea,
     brands: []
   };
 
@@ -125,7 +125,10 @@ export class TeaEditorContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.currentTea.id !== prevProps.currentTea.id) {
+    if (
+      this.props.currentTea &&
+      this.props.currentTea.id !== prevProps.currentTea.id
+    ) {
       this.setState({
         teas: this.props.teas,
         teaID: this.props.currentTea.id,

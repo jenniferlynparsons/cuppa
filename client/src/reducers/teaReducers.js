@@ -5,7 +5,8 @@ export default (state = { allTeas: {}, teaIDs: [] }, action) => {
         ...state.allTeas,
         [action.payload.id]: action.payload
       };
-      let addIDsArr = [...state.teaIDs, action.payload.id];
+
+      let addIDsArr = [...new Set([...state.teaIDs, action.payload.id])];
 
       return { ...state, allTeas: addAllTeas, teaIDs: addIDsArr };
 

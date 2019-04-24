@@ -66,13 +66,13 @@ router.delete("/delete-tea/:id", (req, res) => {
 });
 
 // get the tea with that id (accessed at GET http://localhost:8080/api/teas/:tea_id)
-router.get("/tea", (req, res) => {
-  Tea.findOne({ id: req.body.id }, (err, tea) => {
+router.get("/tea/:id", (req, res) => {
+  Tea.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {
       res.send(err);
     }
     if (tea) {
-      res.json(tea);
+      res.json(teaNormalizer(tea));
     } else {
       return res.json({ message: "Tea does not exist." });
     }
