@@ -1,11 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteTea, getTeas } from "../../../actions/teaActions";
+import { deleteTea, getTeas, sortTeaOrder } from "../../../actions/teaActions";
 import TeaList from "./TeaList";
 
 export class TeaListContainer extends React.Component {
   handleDeleteClick = tea => {
     this.props.handleDelete(tea);
+  };
+
+  handleSortClick = (columnName, teas, sortOrder) => {
+    this.props.sortTeas(columnName, teas, sortOrder);
   };
 
   componentDidMount() {
@@ -18,7 +22,8 @@ export class TeaListContainer extends React.Component {
         userID={this.props.userID}
         teas={this.props.teas}
         teaTypes={this.props.teaTypes}
-        handleDelete={this.props.handleDelete}
+        handleDeleteClick={this.handleDeleteClick}
+        handleSortClick={this.handleSortClick}
         getTeaList={this.props.getTeaList}
         getUser={this.props.getUser}
       />
@@ -40,6 +45,9 @@ const mapDispatchToProps = dispatch => ({
   },
   getTeaList: userID => {
     dispatch(getTeas(userID));
+  },
+  sortTeas: (columnName, teas, sortOrder) => {
+    dispatch(sortTeaOrder(columnName, teas, sortOrder));
   }
 });
 

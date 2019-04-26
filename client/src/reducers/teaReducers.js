@@ -32,7 +32,19 @@ export default (state = { allTeas: {}, teaIDs: [] }, action) => {
         getIDsArr.push(tea.id);
       });
 
-      return { ...state, allTeas: getAllTeas, teaIDs: getIDsArr };
+      return {
+        ...state,
+        allTeas: getAllTeas,
+        teaIDs: getIDsArr,
+        sortOrder: "default"
+      };
+
+    case "SORT_TEAS":
+      return {
+        ...state,
+        teaIDs: action.payload.teaIDs,
+        sortOrder: action.payload.sortOrder
+      };
   }
   return state;
 };
