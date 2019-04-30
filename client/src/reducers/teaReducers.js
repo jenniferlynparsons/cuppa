@@ -38,13 +38,6 @@ export default (state = { allTeas: {}, teaIDs: [] }, action) => {
         teaIDs: getIDsArr,
         sortOrder: "default"
       };
-
-    case "SORT_TEAS":
-      return {
-        ...state,
-        teaIDs: action.payload.teaIDs,
-        sortOrder: action.payload.sortOrder
-      };
   }
   return state;
 };

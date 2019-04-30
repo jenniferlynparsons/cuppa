@@ -8,6 +8,10 @@ library.add(faAngleDown);
 
 export class TeaList extends React.Component {
   render() {
+    const handleSortClick = this.props.handleSortClick;
+    const sortColumn = this.props.sortColumn;
+    const sortOrder = this.props.sortOrder;
+
     return (
       <div className="container">
         <table className="table is-striped is-fullwidth">
@@ -20,10 +24,11 @@ export class TeaList extends React.Component {
                   type="button"
                   aria-pressed="false"
                   onClick={() =>
-                    this.props.handleSortClick(
+                    handleSortClick(
                       "name",
-                      this.props.teas,
-                      this.props.sortOrder
+                      sortColumn === "name" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
                     )
                   }
                 >
@@ -41,10 +46,11 @@ export class TeaList extends React.Component {
                   type="button"
                   aria-pressed="false"
                   onClick={() =>
-                    this.props.handleSortClick(
+                    handleSortClick(
                       "brand",
-                      this.props.teas,
-                      this.props.sortOrder
+                      sortColumn === "brand" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
                     )
                   }
                 >
@@ -62,10 +68,11 @@ export class TeaList extends React.Component {
                   type="button"
                   aria-pressed="false"
                   onClick={() =>
-                    this.props.handleSortClick(
+                    handleSortClick(
                       "teaType",
-                      this.props.teas,
-                      this.props.sortOrder
+                      sortColumn === "teaType" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
                     )
                   }
                 >
@@ -83,10 +90,11 @@ export class TeaList extends React.Component {
                   type="button"
                   aria-pressed="false"
                   onClick={() =>
-                    this.props.handleSortClick(
+                    handleSortClick(
                       "servings",
-                      this.props.teas,
-                      this.props.sortOrder
+                      sortColumn === "servings" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
                     )
                   }
                 >
@@ -102,9 +110,8 @@ export class TeaList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.teas.teaIDs.map(teaID => {
-              const tea = this.props.teas.allTeas[teaID];
-
+            {this.props.teaIDs.map(teaID => {
+              const tea = this.props.allTeas[teaID];
               return (
                 <tr key={tea.id}>
                   <td>

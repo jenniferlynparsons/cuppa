@@ -50,33 +50,3 @@ export function getTeas(listOwner) {
     });
   };
 }
-
-// Sort Teas
-export function sortTeaOrder(columnName, teas, sortOrder) {
-  const list = teas.teaIDs;
-
-  let mapped = list.map((el, i) => {
-    return { index: i, value: teas.allTeas[el][columnName] };
-  });
-
-  mapped.sort(function(a, b) {
-    if (a.value > b.value) {
-      return 1;
-    }
-    if (a.value < b.value) {
-      return -1;
-    }
-    return 0;
-  });
-
-  let newSortOrder = mapped.map(function(el) {
-    return list[el.index];
-  });
-
-  return dispatch => {
-    return dispatch({
-      type: "SORT_TEAS",
-      payload: { teaIDs: newSortOrder }
-    });
-  };
-}
