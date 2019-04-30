@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faAngleDown);
+library.add(faAngleDown, faAngleUp);
 
 export class TeaList extends React.Component {
   render() {
@@ -33,8 +33,14 @@ export class TeaList extends React.Component {
                   }
                 >
                   <span className="icon">
-                    <i className="fas fa-angle-down">
-                      <FontAwesomeIcon icon="angle-down" />
+                    <i className="fas">
+                      <FontAwesomeIcon
+                        icon={
+                          sortColumn === "name" && sortOrder === "asc"
+                            ? "angle-up"
+                            : "angle-down"
+                        }
+                      />
                     </i>
                   </span>
                 </button>
@@ -55,8 +61,14 @@ export class TeaList extends React.Component {
                   }
                 >
                   <span className="icon">
-                    <i className="fas fa-angle-down">
-                      <FontAwesomeIcon icon="angle-down" />
+                    <i className="fas">
+                      <FontAwesomeIcon
+                        icon={
+                          sortColumn === "brand" && sortOrder === "asc"
+                            ? "angle-up"
+                            : "angle-down"
+                        }
+                      />
                     </i>
                   </span>
                 </button>
@@ -77,8 +89,14 @@ export class TeaList extends React.Component {
                   }
                 >
                   <span className="icon">
-                    <i className="fas fa-angle-down">
-                      <FontAwesomeIcon icon="angle-down" />
+                    <i className="fas">
+                      <FontAwesomeIcon
+                        icon={
+                          sortColumn === "teaType" && sortOrder === "asc"
+                            ? "angle-up"
+                            : "angle-down"
+                        }
+                      />
                     </i>
                   </span>
                 </button>
@@ -99,8 +117,14 @@ export class TeaList extends React.Component {
                   }
                 >
                   <span className="icon">
-                    <i className="fas fa-angle-down">
-                      <FontAwesomeIcon icon="angle-down" />
+                    <i className="fas">
+                      <FontAwesomeIcon
+                        icon={
+                          sortColumn === "servings" && sortOrder === "asc"
+                            ? "angle-up"
+                            : "angle-down"
+                        }
+                      />
                     </i>
                   </span>
                 </button>
