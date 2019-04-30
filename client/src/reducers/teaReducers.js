@@ -35,8 +35,7 @@ export default (state = { allTeas: {}, teaIDs: [] }, action) => {
       return {
         ...state,
         allTeas: getAllTeas,
-        teaIDs: getIDsArr,
-        sortOrder: "default"
+        teaIDs: getIDsArr
       };
   }
   return state;
