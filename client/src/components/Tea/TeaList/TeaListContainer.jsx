@@ -23,24 +23,22 @@ export class TeaListContainer extends React.Component {
     if (this.state.memoizedIDs[columnName]) {
       newSortOrder = this.state.memoizedIDs[columnName][sortOrder];
     } else {
-      let mapped = list.map((el, i) => {
-        return {
-          index: i,
-          value: this.props.teas.allTeas[el][columnName]
-        };
-      });
-
-      mapped.sort((a, b) => {
-        if (a.value > b.value) {
+      newSortOrder = list.sort((a, b) => {
+        if (
+          this.props.teas.allTeas[a][columnName] >
+          this.props.teas.allTeas[b][columnName]
+        ) {
           return 1;
         }
-        if (a.value < b.value) {
+        if (
+          this.props.teas.allTeas[a][columnName] <
+          this.props.teas.allTeas[b][columnName]
+        ) {
           return -1;
         }
         return 0;
       });
 
-      newSortOrder = mapped.map(el => list[el.index]);
       const revSortOrder = [...newSortOrder].reverse();
 
       currentState[columnName] = { asc: newSortOrder, desc: revSortOrder };
@@ -63,7 +61,7 @@ export class TeaListContainer extends React.Component {
       this.props.teas.teaIDs &&
       this.props.teas.teaIDs !== prevProps.teas.teaIDs
     ) {
-      this.setState({ sortedIDs: this.props.teas.teaIDs });
+      this.setState({ sortedIDs: this.props.teas.teaIDs, memoizedIDs: {} });
     }
   }
 
