@@ -4,21 +4,27 @@ import TableColumnHeader from "./TableColumnHeader";
 
 export class TeaList extends React.Component {
   render() {
-    const columnHeaders = ["name", "brand", "teaType", "servings"];
+    const columnHeaders = [
+      { colName: "name", colTitle: "Name" },
+      { colName: "brand", colTitle: "Brand" },
+      { colName: "teaType", colTitle: "Type" },
+      { colName: "servings", colTitle: "Servings" }
+    ];
 
     return (
       <div className="container">
         <table className="table is-striped is-fullwidth">
           <thead>
             <tr>
-              {columnHeaders.map(title => {
+              {columnHeaders.map(colHeaderObj => {
                 return (
                   <TableColumnHeader
-                    key={title}
+                    key={colHeaderObj.colName}
                     handleSortClick={this.props.handleSortClick}
                     sortColumn={this.props.sortColumn}
                     sortOrder={this.props.sortOrder}
-                    columnName={title}
+                    columnName={colHeaderObj.colName}
+                    columnTitle={colHeaderObj.colTitle}
                   />
                 );
               })}

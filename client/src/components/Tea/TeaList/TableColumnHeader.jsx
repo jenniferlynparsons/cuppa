@@ -14,15 +14,9 @@ export class TableColumnHeader extends React.Component {
   };
 
   render() {
-    const columnName =
-      this.props.columnName === "teaType"
-        ? "Type"
-        : this.props.columnName.charAt(0).toUpperCase() +
-          this.props.columnName.slice(1);
-
     return (
       <th>
-        {columnName + " "}
+        {this.props.columnTitle + " "}
         <button
           className="button is-small"
           type="button"
