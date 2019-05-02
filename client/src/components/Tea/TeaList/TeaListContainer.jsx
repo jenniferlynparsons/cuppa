@@ -22,7 +22,6 @@ export class TeaListContainer extends React.Component {
 
     if (this.state.memoizedIDs.columnName === columnName) {
       newSortOrder = this.state.memoizedIDs[sortOrder];
-      // debugger;
     } else {
       newSortOrder = list.sort((a, b) => {
         if (
@@ -49,7 +48,6 @@ export class TeaListContainer extends React.Component {
       };
     }
     this.setState({
-      ...this.state,
       sortedIDs: newSortOrder,
       memoizedIDs: currentState,
       sortColumn: columnName,
