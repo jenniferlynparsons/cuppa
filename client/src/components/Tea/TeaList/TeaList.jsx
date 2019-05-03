@@ -1,29 +1,40 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TableColumnHeader from "./TableColumnHeader";
 
 export class TeaList extends React.Component {
-  handleDeleteClick = tea => {
-    this.props.handleDelete(tea);
-  };
-
   render() {
+    const columnHeaders = [
+      { colName: "name", colTitle: "Name" },
+      { colName: "brand", colTitle: "Brand" },
+      { colName: "teaType", colTitle: "Type" },
+      { colName: "servings", colTitle: "Servings" }
+    ];
+
     return (
       <div className="container">
         <table className="table is-striped is-fullwidth">
           <thead>
             <tr>
-              <td>Name</td>
-              <td>Brand</td>
-              <td>Type</td>
-              <td>Quantity</td>
-              <td />
-              <td />
+              {columnHeaders.map(colHeaderObj => {
+                return (
+                  <TableColumnHeader
+                    key={colHeaderObj.colName}
+                    handleSortClick={this.props.handleSortClick}
+                    sortColumn={this.props.sortColumn}
+                    sortOrder={this.props.sortOrder}
+                    columnName={colHeaderObj.colName}
+                    columnTitle={colHeaderObj.colTitle}
+                  />
+                );
+              })}
+              <th />
+              <th />
             </tr>
           </thead>
           <tbody>
-            {this.props.teas.teaIDs.map(teaID => {
-              const tea = this.props.teas.allTeas[teaID];
-
+            {this.props.teaIDs.map(teaID => {
+              const tea = this.props.allTeas[teaID];
               return (
                 <tr key={tea.id}>
                   <td>
@@ -38,7 +49,7 @@ export class TeaList extends React.Component {
                   <td>
                     <button
                       className="button is-danger is-small"
-                      onClick={() => this.handleDeleteClick(tea.id)}
+                      onClick={() => this.props.handleDeleteClick(tea.id)}
                     >
                       X
                     </button>
