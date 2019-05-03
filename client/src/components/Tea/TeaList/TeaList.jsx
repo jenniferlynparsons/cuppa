@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TableColumnHeader from "./TableColumnHeader";
+import TableFilter from "./TableFilter";
 
 export class TeaList extends React.Component {
   render() {
@@ -13,6 +14,7 @@ export class TeaList extends React.Component {
 
     return (
       <div className="container">
+        <TableFilter columnHeaders={columnHeaders} />
         <table className="table is-striped is-fullwidth">
           <thead>
             <tr>
