@@ -83,11 +83,24 @@ export class TeaListContainer extends React.Component {
       this.state.formControls.filterCriteria !== ""
     ) {
       newFilterOrder = list.filter(item => {
-        return (
-          this.props.teas.allTeas[item][this.state.formControls.filterCategory]
-            .toLowerCase()
-            .search(this.state.formControls.filterCriteria.toLowerCase()) !== -1
-        );
+        // this won't be accurate if there are 0 servings left and we're trying to find all the teas with 0 servings
+        if (this.state.formControls.filterCriteria > 0) {
+          // this logic needs to be rewritten as we're not searching here, we're comparing numerical values
+          return (
+            this.props.teas.allTeas[item][
+              this.state.formControls.filterCategory
+            ] == this.state.formControls.filterCriteria
+          );
+        } else {
+          return (
+            this.props.teas.allTeas[item][
+              this.state.formControls.filterCategory
+            ]
+              .toLowerCase()
+              .search(this.state.formControls.filterCriteria.toLowerCase()) !==
+            -1
+          );
+        }
       });
       const revSortOrder = [...newFilterOrder].reverse();
 
