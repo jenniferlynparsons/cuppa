@@ -12,7 +12,8 @@ export class TeaListContainer extends React.Component {
     formControls: {
       filterCategory: "",
       filterCriteria: ""
-    }
+    },
+    filtered: false
   };
 
   handleDeleteClick = tea => {
@@ -20,7 +21,7 @@ export class TeaListContainer extends React.Component {
   };
 
   handleSortClick = (columnName, sortOrder) => {
-    const list = this.props.teas.teaIDs;
+    const list = this.state.sortedIDs;
     let currentSortState = this.state.memoizedIDs;
     let newSortOrder;
 
@@ -76,26 +77,31 @@ export class TeaListContainer extends React.Component {
     const list = this.props.teas.teaIDs;
     let currentFilterState = this.state.memoizedIDs;
     let newFilterOrder;
-    newFilterOrder = list.filter(item => {
-      return (
-        this.props.teas.allTeas[item][
-          this.state.formControls.filterCategory.toLowerCase()
-        ]
-          .toLowerCase()
-          .search(this.state.formControls.filterCriteria.toLowerCase()) !== -1
-      );
-    });
-    const revSortOrder = [...newFilterOrder].reverse();
 
-    currentFilterState = {
-      asc: newFilterOrder,
-      desc: revSortOrder
-    };
+    if (
+      this.state.formControls.filterCategory !== "" &&
+      this.state.formControls.filterCriteria !== ""
+    ) {
+      newFilterOrder = list.filter(item => {
+        return (
+          this.props.teas.allTeas[item][this.state.formControls.filterCategory]
+            .toLowerCase()
+            .search(this.state.formControls.filterCriteria.toLowerCase()) !== -1
+        );
+      });
+      const revSortOrder = [...newFilterOrder].reverse();
 
-    this.setState({
-      sortedIDs: newFilterOrder,
-      memoizedIDs: currentFilterState
-    });
+      currentFilterState = {
+        asc: newFilterOrder,
+        desc: revSortOrder
+      };
+
+      this.setState({
+        sortedIDs: newFilterOrder,
+        memoizedIDs: currentFilterState,
+        filtered: true
+      });
+    }
   };
 
   handleClearFilterClick = () => {
@@ -105,7 +111,8 @@ export class TeaListContainer extends React.Component {
       formControls: {
         filterCategory: "",
         filterCriteria: ""
-      }
+      },
+      filtered: false
     });
   };
 
@@ -138,12 +145,13 @@ export class TeaListContainer extends React.Component {
         handleSortClick={this.handleSortClick}
         handleFilterClick={this.handleFilterClick}
         handleClearFilterClick={this.handleClearFilterClick}
+        filterChangeHandler={this.filterChangeHandler}
         getTeaList={this.props.getTeaList}
         getUser={this.props.getUser}
         sortColumn={this.state.sortColumn}
         sortOrder={this.state.sortOrder}
         formControls={this.state.formControls}
-        filterChangeHandler={this.filterChangeHandler}
+        filtered={this.state.filtered}
       />
     );
   }

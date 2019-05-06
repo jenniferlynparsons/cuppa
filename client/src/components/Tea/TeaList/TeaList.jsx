@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import TableColumnHeader from "./TableColumnHeader";
 import TableFilter from "./TableFilter";
+import EmptyTeaList from "./EmptyTeaList";
 
 export class TeaList extends React.Component {
   render() {
@@ -20,6 +21,7 @@ export class TeaList extends React.Component {
           handleFilterClick={this.props.handleFilterClick}
           handleClearFilterClick={this.props.handleClearFilterClick}
           formControls={this.props.formControls}
+          filtered={this.props.filtered}
         />
         <table className="table is-striped is-fullwidth">
           <thead>
@@ -65,6 +67,9 @@ export class TeaList extends React.Component {
                 </tr>
               );
             })}
+            {this.props.teaIDs.length === 0 ? (
+              <EmptyTeaList filtered={this.props.filtered} />
+            ) : null}
           </tbody>
         </table>
       </div>

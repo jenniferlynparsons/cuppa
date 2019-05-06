@@ -13,13 +13,13 @@ export class TableFilter extends React.Component {
                 onChange={() => this.props.filterChangeHandler(event)}
               >
                 <option key="category" value="">
-                  Category
+                  Filter by
                 </option>
                 {this.props.columnHeaders.map(colHeaderObj => {
                   return (
                     <option
-                      key={colHeaderObj.colTitle}
-                      value={colHeaderObj.colTitle}
+                      key={colHeaderObj.colName}
+                      value={colHeaderObj.colName}
                     >
                       {colHeaderObj.colTitle}
                     </option>
@@ -48,7 +48,7 @@ export class TableFilter extends React.Component {
             </a>
           </p>
         </div>
-        {this.props.filterCriteria !== "" ? (
+        {this.props.filtered ? (
           <div className="control">
             <button
               className="button is-primary is-small"
