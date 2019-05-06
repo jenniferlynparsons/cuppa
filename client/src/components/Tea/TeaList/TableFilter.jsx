@@ -7,9 +7,23 @@ export class TableFilter extends React.Component {
         <div className="field has-addons">
           <p className="control">
             <span className="select is-small">
-              <select>
+              <select
+                name="filterCategory"
+                value={this.props.formControls.filterCategory}
+                onChange={() => this.props.filterChangeHandler(event)}
+              >
+                <option key="category" value="">
+                  Category
+                </option>
                 {this.props.columnHeaders.map(colHeaderObj => {
-                  return <option>{colHeaderObj.colTitle}</option>;
+                  return (
+                    <option
+                      key={colHeaderObj.colTitle}
+                      value={colHeaderObj.colTitle}
+                    >
+                      {colHeaderObj.colTitle}
+                    </option>
+                  );
                 })}
               </select>
             </span>
@@ -18,18 +32,32 @@ export class TableFilter extends React.Component {
             {/* this should do autocomplete similar to tea brands */}
             <input
               className="input is-small"
+              name="filterCriteria"
               type="text"
               placeholder="Filter Text"
+              value={this.props.formControls.filterCriteria}
+              onChange={() => this.props.filterChangeHandler(event)}
             />
           </p>
           <p className="control">
-            <a className="button is-small">Filter</a>
+            <a
+              className="button is-small"
+              onClick={() => this.props.handleFilterClick()}
+            >
+              Filter
+            </a>
           </p>
         </div>
-        {/* should only be visible when filters are applied */}
-        <div className="control">
-          <button className="button is-primary is-small">Clear Filter</button>
-        </div>
+        {this.props.filterCriteria !== "" ? (
+          <div className="control">
+            <button
+              className="button is-primary is-small"
+              onClick={() => this.props.handleClearFilterClick()}
+            >
+              Clear Filter
+            </button>
+          </div>
+        ) : null}
       </div>
     );
   }

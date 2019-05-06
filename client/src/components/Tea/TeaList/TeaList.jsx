@@ -14,7 +14,13 @@ export class TeaList extends React.Component {
 
     return (
       <div className="container">
-        <TableFilter columnHeaders={columnHeaders} />
+        <TableFilter
+          columnHeaders={columnHeaders}
+          filterChangeHandler={this.props.filterChangeHandler}
+          handleFilterClick={this.props.handleFilterClick}
+          handleClearFilterClick={this.props.handleClearFilterClick}
+          formControls={this.props.formControls}
+        />
         <table className="table is-striped is-fullwidth">
           <thead>
             <tr>
