@@ -83,9 +83,9 @@ export class TeaListContainer extends React.Component {
       this.state.formControls.filterCriteria !== ""
     ) {
       newFilterOrder = list.filter(item => {
-        // this won't be accurate if there are 0 servings left and we're trying to find all the teas with 0 servings
-        if (this.state.formControls.filterCriteria > 0) {
-          // this logic needs to be rewritten as we're not searching here, we're comparing numerical values
+        // this returns NaN to get a falsy value if the Number function doesn't get an integer
+        if (Number(this.state.formControls.filterCriteria)) {
+          // I am actively leveraging the coercion of the double equals here
           return (
             this.props.teas.allTeas[item][
               this.state.formControls.filterCategory
@@ -142,7 +142,12 @@ export class TeaListContainer extends React.Component {
         sortedIDs: this.props.teas.teaIDs,
         memoizedIDs: {},
         sortColumn: "",
-        sortOrder: ""
+        sortOrder: "",
+        formControls: {
+          filterCategory: "",
+          filterCriteria: ""
+        },
+        filtered: false
       });
     }
   }
