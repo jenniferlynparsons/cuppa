@@ -73,8 +73,9 @@ export class TeaListContainer extends React.Component {
     });
   };
 
-  handleFilterClick = () => {
-    const list = this.props.teas.teaIDs;
+  handleFilterClick = event => {
+    event.preventDefault();
+    const list = this.state.sortedIDs;
     let currentFilterState = this.state.memoizedIDs;
     let newFilterOrder;
 
@@ -83,7 +84,7 @@ export class TeaListContainer extends React.Component {
       this.state.formControls.filterCriteria !== ""
     ) {
       newFilterOrder = list.filter(item => {
-        // this returns NaN to get a falsy value if the Number function doesn't get an integer
+        // this returns NaN to get a falsy value if the Number function doesn't return an integer
         if (Number(this.state.formControls.filterCriteria)) {
           // I am actively leveraging the coercion of the double equals here
           return (
