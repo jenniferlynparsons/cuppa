@@ -4,9 +4,11 @@ import { uniq } from "lodash";
 class Datalist extends React.PureComponent {
   render() {
     let options = [];
-
     if (this.props.options && this.props.processOptions) {
-      options = this.props.processOptions(this.props.options);
+      options = this.props.processOptions(
+        this.props.options,
+        this.props.optionalArgs
+      );
     } else if (this.props.options) {
       options = this.props.options;
     }

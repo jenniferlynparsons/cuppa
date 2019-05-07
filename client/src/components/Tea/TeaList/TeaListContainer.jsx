@@ -130,6 +130,12 @@ export class TeaListContainer extends React.Component {
     });
   };
 
+  getOptionsFromTeas = (teas, category) => {
+    return teas.map(teaID => {
+      return this.props.teas.allTeas[teaID][category];
+    });
+  };
+
   componentDidMount() {
     this.props.getTeaList(this.props.userID);
   }
@@ -165,6 +171,7 @@ export class TeaListContainer extends React.Component {
         handleFilterClick={this.handleFilterClick}
         handleClearFilterClick={this.handleClearFilterClick}
         filterChangeHandler={this.filterChangeHandler}
+        getOptionsFromTeas={this.getOptionsFromTeas}
         getTeaList={this.props.getTeaList}
         getUser={this.props.getUser}
         sortColumn={this.state.sortColumn}

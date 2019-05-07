@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TableColumnHeader from "./TableColumnHeader";
-import TableFilter from "./TableFilter";
+import { TableFilter } from "./TableFilter";
 import EmptyTeaList from "./EmptyTeaList";
 
 export class TeaList extends React.Component {
@@ -22,6 +22,8 @@ export class TeaList extends React.Component {
           handleClearFilterClick={this.props.handleClearFilterClick}
           formControls={this.props.formControls}
           filtered={this.props.filtered}
+          teaIDs={this.props.teaIDs}
+          getOptionsFromTeas={this.props.getOptionsFromTeas}
         />
         <table className="table is-striped is-fullwidth">
           <thead>
@@ -35,6 +37,7 @@ export class TeaList extends React.Component {
                     sortOrder={this.props.sortOrder}
                     columnName={colHeaderObj.colName}
                     columnTitle={colHeaderObj.colTitle}
+                    teaIDs={this.props.teaIDs}
                   />
                 );
               })}
