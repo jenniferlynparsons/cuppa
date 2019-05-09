@@ -1,7 +1,7 @@
 import React from "react";
 import { uniq } from "lodash";
 
-class Datalist extends React.PureComponent {
+class DataList extends React.PureComponent {
   render() {
     let options = [];
     if (this.props.options && this.props.processOptions) {
@@ -25,4 +25,4 @@ class Datalist extends React.PureComponent {
   }
 }
 
-export default Datalist;
+export default DataList;

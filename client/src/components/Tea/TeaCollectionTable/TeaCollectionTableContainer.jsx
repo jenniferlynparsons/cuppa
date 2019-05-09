@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
-import TeaList from "./TeaList";
+import TeaCollectionTable from "./TeaCollectionTable";
+import DataList from "../../DataList";
 
-export class TeaListContainer extends React.Component {
+export class TeaCollectionTableContainer extends React.Component {
   state = {
     sortedIDs: [],
     memoizedIDs: {},
@@ -15,6 +16,22 @@ export class TeaListContainer extends React.Component {
     },
     filtered: false
   };
+
+  columnHeaders = [
+    { colName: "name", colTitle: "Name" },
+    { colName: "brand", colTitle: "Brand" },
+    { colName: "teaType", colTitle: "Type" },
+    { colName: "servings", colTitle: "Servings" }
+  ];
+
+  datalist = () => (
+    <DataList
+      id="fcriteria"
+      options={this.state.sortedIDs}
+      optionalArgs={this.state.formControls.filterCategory}
+      processOptions={this.getOptionsFromTeas}
+    />
+  );
 
   handleDeleteClick = tea => {
     this.props.handleDelete(tea);
@@ -60,12 +77,17 @@ export class TeaListContainer extends React.Component {
     });
   };
 
+  sortColumnHandler = columnName => {
+    return (
+      this.state.sortColumn === columnName && this.state.sortOrder === "asc"
+    );
+  };
+
   filterChangeHandler = event => {
     const name = event.target.name;
     const value = event.target.value;
 
     this.setState({
-      ...this.state.formControls,
       formControls: {
         ...this.state.formControls,
         [name]: value
@@ -161,23 +183,19 @@ export class TeaListContainer extends React.Component {
 
   render() {
     return !this.props.teas.allTeas ? null : (
-      <TeaList
-        userID={this.props.userID}
+      <TeaCollectionTable
+        datalist={this.datalist()}
+        columnHeaders={this.columnHeaders}
         allTeas={this.props.teas.allTeas}
         teaIDs={this.state.sortedIDs}
-        teaTypes={this.props.teaTypes}
+        formControls={this.state.formControls}
+        filtered={this.state.filtered}
         handleDeleteClick={this.handleDeleteClick}
         handleSortClick={this.handleSortClick}
         handleFilterClick={this.handleFilterClick}
         handleClearFilterClick={this.handleClearFilterClick}
         filterChangeHandler={this.filterChangeHandler}
-        getOptionsFromTeas={this.getOptionsFromTeas}
-        getTeaList={this.props.getTeaList}
-        getUser={this.props.getUser}
-        sortColumn={this.state.sortColumn}
-        sortOrder={this.state.sortOrder}
-        formControls={this.state.formControls}
-        filtered={this.state.filtered}
+        sortColumnHandler={this.sortColumnHandler}
       />
     );
   }
@@ -203,4 +221,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TeaListContainer);
+)(TeaCollectionTableContainer);

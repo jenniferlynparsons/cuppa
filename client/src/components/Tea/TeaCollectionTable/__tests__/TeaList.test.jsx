@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { TeaList } from "../TeaList";
+import { TeaCollectionTable } from "../TeaCollectionTable";
 
 function setup() {
   const props = {
@@ -32,7 +32,7 @@ function setup() {
 
   const mockDeleteClick = jest.fn();
   const enzymeWrapper = shallow(
-    <TeaList {...props} handleDeleteClick={mockDeleteClick} />
+    <TeaCollectionTable {...props} handleDeleteClick={mockDeleteClick} />
   );
 
   return {
@@ -43,7 +43,7 @@ function setup() {
 }
 
 describe("components", () => {
-  describe("TeaList", () => {
+  describe("TeaCollectionTable", () => {
     it("should render self", () => {
       const { enzymeWrapper } = setup();
       expect(enzymeWrapper.find("table").hasClass("table")).toBe(true);
