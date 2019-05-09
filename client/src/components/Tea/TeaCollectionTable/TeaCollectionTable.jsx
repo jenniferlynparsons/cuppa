@@ -11,14 +11,14 @@ export class TeaCollectionTable extends React.Component {
     return (
       <div className="container">
         <div className="columns is-pulled-right">
-          <form onSubmit={() => this.props.handleFilterClick(event)}>
+          <form onSubmit={this.props.handleFilterClick}>
             <div className="field has-addons">
-              <p className="control">
+              <div className="control">
                 <span className="select is-small">
                   <select
                     name="filterCategory"
                     value={this.props.formControls.filterCategory}
-                    onChange={() => this.props.filterChangeHandler(event)}
+                    onChange={this.props.filterChangeHandler}
                   >
                     <option key="category" value="">
                       Filter by
@@ -35,8 +35,8 @@ export class TeaCollectionTable extends React.Component {
                     })}
                   </select>
                 </span>
-              </p>
-              <p className="control">
+              </div>
+              <div className="control">
                 <input
                   className="input is-small"
                   name="filterCriteria"
@@ -44,22 +44,22 @@ export class TeaCollectionTable extends React.Component {
                   list="fcriteria"
                   placeholder="Filter Text"
                   value={this.props.formControls.filterCriteria}
-                  onChange={() => this.props.filterChangeHandler(event)}
+                  onChange={this.props.filterChangeHandler}
                 />
                 {this.props.datalist}
-              </p>
-              <p className="control">
+              </div>
+              <div className="control">
                 <button type="submit" className="button is-small">
                   Filter
                 </button>
-              </p>
+              </div>
             </div>
           </form>
           {this.props.filtered ? (
             <div className="control">
               <button
                 className="button is-primary is-small"
-                onClick={() => this.props.handleClearFilterClick()}
+                onClick={this.props.handleClearFilterClick}
               >
                 Clear Filter
               </button>

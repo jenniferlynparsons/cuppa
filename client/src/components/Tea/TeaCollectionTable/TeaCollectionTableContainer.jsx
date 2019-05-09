@@ -14,7 +14,8 @@ export class TeaCollectionTableContainer extends React.Component {
       filterCategory: "",
       filterCriteria: ""
     },
-    filtered: false
+    filtered: false,
+    dataList: []
   };
 
   columnHeaders = [
@@ -24,28 +25,22 @@ export class TeaCollectionTableContainer extends React.Component {
     { colName: "servings", colTitle: "Servings" }
   ];
 
-  datalist = () => (
-    <DataList
-      id="fcriteria"
-      options={this.state.sortedIDs}
-      optionalArgs={this.state.formControls.filterCategory}
-      processOptions={this.getOptionsFromTeas}
-    />
-  );
+  datalist = () => <DataList id="fcriteria" options={this.state.dataList} />;
 
   handleDeleteClick = tea => {
     this.props.handleDelete(tea);
   };
 
   handleSortClick = (columnName, sortOrder) => {
-    const list = this.state.sortedIDs;
-    let currentSortState = this.state.memoizedIDs;
-    let newSortOrder;
+    let newState = {
+      sortColumn: columnName,
+      sortOrder: sortOrder
+    };
 
     if (this.state.memoizedIDs.columnName === columnName) {
-      newSortOrder = this.state.memoizedIDs[sortOrder];
+      newState["sortedIDs"] = this.state.memoizedIDs[sortOrder];
     } else {
-      newSortOrder = list.sort((a, b) => {
+      let newSortOrder = this.state.sortedIDs.sort((a, b) => {
         if (
           this.props.teas.allTeas[a][columnName] >
           this.props.teas.allTeas[b][columnName]
@@ -63,17 +58,16 @@ export class TeaCollectionTableContainer extends React.Component {
 
       const revSortOrder = [...newSortOrder].reverse();
 
-      currentSortState = {
+      newState["sortedIDs"] = newSortOrder;
+
+      newState["memoizedIDs"] = {
         columnName: columnName,
         asc: newSortOrder,
         desc: revSortOrder
       };
     }
     this.setState({
-      sortedIDs: newSortOrder,
-      memoizedIDs: currentSortState,
-      sortColumn: columnName,
-      sortOrder: sortOrder
+      ...newState
     });
   };
 
@@ -87,11 +81,16 @@ export class TeaCollectionTableContainer extends React.Component {
     const name = event.target.name;
     const value = event.target.value;
 
+    const dataListOptions = this.state.sortedIDs.map(teaID => {
+      return this.props.teas.allTeas[teaID][value];
+    });
+
     this.setState({
       formControls: {
         ...this.state.formControls,
         [name]: value
-      }
+      },
+      dataList: dataListOptions
     });
   };
 
@@ -152,12 +151,6 @@ export class TeaCollectionTableContainer extends React.Component {
     });
   };
 
-  getOptionsFromTeas = (teas, category) => {
-    return teas.map(teaID => {
-      return this.props.teas.allTeas[teaID][category];
-    });
-  };
-
   componentDidMount() {
     this.props.getTeaList(this.props.userID);
   }
@@ -182,7 +175,7 @@ export class TeaCollectionTableContainer extends React.Component {
   }
 
   render() {
-    return !this.props.teas.allTeas ? null : (
+    return this.props.teas.allTeas ? (
       <TeaCollectionTable
         datalist={this.datalist()}
         columnHeaders={this.columnHeaders}
@@ -197,7 +190,7 @@ export class TeaCollectionTableContainer extends React.Component {
         filterChangeHandler={this.filterChangeHandler}
         sortColumnHandler={this.sortColumnHandler}
       />
-    );
+    ) : null;
   }
 }
 
