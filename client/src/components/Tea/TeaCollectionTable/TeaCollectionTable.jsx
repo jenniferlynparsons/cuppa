@@ -18,21 +18,19 @@ export class TeaCollectionTable extends React.Component {
                   <select
                     name="filterCategory"
                     value={this.props.formControls.filterCategory}
-                    onChange={this.props.filterChangeHandler}
+                    onChange={this.props.filterDropdownChangeHandler}
                   >
                     <option key="category" value="">
                       Filter by
                     </option>
-                    {this.props.columnHeaders.map(colHeaderObj => {
-                      return (
-                        <option
-                          key={colHeaderObj.colName}
-                          value={colHeaderObj.colName}
-                        >
-                          {colHeaderObj.colTitle}
-                        </option>
-                      );
-                    })}
+                    {this.props.columnHeaders.map(colHeaderObj => (
+                      <option
+                        key={colHeaderObj.colName}
+                        value={colHeaderObj.colName}
+                      >
+                        {colHeaderObj.colTitle}
+                      </option>
+                    ))}
                   </select>
                 </span>
               </div>
@@ -44,7 +42,7 @@ export class TeaCollectionTable extends React.Component {
                   list="fcriteria"
                   placeholder="Filter Text"
                   value={this.props.formControls.filterCriteria}
-                  onChange={this.props.filterChangeHandler}
+                  onChange={this.props.filterInputChangeHandler}
                 />
                 {this.props.datalist}
               </div>
@@ -55,7 +53,7 @@ export class TeaCollectionTable extends React.Component {
               </div>
             </div>
           </form>
-          {this.props.filtered ? (
+          {this.props.filtered && (
             <div className="control">
               <button
                 className="button is-primary is-small"
@@ -64,43 +62,41 @@ export class TeaCollectionTable extends React.Component {
                 Clear Filter
               </button>
             </div>
-          ) : null}
+          )}
         </div>
         <table className="table is-striped is-fullwidth">
           <thead>
             <tr>
-              {this.props.columnHeaders.map(colHeaderObj => {
-                return (
-                  <th key={colHeaderObj.colName}>
-                    {colHeaderObj.colTitle + " "}
-                    <button
-                      className="button is-small"
-                      type="button"
-                      aria-pressed="false"
-                      onClick={() =>
-                        this.props.handleSortClick(
-                          colHeaderObj.colName,
-                          this.props.sortColumnHandler(colHeaderObj.colName)
-                            ? "desc"
-                            : "asc"
-                        )
-                      }
-                    >
-                      <span className="icon">
-                        <i className="fas">
-                          <FontAwesomeIcon
-                            icon={
-                              this.props.sortColumnHandler(colHeaderObj.colName)
-                                ? "angle-up"
-                                : "angle-down"
-                            }
-                          />
-                        </i>
-                      </span>
-                    </button>
-                  </th>
-                );
-              })}
+              {this.props.columnHeaders.map(colHeaderObj => (
+                <th key={colHeaderObj.colName}>
+                  {colHeaderObj.colTitle + " "}
+                  <button
+                    className="button is-small"
+                    type="button"
+                    aria-pressed="false"
+                    onClick={() =>
+                      this.props.handleSortClick(
+                        colHeaderObj.colName,
+                        this.props.sortColumnHandler(colHeaderObj.colName)
+                          ? "desc"
+                          : "asc"
+                      )
+                    }
+                  >
+                    <span className="icon">
+                      <i className="fas">
+                        <FontAwesomeIcon
+                          icon={
+                            this.props.sortColumnHandler(colHeaderObj.colName)
+                              ? "angle-up"
+                              : "angle-down"
+                          }
+                        />
+                      </i>
+                    </span>
+                  </button>
+                </th>
+              ))}
               <th />
               <th />
             </tr>
@@ -130,7 +126,7 @@ export class TeaCollectionTable extends React.Component {
                 </tr>
               );
             })}
-            {this.props.teaIDs.length === 0 ? (
+            {this.props.teaIDs.length === 0 && (
               <tr>
                 {this.props.filtered ? (
                   <td>
@@ -144,7 +140,7 @@ export class TeaCollectionTable extends React.Component {
                   </td>
                 )}
               </tr>
-            ) : null}
+            )}
           </tbody>
         </table>
       </div>

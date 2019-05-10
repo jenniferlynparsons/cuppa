@@ -14,7 +14,7 @@ class DataList extends React.PureComponent {
     return (
       <datalist id={this.props.id}>
         {uniqueOptions.map(option => (
-          <option key={option || ""} value={option}>
+          <option key={option} value={option}>
             {option}
           </option>
         ))}

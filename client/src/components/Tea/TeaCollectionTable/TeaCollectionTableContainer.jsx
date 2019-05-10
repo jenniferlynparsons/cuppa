@@ -25,11 +25,7 @@ export class TeaCollectionTableContainer extends React.Component {
     { colName: "servings", colTitle: "Servings" }
   ];
 
-  datalist = () => <DataList id="fcriteria" options={this.state.dataList} />;
-
-  handleDeleteClick = tea => {
-    this.props.handleDelete(tea);
-  };
+  handleDeleteClick = tea => this.props.handleDelete(tea);
 
   handleSortClick = (columnName, sortOrder) => {
     let newState = {
@@ -71,26 +67,29 @@ export class TeaCollectionTableContainer extends React.Component {
     });
   };
 
-  sortColumnHandler = columnName => {
-    return (
-      this.state.sortColumn === columnName && this.state.sortOrder === "asc"
+  sortColumnHandler = columnName =>
+    this.state.sortColumn === columnName && this.state.sortOrder === "asc";
+
+  filterDropdownChangeHandler = event => {
+    const dataListOptions = this.state.sortedIDs.map(
+      teaID => this.props.teas.allTeas[teaID][event.target.value]
     );
-  };
-
-  filterChangeHandler = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    const dataListOptions = this.state.sortedIDs.map(teaID => {
-      return this.props.teas.allTeas[teaID][value];
-    });
 
     this.setState({
       formControls: {
         ...this.state.formControls,
-        [name]: value
+        filterCategory: event.target.value
       },
       dataList: dataListOptions
+    });
+  };
+
+  filterInputChangeHandler = event => {
+    this.setState({
+      formControls: {
+        ...this.state.formControls,
+        filterCriteria: event.target.value
+      }
     });
   };
 
@@ -105,9 +104,7 @@ export class TeaCollectionTableContainer extends React.Component {
       this.state.formControls.filterCriteria !== ""
     ) {
       newFilterOrder = list.filter(item => {
-        // this returns NaN to get a falsy value if the Number function doesn't return an integer
         if (Number(this.state.formControls.filterCriteria)) {
-          // I am actively leveraging the coercion of the double equals here
           return (
             this.props.teas.allTeas[item][
               this.state.formControls.filterCategory
@@ -147,7 +144,8 @@ export class TeaCollectionTableContainer extends React.Component {
         filterCategory: "",
         filterCriteria: ""
       },
-      filtered: false
+      filtered: false,
+      dataList: []
     });
   };
 
@@ -175,22 +173,25 @@ export class TeaCollectionTableContainer extends React.Component {
   }
 
   render() {
-    return this.props.teas.allTeas ? (
-      <TeaCollectionTable
-        datalist={this.datalist()}
-        columnHeaders={this.columnHeaders}
-        allTeas={this.props.teas.allTeas}
-        teaIDs={this.state.sortedIDs}
-        formControls={this.state.formControls}
-        filtered={this.state.filtered}
-        handleDeleteClick={this.handleDeleteClick}
-        handleSortClick={this.handleSortClick}
-        handleFilterClick={this.handleFilterClick}
-        handleClearFilterClick={this.handleClearFilterClick}
-        filterChangeHandler={this.filterChangeHandler}
-        sortColumnHandler={this.sortColumnHandler}
-      />
-    ) : null;
+    return (
+      this.props.teas.allTeas && (
+        <TeaCollectionTable
+          datalist={<DataList id="fcriteria" options={this.state.dataList} />}
+          columnHeaders={this.columnHeaders}
+          allTeas={this.props.teas.allTeas}
+          teaIDs={this.state.sortedIDs}
+          formControls={this.state.formControls}
+          filtered={this.state.filtered}
+          handleDeleteClick={this.handleDeleteClick}
+          handleSortClick={this.handleSortClick}
+          handleFilterClick={this.handleFilterClick}
+          handleClearFilterClick={this.handleClearFilterClick}
+          filterDropdownChangeHandler={this.filterDropdownChangeHandler}
+          filterInputChangeHandler={this.filterInputChangeHandler}
+          sortColumnHandler={this.sortColumnHandler}
+        />
+      )
+    );
   }
 }
 
