@@ -71,17 +71,23 @@ export class TeaCollectionTableContainer extends React.Component {
     this.state.sortColumn === columnName && this.state.sortOrder === "asc";
 
   filterDropdownChangeHandler = event => {
-    const dataListOptions = this.state.sortedIDs.map(
-      teaID => this.props.teas.allTeas[teaID][event.target.value]
-    );
+    const value = event.target.value;
 
-    this.setState({
-      formControls: {
-        ...this.state.formControls,
-        filterCategory: event.target.value
-      },
-      dataList: dataListOptions
-    });
+    if (value === "") {
+      this.handleClearFilterClick();
+    } else {
+      const dataListOptions = this.state.sortedIDs.map(
+        teaID => this.props.teas.allTeas[teaID][value]
+      );
+
+      this.setState({
+        formControls: {
+          ...this.state.formControls,
+          filterCategory: value
+        },
+        dataList: dataListOptions
+      });
+    }
   };
 
   filterInputChangeHandler = event => {
