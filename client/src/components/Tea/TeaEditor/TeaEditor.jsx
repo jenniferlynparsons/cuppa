@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React from "react";
 import { Link } from "react-router-dom";
-import Datalist from "../../Datalist";
+import DataList from "../../DataList";
 
 export const TeaEditor = props => {
   return (
@@ -53,7 +53,7 @@ export const TeaEditor = props => {
                 value={props.brand}
                 placeholder="Tea Brand"
               />
-              <Datalist
+              <DataList
                 id="brands"
                 options={props.teas}
                 processOptions={props.getBrandsFromTeas}

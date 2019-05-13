@@ -14,7 +14,7 @@ import Login from "../Auth/Login";
 import PrivateRoute from "../Auth/PrivateRoute/PrivateRoute";
 import Dashboard from "../Dashboard";
 import TeaEditor from "../Tea/TeaEditor";
-import TeaList from "../Tea/TeaList";
+import TeaCollectionTable from "../Tea/TeaCollectionTable";
 import TeaDetails from "../Tea/TeaDetails";
 // Styles
 import "bulma/bulma.sass";
@@ -56,7 +56,7 @@ class App extends Component {
                   <PrivateRoute
                     exact={true}
                     path="/tea-collection"
-                    component={TeaList}
+                    component={TeaCollectionTable}
                   />
                   <PrivateRoute
                     exact={true}
