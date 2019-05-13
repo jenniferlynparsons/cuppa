@@ -25,7 +25,7 @@ export class TeaCollectionTableContainer extends React.Component {
     { colName: "servings", colTitle: "Servings" }
   ];
 
-  handleDeleteClick = tea => this.props.handleDelete(tea);
+  handleDeleteClick = tea => this.props.deleteTea(tea);
 
   handleSortClick = (columnName, sortOrder) => {
     let newState = {
@@ -62,9 +62,7 @@ export class TeaCollectionTableContainer extends React.Component {
         desc: revSortOrder
       };
     }
-    this.setState({
-      ...newState
-    });
+    this.setState(newState);
   };
 
   sortColumnHandler = columnName =>
@@ -91,11 +89,14 @@ export class TeaCollectionTableContainer extends React.Component {
   };
 
   filterInputChangeHandler = event => {
-    this.setState({
-      formControls: {
-        ...this.state.formControls,
-        filterCriteria: event.target.value
-      }
+    let target = event.target.value;
+    this.setState(state => {
+      return {
+        formControls: {
+          ...state.formControls,
+          filterCriteria: target
+        }
+      };
     });
   };
 
@@ -156,7 +157,7 @@ export class TeaCollectionTableContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getTeaList(this.props.userID);
+    this.props.getTeas(this.props.userID);
   }
 
   componentDidUpdate(prevProps) {
@@ -209,14 +210,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  handleDelete: teaID => {
-    dispatch(deleteTea(teaID));
-  },
-  getTeaList: userID => {
-    dispatch(getTeas(userID));
-  }
-});
+const mapDispatchToProps = {
+  deleteTea,
+  getTeas
+};
 
 export default connect(
   mapStateToProps,
