@@ -89,15 +89,13 @@ export class TeaCollectionTableContainer extends React.Component {
   };
 
   filterInputChangeHandler = event => {
-    let target = event.target.value;
-    this.setState(state => {
-      return {
-        formControls: {
-          ...state.formControls,
-          filterCriteria: target
-        }
-      };
-    });
+    let value = event.target.value;
+    this.setState(state => ({
+      formControls: {
+        ...state.formControls,
+        filterCriteria: value
+      }
+    }));
   };
 
   handleFilterClick = event => {
