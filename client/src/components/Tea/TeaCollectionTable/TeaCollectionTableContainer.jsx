@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
-import TeaCollectionTable from "./TeaCollectionTable";
-import DataList from "../../DataList";
+import { TeaCollectionTable } from "./TeaCollectionTable";
+import DataList from "../../FormComponents/DataList";
 
 export class TeaCollectionTableContainer extends React.Component {
   state = {

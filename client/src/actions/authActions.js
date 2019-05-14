@@ -34,24 +34,12 @@ export function registerUser(userData, history) {
 export const logoutUser = () => dispatch => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
-  dispatch(resetStateOnLogout());
+  dispatch({ type: "USER_LOGOUT" });
 };
 
 export const setCurrentUser = decoded => {
   return {
     type: "SET_CURRENT_USER",
     payload: decoded
-  };
-};
-
-export const setUserLoading = () => {
-  return {
-    type: "USER_LOADING"
-  };
-};
-
-export const resetStateOnLogout = () => {
-  return {
-    type: "USER_LOGOUT"
   };
 };

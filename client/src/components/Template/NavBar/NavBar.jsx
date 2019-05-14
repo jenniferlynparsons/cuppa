@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import "./NavBar.scss";
-import tea from "../../../assets/tea.svg";
 
 class NavBar extends Component {
   onLogoutClick = e => {
@@ -23,7 +22,7 @@ class NavBar extends Component {
             className="navbar-item"
             to={isLoggedIn ? "/tea-collection" : "/"}
           >
-            <img src={tea} alt="Cuppa logo" />
+            Cuppa
           </Link>
         </div>
         <div className="navbar-menu is-active">
