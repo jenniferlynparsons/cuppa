@@ -12,7 +12,6 @@ class NavBar extends Component {
   };
   render() {
     const isLoggedIn = this.props.auth.isAuthenticated;
-    console.log(tea);
     return (
       <nav
         className="navbar is-dark"

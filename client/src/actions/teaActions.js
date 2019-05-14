@@ -3,7 +3,6 @@ import API from "../lib/api";
 // Add Tea
 export function addTea(tea) {
   tea.id = tea.teaID;
-  console.log(tea);
   return dispatch => {
     API.post(`/teas/new-tea`, tea).then(response => {
       dispatch({

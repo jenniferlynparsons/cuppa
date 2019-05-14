@@ -36,35 +36,31 @@ export class TeaEditorContainer extends React.Component {
   // };
 
   handleBlur = field => () => {
-    this.setState({
-      touched: { ...this.state.touched, [field]: true }
-    });
+    this.setState(state => ({
+      touched: { ...state.touched, [field]: true }
+    }));
   };
 
   handleNameChange = event => {
     this.setState({
-      ...this.state,
       name: event.currentTarget.value
     });
   };
 
   handleBrandChange = event => {
     this.setState({
-      ...this.state,
       brand: event.currentTarget.value
     });
   };
 
   handleTypeChange = event => {
     this.setState({
-      ...this.state,
       teaType: event.currentTarget.value
     });
   };
 
   handleServingsChange = event => {
     this.setState({
-      ...this.state,
       servings: event.currentTarget.value
     });
   };
@@ -72,26 +68,26 @@ export class TeaEditorContainer extends React.Component {
   handleSubmitButton = e => {
     if (!this.state.teaID) {
       this.setState({
-        ...this.state,
         teaID: uuidv4()
       });
     }
 
-    this.setState({
+    this.setState(state => ({
       touched: {
-        ...this.state.touched
+        ...state.touched
       }
-    });
+    }));
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
     // if ((errors.servings || errors.name) === false) {
-    this.props.handleSubmit(this.state);
     if (this.state.edit === true) {
-      this.props.updateFlash(true);
+      this.props.editTea(this.state);
+      this.props.editTeaFlash("on");
       this.props.history.push("/tea/" + this.state.teaID);
     } else {
+      this.props.addTea(this.state);
       this.setState({
         flash: {
           name: this.state.name,
@@ -120,7 +116,7 @@ export class TeaEditorContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getTeaList(this.props.userID);
+    this.props.getTeas(this.props.userID);
   }
 
   componentDidUpdate(prevProps) {
@@ -185,21 +181,12 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  handleSubmit: tea => {
-    if (tea.edit === true) {
-      dispatch(editTea(tea));
-    } else {
-      dispatch(addTea(tea));
-    }
-  },
-  updateFlash: status => {
-    dispatch(editTeaFlash(status));
-  },
-  getTeaList: userIDNum => {
-    dispatch(getTeas(userIDNum));
-  }
-});
+const mapDispatchToProps = {
+  editTea,
+  addTea,
+  editTeaFlash,
+  getTeas
+};
 
 export default withRouter(
   connect(

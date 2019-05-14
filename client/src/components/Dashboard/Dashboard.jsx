@@ -10,7 +10,6 @@ class Dashboard extends Component {
 
   render() {
     const { user } = this.props.auth;
-    // console.log(this.props);
     return (
       <div className="container content">
         <h1>Hey there, {user.name.split(" ")[0]}</h1>
