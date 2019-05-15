@@ -2,17 +2,15 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { deleteTea, getTeas } from "../../../actions/teaActions";
+import { getTeas } from "../../../actions/teaActions";
 import { TeaDetails } from "./TeaDetails";
 import { editTeaFlash } from "../../../actions/flashActions";
 
 class TeaDetailsContainer extends Component {
-  clickHandler = (e, status) => {
-    this.props.updateFlash(status);
-  };
+  clickHandler = status => this.props.editTeaFlash(status);
 
   componentDidMount() {
-    this.props.getTeaList(this.props.userID);
+    this.props.getTeas(this.props.userID);
   }
 
   render() {
@@ -20,7 +18,7 @@ class TeaDetailsContainer extends Component {
       <TeaDetails
         tea={this.props.tea}
         flash={this.props.flash}
-        onClick={this.clickHandler}
+        clickHandler={this.clickHandler}
         updateFlash={this.props.updateFlash}
       />
     );
@@ -35,17 +33,10 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  handleDelete: tea => {
-    dispatch(deleteTea(tea));
-  },
-  updateFlash: status => {
-    dispatch(editTeaFlash(status));
-  },
-  getTeaList: userIDNum => {
-    dispatch(getTeas(userIDNum));
-  }
-});
+const mapDispatchToProps = {
+  editTeaFlash,
+  getTeas
+};
 
 // TODO figure out the typings mismatch
 export default withRouter(

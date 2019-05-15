@@ -2,16 +2,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const TeaDetails = props => {
+export const TeaDetails = React.memo(props => {
   return (
     <div className="container content">
-      {props.flash ? (
+      {props.flash === "on" && (
         <div className="notification is-success">
-          <button className="delete" onClick={e => props.onClick(e, false)} />
+          <button
+            className="delete"
+            onClick={() => props.clickHandler("off")}
+          />
           {props.tea.name} has been succesfully updated.
         </div>
-      ) : (
-        ""
       )}
       <h1>{props.tea.name}</h1>
       <ul>
@@ -26,13 +27,9 @@ export const TeaDetails = props => {
           {props.tea.servings}
         </li>
       </ul>
-      <Link
-        to={"/update-tea/" + props.tea.id}
-        className="button"
-        onClick={e => props.onClick(e, false)}
-      >
+      <Link to={"/update-tea/" + props.tea.id} className="button">
         Edit
       </Link>
     </div>
   );
-};
+});

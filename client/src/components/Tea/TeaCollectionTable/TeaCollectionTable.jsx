@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { InputField } from "../../FormComponents/InputField";
 
 library.add(faAngleDown, faAngleUp);
 
-export class TeaCollectionTable extends React.Component {
+export class TeaCollectionTable extends React.PureComponent {
   render() {
     return (
       <div className="container">
@@ -34,18 +35,16 @@ export class TeaCollectionTable extends React.Component {
                   </select>
                 </span>
               </div>
-              <div className="control">
-                <input
-                  className="input is-small"
-                  name="filterCriteria"
-                  type="text"
-                  list="fcriteria"
-                  placeholder="Filter Text"
-                  value={this.props.formControls.filterCriteria}
-                  onChange={this.props.filterInputChangeHandler}
-                />
-                {this.props.datalist}
-              </div>
+              <InputField
+                className="input is-small"
+                name="filterCriteria"
+                type="text"
+                list="fcriteria"
+                placeholder="Filter Text"
+                value={this.props.formControls.filterCriteria}
+                onChange={this.props.filterInputChangeHandler}
+                datalist={this.props.datalist}
+              />
               <div className="control">
                 <button type="submit" className="button is-small">
                   Filter

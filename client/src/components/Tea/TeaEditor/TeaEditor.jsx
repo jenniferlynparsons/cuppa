@@ -1,50 +1,38 @@
 /* eslint-disable no-console */
 import React from "react";
 import { Link } from "react-router-dom";
-import DataList from "../../DataList";
+import { InputField } from "../../FormComponents/InputField";
 
-export const TeaEditor = props => {
+export const TeaEditor = React.memo(props => {
   return (
     <div className="container">
-      {props.flash.name ? (
+      {props.flash.name && (
         <div className="notification is-success">
           {props.flash.name} has been succesfully saved.{" "}
           <Link to={"../../tea/" + props.flash.teaID}>View details</Link>
         </div>
-      ) : (
-        ""
       )}
 
-      <form onSubmit={e => props.handleFormSubmit(e)}>
+      <form onSubmit={props.handleFormSubmit}>
         <div className="field">
           <label htmlFor="name">
             Tea Name
-            <div className="control">
-              <input
-                className="input"
-                // className={
-                //   props.shouldMarkError("name") ? "input is-danger" : "input"
-                // }
-                type="text"
-                id="name"
-                onChange={props.handleNameChange}
-                value={props.name}
-                placeholder="Tea Name"
-                onBlur={props.handleBlur("name")}
-              />
-            </div>
-            {/* {props.shouldMarkError("name") ? (
-              <p className="help is-danger">Add a Tea Name</p>
-            ) : (
-              ""
-            )} */}
+            <InputField
+              className="input"
+              type="text"
+              id="name"
+              onChange={props.handleNameChange}
+              value={props.name}
+              placeholder="Tea Name"
+              onBlur={props.handleBlur("name")}
+            />
           </label>
         </div>
         <div className="field">
           <label htmlFor="brand">
             Tea Brand
             <div className="control">
-              <input
+              <InputField
                 className="input"
                 type="text"
                 id="brand"
@@ -52,11 +40,7 @@ export const TeaEditor = props => {
                 onChange={props.handleBrandChange}
                 value={props.brand}
                 placeholder="Tea Brand"
-              />
-              <DataList
-                id="brands"
-                options={props.teas}
-                processOptions={props.getBrandsFromTeas}
+                datalist={props.brandsDataList}
               />
             </div>
           </label>
@@ -88,13 +72,8 @@ export const TeaEditor = props => {
           <label htmlFor="servings">
             Servings Available
             <div className="control">
-              <input
+              <InputField
                 className="input"
-                // className={
-                //   props.shouldMarkError("servings")
-                //     ? "input is-danger"
-                //     : "input"
-                // }
                 type="number"
                 id="servings"
                 onChange={props.handleServingsChange}
@@ -103,18 +82,12 @@ export const TeaEditor = props => {
                 onBlur={props.handleBlur("servings")}
               />
             </div>
-            {/* {props.shouldMarkError("servings") ? (
-              <p className="help is-danger">Add a Number of Servings</p>
-            ) : (
-              ""
-            )} */}
           </label>
         </div>
         <div className="control">
           <button
             className="button is-primary"
-            // className={isDisabled ? "button is-disabled" : "button is-primary"}
-            onClick={e => props.handleSubmitButton(e)}
+            onClick={props.handleSubmitButton}
           >
             Submit
           </button>
@@ -122,4 +95,4 @@ export const TeaEditor = props => {
       </form>
     </div>
   );
-};
+});
