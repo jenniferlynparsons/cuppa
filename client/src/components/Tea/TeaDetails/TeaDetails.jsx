@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export const TeaDetails = React.memo(props => {
   return (
     <div className="container content">
-      {props.flash == "on" && (
+      {props.flash === "on" && (
         <div className="notification is-success">
           <button
             className="delete"
