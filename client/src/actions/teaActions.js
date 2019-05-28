@@ -1,4 +1,5 @@
 import API from "../lib/api";
+import { teaActionTypes } from "../lib/actionTypes";
 
 // Add Tea
 export function addTea(tea) {
@@ -6,7 +7,7 @@ export function addTea(tea) {
   return dispatch => {
     API.post(`/teas/new-tea`, tea).then(response => {
       dispatch({
-        type: "ADD_TEA",
+        type: teaActionTypes.ADD_TEA,
         payload: response
       });
     });
@@ -19,7 +20,7 @@ export function editTea(tea) {
   return dispatch => {
     API.put(`/teas/update-tea`, tea).then(response => {
       dispatch({
-        type: "EDIT_TEA",
+        type: teaActionTypes.EDIT_TEA,
         payload: response
       });
     });
@@ -31,7 +32,7 @@ export function deleteTea(teaID) {
   return dispatch => {
     API.delete(`/teas/delete-tea/${teaID}`).then(() => {
       dispatch({
-        type: "DELETE_TEA",
+        type: teaActionTypes.DELETE_TEA,
         payload: teaID
       });
     });
@@ -43,7 +44,7 @@ export function getTeas(listOwner) {
   return dispatch => {
     API.get(`/teas/teasList/${listOwner}`).then(response => {
       dispatch({
-        type: "GET_TEAS",
+        type: teaActionTypes.GET_TEAS,
         payload: response
       });
     });

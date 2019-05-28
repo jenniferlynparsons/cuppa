@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-// TODO figure out what's up with these type definitions
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}

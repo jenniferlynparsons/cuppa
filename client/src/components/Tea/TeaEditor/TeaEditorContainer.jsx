@@ -76,7 +76,6 @@ export class TeaEditorContainer extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    // if ((errors.servings || errors.name) === false) {
     if (this.state.edit === true) {
       this.props.editTea(this.state);
       this.props.editTeaFlash("on");
@@ -101,7 +100,6 @@ export class TeaEditorContainer extends React.Component {
         edit: false
       });
     }
-    // }
   };
 
   componentDidMount() {
