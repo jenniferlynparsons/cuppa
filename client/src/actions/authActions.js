@@ -1,6 +1,7 @@
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import API from "../lib/api";
+import { authActionTypes } from "../lib/actionTypes";
 
 // Login - get user token
 export function loginAction(userData) {
@@ -34,12 +35,12 @@ export function registerUser(userData, history) {
 export const logoutUser = () => dispatch => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
-  dispatch({ type: "USER_LOGOUT" });
+  dispatch({ type: authActionTypes.USER_LOGOUT });
 };
 
 export const setCurrentUser = decoded => {
   return {
-    type: "SET_CURRENT_USER",
+    type: authActionTypes.SET_CURRENT_USER,
     payload: decoded
   };
 };

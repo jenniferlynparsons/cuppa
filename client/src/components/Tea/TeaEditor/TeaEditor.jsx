@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React from "react";
 import { Link } from "react-router-dom";
-import { InputField } from "../../FormComponents/InputField";
+import InputField from "../../FormComponents/InputField";
 
 export const TeaEditor = React.memo(props => {
   return (

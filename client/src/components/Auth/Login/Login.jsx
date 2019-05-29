@@ -53,7 +53,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="container content">
+      <div className="container content" data-test-id="login-component">
         <Link to="/">Back to home</Link>
         <h1>Login</h1>
         <p>

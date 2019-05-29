@@ -2,8 +2,8 @@ import { combineReducers } from "redux";
 import authReducer from "./authReducers";
 import errorReducer from "./errorReducers";
 import teaReducers from "./teaReducers";
-import typesReducer from "./typesReducer";
-import flashReducer from "./flashReducer";
+import typesReducer from "./typesReducers";
+import flashReducer from "./flashReducers";
 
 // export default combineReducers({
 //   auth: authReducer,
