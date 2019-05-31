@@ -24,11 +24,11 @@ const mockRegisterData = {
   password2: "boogadoo1"
 };
 
-const mockPayload = {
-  id: "5c6313a4c318bb62298b23d4",
-  name: "Jennifer",
-  iat: 1558376827,
-  exp: 1589933753
+const mockHistory = {
+  length: 10,
+  action: "PUSH",
+  location: { pathname: "/dashboard", search: "", hash: "", key: "zh4boo" },
+  push: jest.fn()
 };
 
 const mockResponse = {
@@ -46,6 +46,8 @@ const mockDecodedToken = {
 
 let loginAction = authActions.loginAction;
 let registerUser = authActions.registerUser;
+let logoutUser = authActions.logoutUser;
+let setCurrentUser = authActions.setCurrentUser;
 
 // Set up our stubbed auth function
 jest.mock("../../utils/setAuthToken", () => jest.fn());
@@ -79,7 +81,7 @@ describe("loginAction", () => {
         expect(jwt_decode).toHaveBeenCalledWith(mockResponse.token);
       });
       test("it sets the current user action", async () => {
-        let currentUserSpy = jest.spyOn(authActions, 'setCurrentUser');
+        let currentUserSpy = jest.spyOn(authActions, "setCurrentUser");
         await store.dispatch(authActions.loginAction(mockLoginData));
         expect(currentUserSpy).toHaveBeenCalledTimes(1);
       });
@@ -91,5 +93,49 @@ describe("registerUser", () => {
   test("returns a function", () => {
     registerUser(mockRegisterData);
     expect(registerUser()).toBeInstanceOf(Function);
+  });
+
+  describe("dispatching the returned function", () => {
+    test("it calls 'post' on the API with the correct path and the user data", () => {
+      store.dispatch(registerUser(mockRegisterData, mockHistory));
+      expect(API.post).toHaveBeenCalledWith(
+        "/users/register",
+        mockRegisterData
+      );
+    });
+
+    describe("when the POST call is successful", () => {
+      test("it sets the JWT token to the response from the POST", async () => {
+        await store.dispatch(registerUser(mockRegisterData, mockHistory));
+        expect(setAuthToken).toHaveBeenCalledWith(mockResponse.token);
+      });
+      test("it decodes the token with jwt_decode", async () => {
+        await store.dispatch(registerUser(mockRegisterData, mockHistory));
+        expect(jwt_decode).toHaveBeenCalledWith(mockResponse.token);
+      });
+      test("it sets the current user action", async () => {
+        let currentUserSpy = jest.spyOn(authActions, "setCurrentUser");
+        await store.dispatch(
+          authActions.registerUser(mockRegisterData, mockHistory)
+        );
+        expect(currentUserSpy).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+});
+
+describe("logoutUser", () => {
+  test("it resets the authToken", async () => {
+    await store.dispatch(logoutUser());
+    expect(setAuthToken).toHaveBeenCalled();
+  });
+});
+
+describe("setCurrentUser", () => {
+  test("it returns the SET_CURRENT_USER action type and decoded payload", () => {
+    expect(setCurrentUser(mockDecodedToken)).toEqual({
+      type: "SET_CURRENT_USER",
+      payload: mockDecodedToken
+    });
   });
 });

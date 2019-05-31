@@ -4,7 +4,7 @@ import API from "../lib/api";
 import { authActionTypes } from "../lib/actionTypes";
 
 // Login - get user token
-export const loginAction = (userData) => {
+export const loginAction = userData => {
   return dispatch => {
     API.post(`/users/login`, userData).then(response => {
       const { token } = response;
@@ -15,7 +15,7 @@ export const loginAction = (userData) => {
       dispatch(authActions.setCurrentUser(decoded));
     });
   };
-}
+};
 
 // Register User
 export const registerUser = (userData, history) => {
@@ -30,7 +30,7 @@ export const registerUser = (userData, history) => {
       dispatch(authActions.setCurrentUser(decoded));
     });
   };
-}
+};
 
 // Log user out
 export const logoutUser = () => dispatch => {
@@ -51,6 +51,6 @@ const authActions = {
   registerUser,
   logoutUser,
   setCurrentUser
-}
+};
 
 export default authActions;
