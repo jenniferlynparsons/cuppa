@@ -11,6 +11,7 @@ export function loginAction(userData) {
       localStorage.setItem("jwtToken", token);
       setAuthToken(token);
       const decoded = jwt_decode(token);
+      //check that setCurrentUser is called with decoded
       dispatch(setCurrentUser(decoded));
     });
   };
