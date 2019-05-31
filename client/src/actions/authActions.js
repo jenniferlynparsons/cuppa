@@ -4,7 +4,7 @@ import API from "../lib/api";
 import { authActionTypes } from "../lib/actionTypes";
 
 // Login - get user token
-export function loginAction(userData) {
+export const loginAction = (userData) => {
   return dispatch => {
     API.post(`/users/login`, userData).then(response => {
       const { token } = response;
@@ -12,13 +12,13 @@ export function loginAction(userData) {
       setAuthToken(token);
       const decoded = jwt_decode(token);
       //check that setCurrentUser is called with decoded
-      dispatch(setCurrentUser(decoded));
+      dispatch(authActions.setCurrentUser(decoded));
     });
   };
 }
 
 // Register User
-export function registerUser(userData, history) {
+export const registerUser = (userData, history) => {
   return dispatch => {
     API.post(`/users/register`, userData).then(response => {
       const arg = "/login";
@@ -27,7 +27,7 @@ export function registerUser(userData, history) {
       localStorage.setItem("jwtToken", token);
       setAuthToken(token);
       const decoded = jwt_decode(token);
-      dispatch(setCurrentUser(decoded));
+      dispatch(authActions.setCurrentUser(decoded));
     });
   };
 }
@@ -45,3 +45,12 @@ export const setCurrentUser = decoded => {
     payload: decoded
   };
 };
+
+const authActions = {
+  loginAction,
+  registerUser,
+  logoutUser,
+  setCurrentUser
+}
+
+export default authActions;

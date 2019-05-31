@@ -1,8 +1,6 @@
 import { makeMockStore } from "../../test/testUtils";
-import { loginAction, registerUser, logoutUser } from "../authActions";
-import * as actions from "../authActions";
+import authActions from "../authActions";
 import jwt_decode from "jwt-decode";
-import { authActionTypes } from "../../lib/actionTypes";
 import API from "../../lib/api";
 import setAuthToken from "../../utils/setAuthToken";
 
@@ -46,6 +44,9 @@ const mockDecodedToken = {
   exp: 1590791590
 };
 
+let loginAction = authActions.loginAction;
+let registerUser = authActions.registerUser;
+
 // Set up our stubbed auth function
 jest.mock("../../utils/setAuthToken", () => jest.fn());
 
@@ -78,9 +79,9 @@ describe("loginAction", () => {
         expect(jwt_decode).toHaveBeenCalledWith(mockResponse.token);
       });
       test("it sets the current user action", async () => {
-        const mockSetCurrentUser = jest.spyOn(actions, "setCurrentUser");
-        await store.dispatch(loginAction(mockLoginData));
-        expect(mockSetCurrentUser).toHaveBeenCalledTimes(1);
+        let currentUserSpy = jest.spyOn(authActions, 'setCurrentUser');
+        await store.dispatch(authActions.loginAction(mockLoginData));
+        expect(currentUserSpy).toHaveBeenCalledTimes(1);
       });
     });
   });
