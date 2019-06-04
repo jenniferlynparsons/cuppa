@@ -61,8 +61,7 @@ jest.mock("../../lib/api", () => ({
 
 describe("loginAction", () => {
   test("returns a function", () => {
-    loginAction(mockLoginData);
-    expect(loginAction()).toBeInstanceOf(Function);
+    expect(loginAction(mockLoginData)).toBeInstanceOf(Function);
   });
 
   describe("dispatching the returned function", () => {
@@ -91,8 +90,7 @@ describe("loginAction", () => {
 
 describe("registerUser", () => {
   test("returns a function", () => {
-    registerUser(mockRegisterData);
-    expect(registerUser()).toBeInstanceOf(Function);
+    expect(registerUser(mockRegisterData)).toBeInstanceOf(Function);
   });
 
   describe("dispatching the returned function", () => {
@@ -125,6 +123,9 @@ describe("registerUser", () => {
 });
 
 describe("logoutUser", () => {
+  test("returns a function", () => {
+    expect(logoutUser()).toBeInstanceOf(Function);
+  });
   test("it resets the authToken", async () => {
     await store.dispatch(logoutUser());
     expect(setAuthToken).toHaveBeenCalled();
@@ -132,6 +133,9 @@ describe("logoutUser", () => {
 });
 
 describe("setCurrentUser", () => {
+  test("returns a function", () => {
+    expect(setCurrentUser(mockDecodedToken)).toBeInstanceOf(Object);
+  });
   test("it returns the SET_CURRENT_USER action type and decoded payload", () => {
     expect(setCurrentUser(mockDecodedToken)).toEqual({
       type: "SET_CURRENT_USER",
