@@ -133,7 +133,7 @@ describe("logoutUser", () => {
 });
 
 describe("setCurrentUser", () => {
-  test("returns a function", () => {
+  test("returns an object", () => {
     expect(setCurrentUser(mockDecodedToken)).toBeInstanceOf(Object);
   });
   test("it returns the SET_CURRENT_USER action type and decoded payload", () => {

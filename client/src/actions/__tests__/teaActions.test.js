@@ -127,10 +127,11 @@ jest.mock("../../lib/api", () => ({
   get: jest.fn(() => Promise.resolve(mockGetResponse))
 }));
 
+beforeEach(() => {
+  store.clearActions();
+});
+
 describe("addTea", () => {
-  beforeEach(() => {
-    store.clearActions();
-  });
   test("returns a function", () => {
     expect(addTea(mockAddTea)).toBeInstanceOf(Function);
   });
@@ -146,9 +147,6 @@ describe("addTea", () => {
 });
 
 describe("editTea", () => {
-  beforeEach(() => {
-    store.clearActions();
-  });
   test("returns a function", () => {
     expect(editTea(mockEditTea)).toBeInstanceOf(Function);
   });
@@ -164,9 +162,6 @@ describe("editTea", () => {
 });
 
 describe("deleteTea", () => {
-  beforeEach(() => {
-    store.clearActions();
-  });
   test("returns a function", () => {
     expect(deleteTea(mockDeleteTeaID)).toBeInstanceOf(Function);
   });
@@ -184,9 +179,6 @@ describe("deleteTea", () => {
 });
 
 describe("getTeas", () => {
-  beforeEach(() => {
-    store.clearActions();
-  });
   test("returns a function", () => {
     expect(getTeas(mockListOwner)).toBeInstanceOf(Function);
   });

@@ -3,7 +3,6 @@ import { teaActionTypes } from "../lib/actionTypes";
 
 // Add Tea
 export const addTea = tea => {
-  debugger;
   tea.id = tea.teaID;
   return dispatch => {
     API.post("/teas/new-tea", tea).then(response => {

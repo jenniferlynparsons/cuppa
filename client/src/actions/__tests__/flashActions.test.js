@@ -8,7 +8,7 @@ describe("editTeaFlash", () => {
   beforeEach(() => {
     store.clearActions();
   });
-  test("returns a function", () => {
+  test("returns an object", () => {
     expect(editTeaFlash(mockStatus)).toBeInstanceOf(Object);
   });
   test("it returns the EDIT_TEA_FLASH action type and payload", () => {
