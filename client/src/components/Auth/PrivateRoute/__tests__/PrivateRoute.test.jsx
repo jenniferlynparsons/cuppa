@@ -1,13 +1,13 @@
 import React from "react";
 import { MemoryRouter } from "react-router";
-import { Redirect } from "react-router-dom";
 import { mount } from "enzyme";
 import { findByTestAttr } from "../../../../test/testUtils";
-import { GenericComponent } from "../../../../test/__mocks__/fileMock";
+import { GenericComponent } from "../../../../test/__mocks__/GenericComponent";
 import PrivateRoute from "../PrivateRoute";
+import thunk from "redux-thunk";
 import configureStore from "redux-mock-store";
 
-const mockStore = configureStore();
+const mockStore = configureStore([thunk]);
 
 const loggedInState = {
   auth: {
@@ -22,7 +22,7 @@ const loggedOutState = {
 };
 
 describe("PrivateRoute rendering", () => {
-  test("PrivateRoute should render a component if user is logged in", () => {
+  test("it should render a component if user is logged in", () => {
     const store = mockStore(loggedInState);
     let wrapper = mount(
       <MemoryRouter initialEntries={["/dashboard"]} initialIndex={0}>
@@ -38,7 +38,6 @@ describe("PrivateRoute rendering", () => {
     expect(generic.exists()).toBe(true);
   });
 
-  // TODO - this test is likely not asserting what it should
   test("PrivateRoute should redicted to the login page if user is logged out", () => {
     const store = mockStore(loggedOutState);
     let wrapper = mount(
@@ -50,6 +49,9 @@ describe("PrivateRoute rendering", () => {
         />
       </MemoryRouter>
     );
-    expect(wrapper.find(Redirect)).toEqual({});
+    // https://stackoverflow.com/a/51678503
+    expect(wrapper.find("Router").prop("history").location.pathname).toEqual(
+      "/login"
+    );
   });
 });
