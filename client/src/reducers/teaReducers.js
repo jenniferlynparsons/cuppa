@@ -1,4 +1,4 @@
-export default (state = { allTeas: {}, teaIDs: [] }, action = {}) => {
+export default (state = { allTeas: {}, teaIDs: [] }, action) => {
   switch (action.type) {
     case "ADD_TEA":
       let addAllTeas = {

@@ -151,7 +151,7 @@ const deletedState = { allTeas: teaList, teaIDs: teaIDsDeleted };
 
 describe("tea reducer", () => {
   test("returns default state when there is no action type", () => {
-    const reducer = teaReducer(undefined);
+    const reducer = teaReducer(undefined, {});
     expect(reducer).toEqual(emptyState);
   });
 
