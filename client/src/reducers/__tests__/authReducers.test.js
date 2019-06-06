@@ -37,7 +37,7 @@ const expectedLoggedInState = {
 
 describe("auth reducer", () => {
   test("returns default state when there is no action type", () => {
-    const reducer = authReducer(initialState, {});
+    const reducer = authReducer(initialState);
     expect(reducer).toEqual(initialState);
   });
 

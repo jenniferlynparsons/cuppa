@@ -1,13 +1,10 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { MemoryRouter } from "react-router";
 import { mount } from "enzyme";
-import { findByTestAttr } from "../../../../test/testUtils";
+import { makeMockStore } from "../../../../test/testUtils";
 import { GenericComponent } from "../../../../test/__mocks__/GenericComponent";
 import PrivateRoute from "../PrivateRoute";
-import thunk from "redux-thunk";
-import configureStore from "redux-mock-store";
-
-const mockStore = configureStore([thunk]);
 
 const loggedInState = {
   auth: {
@@ -21,9 +18,17 @@ const loggedOutState = {
   }
 };
 
+jest.mock("react-router-dom", () => {
+  const original = jest.requireActual("react-router-dom");
+  return {
+    ...original,
+    Redirect: jest.fn().mockImplementation(() => null)
+  };
+});
+
 describe("PrivateRoute rendering", () => {
   test("it should render a component if user is logged in", () => {
-    const store = mockStore(loggedInState);
+    const store = makeMockStore(loggedInState);
     let wrapper = mount(
       <MemoryRouter initialEntries={["/dashboard"]} initialIndex={0}>
         <PrivateRoute
@@ -33,13 +38,12 @@ describe("PrivateRoute rendering", () => {
         />
       </MemoryRouter>
     );
-    const generic = findByTestAttr(wrapper, "generic");
 
-    expect(generic.exists()).toBe(true);
+    expect(wrapper.find(GenericComponent).exists()).toBe(true);
   });
 
   test("PrivateRoute should redicted to the login page if user is logged out", () => {
-    const store = mockStore(loggedOutState);
+    const store = makeMockStore(loggedOutState);
     let wrapper = mount(
       <MemoryRouter initialEntries={["/dashboard"]} initialIndex={0}>
         <PrivateRoute
@@ -49,9 +53,6 @@ describe("PrivateRoute rendering", () => {
         />
       </MemoryRouter>
     );
-    // https://stackoverflow.com/a/51678503
-    expect(wrapper.find("Router").prop("history").location.pathname).toEqual(
-      "/login"
-    );
+    expect(wrapper.find(Redirect).exists()).toBe(true);
   });
 });
