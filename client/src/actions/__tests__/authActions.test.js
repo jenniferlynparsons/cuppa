@@ -13,15 +13,15 @@ const store = makeMockStore({
 });
 
 const mockLoginData = {
-  email: "jenniferlynparsons@gmail.com",
-  password: "boogadoo1"
+  email: "test@example.com",
+  password: "testpassword"
 };
 
 const mockRegisterData = {
-  name: "Jennifer",
-  email: "littleoracle@gmail.com",
-  password: "boogadoo1",
-  password2: "boogadoo1"
+  name: "JP",
+  email: "test@example.com",
+  password: "testpassword",
+  password2: "testpassword"
 };
 
 const mockHistory = {
@@ -33,13 +33,12 @@ const mockHistory = {
 
 const mockResponse = {
   success: true,
-  token:
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjMxM2E0YzMxOGJiNjIyOThiMjNkNCIsIm5hbWUiOiJKZW5uaWZlciIsImlhdCI6MTU1ODk3MTY4MSwiZXhwIjoxNTkwNTI4NjA3fQ.1Tn8FLJE2gUj0D0ka91e79cLEQz6ttSkQ0sZNd3GGE8"
+  token: "Bearer 5cCI6IkpXVCJ9.oxNTkwNTI4NjA3fQ.1Nd3GGE8"
 };
 
 const mockDecodedToken = {
-  id: "5c6313a4c318bb62298b23d4",
-  name: "Jennifer",
+  id: "5c6313a4b62298b23d4",
+  name: "JP",
   iat: 1559234664,
   exp: 1590791590
 };

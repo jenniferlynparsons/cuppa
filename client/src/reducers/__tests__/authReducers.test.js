@@ -21,7 +21,7 @@ const userLoggedInPayload = {
   exp: 1590017571,
   iat: 1558460645,
   id: "5c6313a4c318bb62298b23d4",
-  name: "Jennifer"
+  name: "JP"
 };
 
 const expectedLoggedInState = {
@@ -31,7 +31,7 @@ const expectedLoggedInState = {
     exp: 1590017571,
     iat: 1558460645,
     id: "5c6313a4c318bb62298b23d4",
-    name: "Jennifer"
+    name: "JP"
   }
 };
 
