@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { InputField } from "../../FormComponents/InputField";
+import InputField from "../../FormComponents/InputField";
 
 library.add(faAngleDown, faAngleUp);
 

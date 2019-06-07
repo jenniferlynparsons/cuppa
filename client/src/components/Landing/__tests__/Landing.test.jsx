@@ -1,16 +1,16 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Footer from "../";
+import Landing from "../";
 
 const defaultProps = {};
 
 const setup = (props = {}) => {
   const setupProps = { ...defaultProps, ...props };
-  return shallow(<Footer {...setupProps} />);
+  return shallow(<Landing {...setupProps} />);
 };
 
-describe("footer rendering", () => {
-  test("footer renders without error", () => {
+describe("Landing rendering", () => {
+  test("Landing renders without error", () => {
     const wrapper = setup();
     expect(wrapper.exists()).toBe(true);
   });
