@@ -1,4 +1,4 @@
-import setAuthToken from "../utils/setAuthToken";
+import setAuthToken from "../lib/setAuthToken";
 import jwt_decode from "jwt-decode";
 import API from "../lib/api";
 import { authActionTypes } from "../lib/actionTypes";

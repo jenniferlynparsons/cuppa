@@ -1,4 +1,3 @@
-import { errorTypes } from "../../lib/actionTypes";
 import errorReducer from "../errorReducers";
 
 describe("error reducer", () => {

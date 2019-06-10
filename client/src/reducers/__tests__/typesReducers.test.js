@@ -1,4 +1,3 @@
-import { typesTypes } from "../../lib/actionTypes";
 import typesReducer from "../typesReducers";
 
 describe("types reducer", () => {

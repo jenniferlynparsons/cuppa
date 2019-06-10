@@ -1,4 +1,3 @@
-import { flashActionTypes } from "../../lib/actionTypes";
 import flashReducer from "../flashReducers";
 
 describe("flash reducer", () => {

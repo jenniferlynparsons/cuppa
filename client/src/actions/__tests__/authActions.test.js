@@ -2,7 +2,7 @@ import { makeMockStore } from "../../test/testUtils";
 import authActions from "../authActions";
 import jwt_decode from "jwt-decode";
 import API from "../../lib/api";
-import setAuthToken from "../../utils/setAuthToken";
+import setAuthToken from "../../lib/setAuthToken";
 
 const store = makeMockStore({
   auth: {
@@ -49,7 +49,7 @@ let logoutUser = authActions.logoutUser;
 let setCurrentUser = authActions.setCurrentUser;
 
 // Set up our stubbed auth function
-jest.mock("../../utils/setAuthToken", () => jest.fn());
+jest.mock("../../lib/setAuthToken", () => jest.fn());
 
 jest.mock("jwt-decode");
 
