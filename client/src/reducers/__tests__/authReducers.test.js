@@ -1,4 +1,3 @@
-import { authTypes } from "../../lib/actionTypes";
 import authReducer from "../authReducers";
 
 const initialState = {

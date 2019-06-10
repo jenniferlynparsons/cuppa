@@ -5,14 +5,6 @@ import teaReducers from "./teaReducers";
 import typesReducer from "./typesReducers";
 import flashReducer from "./flashReducers";
 
-// export default combineReducers({
-//   auth: authReducer,
-//   errors: errorReducer,
-//   teas: teaReducers,
-//   teaTypes: typesReducer,
-//   flash: flashReducer
-// });
-
 const appReducer = combineReducers({
   auth: authReducer,
   errors: errorReducer,

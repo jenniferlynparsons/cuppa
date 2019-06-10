@@ -1,4 +1,3 @@
-import { teaTypes } from "../../lib/actionTypes";
 import teaReducer from "../teaReducers";
 
 const teaIDs = [
