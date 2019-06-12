@@ -1,3 +1,3 @@
-import IndexField from "./IndexField";
+import InputField from "./InputField";
 
-export default IndexField;
+export default InputField;

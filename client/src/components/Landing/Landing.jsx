@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class Landing extends Component {
   render() {
     return (
-      <div className="container content">
+      <div className="container content" data-testid="landing">
         <h1>Welcome to Cuppa!</h1>
         <p>Organize your tea so you can enjoy it</p>
 

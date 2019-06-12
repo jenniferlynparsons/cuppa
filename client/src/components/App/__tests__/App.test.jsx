@@ -1,18 +1,12 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { render, cleanup } from "@testing-library/react";
 import App from "../App";
 
-const setup = (state = null) => {
-  const component = shallow(<App />);
-  if (state) {
-    component.setState(state);
-  }
-  return component;
-};
+afterEach(cleanup);
 
 describe("App loading", () => {
   test("renders without crashing", () => {
-    const wrapper = setup();
-    expect(wrapper.exists()).toBe(true);
+    const { getByLabelText } = render(<App />);
+    expect(getByLabelText("main navigation")).toBeTruthy();
   });
 });
