@@ -1,17 +1,17 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { render, cleanup } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 import Landing from "../";
 
-const defaultProps = {};
-
-const setup = (props = {}) => {
-  const setupProps = { ...defaultProps, ...props };
-  return shallow(<Landing {...setupProps} />);
-};
+afterEach(cleanup);
 
 describe("Landing rendering", () => {
   test("Landing renders without error", () => {
-    const wrapper = setup();
-    expect(wrapper.exists()).toBe(true);
+    const { getByTestId } = render(
+      <MemoryRouter initialEntries={["/landing"]}>
+        <Landing />
+      </MemoryRouter>
+    );
+    expect(getByTestId("landing")).toBeTruthy();
   });
 });

@@ -46,7 +46,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div>
-            <NavBar />
+            <NavBar data-testid="navbar" />
             <section className="section">
               <div className="App">
                 <Route exact={true} path="/" component={Landing} />

@@ -1,17 +1,12 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { render, cleanup } from "@testing-library/react";
 import Footer from "../";
 
-const defaultProps = {};
-
-const setup = (props = {}) => {
-  const setupProps = { ...defaultProps, ...props };
-  return shallow(<Footer {...setupProps} />);
-};
+afterEach(cleanup);
 
 describe("footer rendering", () => {
   test("footer renders without error", () => {
-    const wrapper = setup();
-    expect(wrapper.exists()).toBe(true);
+    const { getByTestId } = render(<Footer />);
+    expect(getByTestId("footer")).toBeTruthy();
   });
 });

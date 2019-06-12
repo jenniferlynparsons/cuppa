@@ -1,6 +1,9 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { render, cleanup } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 import { TeaDetails } from "../TeaDetails";
+
+afterEach(cleanup);
 
 const sampleStore = {
   teas: [
@@ -40,7 +43,11 @@ const sampleStore = {
 
 describe("tea details", () => {
   it("set sample state", () => {
-    const wrap = shallow(<TeaDetails {...sampleStore} />);
-    // console.log(wrap.debug());
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <TeaDetails {...sampleStore} />
+      </MemoryRouter>
+    );
+    expect(getByTestId("teadetails")).toBeTruthy();
   });
 });

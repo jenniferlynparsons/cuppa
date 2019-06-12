@@ -1,7 +1,11 @@
 {
   "env": {
     "test": {
-      "plugins": ["transform-class-properties", "dynamic-import-node", "@babel/plugin-transform-runtime"]
+      "plugins": [
+        "transform-class-properties",
+        "dynamic-import-node",
+        "@babel/plugin-transform-runtime"
+      ]
     },
     "production": {
       "plugins": ["babel-plugin-jsx-remove-data-test-id"]
