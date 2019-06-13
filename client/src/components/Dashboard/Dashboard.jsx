@@ -11,7 +11,7 @@ class Dashboard extends Component {
   render() {
     const { user } = this.props.auth;
     return (
-      <div className="container content">
+      <div className="container content" data-testid="dashboard">
         <h1 data-test-id="user-name">Hey there, {user.name.split(" ")[0]}</h1>
         <div className="columns">
           <div className="column is-two-thirds">
@@ -23,7 +23,11 @@ class Dashboard extends Component {
           <div className="column is-one-third">
             <p data-test-id="user-email">You are logged in as {user.email}</p>
             <p>
-              <button className="button" onClick={this.onLogoutClick}>
+              <button
+                className="button"
+                onClick={this.onLogoutClick}
+                data-testid="logout"
+              >
                 Logout
               </button>
             </p>
