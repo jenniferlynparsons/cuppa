@@ -1,53 +1,102 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
-import { MemoryRouter } from "react-router";
-import { TeaDetails } from "../TeaDetails";
+import { cleanup, fireEvent, wait } from "@testing-library/react";
+import { renderWithRouter } from "../../../../test/routerTestUtil";
+import { makeMockStore } from "../../../../test/testUtils";
+import TeaDetailsContainer from "../TeaDetailsContainer";
+
+const basicTea = {
+  auth: {
+    isAuthenticated: true,
+    user: {
+      id: "5c6313a4c318bb62298b23d4",
+      name: "Jennifer",
+      iat: 1560457432,
+      exp: 1592014358
+    },
+    loading: false
+  },
+  errors: {},
+  teas: {
+    allTeas: {
+      "25070e52-e635-4883-ae9b-583113573b9f": {
+        id: "25070e52-e635-4883-ae9b-583113573b9f",
+        name: "Sleepytime",
+        brand: "Celestial Seasonings",
+        teaType: "Herbal",
+        servings: 22
+      },
+      "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
+        id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
+        name: "Green Dragon",
+        brand: "Celestial Seasonings",
+        teaType: "Green",
+        servings: 21
+      }
+    },
+    teaIDs: [
+      "25070e52-e635-4883-ae9b-583113573b9f",
+      "044cf8ea-bc71-4d89-a2f6-fa499d43e20d"
+    ]
+  },
+  teaTypes: ["Black", "Green", "White", "Herbal"],
+  flash: "off"
+};
+
+const flashTea = { ...basicTea, flash: "on" };
 
 afterEach(cleanup);
 
-const sampleStore = {
-  teas: [
-    {
-      flash: { name: "", id: "" },
-      touched: { name: false, servings: false },
-      id: "7c596196-8f8a-4649-9df6-35054928489f",
-      name: "Sleepytime",
-      brand: "Celestial Seasonings",
-      teaType: "Herbal",
-      servings: "2",
-      edit: false
-    },
-    {
-      flash: { name: "", id: "" },
-      touched: { name: false, servings: false },
-      id: "5d7eab7e-6c3a-453d-9794-848b97c93330",
-      name: "Lapsang Souchang",
-      brand: "McNulty's",
-      teaType: "Black",
-      servings: "8",
-      edit: false
-    }
-  ],
-  tea: {
-    flash: { name: "", id: "" },
-    touched: { name: false, servings: false },
-    id: "5d7eab7e-6c3a-453d-9794-848b97c93330",
-    name: "Lapsang Souchang",
-    brand: "McNulty's",
-    teaType: "Black",
-    servings: "8",
-    edit: false
-  },
-  teaTypes: ["Black", "Green", "White", "Herbal"]
-};
+// describe("TeaDetailsContainer rendering", () => {
+//   test("renders the component without errors", () => {
+//     let store = makeMockStore(basicTea);
+//     const { getByTestId } = renderWithRouter(
+//       <TeaDetailsContainer
+//         store={store}
+//         match={{
+//           params: { id: "25070e52-e635-4883-ae9b-583113573b9f" }
+//         }}
+//       />
+//     );
+//     expect(getByTestId("teadetails")).toBeTruthy();
+//   });
+// });
 
-describe("tea details", () => {
-  it("set sample state", () => {
-    const { getByTestId } = render(
-      <MemoryRouter>
-        <TeaDetails {...sampleStore} />
-      </MemoryRouter>
+describe("teaDetailsContainer flash", () => {
+  let store;
+  beforeEach(() => {
+    store = makeMockStore(flashTea);
+  });
+
+  // test("tea detail renders with flash message after update", () => {
+  //   const { getByTestId } = renderWithRouter(
+  //     <TeaDetailsContainer
+  //       store={store}
+  //       match={{
+  //         params: { id: "25070e52-e635-4883-ae9b-583113573b9f" }
+  //       }}
+  //     />
+  //   );
+  //   expect(getByTestId("flash")).toBeTruthy();
+  // });
+
+  test("user clicks on delete flash clears flash message", async () => {
+    const { getByTestId, queryByTestId, debug } = renderWithRouter(
+      <TeaDetailsContainer
+        store={store}
+        match={{
+          params: { id: "25070e52-e635-4883-ae9b-583113573b9f" }
+        }}
+      />
     );
-    expect(getByTestId("teadetails")).toBeTruthy();
+    expect(getByTestId("flash")).toBeTruthy();
+    fireEvent.click(getByTestId("flash"));
+    debug();
+    await wait(expect(queryByTestId("flash")).toBeNull());
+  });
+});
+
+describe("teaDetailsContainer interactions", () => {
+  test("user clicks edit to update tea", () => {
+    // expect().toBeTruthy();
   });
 });

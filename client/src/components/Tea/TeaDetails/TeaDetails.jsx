@@ -8,6 +8,7 @@ export const TeaDetails = React.memo(props => {
       {props.flash === "on" && (
         <div className="notification is-success">
           <button
+            data-testid="flash"
             className="delete"
             onClick={() => props.clickHandler("off")}
           />

@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import React from "react";
 import uuidv4 from "uuid/v4";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";
@@ -168,9 +167,7 @@ const mapDispatchToProps = {
   getTeas
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(TeaEditorContainer)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TeaEditorContainer);
