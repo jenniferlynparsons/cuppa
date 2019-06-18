@@ -6,8 +6,7 @@ import { TeaDetails } from "./TeaDetails";
 import { editTeaFlash } from "../../../actions/flashActions";
 
 class TeaDetailsContainer extends Component {
-  clickHandler = status => {
-    console.log(status);
+  updateFlash = status => {
     this.props.editTeaFlash(status);
   };
 
@@ -20,8 +19,7 @@ class TeaDetailsContainer extends Component {
       <TeaDetails
         tea={this.props.tea}
         flash={this.props.flash}
-        clickHandler={this.clickHandler}
-        updateFlash={this.props.updateFlash}
+        updateFlash={this.updateFlash}
       />
     );
   }

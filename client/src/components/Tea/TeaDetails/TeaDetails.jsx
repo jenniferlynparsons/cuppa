@@ -10,7 +10,7 @@ export const TeaDetails = React.memo(props => {
           <button
             data-testid="flash"
             className="delete"
-            onClick={() => props.clickHandler("off")}
+            onClick={() => props.updateFlash("off")}
           />
           {props.tea.name} has been succesfully updated.
         </div>
@@ -28,7 +28,11 @@ export const TeaDetails = React.memo(props => {
           {props.tea.servings}
         </li>
       </ul>
-      <Link to={"/update-tea/" + props.tea.id} className="button">
+      <Link
+        to={"/update-tea/" + props.tea.id}
+        className="button"
+        data-testid="teaeditlink"
+      >
         Edit
       </Link>
     </div>

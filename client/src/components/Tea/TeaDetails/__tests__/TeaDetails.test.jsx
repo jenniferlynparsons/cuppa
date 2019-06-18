@@ -46,20 +46,20 @@ const flashTea = { ...basicTea, flash: "on" };
 
 afterEach(cleanup);
 
-// describe("TeaDetailsContainer rendering", () => {
-//   test("renders the component without errors", () => {
-//     let store = makeMockStore(basicTea);
-//     const { getByTestId } = renderWithRouter(
-//       <TeaDetailsContainer
-//         store={store}
-//         match={{
-//           params: { id: "25070e52-e635-4883-ae9b-583113573b9f" }
-//         }}
-//       />
-//     );
-//     expect(getByTestId("teadetails")).toBeTruthy();
-//   });
-// });
+describe("TeaDetailsContainer rendering", () => {
+  test("renders the component without errors", () => {
+    let store = makeMockStore(basicTea);
+    const { getByTestId } = renderWithRouter(
+      <TeaDetailsContainer
+        store={store}
+        match={{
+          params: { id: "25070e52-e635-4883-ae9b-583113573b9f" }
+        }}
+      />
+    );
+    expect(getByTestId("teadetails")).toBeTruthy();
+  });
+});
 
 describe("teaDetailsContainer flash", () => {
   let store;
@@ -67,7 +67,21 @@ describe("teaDetailsContainer flash", () => {
     store = makeMockStore(flashTea);
   });
 
-  // test("tea detail renders with flash message after update", () => {
+  test("tea detail renders with flash message after update", () => {
+    const { getByTestId } = renderWithRouter(
+      <TeaDetailsContainer
+        store={store}
+        match={{
+          params: { id: "25070e52-e635-4883-ae9b-583113573b9f" }
+        }}
+      />
+    );
+    expect(getByTestId("flash")).toBeTruthy();
+  });
+
+  // TODO find a way to mock the updateFlash function that is inside the TeaDetailsContainer class
+  // test("user clicks on delete flash fires click handler", async () => {
+  //   const updateFlash = jest.fn();
   //   const { getByTestId } = renderWithRouter(
   //     <TeaDetailsContainer
   //       store={store}
@@ -77,10 +91,15 @@ describe("teaDetailsContainer flash", () => {
   //     />
   //   );
   //   expect(getByTestId("flash")).toBeTruthy();
+  //   fireEvent.click(getByTestId("flash"));
+  //   await expect(updateFlash).toHaveBeenCalled();
   // });
+});
 
-  test("user clicks on delete flash clears flash message", async () => {
-    const { getByTestId, queryByTestId, debug } = renderWithRouter(
+describe("teaDetailsContainer interactions", () => {
+  test("user clicks edit to update tea", () => {
+    let store = makeMockStore(basicTea);
+    const { getByTestId, history } = renderWithRouter(
       <TeaDetailsContainer
         store={store}
         match={{
@@ -88,15 +107,9 @@ describe("teaDetailsContainer flash", () => {
         }}
       />
     );
-    expect(getByTestId("flash")).toBeTruthy();
-    fireEvent.click(getByTestId("flash"));
-    debug();
-    await wait(expect(queryByTestId("flash")).toBeNull());
-  });
-});
-
-describe("teaDetailsContainer interactions", () => {
-  test("user clicks edit to update tea", () => {
-    // expect().toBeTruthy();
+    fireEvent.click(getByTestId("teaeditlink"));
+    expect(history.entries[1].pathname).toEqual(
+      "/update-tea/25070e52-e635-4883-ae9b-583113573b9f"
+    );
   });
 });
