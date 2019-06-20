@@ -4,6 +4,7 @@ const InputField = React.memo(props => {
   return (
     <div className="control" data-testid="inputfield">
       <input
+        data-testid={props.datatestid}
         className={props.className}
         id={props.id}
         name={props.name}

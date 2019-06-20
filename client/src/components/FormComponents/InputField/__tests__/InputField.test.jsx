@@ -16,7 +16,7 @@ const defaultProps = {
 
 describe("InputField rendering", () => {
   test("index field renders without errors", () => {
-    const { getByTestId } = render(<InputField {...defaultProps} />);
-    expect(getByTestId("inputfield")).toBeTruthy();
+    const { queryByTestId } = render(<InputField {...defaultProps} />);
+    expect(queryByTestId("inputfield")).toBeTruthy();
   });
 });

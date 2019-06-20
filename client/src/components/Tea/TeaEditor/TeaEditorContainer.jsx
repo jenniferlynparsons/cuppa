@@ -112,7 +112,6 @@ export class TeaEditorContainer extends React.Component {
         this.props.currentTea.id !== prevProps.currentTea.id)
     ) {
       this.setState({
-        teas: this.props.teas,
         teaID: this.props.currentTea.id,
         name: this.props.currentTea.name,
         brand: this.props.currentTea.brand,
@@ -129,7 +128,6 @@ export class TeaEditorContainer extends React.Component {
   render() {
     return (
       <TeaEditor
-        teas={this.props.teas}
         teaTypes={this.props.teaTypes}
         name={this.state.name}
         brand={this.state.brand}
@@ -153,7 +151,6 @@ export class TeaEditorContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    teas: state.teas,
     teaTypes: state.teaTypes,
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id]
@@ -171,3 +168,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TeaEditorContainer);
+
+export const TeaEditorContainerClass = TeaEditorContainer;
