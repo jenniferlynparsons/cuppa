@@ -43,3 +43,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TeaDetailsContainer);
+
+export const TeaDetailsContainerClass = TeaDetailsContainer;
