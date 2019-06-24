@@ -10,7 +10,7 @@ library.add(faAngleDown, faAngleUp);
 export class TeaCollectionTable extends React.PureComponent {
   render() {
     return (
-      <div className="container">
+      <div className="container" data-testid="teacollection">
         <div className="columns is-pulled-right">
           <form onSubmit={this.props.handleFilterClick}>
             <div className="field has-addons">
@@ -106,16 +106,21 @@ export class TeaCollectionTable extends React.PureComponent {
               return (
                 <tr key={tea.id}>
                   <td>
-                    <Link to={"tea/" + tea.id}>{tea.name}</Link>
+                    <Link to={"tea/" + tea.id} data-testid="detailslink">
+                      {tea.name}
+                    </Link>
                   </td>
                   <td>{tea.brand}</td>
                   <td>{tea.teaType}</td>
                   <td>{tea.servings}</td>
                   <td>
-                    <Link to={"/update-tea/" + tea.id}>Edit</Link>
+                    <Link to={"/update-tea/" + tea.id} data-testid="editlink">
+                      Edit
+                    </Link>
                   </td>
                   <td>
                     <button
+                      data-testid="deletelink"
                       className="button is-danger is-small"
                       onClick={() => this.props.handleDeleteClick(tea.id)}
                     >

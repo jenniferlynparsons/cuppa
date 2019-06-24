@@ -217,3 +217,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TeaCollectionTableContainer);
+
+export const TeaCollectionTableContainerClass = TeaCollectionTableContainer;
