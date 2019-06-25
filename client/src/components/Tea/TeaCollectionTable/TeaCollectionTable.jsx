@@ -26,6 +26,7 @@ export class TeaCollectionTable extends React.PureComponent {
                     </option>
                     {this.props.columnHeaders.map(colHeaderObj => (
                       <option
+                        data-testid={"filter" + colHeaderObj.colName}
                         key={colHeaderObj.colName}
                         value={colHeaderObj.colName}
                       >
@@ -36,6 +37,7 @@ export class TeaCollectionTable extends React.PureComponent {
                 </span>
               </div>
               <InputField
+                datatestid="filterinput"
                 className="input is-small"
                 name="filterCriteria"
                 type="text"
@@ -46,7 +48,11 @@ export class TeaCollectionTable extends React.PureComponent {
                 datalist={this.props.datalist}
               />
               <div className="control">
-                <button type="submit" className="button is-small">
+                <button
+                  data-testid="filterbutton"
+                  type="submit"
+                  className="button is-small"
+                >
                   Filter
                 </button>
               </div>
@@ -70,6 +76,7 @@ export class TeaCollectionTable extends React.PureComponent {
                 <th key={colHeaderObj.colName}>
                   {colHeaderObj.colTitle + " "}
                   <button
+                    data-testid={colHeaderObj.colName}
                     className="button is-small"
                     type="button"
                     aria-pressed="false"
