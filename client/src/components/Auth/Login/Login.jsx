@@ -19,7 +19,6 @@ class Login extends Component {
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
-      console.log(typeof history);
       this.props.history.push("/dashboard");
     }
   }
@@ -53,7 +52,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="container content" data-test-id="login-component">
+      <div className="container content" data-testid="login">
         <Link to="/">Back to home</Link>
         <h1>Login</h1>
         <p>
@@ -64,6 +63,7 @@ class Login extends Component {
             <label className="label">Email</label>
             <div className="control">
               <input
+                data-testid="email"
                 onChange={this.onChange}
                 value={this.state.email}
                 error={this.state.errors.email}
@@ -82,6 +82,7 @@ class Login extends Component {
           <div className="field">
             <label className="label">Password</label>
             <input
+              data-testid="password"
               onChange={this.onChange}
               value={this.state.password}
               error={this.state.errors.password}
@@ -98,7 +99,11 @@ class Login extends Component {
           </div>
           <div className="field">
             <div className="control">
-              <button type="submit" className="button is-primary">
+              <button
+                type="submit"
+                className="button is-primary"
+                data-testid="submit"
+              >
                 Login
               </button>
             </div>

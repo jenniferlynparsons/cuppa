@@ -16,6 +16,7 @@ class NavBar extends Component {
         className="navbar is-dark"
         role="navigation"
         aria-label="main navigation"
+        data-testid="navbar"
       >
         <div className="navbar-brand">
           <Link
@@ -43,6 +44,7 @@ class NavBar extends Component {
                   <button
                     className="button is-small is-dark"
                     onClick={this.onLogoutClick}
+                    data-testid="logout"
                   >
                     Logout
                   </button>

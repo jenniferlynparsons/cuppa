@@ -56,7 +56,7 @@ class Register extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="container content">
+      <div className="container content" data-testid="register">
         <Link to="/">Back to home</Link>
         <h1>Register</h1>
         <p>
@@ -67,6 +67,7 @@ class Register extends Component {
             <label className="label">Name</label>
             <div className="control">
               <input
+                data-testid="name"
                 onChange={this.onChange}
                 value={this.state.name}
                 error={errors.name}
@@ -83,6 +84,7 @@ class Register extends Component {
             <label className="label">Email</label>
             <div className="control">
               <input
+                data-testid="email"
                 onChange={this.onChange}
                 value={this.state.email}
                 error={errors.email}
@@ -99,6 +101,7 @@ class Register extends Component {
             <label className="label">Password</label>
             <div className="control">
               <input
+                data-testid="password"
                 onChange={this.onChange}
                 value={this.state.password}
                 error={errors.password}
@@ -115,6 +118,7 @@ class Register extends Component {
             <label className="label">Confirm Password</label>
             <div className="control">
               <input
+                data-testid="password2"
                 onChange={this.onChange}
                 value={this.state.password2}
                 error={errors.password2}
@@ -128,7 +132,11 @@ class Register extends Component {
             <span className="help is-danger">{errors.password2}</span>
           </div>
           <div className="field">
-            <button type="submit" className="button is-primary">
+            <button
+              type="submit"
+              className="button is-primary"
+              data-testid="submit"
+            >
               Sign up
             </button>
           </div>
