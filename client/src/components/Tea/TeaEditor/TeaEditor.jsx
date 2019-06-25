@@ -5,19 +5,21 @@ import InputField from "../../FormComponents/InputField";
 
 export const TeaEditor = React.memo(props => {
   return (
-    <div className="container">
+    <div className="container" data-testid="teaeditor">
       {props.flash.name && (
-        <div className="notification is-success">
+        <div className="notification is-success" data-testid="flash">
           {props.flash.name} has been succesfully saved.{" "}
           <Link to={"../../tea/" + props.flash.teaID}>View details</Link>
         </div>
       )}
 
-      <form onSubmit={props.handleFormSubmit}>
+      <form onSubmit={props.handleFormSubmit} data-testid="teaeditorform">
         <div className="field">
           <label htmlFor="name">
             Tea Name
             <InputField
+              datatestid="name"
+              name="name"
               className="input"
               type="text"
               id="name"
@@ -33,6 +35,8 @@ export const TeaEditor = React.memo(props => {
             Tea Brand
             <div className="control">
               <InputField
+                datatestid="brand"
+                name="brand"
                 className="input"
                 type="text"
                 id="brand"
@@ -51,6 +55,8 @@ export const TeaEditor = React.memo(props => {
             <div className="control">
               <div className="select">
                 <select
+                  data-testid="type"
+                  name="type"
                   disabled={!props.teaTypes.length}
                   id="type"
                   value={props.teaType}
@@ -73,6 +79,8 @@ export const TeaEditor = React.memo(props => {
             Servings Available
             <div className="control">
               <InputField
+                datatestid="servings"
+                name="servings"
                 className="input"
                 type="number"
                 id="servings"
@@ -86,6 +94,7 @@ export const TeaEditor = React.memo(props => {
         </div>
         <div className="control">
           <button
+            data-testid="submit"
             className="button is-primary"
             onClick={props.handleSubmitButton}
           >

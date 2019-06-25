@@ -156,6 +156,9 @@ export class TeaCollectionTableContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
+    this.setState({
+      sortedIDs: this.props.teas.teaIDs
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -164,15 +167,7 @@ export class TeaCollectionTableContainer extends React.Component {
       this.props.teas.teaIDs !== prevProps.teas.teaIDs
     ) {
       this.setState({
-        sortedIDs: this.props.teas.teaIDs,
-        memoizedIDs: {},
-        sortColumn: "",
-        sortOrder: "",
-        formControls: {
-          filterCategory: "",
-          filterCriteria: ""
-        },
-        filtered: false
+        sortedIDs: this.props.teas.teaIDs
       });
     }
   }
@@ -217,3 +212,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TeaCollectionTableContainer);
+
+export const TeaCollectionTableContainerClass = TeaCollectionTableContainer;
