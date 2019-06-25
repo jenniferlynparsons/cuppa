@@ -17,6 +17,7 @@ export class TeaCollectionTable extends React.PureComponent {
               <div className="control">
                 <span className="select is-small">
                   <select
+                    data-testid="filterselect"
                     name="filterCategory"
                     value={this.props.formControls.filterCategory}
                     onChange={this.props.filterDropdownChangeHandler}
@@ -26,7 +27,6 @@ export class TeaCollectionTable extends React.PureComponent {
                     </option>
                     {this.props.columnHeaders.map(colHeaderObj => (
                       <option
-                        data-testid={"filter" + colHeaderObj.colName}
                         key={colHeaderObj.colName}
                         value={colHeaderObj.colName}
                       >
@@ -61,6 +61,7 @@ export class TeaCollectionTable extends React.PureComponent {
           {this.props.filtered && (
             <div className="control">
               <button
+                data-testid="clearfilterbutton"
                 className="button is-primary is-small"
                 onClick={this.props.handleClearFilterClick}
               >

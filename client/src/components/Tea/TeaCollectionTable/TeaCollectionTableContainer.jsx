@@ -86,11 +86,9 @@ export class TeaCollectionTableContainer extends React.Component {
         dataList: dataListOptions
       });
     }
-    console.log("hey");
   };
 
   filterInputChangeHandler = event => {
-    console.log("hello");
     let value = event.target.value;
     this.setState(state => ({
       formControls: {
@@ -141,7 +139,6 @@ export class TeaCollectionTableContainer extends React.Component {
         filtered: true
       });
     }
-    console.log("yo");
   };
 
   handleClearFilterClick = () => {

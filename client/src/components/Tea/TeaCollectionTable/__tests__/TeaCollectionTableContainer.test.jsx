@@ -103,12 +103,11 @@ describe("TeaCollectionTableContainerClass interactions", () => {
   });
 
   describe("filtering", () => {
-    test.only("user can filter by name", () => {
-      const { queryAllByTestId, getByTestId, debug } = renderWithRouter(
+    test("user can filter by alpha character criteria", () => {
+      const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
-      // debug();
-      fireEvent.change(getByTestId("filterbrand"), {
+      fireEvent.change(getByTestId("filterselect"), {
         target: {
           value: "brand"
         }
@@ -119,27 +118,68 @@ describe("TeaCollectionTableContainerClass interactions", () => {
         }
       });
       fireEvent.click(getByTestId("filterbutton"));
-      // expect "Green Dragon" to not be listed
-      // console.log(queryAllByTestId("detailslink"));
       expect(queryAllByTestId("detailslink").length).toEqual(2);
     });
-    test("user can clear filter", () => {
-      const { getByTestId } = renderWithRouter(
+    test("user can filter by number criteria", () => {
+      const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
-      // expect "Green Dragon" to be listed
+      fireEvent.change(getByTestId("filterselect"), {
+        target: {
+          value: "servings"
+        }
+      });
+      fireEvent.change(getByTestId("filterinput"), {
+        target: {
+          value: "22"
+        }
+      });
+      fireEvent.click(getByTestId("filterbutton"));
+      expect(queryAllByTestId("detailslink").length).toEqual(1);
+    });
+    test("user can clear filter", () => {
+      const { queryAllByTestId, getByTestId } = renderWithRouter(
+        <TeaCollectionTableContainerClass {...mockDefaultProps} />
+      );
+      fireEvent.change(getByTestId("filterselect"), {
+        target: {
+          value: "brand"
+        }
+      });
+      fireEvent.change(getByTestId("filterinput"), {
+        target: {
+          value: "Celestial Seasonings"
+        }
+      });
+      fireEvent.click(getByTestId("filterbutton"));
+      expect(queryAllByTestId("detailslink").length).toEqual(2);
+
+      fireEvent.click(getByTestId("clearfilterbutton"));
+      expect(queryAllByTestId("detailslink").length).toEqual(3);
     });
     test("if user does not choose filter category, filter does not work", () => {
-      const { getByTestId } = renderWithRouter(
+      const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
-      // expect "Green Dragon" to be listed
+      fireEvent.change(getByTestId("filterinput"), {
+        target: {
+          value: "Celestial Seasonings"
+        }
+      });
+      fireEvent.click(getByTestId("filterbutton"));
+      expect(queryAllByTestId("detailslink").length).toEqual(3);
     });
     test("if user does not enter filter criteria, filter does not work", () => {
-      const { getByTestId } = renderWithRouter(
+      const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
-      // expect "Green Dragon" to be listed
+      fireEvent.change(getByTestId("filterselect"), {
+        target: {
+          value: "brand"
+        }
+      });
+      fireEvent.click(getByTestId("filterbutton"));
+      expect(queryAllByTestId("detailslink").length).toEqual(3);
     });
   });
 });
