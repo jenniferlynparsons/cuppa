@@ -2,7 +2,8 @@ import React from "react";
 import { fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
-import dataFixture from "../../../../test/__fixtures__/dataFixture";
+import teaFixture from "../../../../test/__fixtures__/teaFixture";
+import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import TeaDetailsContainer from "../TeaDetailsContainer";
 import { TeaDetailsContainerClass } from "../TeaDetailsContainer";
 
@@ -15,7 +16,7 @@ beforeEach(() => {
 
 describe("TeaDetailsContainer rendering", () => {
   test("renders the component with redux without errors", () => {
-    let store = makeMockStore(dataFixture.basicStore);
+    let store = makeMockStore(storeFixture.basicStore);
     const { queryByTestId } = renderWithRouter(
       <TeaDetailsContainer
         store={store}
@@ -34,7 +35,7 @@ describe("TeaDetailsContainer flash", () => {
       <TeaDetailsContainerClass
         getTeas={mockFunc}
         editTeaFlash={mockTeaFlash}
-        tea={dataFixture.basicTea}
+        tea={teaFixture.basicTea}
         flash={"on"}
       />
     );
@@ -46,7 +47,7 @@ describe("TeaDetailsContainer flash", () => {
       <TeaDetailsContainerClass
         getTeas={mockFunc}
         editTeaFlash={mockTeaFlash}
-        tea={dataFixture.basicTea}
+        tea={teaFixture.basicTea}
         flash={"on"}
       />
     );
@@ -61,7 +62,7 @@ describe("teaDetails interactions", () => {
       <TeaDetailsContainerClass
         getTeas={mockFunc}
         editTeaFlash={mockTeaFlash}
-        tea={dataFixture.basicTea}
+        tea={teaFixture.basicTea}
         flash={"on"}
       />
     );

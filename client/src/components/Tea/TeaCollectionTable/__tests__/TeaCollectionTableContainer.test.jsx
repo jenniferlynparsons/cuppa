@@ -4,6 +4,8 @@ import { fireEvent, wait } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
+import storeFixture from "../../../../test/__fixtures__/storeFixture";
+import teaFixture from "../../../../test/__fixtures__/teaFixture";
 import TeaCollectionTableContainer from "../TeaCollectionTableContainer";
 import { TeaCollectionTableContainerClass } from "../TeaCollectionTableContainer";
 
@@ -13,23 +15,23 @@ let mockDefaultProps;
 
 beforeEach(() => {
   mockGetTeas = jest.fn(() => {
-    return dataFixture.basicStore;
+    return storeFixture.basicStore;
   });
   mockDeleteTea = jest.fn(() => {
-    return dataFixture.deletedStore;
+    return storeFixture.deletedStore;
   });
   mockDefaultProps = {
     getTeas: mockGetTeas,
     deleteTea: mockDeleteTea,
-    teaTypes: dataFixture.teaTypes,
-    teas: dataFixture.basicStore.teas,
-    userID: dataFixture.userID
+    teaTypes: teaFixture.teaTypes,
+    teas: storeFixture.basicStore.teas,
+    userID: dataFixture.mockUserID
   };
 });
 
 describe("TeaCollectionTableContainer rendering", () => {
   test("renders the component with redux without errors", () => {
-    let store = makeMockStore(dataFixture.basicStore);
+    let store = makeMockStore(storeFixture.basicStore);
     const { queryByTestId } = renderWithRouter(
       <TeaCollectionTableContainer store={store} />
     );
