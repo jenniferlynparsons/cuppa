@@ -19,10 +19,10 @@ class Landing extends Component {
             the data may be wiped at any time.
           </p>
           <p>
-            You're free to register an account, but that might get wiped, too.
+            You&apos;re free to register an account, but that might get wiped, too.
           </p>
           <p>
-            Basically, everything is volatile on this site and you shouldn't
+            Basically, everything is volatile on this site and you shouldn&apos;t
             depend on it to actually store your teas yet.
           </p>
           <h4>
@@ -32,6 +32,7 @@ class Landing extends Component {
               href="https://github.com/jenniferlynparsons/cuppa"
               nofollow="true"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Github
             </a>

@@ -1,8 +1,7 @@
 import React from "react";
 import { makeMockStore } from "../../../test/testUtils";
-import { render, fireEvent, wait } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "../../../test/routerTestUtils";
-import { Redirect } from "react-router-dom";
 import Dashboard from "../Dashboard";
 
 jest.mock("react-router-dom", () => {

@@ -33,7 +33,7 @@ class NavBar extends Component {
               Tea Collection
             </Link>
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">My Account</a>
+              <a className="navbar-link" href="/">My Account</a>
 
               <div className="navbar-dropdown">
                 <Link className="navbar-item" to={"/dashboard"}>

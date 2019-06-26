@@ -11,7 +11,10 @@
     "react/prop-types": 0,
     "jsx-a11y/label-has-for": 0,
     "jsx-a11y/accessible-emoji": 0,
-    "no-console": 1
+    "no-console": 1,
+    "import/no-unresolved": "off",
+    "no-console": "off",
+    "react/display-name": "off"
   },
   "plugins": ["react", "import", "jsx-a11y"],
   "parser": "babel-eslint",

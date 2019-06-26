@@ -2,8 +2,8 @@ import React from "react";
 import { makeMockStore } from "../../../../test/testUtils";
 import { fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
-import Login from "../Login";
-import { LoginComponent } from "../Login";
+import LoginContainer from "../LoginContainer";
+import { LoginContainerComponent } from "../LoginContainer";
 
 const defaultProps = {
   auth: {
@@ -16,7 +16,7 @@ const defaultProps = {
 describe("Login rendering", () => {
   test("login renders without error", () => {
     const store = makeMockStore(defaultProps);
-    const { queryByTestId } = renderWithRouter(<Login store={store} />);
+    const { queryByTestId } = renderWithRouter(<LoginContainer store={store} />);
     expect(queryByTestId("login")).toBeTruthy();
   });
 });
@@ -25,7 +25,7 @@ describe("Login form updates", () => {
   test("onSubmit submits the form with valid data", () => {
     let mockHandleSubmit = jest.fn();
     const { getByTestId } = renderWithRouter(
-      <LoginComponent
+      <LoginContainerComponent
         auth={defaultProps}
         errors={""}
         handleSubmit={mockHandleSubmit}
