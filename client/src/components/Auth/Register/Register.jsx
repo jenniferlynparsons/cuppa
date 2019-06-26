@@ -1,60 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { registerUser } from "../../../actions/authActions";
 import classnames from "classnames";
 
-class Register extends Component {
-  state = {
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
-    errors: {
-      name: "",
-      email: "",
-      emailnotfound: "",
-      password: "",
-      password2: "",
-      passwordincorrect: ""
-    }
-  };
-
-  componentDidMount() {
-    // If logged in and user navigates to Register page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
-    }
-  }
-
-  onChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
-
-  onSubmit = e => {
-    e.preventDefault();
-
-    const newUser = {
-      name: this.state.name,
-      email: this.state.email,
-      password: this.state.password,
-      password2: this.state.password2
-    };
-
-    this.props.registerUser(newUser, this.props.history);
-  };
-
+class RegisterContainer extends React.PureComponent {
   render() {
-    const { errors } = this.state;
-
     return (
       <div className="container content" data-testid="register">
         <Link to="/">Back to home</Link>
@@ -62,15 +11,17 @@ class Register extends Component {
         <p>
           Already have an account? <Link to="/login">Log in</Link>
         </p>
-        <form noValidate={true} onSubmit={this.onSubmit}>
+        <form noValidate={true} onSubmit={this.props.onSubmit}>
           <div className="field">
-            <label className="label">Name</label>
+            <label className="label" htmlFor="name">
+              Name
+            </label>
             <div className="control">
               <input
                 data-testid="name"
-                onChange={this.onChange}
-                value={this.state.name}
-                error={errors.name}
+                onChange={this.props.onChange}
+                value={this.props.name}
+                error={this.props.errors.name}
                 id="name"
                 type="text"
                 className={classnames("input", {
@@ -78,16 +29,18 @@ class Register extends Component {
                 })}
               />
             </div>
-            <span className="help is-danger">{errors.name}</span>
+            <span className="help is-danger">{this.props.errors.name}</span>
           </div>
           <div className="field">
-            <label className="label">Email</label>
+            <label className="label" htmlFor="email">
+              Email
+            </label>
             <div className="control">
               <input
                 data-testid="email"
-                onChange={this.onChange}
-                value={this.state.email}
-                error={errors.email}
+                onChange={this.props.onChange}
+                value={this.props.email}
+                error={this.props.errors.email}
                 id="email"
                 type="email"
                 className={classnames("input", {
@@ -95,16 +48,18 @@ class Register extends Component {
                 })}
               />
             </div>
-            <span className="help is-danger">{errors.email}</span>
+            <span className="help is-danger">{this.props.errors.email}</span>
           </div>
           <div className="field">
-            <label className="label">Password</label>
+            <label className="label" htmlFor="password">
+              Password
+            </label>
             <div className="control">
               <input
                 data-testid="password"
-                onChange={this.onChange}
-                value={this.state.password}
-                error={errors.password}
+                onChange={this.props.onChange}
+                value={this.props.password}
+                error={this.props.errors.password}
                 id="password"
                 type="password"
                 className={classnames("input", {
@@ -112,16 +67,18 @@ class Register extends Component {
                 })}
               />
             </div>
-            <span className="help is-danger">{errors.password}</span>
+            <span className="help is-danger">{this.props.errors.password}</span>
           </div>
           <div className="field">
-            <label className="label">Confirm Password</label>
+            <label className="label" htmlFor="password2">
+              Confirm Password
+            </label>
             <div className="control">
               <input
                 data-testid="password2"
-                onChange={this.onChange}
-                value={this.state.password2}
-                error={errors.password2}
+                onChange={this.props.onChange}
+                value={this.props.password2}
+                error={this.props.errors.password2}
                 id="password2"
                 type="password"
                 className={classnames("input", {
@@ -129,7 +86,9 @@ class Register extends Component {
                 })}
               />
             </div>
-            <span className="help is-danger">{errors.password2}</span>
+            <span className="help is-danger">
+              {this.props.errors.password2}
+            </span>
           </div>
           <div className="field">
             <button
@@ -146,14 +105,4 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { registerUser }
-)(Register);
-
-export const RegisterComponent = Register;
+export default RegisterContainer;

@@ -1,14 +1,9 @@
 import React from "react";
 import { makeMockStore } from "../../../../test/testUtils";
-import { fireEvent, wait } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
-import Register from "../Register";
-import { RegisterComponent } from "../Register";
-
-const mockResponse = {
-  success: true,
-  token: "Bearer 5cCI6IkpXVCJ9.oxNTkwNTI4NjA3fQ.1Nd3GGE8"
-};
+import RegisterContainer from "../RegisterContainer";
+import { RegisterContainerComponent } from "../RegisterContainer";
 
 const defaultProps = {
   auth: {
@@ -21,7 +16,9 @@ const defaultProps = {
 describe("Register rendering", () => {
   test("Register renders without error", () => {
     const store = makeMockStore(defaultProps);
-    const { queryByTestId } = renderWithRouter(<Register store={store} />);
+    const { queryByTestId } = renderWithRouter(
+      <RegisterContainer store={store} />
+    );
 
     expect(queryByTestId("register")).toBeTruthy();
   });
@@ -31,7 +28,7 @@ describe("Register form updates", () => {
   test("onSubmit submits the form with valid data", () => {
     let mockRegisterUser = jest.fn();
     const { getByTestId } = renderWithRouter(
-      <RegisterComponent
+      <RegisterContainerComponent
         auth={defaultProps}
         errors={""}
         registerUser={mockRegisterUser}
