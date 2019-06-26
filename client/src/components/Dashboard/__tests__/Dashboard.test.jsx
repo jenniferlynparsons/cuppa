@@ -1,6 +1,6 @@
 import React from "react";
 import { makeMockStore } from "../../../test/testUtils";
-import { render, cleanup, fireEvent, wait } from "@testing-library/react";
+import { render, fireEvent, wait } from "@testing-library/react";
 import { renderWithRouter } from "../../../test/routerTestUtils";
 import { Redirect } from "react-router-dom";
 import Dashboard from "../Dashboard";
@@ -25,8 +25,6 @@ const initialState = {
     }
   }
 };
-
-afterEach(cleanup);
 
 let store;
 beforeEach(() => {

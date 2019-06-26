@@ -1,7 +1,7 @@
 import React from "react";
 import "jest-dom/extend-expect";
-import { cleanup, fireEvent } from "@testing-library/react";
-import { renderWithRouter } from "../../../../test/routerTestUtil";
+import { fireEvent } from "@testing-library/react";
+import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import TeaEditorContainer from "../TeaEditorContainer";
@@ -29,7 +29,6 @@ beforeEach(() => {
     return dataFixture.updatedStore;
   });
 });
-afterEach(cleanup);
 
 describe("TeaEditorContainer rendering", () => {
   test("renders the component with redux without errors", () => {

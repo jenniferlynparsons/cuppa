@@ -1,6 +1,6 @@
 import React from "react";
-import { cleanup, fireEvent } from "@testing-library/react";
-import { renderWithRouter } from "../../../../test/routerTestUtil";
+import { fireEvent } from "@testing-library/react";
+import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import TeaDetailsContainer from "../TeaDetailsContainer";
@@ -12,7 +12,6 @@ beforeEach(() => {
   mockFunc = jest.fn();
   mockTeaFlash = jest.fn();
 });
-afterEach(cleanup);
 
 describe("TeaDetailsContainer rendering", () => {
   test("renders the component with redux without errors", () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import "jest-dom/extend-expect";
-import { cleanup, fireEvent } from "@testing-library/react";
-import { renderWithRouter } from "../../../../test/routerTestUtil";
+import { fireEvent } from "@testing-library/react";
+import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import TeaCollectionTableContainer from "../TeaCollectionTableContainer";
@@ -26,8 +26,6 @@ beforeEach(() => {
     userID: dataFixture.userID
   };
 });
-
-afterEach(cleanup);
 
 describe("TeaCollectionTableContainer rendering", () => {
   test("renders the component with redux without errors", () => {

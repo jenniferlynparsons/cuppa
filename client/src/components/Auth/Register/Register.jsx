@@ -155,3 +155,5 @@ export default connect(
   mapStateToProps,
   { registerUser }
 )(Register);
+
+export const RegisterComponent = Register;

@@ -113,6 +113,9 @@
       "jsx"
     ],
     "setupFiles": [],
+    "setupFilesAfterEnv": [
+      "@testing-library/react/cleanup-after-each"
+    ],
     "testEnvironment": "jsdom",
     "testMatch": [
       "**/__tests__/**/*.js?(x)",

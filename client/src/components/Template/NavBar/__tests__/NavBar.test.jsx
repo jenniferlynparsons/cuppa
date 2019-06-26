@@ -1,6 +1,6 @@
 import React from "react";
 import { makeMockStore } from "../../../../test/testUtils";
-import { cleanup, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
 import NavBar from "../NavBar";
 
@@ -11,8 +11,6 @@ const defaultProps = {
     loading: false
   }
 };
-
-afterEach(cleanup);
 
 let store;
 beforeEach(() => {

@@ -129,3 +129,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Login);
+
+export const LoginComponent = Login;
