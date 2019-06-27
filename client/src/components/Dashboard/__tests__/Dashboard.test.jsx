@@ -1,9 +1,9 @@
 import React from "react";
 import { makeMockStore } from "../../../test/testUtils";
-import { render, cleanup, fireEvent, wait } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "../../../test/routerTestUtils";
-import { Redirect } from "react-router-dom";
-import Dashboard from "../Dashboard";
+import DashboardContainer from "../DashboardContainer";
+import { DashboardContainerComponent } from "../DashboardContainer";
 
 jest.mock("react-router-dom", () => {
   const original = jest.requireActual("react-router-dom");
@@ -26,8 +26,7 @@ const initialState = {
   }
 };
 
-afterEach(cleanup);
-
+const mockLogoutUser = jest.fn();
 let store;
 beforeEach(() => {
   store = makeMockStore(initialState);
@@ -35,22 +34,22 @@ beforeEach(() => {
 
 describe("Dashboard rendering", () => {
   test("dashboard renders without error when logged in", () => {
-    const { getByTestId } = renderWithRouter(<Dashboard store={store} />);
+    const { getByTestId } = renderWithRouter(
+      <DashboardContainer store={store} />
+    );
     expect(getByTestId("dashboard")).toBeTruthy();
-  });
-
-  test("dashboard displays user name", () => {
-    const { getByText } = renderWithRouter(<Dashboard store={store} />);
-    expect(getByText(/Jennifer/)).toBeTruthy();
   });
 });
 
-// describe("Dashboard interaction", () => {
-//   test("dashboard logout click logs out user", async () => {
-//     const { getByTestId } = renderWithRouter(<Dashboard store={store} />);
-//     fireEvent.click(getByTestId("logout"));
-//     await wait(() => expect(Redirect).toHaveBeenCalledTimes(1));
-
-//     // expect(Redirect).toHaveBeenCalledWith({ to: "/login" }, {});
-//   });
-// });
+describe("Dashboard interaction", () => {
+  test("dashboard logout click logs out user", () => {
+    const { getByTestId } = renderWithRouter(
+      <DashboardContainerComponent
+        auth={initialState.auth}
+        logoutUser={mockLogoutUser}
+      />
+    );
+    fireEvent.click(getByTestId("logout"));
+    expect(mockLogoutUser).toHaveBeenCalled();
+  });
+});

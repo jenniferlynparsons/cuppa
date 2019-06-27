@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getTeas } from "../../../actions/teaActions";

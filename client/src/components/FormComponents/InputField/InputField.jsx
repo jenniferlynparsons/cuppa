@@ -2,7 +2,7 @@ import React from "react";
 
 const InputField = React.memo(props => {
   return (
-    <div className="control" data-testid="inputfield">
+    <div className="control">
       <input
         data-testid={props.datatestid}
         className={props.className}

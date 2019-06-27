@@ -20,7 +20,7 @@ export class TeaCollectionTable extends React.PureComponent {
                     data-testid="filterselect"
                     name="filterCategory"
                     value={this.props.formControls.filterCategory}
-                    onChange={this.props.filterDropdownChangeHandler}
+                    onBlur={this.props.filterDropdownChangeHandler}
                   >
                     <option key="category" value="">
                       Filter by
@@ -147,7 +147,7 @@ export class TeaCollectionTable extends React.PureComponent {
                   </td>
                 ) : (
                   <td>
-                    You don't have any teas yet! Why not{" "}
+                    You don&apos;t have any teas yet! Why not{" "}
                     <Link to={"/new-tea"}>add some</Link>?
                   </td>
                 )}

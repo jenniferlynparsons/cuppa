@@ -1,13 +1,15 @@
 import React from "react";
 import "jest-dom/extend-expect";
-import { cleanup, fireEvent } from "@testing-library/react";
-import { renderWithRouter } from "../../../../test/routerTestUtil";
+import { fireEvent } from "@testing-library/react";
+import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
+import storeFixture from "../../../../test/__fixtures__/storeFixture";
+import teaFixture from "../../../../test/__fixtures__/teaFixture";
 import TeaEditorContainer from "../TeaEditorContainer";
 import { TeaEditorContainerClass } from "../TeaEditorContainer";
 
-const mockHistory = {
+const history = {
   length: 10,
   action: "PUSH",
   location: { pathname: "/", search: "", hash: "", key: "zh4boo" },
@@ -23,22 +25,21 @@ beforeEach(() => {
   mockFunc = jest.fn();
   mockEditTeaFlash = jest.fn();
   mockAdd = jest.fn(() => {
-    return dataFixture.addedStore;
+    return storeFixture.addedStore;
   });
   mockEdit = jest.fn(() => {
-    return dataFixture.updatedStore;
+    return storeFixture.updatedStore;
   });
 });
-afterEach(cleanup);
 
 describe("TeaEditorContainer rendering", () => {
   test("renders the component with redux without errors", () => {
-    let store = makeMockStore(dataFixture.basicStore);
+    let store = makeMockStore(storeFixture.basicStore);
     const { queryByTestId } = renderWithRouter(
       <TeaEditorContainer
         store={store}
         match={{
-          params: { id: dataFixture.userID }
+          params: { id: dataFixture.mockUserID }
         }}
       />
     );
@@ -51,22 +52,22 @@ describe("teaEditor form submit", () => {
     const { getByTestId, queryByTestId } = renderWithRouter(
       <TeaEditorContainerClass
         getTeas={mockFunc}
-        teaTypes={dataFixture.teaTypes}
-        userID={dataFixture.userID}
+        teaTypes={teaFixture.teaTypes}
+        userID={dataFixture.mockUserID}
         currentTea={""}
         addTea={mockAdd}
       />
     );
     fireEvent.change(getByTestId("name"), {
-      target: { value: dataFixture.basicTea.name }
+      target: { value: teaFixture.basicTea.name }
     });
 
     fireEvent.change(getByTestId("brand"), {
-      target: { value: dataFixture.basicTea.brand }
+      target: { value: teaFixture.basicTea.brand }
     });
 
     fireEvent.change(getByTestId("type"), {
-      target: { value: dataFixture.basicTea.teaType }
+      target: { value: teaFixture.basicTea.teaType }
     });
 
     fireEvent.change(getByTestId("servings"), {
@@ -74,10 +75,10 @@ describe("teaEditor form submit", () => {
     });
 
     expect(getByTestId("teaeditorform")).toHaveFormValues({
-      name: dataFixture.basicTea.name,
-      brand: dataFixture.basicTea.brand,
+      name: teaFixture.basicTea.name,
+      brand: teaFixture.basicTea.brand,
       servings: 12,
-      type: dataFixture.basicTea.teaType
+      type: teaFixture.basicTea.teaType
     });
 
     fireEvent.click(getByTestId("submit"));
@@ -89,24 +90,24 @@ describe("teaEditor form submit", () => {
     const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass
         getTeas={mockFunc}
-        teaTypes={dataFixture.teaTypes}
-        userID={dataFixture.userID}
-        currentTea={dataFixture.basicTea}
+        teaTypes={teaFixture.teaTypes}
+        userID={dataFixture.mockUserID}
+        currentTea={teaFixture.basicTea}
         editTea={mockEdit}
         editTeaFlash={mockEditTeaFlash}
-        history={mockHistory}
+        history={history}
       />
     );
     fireEvent.change(getByTestId("brand"), {
-      target: { value: dataFixture.updatedTea.brand }
+      target: { value: teaFixture.updatedTea.brand }
     });
 
     expect(getByTestId("teaeditorform")).toHaveFormValues({
-      brand: dataFixture.updatedTea.brand
+      brand: teaFixture.updatedTea.brand
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(mockHistory.push).toHaveBeenCalledWith(
+    expect(history.push).toHaveBeenCalledWith(
       "/tea/1b1db861-0537-4b69-83d5-d9ee033530f8"
     );
   });

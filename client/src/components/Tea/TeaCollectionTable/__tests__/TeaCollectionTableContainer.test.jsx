@@ -1,9 +1,11 @@
 import React from "react";
 import "jest-dom/extend-expect";
-import { cleanup, fireEvent } from "@testing-library/react";
-import { renderWithRouter } from "../../../../test/routerTestUtil";
+import { fireEvent, wait } from "@testing-library/react";
+import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
+import storeFixture from "../../../../test/__fixtures__/storeFixture";
+import teaFixture from "../../../../test/__fixtures__/teaFixture";
 import TeaCollectionTableContainer from "../TeaCollectionTableContainer";
 import { TeaCollectionTableContainerClass } from "../TeaCollectionTableContainer";
 
@@ -13,25 +15,23 @@ let mockDefaultProps;
 
 beforeEach(() => {
   mockGetTeas = jest.fn(() => {
-    return dataFixture.basicStore;
+    return storeFixture.basicStore;
   });
   mockDeleteTea = jest.fn(() => {
-    return dataFixture.deletedStore;
+    return storeFixture.deletedStore;
   });
   mockDefaultProps = {
     getTeas: mockGetTeas,
     deleteTea: mockDeleteTea,
-    teaTypes: dataFixture.teaTypes,
-    teas: dataFixture.basicStore.teas,
-    userID: dataFixture.userID
+    teaTypes: teaFixture.teaTypes,
+    teas: storeFixture.basicStore.teas,
+    userID: dataFixture.mockUserID
   };
 });
 
-afterEach(cleanup);
-
 describe("TeaCollectionTableContainer rendering", () => {
   test("renders the component with redux without errors", () => {
-    let store = makeMockStore(dataFixture.basicStore);
+    let store = makeMockStore(storeFixture.basicStore);
     const { queryByTestId } = renderWithRouter(
       <TeaCollectionTableContainer store={store} />
     );
@@ -103,11 +103,11 @@ describe("TeaCollectionTableContainerClass interactions", () => {
   });
 
   describe("filtering", () => {
-    test("user can filter by alpha character criteria", () => {
+    test("user can filter by alpha character criteria", async () => {
       const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
-      fireEvent.change(getByTestId("filterselect"), {
+      fireEvent.blur(getByTestId("filterselect"), {
         target: {
           value: "brand"
         }
@@ -118,13 +118,15 @@ describe("TeaCollectionTableContainerClass interactions", () => {
         }
       });
       fireEvent.click(getByTestId("filterbutton"));
-      expect(queryAllByTestId("detailslink").length).toEqual(2);
+      await wait(() => {
+        expect(queryAllByTestId("detailslink").length).toEqual(2);
+      });
     });
     test("user can filter by number criteria", () => {
       const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
-      fireEvent.change(getByTestId("filterselect"), {
+      fireEvent.blur(getByTestId("filterselect"), {
         target: {
           value: "servings"
         }
@@ -134,6 +136,7 @@ describe("TeaCollectionTableContainerClass interactions", () => {
           value: "22"
         }
       });
+
       fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(1);
     });
@@ -141,7 +144,7 @@ describe("TeaCollectionTableContainerClass interactions", () => {
       const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
-      fireEvent.change(getByTestId("filterselect"), {
+      fireEvent.blur(getByTestId("filterselect"), {
         target: {
           value: "brand"
         }
@@ -151,6 +154,7 @@ describe("TeaCollectionTableContainerClass interactions", () => {
           value: "Celestial Seasonings"
         }
       });
+
       fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(2);
 
@@ -166,6 +170,7 @@ describe("TeaCollectionTableContainerClass interactions", () => {
           value: "Celestial Seasonings"
         }
       });
+
       fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(3);
     });
@@ -178,7 +183,8 @@ describe("TeaCollectionTableContainerClass interactions", () => {
           value: "brand"
         }
       });
-      fireEvent.click(getByTestId("filterbutton"));
+
+      fireEvent.blur(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(3);
     });
   });

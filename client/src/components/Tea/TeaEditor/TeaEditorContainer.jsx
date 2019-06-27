@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from "react";
 import uuidv4 from "uuid/v4";
 import { connect } from "react-redux";
@@ -59,7 +58,7 @@ export class TeaEditorContainer extends React.Component {
     });
   };
 
-  handleSubmitButton = e => {
+  handleSubmitButton = () => {
     if (!this.state.teaID) {
       this.setState({
         teaID: uuidv4()
