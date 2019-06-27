@@ -1,16 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { logoutUser } from "../../../actions/authActions";
 import "./NavBar.scss";
 
-class NavBar extends Component {
-  onLogoutClick = e => {
-    e.preventDefault();
-    this.props.logoutUser();
-  };
+class NavBar extends React.PureComponent {
   render() {
-    const isLoggedIn = this.props.auth.isAuthenticated;
     return (
       <nav
         className="navbar is-dark"
@@ -21,7 +14,7 @@ class NavBar extends Component {
         <div className="navbar-brand">
           <Link
             className="navbar-item"
-            to={isLoggedIn ? "/tea-collection" : "/"}
+            to={this.props.auth.isAuthenticated ? "/tea-collection" : "/"}
           >
             Cuppa
           </Link>
@@ -33,7 +26,9 @@ class NavBar extends Component {
               Tea Collection
             </Link>
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link" href="/">My Account</a>
+              <a className="navbar-link" href="/">
+                My Account
+              </a>
 
               <div className="navbar-dropdown">
                 <Link className="navbar-item" to={"/dashboard"}>
@@ -43,7 +38,7 @@ class NavBar extends Component {
                 <span className="navbar-item">
                   <button
                     className="button is-small is-dark"
-                    onClick={this.onLogoutClick}
+                    onClick={this.props.onLogoutClick}
                     data-testid="logout"
                   >
                     Logout
@@ -55,7 +50,9 @@ class NavBar extends Component {
               <li>
                 <Link
                   className={
-                    isLoggedIn ? "button is-primary" : "button is-disabled"
+                    this.props.auth.isAuthenticated
+                      ? "button is-primary"
+                      : "button is-disabled"
                   }
                   to={"/new-tea"}
                 >
@@ -70,11 +67,4 @@ class NavBar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export default connect(
-  mapStateToProps,
-  { logoutUser }
-)(NavBar);
+export default NavBar;

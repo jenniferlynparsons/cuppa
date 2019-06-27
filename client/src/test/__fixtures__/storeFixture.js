@@ -1,3 +1,19 @@
+const loggedOutStore = {
+  auth: {
+    isAuthenticated: false,
+    user: {},
+    loading: false
+  }
+};
+
+const loggedInStore = {
+  auth: {
+    isAuthenticated: false,
+    user: {},
+    loading: false
+  }
+};
+
 const basicStore = {
   auth: {
     isAuthenticated: true,
@@ -190,6 +206,8 @@ const deletedStore = {
 };
 
 const storeFixture = {
+  loggedOutStore,
+  loggedInStore,
   basicStore,
   addedStore,
   updatedStore,
