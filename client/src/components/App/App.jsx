@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import setAuthToken from "../../utils/setAuthToken";
+import setAuthToken from "../../lib/setAuthToken";
 import { setCurrentUser, logoutUser } from "../../actions/authActions";
 import { Provider } from "react-redux";
 import store from "../../store";
@@ -14,7 +14,7 @@ import Login from "../Auth/Login";
 import PrivateRoute from "../Auth/PrivateRoute/PrivateRoute";
 import Dashboard from "../Dashboard";
 import TeaEditor from "../Tea/TeaEditor";
-import TeaList from "../Tea/TeaList";
+import TeaCollectionTable from "../Tea/TeaCollectionTable";
 import TeaDetails from "../Tea/TeaDetails";
 // Styles
 import "bulma/bulma.sass";
@@ -46,7 +46,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div>
-            <NavBar />
+            <NavBar data-testid="navbar" />
             <section className="section">
               <div className="App">
                 <Route exact={true} path="/" component={Landing} />
@@ -56,7 +56,7 @@ class App extends Component {
                   <PrivateRoute
                     exact={true}
                     path="/tea-collection"
-                    component={TeaList}
+                    component={TeaCollectionTable}
                   />
                   <PrivateRoute
                     exact={true}

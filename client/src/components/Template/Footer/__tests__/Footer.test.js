@@ -1,8 +1,10 @@
 import React from "react";
-import { create } from "react-test-renderer";
+import { render } from "@testing-library/react";
 import Footer from "../";
 
-test("snapshot", () => {
-  const c = create(<Footer />);
-  expect(c.toJSON()).toMatchSnapshot();
+describe("footer rendering", () => {
+  test("footer renders without error", () => {
+    const { queryByTestId } = render(<Footer />);
+    expect(queryByTestId("footer")).toBeTruthy();
+  });
 });

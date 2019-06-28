@@ -1,104 +1,50 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { loginAction } from "../../../actions/authActions";
-import classnames from "classnames";
+import InputField from "../../FormComponents/InputField/InputField";
 
-class Login extends Component {
-  state = {
-    email: "",
-    password: "",
-    errors: {
-      email: "",
-      emailnotfound: "",
-      password: "",
-      passwordincorrect: ""
-    }
-  };
-
-  componentDidMount() {
-    // If logged in and user navigates to Login page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
-      console.log(typeof history);
-      this.props.history.push("/dashboard");
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
-
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
-    }
-  }
-
-  onChange = e => {
-    this.setState({ [e.currentTarget.id]: e.currentTarget.value });
-  };
-
-  onSubmit = e => {
-    e.preventDefault();
-
-    const userData = {
-      email: this.state.email,
-      password: this.state.password
-    };
-
-    this.props.handleSubmit(userData);
-  };
-
+export class Login extends React.PureComponent {
   render() {
     return (
-      <div className="container content">
+      <div className="container content" data-testid="login">
         <Link to="/">Back to home</Link>
         <h1>Login</h1>
         <p>
-          Don't have an account? <Link to="/register">Register</Link>
+          Don&apos;t have an account? <Link to="/register">Register</Link>
         </p>
-        <form noValidate={true} onSubmit={this.onSubmit}>
+        <form noValidate={true} onSubmit={this.props.onSubmit}>
           <div className="field">
-            <label className="label">Email</label>
-            <div className="control">
-              <input
-                onChange={this.onChange}
-                value={this.state.email}
-                error={this.state.errors.email}
-                id="email"
-                type="email"
-                className={classnames("input", {
-                  invalid: "input is-danger"
-                })}
-              />
-            </div>
-            <span className="help is-danger">
-              {this.state.errors.email}
-              {this.state.errors.emailnotfound}
-            </span>
+            <label className="label" htmlFor="email">
+              Email
+            </label>
+            <InputField
+              datatestid="email"
+              id="email"
+              type="email"
+              value={this.props.email}
+              className="input"
+              onChange={this.props.onChange}
+            />
           </div>
           <div className="field">
-            <label className="label">Password</label>
-            <input
-              onChange={this.onChange}
-              value={this.state.password}
-              error={this.state.errors.password}
+            <label className="label" htmlFor="password">
+              Password
+            </label>
+            <InputField
+              datatestid="password"
               id="password"
               type="password"
-              className={classnames("input", {
-                invalid: "input is-danger"
-              })}
+              value={this.props.password}
+              className="input"
+              onChange={this.props.onChange}
             />
-            <span className="help is-danger">
-              {this.state.errors.password}
-              {this.state.errors.passwordincorrect}
-            </span>
           </div>
           <div className="field">
             <div className="control">
-              <button type="submit" className="button is-primary">
+              <button
+                data-testid="submit"
+                type="submit"
+                className="button is-primary"
+              >
                 Login
               </button>
             </div>
@@ -108,19 +54,3 @@ class Login extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-});
-
-const mapDispatchToProps = dispatch => ({
-  handleSubmit: userData => {
-    dispatch(loginAction(userData));
-  }
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);

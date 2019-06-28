@@ -1,117 +1,56 @@
-import setAuthToken from "../utils/setAuthToken";
+import setAuthToken from "../lib/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { RSAA } from "redux-api-middleware";
-
-// Set the host to work with local dev or Heroku and avoid proxy CORS issues
-let backendHost;
-const hostname = window && window.location && window.location.hostname;
-
-if (hostname === "localhost") {
-  backendHost = "http://localhost:5000";
-} else {
-  backendHost = "";
-}
-const API_SERVER = `${backendHost}`;
+import API from "../lib/api";
+import { authActionTypes } from "../lib/actionTypes";
 
 // Login - get user token
-export function loginAction(userData) {
-  return {
-    [RSAA]: {
-      endpoint: `${API_SERVER}/api/users/login`,
-      method: "POST",
-      types: [
-        "REQUEST",
-        {
-          type: "SET_CURRENT_USER",
-          payload: async (_action, _state, res) => {
-            res = await res.json();
-            // Set token to localStorage
-            const { token } = res;
-            localStorage.setItem("jwtToken", token);
-            // Set token to Auth header
-            setAuthToken(token);
-            // Decode token to get user data
-            const decoded = jwt_decode(token);
-            console.log(decoded);
-            // Set current user
-            return decoded;
-          }
-        },
-        "FAILURE"
-      ],
-      body: JSON.stringify(userData),
-      headers: { "Content-Type": "application/json" }
-    }
+export const loginAction = userData => {
+  return dispatch => {
+    API.post("/users/login", userData).then(response => {
+      const { token } = response;
+      localStorage.setItem("jwtToken", token);
+      setAuthToken(token);
+      const decoded = jwt_decode(token);
+      //check that setCurrentUser is called with decoded
+      dispatch(authActions.setCurrentUser(decoded));
+    });
   };
-}
+};
 
 // Register User
-export function registerUser(userData, history) {
-  console.log(userData);
-  return {
-    [RSAA]: {
-      endpoint: `${API_SERVER}/api/users/register`,
-      method: "POST",
-      types: [
-        "REQUEST",
-        {
-          type: "SET_CURRENT_USER",
-          payload: async (_action, _state, res) => {
-            const arg = "/login";
-            history.push(arg);
-            console.log(res);
-            res = await res.json();
-            // Set token to localStorage
-            const { token } = res;
-            localStorage.setItem("jwtToken", token);
-            // Set token to Auth header
-            setAuthToken(token);
-            // Decode token to get user data
-            const decoded = jwt_decode(token);
-
-            // Set current user
-            return decoded;
-          }
-        },
-        {
-          type: "GET_ERRORS",
-          payload: async (_action, _state, res) => {
-            return res.response.data;
-          }
-        }
-      ],
-      body: JSON.stringify(userData),
-      headers: { "Content-Type": "application/json" }
-    }
+export const registerUser = (userData, history) => {
+  return dispatch => {
+    API.post("/users/register", userData).then(response => {
+      const arg = "/login";
+      history.push(arg);
+      const { token } = response;
+      localStorage.setItem("jwtToken", token);
+      setAuthToken(token);
+      const decoded = jwt_decode(token);
+      dispatch(authActions.setCurrentUser(decoded));
+    });
   };
-}
+};
 
-// Set logged in user
+// Log user out
+export const logoutUser = () => dispatch => {
+  localStorage.removeItem("jwtToken");
+  setAuthToken(false);
+  dispatch({ type: authActionTypes.USER_LOGOUT });
+};
+
 export const setCurrentUser = decoded => {
   return {
-    type: "SET_CURRENT_USER",
+    type: authActionTypes.SET_CURRENT_USER,
     payload: decoded
   };
 };
 
-// User loading
-export const setUserLoading = () => {
-  return {
-    type: "USER_LOADING"
-  };
+const authActions = {
+  loginAction,
+  registerUser,
+  logoutUser,
+  setCurrentUser
 };
 
-export const resetStateOnLogout = () => {
-  return {
-    type: "USER_LOGOUT"
-  };
-};
-// Log user out
-export const logoutUser = () => dispatch => {
-  // Remove token from local storage
-  localStorage.removeItem("jwtToken");
-  // Remove auth header for future requests
-  setAuthToken(false);
-  // Set current user to empty object {} which will set isAuthenticated to false
-  dispatch(resetStateOnLogout());
-};
+export default authActions;

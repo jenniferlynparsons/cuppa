@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class Landing extends Component {
   render() {
     return (
-      <div className="container content">
+      <div className="container content" data-testid="landing">
         <h1>Welcome to Cuppa!</h1>
         <p>Organize your tea so you can enjoy it</p>
 
@@ -19,19 +19,20 @@ class Landing extends Component {
             the data may be wiped at any time.
           </p>
           <p>
-            You're free to register an account, but that might get wiped, too.
+            You&apos;re free to register an account, but that might get wiped,
+            too.
           </p>
           <p>
-            Basically, everything is volatile on this site and you shouldn't
-            depend on it to actually store your teas yet.
+            Basically, everything is volatile on this site and you
+            shouldn&apos;t depend on it to actually store your teas yet.
           </p>
           <h4>
-            Follow the project on{" "}
-            {/* TODO sort out this weird typescript thing */}
+            Follow the project on&#32;
             <a
               href="https://github.com/jenniferlynparsons/cuppa"
               nofollow="true"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Github
             </a>

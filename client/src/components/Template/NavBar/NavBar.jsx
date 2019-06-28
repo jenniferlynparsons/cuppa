@@ -1,30 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { logoutUser } from "../../../actions/authActions";
 import "./NavBar.scss";
-import tea from "../../../assets/tea.svg";
 
-class NavBar extends Component {
-  onLogoutClick = e => {
-    e.preventDefault();
-    this.props.logoutUser();
-  };
+class NavBar extends React.PureComponent {
   render() {
-    const isLoggedIn = this.props.auth.isAuthenticated;
-    console.log(tea);
     return (
       <nav
-        className="navbar is-dark"
+        data-testid="navbar"
         role="navigation"
+        className="navbar is-dark"
         aria-label="main navigation"
       >
         <div className="navbar-brand">
           <Link
             className="navbar-item"
-            to={isLoggedIn ? "/tea-collection" : "/"}
+            to={this.props.auth.isAuthenticated ? "/tea-collection" : "/"}
           >
-            <img src={tea} alt="Cuppa logo" />
+            Cuppa
           </Link>
         </div>
         <div className="navbar-menu is-active">
@@ -34,7 +26,9 @@ class NavBar extends Component {
               Tea Collection
             </Link>
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">My Account</a>
+              <a href="/" className="navbar-link">
+                My Account
+              </a>
 
               <div className="navbar-dropdown">
                 <Link className="navbar-item" to={"/dashboard"}>
@@ -43,8 +37,9 @@ class NavBar extends Component {
                 <hr className="navbar-divider" />
                 <span className="navbar-item">
                   <button
+                    data-testid="logout"
                     className="button is-small is-dark"
-                    onClick={this.onLogoutClick}
+                    onClick={this.props.handleLogoutClick}
                   >
                     Logout
                   </button>
@@ -55,7 +50,9 @@ class NavBar extends Component {
               <li>
                 <Link
                   className={
-                    isLoggedIn ? "button is-primary" : "button is-disabled"
+                    this.props.auth.isAuthenticated
+                      ? "button is-primary"
+                      : "button is-disabled"
                   }
                   to={"/new-tea"}
                 >
@@ -70,11 +67,4 @@ class NavBar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export default connect(
-  mapStateToProps,
-  { logoutUser }
-)(NavBar);
+export default NavBar;

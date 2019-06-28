@@ -1,28 +1,29 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import React from "react";
 
-class Dashboard extends Component {
-  onLogoutClick = e => {
-    e.preventDefault();
-    this.props.logoutUser();
-  };
-
+export class Dashboard extends React.PureComponent {
   render() {
-    const { user } = this.props.auth;
-    // console.log(this.props);
     return (
-      <div className="container content">
-        <h1>Hey there, {user.name.split(" ")[0]}</h1>
+      <div data-testid="dashboard" className="container content">
+        <h1 data-test-id="user-name">
+          Hey there, {this.props.auth.user.name.split(" ")[0]}
+        </h1>
         <div className="columns">
           <div className="column is-two-thirds">
             <h2>Your stats</h2>
-            <p>You currently have XX teas in your collection</p>
+            <p data-test-id="tea-count">
+              You currently have XX teas in your collection
+            </p>
           </div>
           <div className="column is-one-third">
-            <p>You are logged in as {user.email}</p>
+            <p data-test-id="user-email">
+              You are logged in as {this.props.auth.user.email}
+            </p>
             <p>
-              <button className="button" onClick={this.onLogoutClick}>
+              <button
+                data-testid="logout"
+                className="button"
+                onClick={this.props.handleLogoutClick}
+              >
                 Logout
               </button>
             </p>
@@ -32,12 +33,3 @@ class Dashboard extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export default connect(
-  mapStateToProps,
-  { logoutUser }
-)(Dashboard);

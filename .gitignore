@@ -33,3 +33,4 @@ jspm_packages/
 
 .cache/
 package-lock.json
+coverage/

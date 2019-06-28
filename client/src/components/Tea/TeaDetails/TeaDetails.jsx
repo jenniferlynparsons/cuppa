@@ -1,17 +1,18 @@
-/* eslint-disable no-console */
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const TeaDetails = props => {
+export const TeaDetails = React.memo(props => {
   return (
-    <div className="container content">
-      {props.flash ? (
+    <div className="container content" data-testid="teadetails">
+      {props.flash === "on" && (
         <div className="notification is-success">
-          <button className="delete" onClick={e => props.onClick(e, false)} />
+          <button
+            data-testid="flash"
+            className="delete"
+            onClick={() => props.updateFlash("off")}
+          />
           {props.tea.name} has been succesfully updated.
         </div>
-      ) : (
-        ""
       )}
       <h1>{props.tea.name}</h1>
       <ul>
@@ -27,12 +28,12 @@ export const TeaDetails = props => {
         </li>
       </ul>
       <Link
+        data-testid="teaeditlink"
         to={"/update-tea/" + props.tea.id}
         className="button"
-        onClick={e => props.onClick(e, false)}
       >
         Edit
       </Link>
     </div>
   );
-};
+});
