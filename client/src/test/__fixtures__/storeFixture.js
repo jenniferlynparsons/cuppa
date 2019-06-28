@@ -8,9 +8,14 @@ const loggedOutStore = {
 
 const loggedInStore = {
   auth: {
-    isAuthenticated: false,
-    user: {},
-    loading: false
+    isAuthenticated: true,
+    loading: false,
+    user: {
+      exp: 1589933753,
+      iat: 1558376827,
+      id: "5c63123a4c318b298b23d4",
+      name: "Jennifer"
+    }
   }
 };
 
@@ -138,7 +143,7 @@ const updatedStore = {
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
-        brand: "Twinnings",
+        brand: "Celestial Seasonings",
         teaType: "Green",
         servings: 21
       },
@@ -184,7 +189,7 @@ const deletedStore = {
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
-        brand: "Twinnings",
+        brand: "Celestial Seasonings",
         teaType: "Green",
         servings: 21
       },

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import classnames from "classnames";
+import InputField from "../../FormComponents/InputField/InputField";
 
 export class Login extends React.PureComponent {
   render() {
@@ -13,49 +13,37 @@ export class Login extends React.PureComponent {
         </p>
         <form noValidate={true} onSubmit={this.props.onSubmit}>
           <div className="field">
-            <label className="label" htmlFor="email">Email</label>
-            <div className="control">
-              <input
-                data-testid="email"
-                onChange={this.props.onChange}
-                value={this.props.email}
-                error={this.props.errors.email}
-                id="email"
-                type="email"
-                className={classnames("input", {
-                  invalid: "input is-danger"
-                })}
-              />
-            </div>
-            <span className="help is-danger">
-              {this.props.errors.email}
-              {this.props.errors.emailnotfound}
-            </span>
+            <label className="label" htmlFor="email">
+              Email
+            </label>
+            <InputField
+              datatestid="email"
+              id="email"
+              type="email"
+              value={this.props.email}
+              className="input"
+              onChange={this.props.onChange}
+            />
           </div>
           <div className="field">
-            <label className="label" htmlFor="password">Password</label>
-            <input
-              data-testid="password"
-              onChange={this.props.onChange}
-              value={this.props.password}
-              error={this.props.errors.password}
+            <label className="label" htmlFor="password">
+              Password
+            </label>
+            <InputField
+              datatestid="password"
               id="password"
               type="password"
-              className={classnames("input", {
-                invalid: "input is-danger"
-              })}
+              value={this.props.password}
+              className="input"
+              onChange={this.props.onChange}
             />
-            <span className="help is-danger">
-              {this.props.errors.password}
-              {this.props.errors.passwordincorrect}
-            </span>
           </div>
           <div className="field">
             <div className="control">
               <button
+                data-testid="submit"
                 type="submit"
                 className="button is-primary"
-                data-testid="submit"
               >
                 Login
               </button>
@@ -66,4 +54,3 @@ export class Login extends React.PureComponent {
     );
   }
 }
-

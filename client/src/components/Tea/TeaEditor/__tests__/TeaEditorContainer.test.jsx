@@ -9,13 +9,6 @@ import teaFixture from "../../../../test/__fixtures__/teaFixture";
 import TeaEditorContainer from "../TeaEditorContainer";
 import { TeaEditorContainerClass } from "../TeaEditorContainer";
 
-const history = {
-  length: 10,
-  action: "PUSH",
-  location: { pathname: "/", search: "", hash: "", key: "zh4boo" },
-  push: jest.fn()
-};
-
 let mockFunc;
 let mockAdd;
 let mockEdit;
@@ -43,6 +36,7 @@ describe("TeaEditorContainer rendering", () => {
         }}
       />
     );
+
     expect(queryByTestId("teaeditor")).toBeTruthy();
   });
 });
@@ -51,29 +45,26 @@ describe("teaEditor form submit", () => {
   test("editor form submit succesfully adds tea", () => {
     const { getByTestId, queryByTestId } = renderWithRouter(
       <TeaEditorContainerClass
-        getTeas={mockFunc}
         teaTypes={teaFixture.teaTypes}
         userID={dataFixture.mockUserID}
         currentTea={""}
+        getTeas={mockFunc}
         addTea={mockAdd}
       />
     );
+
     fireEvent.change(getByTestId("name"), {
       target: { value: teaFixture.basicTea.name }
     });
-
     fireEvent.change(getByTestId("brand"), {
       target: { value: teaFixture.basicTea.brand }
     });
-
     fireEvent.change(getByTestId("type"), {
       target: { value: teaFixture.basicTea.teaType }
     });
-
     fireEvent.change(getByTestId("servings"), {
       target: { value: 12 }
     });
-
     expect(getByTestId("teaeditorform")).toHaveFormValues({
       name: teaFixture.basicTea.name,
       brand: teaFixture.basicTea.brand,
@@ -82,22 +73,22 @@ describe("teaEditor form submit", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-
     expect(queryByTestId("flash")).toHaveTextContent(/Basic Tea/);
   });
 
   test("editor form succesfully updates tea", () => {
     const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass
-        getTeas={mockFunc}
         teaTypes={teaFixture.teaTypes}
         userID={dataFixture.mockUserID}
         currentTea={teaFixture.basicTea}
+        getTeas={mockFunc}
         editTea={mockEdit}
         editTeaFlash={mockEditTeaFlash}
-        history={history}
+        history={dataFixture.history}
       />
     );
+
     fireEvent.change(getByTestId("brand"), {
       target: { value: teaFixture.updatedTea.brand }
     });
@@ -107,7 +98,7 @@ describe("teaEditor form submit", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(history.push).toHaveBeenCalledWith(
+    expect(dataFixture.history.push).toHaveBeenCalledWith(
       "/tea/1b1db861-0537-4b69-83d5-d9ee033530f8"
     );
   });

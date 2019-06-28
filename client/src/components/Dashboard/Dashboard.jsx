@@ -1,9 +1,9 @@
 import React from "react";
 
-class Dashboard extends React.PureComponent {
+export class Dashboard extends React.PureComponent {
   render() {
     return (
-      <div className="container content" data-testid="dashboard">
+      <div data-testid="dashboard" className="container content">
         <h1 data-test-id="user-name">
           Hey there, {this.props.auth.user.name.split(" ")[0]}
         </h1>
@@ -20,9 +20,9 @@ class Dashboard extends React.PureComponent {
             </p>
             <p>
               <button
-                className="button"
-                onClick={this.props.onLogoutClick}
                 data-testid="logout"
+                className="button"
+                onClick={this.props.handleLogoutClick}
               >
                 Logout
               </button>
@@ -33,5 +33,3 @@ class Dashboard extends React.PureComponent {
     );
   }
 }
-
-export default Dashboard;

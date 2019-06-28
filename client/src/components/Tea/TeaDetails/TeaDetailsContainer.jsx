@@ -37,7 +37,6 @@ const mapDispatchToProps = {
   getTeas
 };
 
-// TODO figure out the typings mismatch
 export default connect(
   mapStateToProps,
   mapDispatchToProps

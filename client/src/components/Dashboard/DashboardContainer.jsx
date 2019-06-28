@@ -1,17 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import Dashboard from "./Dashboard";
+import { Dashboard } from "./Dashboard";
 
 class DashboardContainer extends Component {
-  onLogoutClick = e => {
+  handleLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   };
 
   render() {
-    return (
-      <Dashboard auth={this.props.auth} onLogoutClick={this.onLogoutClick} />
+    return !this.props ? null : (
+      <Dashboard
+        auth={this.props.auth}
+        handleLogoutClick={this.handleLogoutClick}
+      />
     );
   }
 }

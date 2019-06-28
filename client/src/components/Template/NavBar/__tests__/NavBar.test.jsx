@@ -18,16 +18,19 @@ beforeEach(() => {
 
 describe("NavBar rendering", () => {
   test("renders without error when logged out", () => {
-    const { getByTestId } = renderWithRouter(
+    const { queryByTestId } = renderWithRouter(
       <NavBarContainer store={loggedOutStore} />
     );
-    expect(getByTestId("navbar")).toBeTruthy();
+
+    expect(queryByTestId("navbar")).toBeTruthy();
   });
+
   test("renders without error when logged in", () => {
-    const { getByTestId } = renderWithRouter(
+    const { queryByTestId } = renderWithRouter(
       <NavBarContainer store={loggedInStore} />
     );
-    expect(getByTestId("navbar")).toBeTruthy();
+
+    expect(queryByTestId("navbar")).toBeTruthy();
   });
 });
 
@@ -36,6 +39,7 @@ describe("NavBar interactions", () => {
     const { getByTestId } = renderWithRouter(
       <NavBarContainerComponent auth={loggedInStore} logoutUser={mockFunc} />
     );
+
     fireEvent.click(getByTestId("logout"));
     expect(mockFunc).toHaveBeenCalled();
   });

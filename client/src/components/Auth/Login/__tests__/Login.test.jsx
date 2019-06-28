@@ -2,21 +2,18 @@ import React from "react";
 import { makeMockStore } from "../../../../test/testUtils";
 import { fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
-import LoginContainer from "../LoginContainer";
-import { LoginContainerComponent } from "../LoginContainer";
+import storeFixture from "../../../../test/__fixtures__/storeFixture";
+import LoginContainer, { LoginContainerComponent } from "../LoginContainer";
 
-const defaultProps = {
-  auth: {
-    isAuthenticated: false,
-    user: {},
-    loading: false
-  }
-};
+const mockFunc = jest.fn();
 
 describe("Login rendering", () => {
   test("login renders without error", () => {
-    const store = makeMockStore(defaultProps);
-    const { queryByTestId } = renderWithRouter(<LoginContainer store={store} />);
+    const store = makeMockStore(storeFixture.loggedOutStore);
+    const { queryByTestId } = renderWithRouter(
+      <LoginContainer store={store} />
+    );
+
     expect(queryByTestId("login")).toBeTruthy();
   });
 });
@@ -26,9 +23,10 @@ describe("Login form updates", () => {
     let mockHandleSubmit = jest.fn();
     const { getByTestId } = renderWithRouter(
       <LoginContainerComponent
-        auth={defaultProps}
+        auth={storeFixture.loggedOutStore}
         errors={""}
         handleSubmit={mockHandleSubmit}
+        loginAction={mockFunc}
       />
     );
 
@@ -39,6 +37,6 @@ describe("Login form updates", () => {
       target: { value: "testing" }
     });
     fireEvent.click(getByTestId("submit"));
-    expect(mockHandleSubmit).toHaveBeenCalled();
+    expect(mockFunc).toHaveBeenCalled();
   });
 });

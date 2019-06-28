@@ -28,9 +28,9 @@ export const TeaDetails = React.memo(props => {
         </li>
       </ul>
       <Link
+        data-testid="teaeditlink"
         to={"/update-tea/" + props.tea.id}
         className="button"
-        data-testid="teaeditlink"
       >
         Edit
       </Link>

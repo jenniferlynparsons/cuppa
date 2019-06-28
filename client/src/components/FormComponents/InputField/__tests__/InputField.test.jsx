@@ -1,8 +1,6 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import InputField from "../InputField";
-
-afterEach(cleanup);
 
 const defaultProps = {
   className: "input",
