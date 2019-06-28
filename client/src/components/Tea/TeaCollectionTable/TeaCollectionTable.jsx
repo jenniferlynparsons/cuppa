@@ -10,7 +10,7 @@ library.add(faAngleDown, faAngleUp);
 export class TeaCollectionTable extends React.PureComponent {
   render() {
     return (
-      <div className="container" data-testid="teacollection">
+      <div data-testid="teacollection" className="container">
         <div className="columns is-pulled-right">
           <form onSubmit={this.props.handleFilterClick}>
             <div className="field has-addons">
@@ -20,7 +20,7 @@ export class TeaCollectionTable extends React.PureComponent {
                     data-testid="filterselect"
                     name="filterCategory"
                     value={this.props.formControls.filterCategory}
-                    onBlur={this.props.filterDropdownChangeHandler}
+                    onBlur={this.props.handleFilterDropdownChange}
                   >
                     <option key="category" value="">
                       Filter by
@@ -38,14 +38,14 @@ export class TeaCollectionTable extends React.PureComponent {
               </div>
               <InputField
                 datatestid="filterinput"
-                className="input is-small"
                 name="filterCriteria"
                 type="text"
                 list="fcriteria"
+                datalist={this.props.datalist}
                 placeholder="Filter Text"
                 value={this.props.formControls.filterCriteria}
-                onChange={this.props.filterInputChangeHandler}
-                datalist={this.props.datalist}
+                className="input is-small"
+                onChange={this.props.handleFilterInputChange}
               />
               <div className="control">
                 <button
@@ -78,13 +78,13 @@ export class TeaCollectionTable extends React.PureComponent {
                   {colHeaderObj.colTitle + " "}
                   <button
                     data-testid={colHeaderObj.colName}
-                    className="button is-small"
                     type="button"
+                    className="button is-small"
                     aria-pressed="false"
                     onClick={() =>
                       this.props.handleSortClick(
                         colHeaderObj.colName,
-                        this.props.sortColumnHandler(colHeaderObj.colName)
+                        this.props.handleSortColumn(colHeaderObj.colName)
                           ? "desc"
                           : "asc"
                       )
@@ -94,7 +94,7 @@ export class TeaCollectionTable extends React.PureComponent {
                       <i className="fas">
                         <FontAwesomeIcon
                           icon={
-                            this.props.sortColumnHandler(colHeaderObj.colName)
+                            this.props.handleSortColumn(colHeaderObj.colName)
                               ? "angle-up"
                               : "angle-down"
                           }
@@ -159,5 +159,3 @@ export class TeaCollectionTable extends React.PureComponent {
     );
   }
 }
-
-export default TeaCollectionTable;

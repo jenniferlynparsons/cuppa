@@ -6,7 +6,7 @@ afterEach(cleanup);
 
 describe("App loading", () => {
   test("renders without crashing", () => {
-    const { getByLabelText } = render(<App />);
-    expect(getByLabelText("main navigation")).toBeTruthy();
+    const { queryByLabelText } = render(<App />);
+    expect(queryByLabelText("main navigation")).toBeTruthy();
   });
 });

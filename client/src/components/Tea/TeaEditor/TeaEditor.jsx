@@ -19,12 +19,12 @@ export const TeaEditor = React.memo(props => {
             <InputField
               datatestid="name"
               name="name"
-              className="input"
-              type="text"
               id="name"
-              onChange={props.handleNameChange}
-              value={props.name}
+              type="text"
               placeholder="Tea Name"
+              value={props.name}
+              className="input"
+              onChange={props.handleNameChange}
               onBlur={props.handleBlur("name")}
             />
           </label>
@@ -36,14 +36,14 @@ export const TeaEditor = React.memo(props => {
               <InputField
                 datatestid="brand"
                 name="brand"
-                className="input"
-                type="text"
                 id="brand"
+                type="text"
                 list="brands"
-                onChange={props.handleBrandChange}
-                value={props.brand}
-                placeholder="Tea Brand"
                 datalist={props.brandsDataList}
+                placeholder="Tea Brand"
+                value={props.brand}
+                className="input"
+                onChange={props.handleBrandChange}
               />
             </div>
           </label>
@@ -56,9 +56,9 @@ export const TeaEditor = React.memo(props => {
                 <select
                   data-testid="type"
                   name="type"
-                  disabled={!props.teaTypes.length}
                   id="type"
                   value={props.teaType}
+                  disabled={!props.teaTypes.length}
                   onChange={props.handleTypeChange}
                   onBlur={props.handleTypeChange}
                 >
@@ -80,12 +80,12 @@ export const TeaEditor = React.memo(props => {
               <InputField
                 datatestid="servings"
                 name="servings"
-                className="input"
-                type="number"
                 id="servings"
-                onChange={props.handleServingsChange}
-                value={props.servings}
+                type="number"
                 placeholder="Servings Available"
+                value={props.servings}
+                className="input"
+                onChange={props.handleServingsChange}
                 onBlur={props.handleBlur("servings")}
               />
             </div>

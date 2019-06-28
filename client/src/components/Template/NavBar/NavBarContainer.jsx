@@ -4,12 +4,17 @@ import { logoutUser } from "../../../actions/authActions";
 import NavBar from "./NavBar";
 
 class NavBarContainer extends Component {
-  onLogoutClick = e => {
+  handleLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   };
   render() {
-    return <NavBar auth={this.props.auth} onLogoutClick={this.onLogoutClick} />;
+    return (
+      <NavBar
+        auth={this.props.auth}
+        handleLogoutClick={this.handleLogoutClick}
+      />
+    );
   }
 }
 

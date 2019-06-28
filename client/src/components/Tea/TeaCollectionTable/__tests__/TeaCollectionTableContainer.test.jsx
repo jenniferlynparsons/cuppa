@@ -35,6 +35,7 @@ describe("TeaCollectionTableContainer rendering", () => {
     const { queryByTestId } = renderWithRouter(
       <TeaCollectionTableContainer store={store} />
     );
+
     expect(queryByTestId("teacollection")).toBeTruthy();
   });
 });
@@ -45,22 +46,27 @@ describe("TeaCollectionTableContainerClass interactions", () => {
       const { getAllByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.click(getAllByTestId("deletelink")[2]);
       expect(mockDeleteTea).toHaveBeenCalled();
     });
+
     test("user clicks name link redirects to detail page", () => {
       const { getAllByTestId, history } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.click(getAllByTestId("detailslink")[2]);
       expect(history.entries[1].pathname).toEqual(
         "/tea/dc8a7690-de4a-47e8-8225-5548c0f51669"
       );
     });
+
     test("user clicks edit link redirects to tea editor", () => {
       const { getAllByTestId, history } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.click(getAllByTestId("editlink")[2]);
       expect(history.entries[1].pathname).toEqual(
         "/update-tea/dc8a7690-de4a-47e8-8225-5548c0f51669"
@@ -73,27 +79,30 @@ describe("TeaCollectionTableContainerClass interactions", () => {
       const { getByTestId, queryAllByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.click(getByTestId("name"));
-      // expect "Green Dragon" to be the first tea
       expect(queryAllByTestId("detailslink")[0].textContent).toEqual(
         "Green Dragon"
       );
     });
+
     test("user clicks sort arrow a second time reverses sort order", () => {
       const { getByTestId, queryAllByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.click(getByTestId("name"));
       fireEvent.click(getByTestId("name"));
-      // expect "Sleepytime" to be the first tea
       expect(queryAllByTestId("detailslink")[0].textContent).toEqual(
         "Sleepytime"
       );
     });
+
     test("user clicks a different arrow on sorted table re-sorts to new sort order", () => {
       const { getByTestId, queryAllByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.click(getByTestId("teaType"));
       // expect "Lapsang Souchang" to be the first tea
       expect(queryAllByTestId("detailslink")[0].textContent).toEqual(
@@ -107,6 +116,7 @@ describe("TeaCollectionTableContainerClass interactions", () => {
       const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.blur(getByTestId("filterselect"), {
         target: {
           value: "brand"
@@ -122,10 +132,12 @@ describe("TeaCollectionTableContainerClass interactions", () => {
         expect(queryAllByTestId("detailslink").length).toEqual(2);
       });
     });
+
     test("user can filter by number criteria", () => {
       const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.blur(getByTestId("filterselect"), {
         target: {
           value: "servings"
@@ -136,14 +148,15 @@ describe("TeaCollectionTableContainerClass interactions", () => {
           value: "22"
         }
       });
-
       fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(1);
     });
+
     test("user can clear filter", () => {
       const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.blur(getByTestId("filterselect"), {
         target: {
           value: "brand"
@@ -154,36 +167,36 @@ describe("TeaCollectionTableContainerClass interactions", () => {
           value: "Celestial Seasonings"
         }
       });
-
       fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(2);
-
       fireEvent.click(getByTestId("clearfilterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(3);
     });
+
     test("if user does not choose filter category, filter does not work", () => {
       const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.change(getByTestId("filterinput"), {
         target: {
           value: "Celestial Seasonings"
         }
       });
-
       fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(3);
     });
+
     test("if user does not enter filter criteria, filter does not work", () => {
       const { queryAllByTestId, getByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
+
       fireEvent.change(getByTestId("filterselect"), {
         target: {
           value: "brand"
         }
       });
-
       fireEvent.blur(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(3);
     });

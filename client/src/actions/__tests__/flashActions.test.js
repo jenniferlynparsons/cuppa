@@ -4,10 +4,11 @@ import { editTeaFlash } from "../flashActions";
 const store = makeMockStore({});
 const mockStatus = "on";
 
+beforeEach(() => {
+  store.clearActions();
+});
+
 describe("editTeaFlash", () => {
-  beforeEach(() => {
-    store.clearActions();
-  });
   test("returns an object", () => {
     expect(editTeaFlash(mockStatus)).toBeInstanceOf(Object);
   });

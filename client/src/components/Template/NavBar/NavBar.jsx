@@ -6,10 +6,10 @@ class NavBar extends React.PureComponent {
   render() {
     return (
       <nav
-        className="navbar is-dark"
-        role="navigation"
-        aria-label="main navigation"
         data-testid="navbar"
+        role="navigation"
+        className="navbar is-dark"
+        aria-label="main navigation"
       >
         <div className="navbar-brand">
           <Link
@@ -26,7 +26,7 @@ class NavBar extends React.PureComponent {
               Tea Collection
             </Link>
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link" href="/">
+              <a href="/" className="navbar-link">
                 My Account
               </a>
 
@@ -37,9 +37,9 @@ class NavBar extends React.PureComponent {
                 <hr className="navbar-divider" />
                 <span className="navbar-item">
                   <button
-                    className="button is-small is-dark"
-                    onClick={this.props.onLogoutClick}
                     data-testid="logout"
+                    className="button is-small is-dark"
+                    onClick={this.props.handleLogoutClick}
                   >
                     Logout
                   </button>

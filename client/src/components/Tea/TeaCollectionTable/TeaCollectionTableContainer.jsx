@@ -65,10 +65,10 @@ export class TeaCollectionTableContainer extends React.Component {
     this.setState(newState);
   };
 
-  sortColumnHandler = columnName =>
+  handleSortColumn = columnName =>
     this.state.sortColumn === columnName && this.state.sortOrder === "asc";
 
-  filterDropdownChangeHandler = event => {
+  handleFilterDropdownChange = event => {
     const value = event.target.value;
 
     if (value === "") {
@@ -88,7 +88,7 @@ export class TeaCollectionTableContainer extends React.Component {
     }
   };
 
-  filterInputChangeHandler = event => {
+  handleFilterInputChange = event => {
     let value = event.target.value;
     this.setState(state => ({
       formControls: {
@@ -186,9 +186,9 @@ export class TeaCollectionTableContainer extends React.Component {
           handleSortClick={this.handleSortClick}
           handleFilterClick={this.handleFilterClick}
           handleClearFilterClick={this.handleClearFilterClick}
-          filterDropdownChangeHandler={this.filterDropdownChangeHandler}
-          filterInputChangeHandler={this.filterInputChangeHandler}
-          sortColumnHandler={this.sortColumnHandler}
+          handleFilterDropdownChange={this.handleFilterDropdownChange}
+          handleFilterInputChange={this.handleFilterInputChange}
+          handleSortColumn={this.handleSortColumn}
         />
       )
     );

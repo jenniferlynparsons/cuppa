@@ -2,20 +2,13 @@ import React from "react";
 import { makeMockStore } from "../../../../test/testUtils";
 import { fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
+import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import RegisterContainer from "../RegisterContainer";
 import { RegisterContainerComponent } from "../RegisterContainer";
 
-const defaultProps = {
-  auth: {
-    isAuthenticated: false,
-    user: {},
-    loading: false
-  }
-};
-
 describe("Register rendering", () => {
   test("Register renders without error", () => {
-    const store = makeMockStore(defaultProps);
+    const store = makeMockStore(storeFixture.loggedOutStore);
     const { queryByTestId } = renderWithRouter(
       <RegisterContainer store={store} />
     );
@@ -29,8 +22,7 @@ describe("Register form updates", () => {
     let mockRegisterUser = jest.fn();
     const { getByTestId } = renderWithRouter(
       <RegisterContainerComponent
-        auth={defaultProps}
-        errors={""}
+        auth={storeFixture.loggedOutStore}
         registerUser={mockRegisterUser}
       />
     );

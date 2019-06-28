@@ -25,6 +25,7 @@ describe("TeaDetailsContainer rendering", () => {
         }}
       />
     );
+
     expect(queryByTestId("teadetails")).toBeTruthy();
   });
 });
@@ -33,24 +34,26 @@ describe("TeaDetailsContainer flash", () => {
   test("tea detail renders with flash message after update", () => {
     const { queryByTestId } = renderWithRouter(
       <TeaDetailsContainerClass
-        getTeas={mockFunc}
-        editTeaFlash={mockTeaFlash}
         tea={teaFixture.basicTea}
         flash={"on"}
+        getTeas={mockFunc}
+        editTeaFlash={mockTeaFlash}
       />
     );
+
     expect(queryByTestId("flash")).toBeTruthy();
   });
 
   test("user clicks on delete flash fires click handler", () => {
     const { getByTestId } = renderWithRouter(
       <TeaDetailsContainerClass
-        getTeas={mockFunc}
-        editTeaFlash={mockTeaFlash}
         tea={teaFixture.basicTea}
         flash={"on"}
+        getTeas={mockFunc}
+        editTeaFlash={mockTeaFlash}
       />
     );
+
     fireEvent.click(getByTestId("flash"), "off");
     expect(mockTeaFlash).toBeCalledWith("off");
   });
@@ -60,12 +63,13 @@ describe("teaDetails interactions", () => {
   test("user clicks edit to update tea", () => {
     const { getByTestId, history } = renderWithRouter(
       <TeaDetailsContainerClass
-        getTeas={mockFunc}
-        editTeaFlash={mockTeaFlash}
         tea={teaFixture.basicTea}
         flash={"on"}
+        getTeas={mockFunc}
+        editTeaFlash={mockTeaFlash}
       />
     );
+
     fireEvent.click(getByTestId("teaeditlink"));
     expect(history.entries[1].pathname).toMatch("/update-tea/");
   });

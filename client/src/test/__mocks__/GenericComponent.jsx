@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class GenericComponent extends Component {
+export class GenericComponent extends React.PureComponent {
   render() {
     return (
       <div data-testid="generic">
