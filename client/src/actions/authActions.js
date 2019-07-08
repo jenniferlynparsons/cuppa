@@ -6,14 +6,21 @@ import { authActionTypes } from "../lib/actionTypes";
 // Login - get user token
 export const loginAction = userData => {
   return dispatch => {
-    API.post("/users/login", userData).then(response => {
-      const { token } = response;
-      localStorage.setItem("jwtToken", token);
-      setAuthToken(token);
-      const decoded = jwt_decode(token);
-      //check that setCurrentUser is called with decoded
-      dispatch(authActions.setCurrentUser(decoded));
-    });
+    API.post("/users/login", userData)
+      .then(response => {
+        const { token } = response;
+        localStorage.setItem("jwtToken", token);
+        setAuthToken(token);
+        const decoded = jwt_decode(token);
+        //check that setCurrentUser is called with decoded
+        dispatch(authActions.setCurrentUser(decoded));
+      })
+      .catch(error => {
+        // handle error
+        const errorObj = error.response.data;
+        // console.log(errorObj);
+        dispatch(authActions.setErrorResponse(errorObj));
+      });
   };
 };
 
@@ -46,11 +53,19 @@ export const setCurrentUser = decoded => {
   };
 };
 
+export const setErrorResponse = errorObj => {
+  return {
+    type: authActionTypes.LOGIN_ERRORS,
+    payload: errorObj
+  };
+};
+
 const authActions = {
   loginAction,
   registerUser,
   logoutUser,
-  setCurrentUser
+  setCurrentUser,
+  setErrorResponse
 };
 
 export default authActions;

@@ -11,5 +11,6 @@ export const flashActionTypes = {
 
 export const authActionTypes = {
   USER_LOGOUT: "USER_LOGOUT",
-  SET_CURRENT_USER: "SET_CURRENT_USER"
+  SET_CURRENT_USER: "SET_CURRENT_USER",
+  LOGIN_ERRORS: "LOGIN_ERRORS"
 };

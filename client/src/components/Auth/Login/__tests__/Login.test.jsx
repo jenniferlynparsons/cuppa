@@ -18,7 +18,7 @@ describe("Login rendering", () => {
   });
 });
 
-describe("Login form updates", () => {
+describe("Login form success", () => {
   test("onSubmit submits the form with valid data", () => {
     let mockHandleSubmit = jest.fn();
     const { getByTestId } = renderWithRouter(
@@ -38,5 +38,33 @@ describe("Login form updates", () => {
     });
     fireEvent.click(getByTestId("submit"));
     expect(mockFunc).toHaveBeenCalled();
+  });
+});
+
+describe("Login form failure", () => {
+  describe("onSubmit returns an error message if data is invalid", () => {
+    test("invalid email address", () => {
+      let mockHandleSubmit = jest.fn();
+      const { getByTestId } = renderWithRouter(
+        <LoginContainerComponent
+          auth={storeFixture.loggedOutStore}
+          errors={""}
+          handleSubmit={mockHandleSubmit}
+          loginAction={mockFunc}
+        />
+      );
+    });
+
+    test("mismatched email or password", () => {
+      let mockHandleSubmit = jest.fn();
+      const { getByTestId } = renderWithRouter(
+        <LoginContainerComponent
+          auth={storeFixture.loggedOutStore}
+          errors={""}
+          handleSubmit={mockHandleSubmit}
+          loginAction={mockFunc}
+        />
+      );
+    });
   });
 });

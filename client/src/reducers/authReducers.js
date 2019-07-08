@@ -3,6 +3,7 @@ import isEmpty from "is-empty";
 const initialState = {
   isAuthenticated: false,
   user: {},
+  errors: {},
   loading: false
 };
 
@@ -18,6 +19,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true
+      };
+    case "LOGIN_ERRORS":
+      console.log(action.payload);
+      return {
+        ...state,
+        errors: action.payload
       };
     default:
       return state;
