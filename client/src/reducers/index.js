@@ -6,17 +6,17 @@ import typesReducer from "./typesReducers";
 import flashReducer from "./flashReducers";
 
 const appReducer = combineReducers({
-  auth: authReducer,
-  errors: errorReducer,
-  teas: teaReducers,
-  teaTypes: typesReducer,
-  flash: flashReducer
+	auth: authReducer,
+	errors: errorReducer,
+	teas: teaReducers,
+	teaTypes: typesReducer,
+	flash: flashReducer
 });
 
 export const rootReducer = (state, action) => {
-  if (action.type === "USER_LOGOUT") {
-    state = undefined;
-  }
+	if (action.type === "USER_LOGOUT") {
+		state = undefined;
+	}
 
-  return appReducer(state, action);
+	return appReducer(state, action);
 };

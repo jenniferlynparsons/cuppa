@@ -15,9 +15,9 @@ app.use(cors());
 
 // Bodyparser middleware
 app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
+	bodyParser.urlencoded({
+		extended: false
+	})
 );
 app.use(bodyParser.json());
 
@@ -26,9 +26,12 @@ const db = process.env.MONGOURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(() => console.log("MongoDB successfully connected"))
-  .catch(err => console.log(err));
+	.connect(
+		db,
+		{ useNewUrlParser: true }
+	)
+	.then(() => console.log("MongoDB successfully connected"))
+	.catch(err => console.log(err));
 
 // Passport middleware
 app.use(passport.initialize());
@@ -43,11 +46,11 @@ app.use("/api/users", users);
 app.use("/api/teas", teas);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/dist"));
+	app.use(express.static("client/dist"));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
-  });
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+	});
 }
 
 // app.use(function(req, res) {
