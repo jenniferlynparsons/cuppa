@@ -20,7 +20,7 @@ describe("auth reducer", () => {
   test("returns loading state true when the action type is 'USER_LOADING'", () => {
     const reducer = authReducer(storeFixture.loggedOutStore.auth, {
       type: "USER_LOADING",
-      payload: userLoadingPayload
+      payload: userLoadingPayload.loading
     });
     expect(reducer).toEqual(userLoadingState);
   });

@@ -18,10 +18,9 @@ export default function(state = initialState, action) {
     case "USER_LOADING":
       return {
         ...state,
-        loading: true
+        loading: action.payload
       };
     case "LOGIN_ERRORS":
-      console.log(action.payload);
       return {
         ...state,
         errors: action.payload
