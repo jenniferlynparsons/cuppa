@@ -24,7 +24,6 @@ describe("Login form success", () => {
     const { getByTestId } = renderWithRouter(
       <LoginContainerComponent
         auth={storeFixture.loggedOutStore}
-        errors={""}
         handleSubmit={mockHandleSubmit}
         loginAction={mockFunc}
       />
@@ -43,28 +42,52 @@ describe("Login form success", () => {
 
 describe("Login form failure", () => {
   describe("onSubmit returns an error message if data is invalid", () => {
-    test("invalid email address", () => {
+    test("missing email address and password", () => {
       let mockHandleSubmit = jest.fn();
-      const { getByTestId } = renderWithRouter(
+      const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <LoginContainerComponent
           auth={storeFixture.loggedOutStore}
-          errors={""}
           handleSubmit={mockHandleSubmit}
           loginAction={mockFunc}
         />
       );
+
+      fireEvent.click(getByTestId("submit"));
+      expect(queryByTestId("incompletenotice")).toBeTruthy();
+      expect(queryAllByTestId("inputerror")).toBeTruthy();
     });
 
-    test("mismatched email or password", () => {
+    test("invalid email address", () => {
       let mockHandleSubmit = jest.fn();
-      const { getByTestId } = renderWithRouter(
+      const { getByTestId, queryByTestId } = renderWithRouter(
         <LoginContainerComponent
           auth={storeFixture.loggedOutStore}
-          errors={""}
           handleSubmit={mockHandleSubmit}
           loginAction={mockFunc}
         />
       );
+
+      fireEvent.change(getByTestId("email"), {
+        target: { value: "test" }
+      });
+      fireEvent.change(getByTestId("password"), {
+        target: { value: "testing" }
+      });
+      fireEvent.click(getByTestId("submit"));
+      expect(queryByTestId("inputerror")).toBeTruthy();
+    });
+
+    test("mismatched email", () => {
+      let mockHandleSubmit = jest.fn();
+      const { queryByTestId } = renderWithRouter(
+        <LoginContainerComponent
+          auth={storeFixture.loggedOutStore}
+          serverErrors={{ emailNotFound: "Email not found" }}
+          handleSubmit={mockHandleSubmit}
+          loginAction={mockFunc}
+        />
+      );
+      expect(queryByTestId("notfoundnotice")).toBeTruthy();
     });
   });
 });
