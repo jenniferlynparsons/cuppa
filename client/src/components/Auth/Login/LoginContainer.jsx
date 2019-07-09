@@ -20,7 +20,7 @@ class LoginContainer extends Component {
     password: "",
     errors: {
       email: "valid",
-      emailNotFound: "valid",
+      emailNotFound: this.props.serverErrors ? "invalid" : "valid",
       password: "valid",
       incomplete: "valid"
     },

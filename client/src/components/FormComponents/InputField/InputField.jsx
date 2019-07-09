@@ -21,7 +21,9 @@ const InputField = React.memo(props => {
         {props.datalist}
       </div>
       {props.error == "invalid" && (
-        <p className="help is-danger">{props.errorMessage}</p>
+        <p className="help is-danger" data-testid="inputerror">
+          {props.errorMessage}
+        </p>
       )}
     </>
   );
