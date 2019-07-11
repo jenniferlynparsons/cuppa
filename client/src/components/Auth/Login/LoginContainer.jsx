@@ -1,28 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { string, object } from "yup";
+import { emailSchema, passwordSchema } from "../../../lib/validationSchemas";
 import { loginAction } from "../../../actions/authActions";
 import { Login } from "./Login";
-
-const emailSchema = object({
-  email: string()
-    .email()
-    .required()
-});
-
-const passwordSchema = object({
-  password: string().required()
-});
 
 class LoginContainer extends Component {
   state = {
     email: "",
     password: "",
     errors: {
-      email: "valid",
-      emailNotFound: this.props.serverErrors ? "invalid" : "valid",
-      password: "valid",
-      incomplete: "valid"
+      email: true,
+      emailNotFound: !this.props.serverErrors ? false : true,
+      password: true,
+      incomplete: true
     },
     errorMessages: {
       email: "Please enter a valid email address",
@@ -42,29 +32,19 @@ class LoginContainer extends Component {
       password: this.state.password
     };
 
-    let emailvalidation = emailSchema.isValidSync(userData)
-      ? "valid"
-      : "invalid";
-    let passwordvalidation = passwordSchema.isValidSync(userData)
-      ? "valid"
-      : "invalid";
+    const emailvalid = emailSchema.isValidSync(userData);
+    const passvalid = passwordSchema.isValidSync(userData);
 
-    this.setState(state => ({
-      errors: {
-        ...state.errors,
-        email: emailvalidation,
-        password: passwordvalidation
-      }
-    }));
-
-    if (emailvalidation == "valid" && passwordvalidation == "valid") {
+    if (emailvalid && passvalid) {
       this.props.loginAction(userData);
     } else {
       this.setState(state => ({
         errors: {
           ...state.errors,
-          incomplete: "invalid",
-          emailNotFound: "valid"
+          email: emailvalid,
+          emailNotFound: true,
+          password: passvalid,
+          incomplete: false
         }
       }));
     }
@@ -84,7 +64,7 @@ class LoginContainer extends Component {
       this.setState(state => ({
         errors: {
           ...state.errors,
-          emailNotFound: "invalid"
+          emailNotFound: false
         }
       }));
     }

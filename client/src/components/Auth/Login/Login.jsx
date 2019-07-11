@@ -11,7 +11,7 @@ export class Login extends React.PureComponent {
         <p>
           Don&apos;t have an account? <Link to="/register">Register</Link>
         </p>
-        {this.props.errors.incomplete == "invalid" && (
+        {!this.props.errors.incomplete && (
           <div
             className="notification is-danger"
             data-testid="incompletenotice"
@@ -19,7 +19,7 @@ export class Login extends React.PureComponent {
             Please provide a valid email address and password
           </div>
         )}
-        {this.props.errors.emailNotFound == "invalid" && (
+        {!this.props.errors.emailNotFound && (
           <div className="notification is-danger" data-testid="notfoundnotice">
             This email does not exist in our system. Please try again or{" "}
             <Link to="/register">register</Link> for an account.

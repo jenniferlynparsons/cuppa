@@ -6,9 +6,7 @@ const InputField = React.memo(props => {
       <div className="control" data-testid="inputfield">
         <input
           data-testid={props.datatestid}
-          className={
-            props.error == "invalid" ? props.errorClass : props.className
-          }
+          className={!props.error ? props.errorClass : props.className}
           id={props.id}
           name={props.name}
           type={props.type}
@@ -20,7 +18,7 @@ const InputField = React.memo(props => {
         />
         {props.datalist}
       </div>
-      {props.error == "invalid" && (
+      {!props.error && (
         <p className="help is-danger" data-testid="inputerror">
           {props.errorMessage}
         </p>

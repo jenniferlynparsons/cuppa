@@ -5,6 +5,8 @@ const loginData = {
   password: "testpassword"
 };
 
+const loginFailData = {};
+
 const registerData = {
   name: "JP",
   email: "test@example.com",
@@ -24,6 +26,10 @@ const response = {
   token: "Bearer 5cCI6IkpXVCJ9.oxNTkwNTI4NjA3fQ.1Nd3GGE8"
 };
 
+const responseFail = {
+  success: false
+};
+
 const decodedToken = {
   id: "5c6313a4b62298b23d4",
   name: "JP",
@@ -34,9 +40,11 @@ const decodedToken = {
 const dataFixture = {
   mockUserID,
   loginData,
+  loginFailData,
   registerData,
   history,
   response,
+  responseFail,
   decodedToken
 };
 

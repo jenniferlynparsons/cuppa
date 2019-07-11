@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {
+  emailSchema,
+  passwordSchema,
+  password2Schema,
+  nameSchema
+} from "../../../lib/validationSchemas";
 import { registerUser } from "../../../actions/authActions";
 import { Register } from "./Register";
 
@@ -8,7 +14,22 @@ class RegisterContainer extends Component {
     name: "",
     email: "",
     password: "",
-    password2: ""
+    password2: "",
+    errors: {
+      name: true,
+      email: true,
+      emailAlreadyExists: !this.props.serverErrors ? false : true,
+      password: true,
+      password2: true,
+      passwordMatch: true,
+      incomplete: true
+    },
+    errorMessages: {
+      name: "Please enter a valid name",
+      email: "Please enter a valid email address",
+      password: "Please enter a valid password",
+      password2: "Please make sure the passwords match"
+    }
   };
 
   handleInputChange = e => {
@@ -25,12 +46,48 @@ class RegisterContainer extends Component {
       password2: this.state.password2
     };
 
-    this.props.registerUser(newUser, this.props.history);
+    const namevalid = nameSchema.isValidSync(newUser);
+    const emailvalid = emailSchema.isValidSync(newUser);
+    const passvalid = passwordSchema.isValidSync(newUser);
+    const pass2valid = password2Schema.isValidSync(newUser);
+
+    const passmatch = newUser.password === newUser.password2;
+
+    if (namevalid && emailvalid && passvalid && pass2valid && passmatch) {
+      this.props.registerUser(newUser, this.props.history);
+    } else {
+      this.setState(state => ({
+        errors: {
+          ...state.errors,
+          name: namevalid,
+          email: emailvalid,
+          emailAlreadyExists: true,
+          password: passvalid,
+          password2: pass2valid,
+          passwordMatch: passmatch,
+          incomplete: "invalid"
+        }
+      }));
+    }
   };
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+    if (nextProps.serverErrors.emailAlreadyExists) {
+      this.setState(state => ({
+        errors: {
+          ...state.errors,
+          emailAlreadyExists: false
+        }
+      }));
     }
   }
 
@@ -40,6 +97,8 @@ class RegisterContainer extends Component {
         email={this.state.email}
         password={this.state.password}
         password2={this.state.password2}
+        errors={this.state.errors}
+        errorMessages={this.state.errorMessages}
         onChange={this.handleInputChange}
         onSubmit={this.handleFormSubmit}
       />
@@ -48,7 +107,8 @@ class RegisterContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  serverErrors: state.auth.errors
 });
 
 export default connect(

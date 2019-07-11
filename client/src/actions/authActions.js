@@ -8,6 +8,7 @@ export const loginAction = userData => {
   return dispatch => {
     API.post("/users/login", userData)
       .then(response => {
+        console.log("hello");
         const { token } = response;
         localStorage.setItem("jwtToken", token);
         setAuthToken(token);
@@ -18,7 +19,7 @@ export const loginAction = userData => {
       .catch(error => {
         // handle error
         const errorObj = error.response.data;
-        // console.log(errorObj);
+        console.log(errorObj);
         dispatch(authActions.setErrorResponse(errorObj));
       });
   };
@@ -27,15 +28,21 @@ export const loginAction = userData => {
 // Register User
 export const registerUser = (userData, history) => {
   return dispatch => {
-    API.post("/users/register", userData).then(response => {
-      const arg = "/login";
-      history.push(arg);
-      const { token } = response;
-      localStorage.setItem("jwtToken", token);
-      setAuthToken(token);
-      const decoded = jwt_decode(token);
-      dispatch(authActions.setCurrentUser(decoded));
-    });
+    API.post("/users/register", userData)
+      .then(response => {
+        const arg = "/login";
+        history.push(arg);
+        const { token } = response;
+        localStorage.setItem("jwtToken", token);
+        setAuthToken(token);
+        const decoded = jwt_decode(token);
+        dispatch(authActions.setCurrentUser(decoded));
+      })
+      .catch(error => {
+        // handle error
+        const errorObj = error.response.data;
+        dispatch(authActions.setErrorResponse(errorObj));
+      });
   };
 };
 

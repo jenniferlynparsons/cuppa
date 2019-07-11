@@ -19,9 +19,15 @@ jest.mock("jwt-decode");
 
 // Required for the API mock scope (must have `mock` prefix)
 const mockResponse = dataFixture.response;
+const mockFailResponse = dataFixture.responseFail;
 
 jest.mock("../../lib/api", () => ({
-  post: jest.fn(() => Promise.resolve(mockResponse))
+  post: jest.fn(() =>
+    Promise.reject(mockFailResponse).catch(err => {
+      console.log(err);
+      throw err; // keep promise rejected so reject will propagate upwards
+    })
+  )
 }));
 
 beforeEach(() => {
@@ -54,6 +60,14 @@ describe("loginAction", () => {
       test("it sets the current user action", async () => {
         let currentUserSpy = jest.spyOn(authActions, "setCurrentUser");
         await store.dispatch(loginAction(dataFixture.loginData));
+        expect(currentUserSpy).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe("when the POST call fails", () => {
+      test.only("it sets the current user action", async () => {
+        let currentUserSpy = jest.spyOn(authActions, "setErrorResponse");
+        await store.dispatch(loginAction(dataFixture.loginFailData));
         expect(currentUserSpy).toHaveBeenCalledTimes(1);
       });
     });
