@@ -10,7 +10,7 @@ class LoginContainer extends Component {
     password: "",
     errors: {
       email: true,
-      emailNotFound: !this.props.serverErrors ? false : true,
+      emailNotFound: true,
       password: true,
       incomplete: true
     },
@@ -53,6 +53,14 @@ class LoginContainer extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
+    }
+    if (this.props.serverErrors && this.props.serverErrors.emailNotFound) {
+      this.setState(state => ({
+        errors: {
+          ...state.errors,
+          emailNotFound: false
+        }
+      }));
     }
   }
 

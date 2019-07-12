@@ -18,10 +18,9 @@ class RegisterContainer extends Component {
     errors: {
       name: true,
       email: true,
-      emailAlreadyExists: !this.props.serverErrors ? false : true,
+      emailAlreadyExists: true,
       password: true,
       password2: true,
-      passwordMatch: true,
       incomplete: true
     },
     errorMessages: {
@@ -63,9 +62,8 @@ class RegisterContainer extends Component {
           email: emailvalid,
           emailAlreadyExists: true,
           password: passvalid,
-          password2: pass2valid,
-          passwordMatch: passmatch,
-          incomplete: "invalid"
+          password2: pass2valid === passmatch ? pass2valid : false,
+          incomplete: false
         }
       }));
     }
@@ -74,6 +72,14 @@ class RegisterContainer extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
+    }
+    if (this.props.serverErrors && this.props.serverErrors.emailAlreadyExists) {
+      this.setState(state => ({
+        errors: {
+          ...state.errors,
+          emailAlreadyExists: false
+        }
+      }));
     }
   }
 

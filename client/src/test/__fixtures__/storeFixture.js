@@ -11,7 +11,7 @@ const loggedErrorStore = {
     isAuthenticated: false,
     user: {},
     loading: false,
-    errors: { emailAlreadyExists: "Email not found" }
+    errors: { emailNotFound: "Email not found" }
   }
 };
 

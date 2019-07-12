@@ -11,6 +11,14 @@ export class Register extends React.PureComponent {
         <p>
           Already have an account? <Link to="/login">Log in</Link>
         </p>
+        {!this.props.errors.incomplete && (
+          <div
+            className="notification is-danger"
+            data-testid="incompletenotice"
+          >
+            Please provide a valid email address and password.
+          </div>
+        )}
         {!this.props.errors.emailAlreadyExists && (
           <div className="notification is-danger" data-testid="notfoundnotice">
             This email already exists in our system. Please try again or{" "}

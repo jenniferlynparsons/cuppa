@@ -6,8 +6,7 @@ import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import RegisterContainer from "../RegisterContainer";
 import { RegisterContainerComponent } from "../RegisterContainer";
 
-let mockRegisterUser = jest.fn();
-let mockHandleSubmit = jest.fn();
+let mockFunc = jest.fn();
 
 describe("Register rendering", () => {
   test("Register renders without error", () => {
@@ -25,7 +24,7 @@ describe("Register form success", () => {
     const { getByTestId } = renderWithRouter(
       <RegisterContainerComponent
         auth={storeFixture.loggedOutStore}
-        registerUser={mockRegisterUser}
+        registerUser={mockFunc}
       />
     );
 
@@ -42,53 +41,85 @@ describe("Register form success", () => {
       target: { value: "testing" }
     });
     fireEvent.click(getByTestId("submit"));
-    expect(mockRegisterUser).toHaveBeenCalled();
+    expect(mockFunc).toHaveBeenCalled();
   });
 });
 
-describe("Login form failure", () => {
+describe("Register form failure", () => {
   describe("onSubmit returns an error message if data is invalid", () => {
-    test("missing email address and password", () => {
+    test("missing information", () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <RegisterContainerComponent
           auth={storeFixture.loggedOutStore}
-          handleSubmit={mockHandleSubmit}
-          registerUser={mockRegisterUser}
+          registerUser={mockFunc}
         />
       );
+
+      expect(queryByTestId("notfoundnotice")).toBeFalsy();
 
       fireEvent.click(getByTestId("submit"));
       expect(queryByTestId("incompletenotice")).toBeTruthy();
-      expect(queryAllByTestId("inputerror")).toBeTruthy();
+      expect(queryAllByTestId("inputerror").length).toEqual(4);
     });
 
     test("invalid email address", () => {
-      const { getByTestId, queryByTestId } = renderWithRouter(
+      const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <RegisterContainerComponent
           auth={storeFixture.loggedOutStore}
-          handleSubmit={mockHandleSubmit}
-          registerUser={mockRegisterUser}
+          registerUser={mockFunc}
         />
       );
 
+      expect(queryByTestId("notfoundnotice")).toBeFalsy();
+
+      fireEvent.change(getByTestId("name"), {
+        target: { value: "Jennifer" }
+      });
       fireEvent.change(getByTestId("email"), {
         target: { value: "test" }
       });
       fireEvent.change(getByTestId("password"), {
         target: { value: "testing" }
       });
+      fireEvent.change(getByTestId("password2"), {
+        target: { value: "testing" }
+      });
       fireEvent.click(getByTestId("submit"));
-      expect(queryByTestId("inputerror")).toBeTruthy();
+      expect(queryAllByTestId("inputerror").length).toEqual(1);
+    });
+
+    test("mismatched passwords", () => {
+      const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
+        <RegisterContainerComponent
+          auth={storeFixture.loggedOutStore}
+          registerUser={mockFunc}
+        />
+      );
+
+      expect(queryByTestId("notfoundnotice")).toBeFalsy();
+
+      fireEvent.change(getByTestId("name"), {
+        target: { value: "Jennifer" }
+      });
+      fireEvent.change(getByTestId("email"), {
+        target: { value: "test@example.com" }
+      });
+      fireEvent.change(getByTestId("password"), {
+        target: { value: "testing" }
+      });
+      fireEvent.change(getByTestId("password2"), {
+        target: { value: "nottest" }
+      });
+      fireEvent.click(getByTestId("submit"));
+      expect(queryAllByTestId("inputerror").length).toEqual(1);
     });
 
     test("mismatched email", () => {
-      let mockHandleSubmit = jest.fn();
       const { queryByTestId } = renderWithRouter(
         <RegisterContainerComponent
-          auth={storeFixture.loggedOutStore}
-          serverErrors={{ emailNotFound: "Email not found" }}
-          handleSubmit={mockHandleSubmit}
-          registerUser={mockRegisterUser}
+          auth={storeFixture.loggedErrorStore}
+          serverErrors={{ emailAlreadyExists: "Email already exists" }}
+          loginAction={mockFunc}
         />
       );
       expect(queryByTestId("notfoundnotice")).toBeTruthy();
