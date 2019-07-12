@@ -5,11 +5,21 @@ const loginData = {
   password: "testpassword"
 };
 
-const loginFailData = {};
+const loginFailData = {
+  email: "",
+  password: "testpassword"
+};
 
 const registerData = {
   name: "JP",
   email: "test@example.com",
+  password: "testpassword",
+  password2: "testpassword"
+};
+
+const registerFailData = {
+  name: "JP",
+  email: "",
   password: "testpassword",
   password2: "testpassword"
 };
@@ -42,6 +52,7 @@ const dataFixture = {
   loginData,
   loginFailData,
   registerData,
+  registerFailData,
   history,
   response,
   responseFail,

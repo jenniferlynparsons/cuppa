@@ -19,14 +19,20 @@ jest.mock("jwt-decode");
 
 // Required for the API mock scope (must have `mock` prefix)
 const mockResponse = dataFixture.response;
-const mockFailResponse = dataFixture.responseFail;
+const mockFailResponse = {
+  response: { data: { emailNotFound: "email not found" } }
+};
 
 jest.mock("../../lib/api", () => ({
-  post: jest.fn(() =>
-    Promise.reject(mockFailResponse).catch(err => {
-      console.log(err);
-      throw err; // keep promise rejected so reject will propagate upwards
-    })
+  post: jest.fn(
+    (apipath, userData) =>
+      new Promise(function(resolve, reject) {
+        if (userData.email !== "") {
+          resolve(mockResponse);
+        } else {
+          reject(mockFailResponse);
+        }
+      })
   )
 }));
 
@@ -65,10 +71,10 @@ describe("loginAction", () => {
     });
 
     describe("when the POST call fails", () => {
-      test.only("it sets the current user action", async () => {
-        let currentUserSpy = jest.spyOn(authActions, "setErrorResponse");
+      test("it sets the login error action", async () => {
+        let failedUserSpy = jest.spyOn(authActions, "setErrorResponse");
         await store.dispatch(loginAction(dataFixture.loginFailData));
-        expect(currentUserSpy).toHaveBeenCalledTimes(1);
+        expect(failedUserSpy).toHaveBeenCalledTimes(1);
       });
     });
   });
@@ -109,6 +115,16 @@ describe("registerUser", () => {
           registerUser(dataFixture.registerData, dataFixture.history)
         );
         expect(currentUserSpy).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe("when the POST call fails", () => {
+      test("it sets the login error action", async () => {
+        let failedUserSpy = jest.spyOn(authActions, "setErrorResponse");
+        await store.dispatch(
+          registerUser(dataFixture.registerFailData, dataFixture.history)
+        );
+        expect(failedUserSpy).toHaveBeenCalledTimes(1);
       });
     });
   });

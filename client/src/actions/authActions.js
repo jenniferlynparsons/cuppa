@@ -6,9 +6,8 @@ import { authActionTypes } from "../lib/actionTypes";
 // Login - get user token
 export const loginAction = userData => {
   return dispatch => {
-    API.post("/users/login", userData)
+    return API.post("/users/login", userData)
       .then(response => {
-        console.log("hello");
         const { token } = response;
         localStorage.setItem("jwtToken", token);
         setAuthToken(token);
@@ -19,7 +18,6 @@ export const loginAction = userData => {
       .catch(error => {
         // handle error
         const errorObj = error.response.data;
-        console.log(errorObj);
         dispatch(authActions.setErrorResponse(errorObj));
       });
   };
@@ -28,7 +26,7 @@ export const loginAction = userData => {
 // Register User
 export const registerUser = (userData, history) => {
   return dispatch => {
-    API.post("/users/register", userData)
+    return API.post("/users/register", userData)
       .then(response => {
         const arg = "/login";
         history.push(arg);
