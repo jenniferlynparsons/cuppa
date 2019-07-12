@@ -6,6 +6,15 @@ const loggedOutStore = {
   }
 };
 
+const loggedErrorStore = {
+  auth: {
+    isAuthenticated: false,
+    user: {},
+    loading: false,
+    errors: { emailNotFound: "Email not found" }
+  }
+};
+
 const loggedInStore = {
   auth: {
     isAuthenticated: true,
@@ -212,6 +221,7 @@ const deletedStore = {
 
 const storeFixture = {
   loggedOutStore,
+  loggedErrorStore,
   loggedInStore,
   basicStore,
   addedStore,

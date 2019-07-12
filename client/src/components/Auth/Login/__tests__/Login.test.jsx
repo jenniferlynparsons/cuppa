@@ -20,11 +20,9 @@ describe("Login rendering", () => {
 
 describe("Login form success", () => {
   test("onSubmit submits the form with valid data", () => {
-    let mockHandleSubmit = jest.fn();
     const { getByTestId } = renderWithRouter(
       <LoginContainerComponent
         auth={storeFixture.loggedOutStore}
-        handleSubmit={mockHandleSubmit}
         loginAction={mockFunc}
       />
     );
@@ -43,14 +41,14 @@ describe("Login form success", () => {
 describe("Login form failure", () => {
   describe("onSubmit returns an error message if data is invalid", () => {
     test("missing email address and password", () => {
-      let mockHandleSubmit = jest.fn();
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <LoginContainerComponent
           auth={storeFixture.loggedOutStore}
-          handleSubmit={mockHandleSubmit}
           loginAction={mockFunc}
         />
       );
+
+      expect(queryByTestId("notfoundnotice")).toBeFalsy();
 
       fireEvent.click(getByTestId("submit"));
       expect(queryByTestId("incompletenotice")).toBeTruthy();
@@ -58,14 +56,14 @@ describe("Login form failure", () => {
     });
 
     test("invalid email address", () => {
-      let mockHandleSubmit = jest.fn();
       const { getByTestId, queryByTestId } = renderWithRouter(
         <LoginContainerComponent
           auth={storeFixture.loggedOutStore}
-          handleSubmit={mockHandleSubmit}
           loginAction={mockFunc}
         />
       );
+
+      expect(queryByTestId("notfoundnotice")).toBeFalsy();
 
       fireEvent.change(getByTestId("email"), {
         target: { value: "test" }
@@ -78,15 +76,14 @@ describe("Login form failure", () => {
     });
 
     test("mismatched email", () => {
-      let mockHandleSubmit = jest.fn();
       const { queryByTestId } = renderWithRouter(
         <LoginContainerComponent
-          auth={storeFixture.loggedOutStore}
+          auth={storeFixture.loggedErrorStore}
           serverErrors={{ emailNotFound: "Email not found" }}
-          handleSubmit={mockHandleSubmit}
           loginAction={mockFunc}
         />
       );
+
       expect(queryByTestId("notfoundnotice")).toBeTruthy();
     });
   });
