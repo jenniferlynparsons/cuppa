@@ -1,6 +1,12 @@
 import React from "react";
 import uuidv4 from "uuid/v4";
 import { connect } from "react-redux";
+import {
+  nameSchema,
+  brandSchema,
+  teaTypeSchema,
+  servingsSchema
+} from "../../../lib/validationSchemas";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";
 import { TeaEditor } from "./TeaEditor";
@@ -25,7 +31,21 @@ export class TeaEditorContainer extends React.Component {
     servings: this.props.currentTea ? this.props.currentTea.servings : "",
     edit: !!this.props.currentTea,
     brands: [],
-    brandsDataList: []
+    brandsDataList: [],
+    errors: {
+      name: true,
+      brand: true,
+      teaType: true,
+      servings: true,
+      incomplete: true,
+      teaConflict: true
+    },
+    errorMessages: {
+      name: "Please enter a tea name",
+      brand: "Please enter a tea brand",
+      teaType: "Please choose a tea type",
+      servings: "Please enter the number of servings available"
+    }
   };
 
   handleBlur = field => () => {
@@ -74,34 +94,69 @@ export class TeaEditorContainer extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.edit === true) {
-      this.props.editTea(this.state);
-      this.props.editTeaFlash("on");
-      this.props.history.push("/tea/" + this.state.teaID);
+
+    const namevalid = nameSchema.isValidSync(this.state);
+    const brandvalid = brandSchema.isValidSync(this.state);
+    const teaTypevalid = teaTypeSchema.isValidSync(this.state);
+    const servingsvalid = servingsSchema.isValidSync(this.state);
+
+    if (namevalid && brandvalid && teaTypevalid && servingsvalid) {
+      if (this.state.edit === true) {
+        this.props.editTea(this.state);
+        this.props.editTeaFlash("on");
+        this.props.history.push("/tea/" + this.state.teaID);
+      } else {
+        this.props.addTea(this.state);
+        this.setState({
+          flash: {
+            name: this.state.name,
+            teaID: this.state.teaID
+          },
+          touched: {
+            name: false,
+            servings: false
+          },
+          teaID: "",
+          userID: this.props.userID,
+          name: "",
+          brand: "",
+          teaType: "",
+          servings: "",
+          edit: false,
+          errors: {
+            name: true,
+            brand: true,
+            teaType: true,
+            servings: true,
+            incomplete: true
+          }
+        });
+      }
     } else {
-      this.props.addTea(this.state);
-      this.setState({
-        flash: {
-          name: this.state.name,
-          teaID: this.state.teaID
-        },
-        touched: {
-          name: false,
-          servings: false
-        },
-        teaID: "",
-        userID: this.props.userID,
-        name: "",
-        brand: "",
-        teaType: "",
-        servings: "",
-        edit: false
-      });
+      this.setState(state => ({
+        errors: {
+          ...state.errors,
+          name: namevalid,
+          brand: brandvalid,
+          teaType: teaTypevalid,
+          servings: servingsvalid,
+          incomplete: false
+        }
+      }));
     }
   };
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
+
+    if (this.props.serverErrors && this.props.serverErrors.teaConflict) {
+      this.setState(state => ({
+        errors: {
+          ...state.errors,
+          teaConflict: false
+        }
+      }));
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -136,6 +191,8 @@ export class TeaEditorContainer extends React.Component {
         teaType={this.state.teaType}
         servings={this.state.servings}
         flash={this.state.flash}
+        errors={this.state.errors}
+        errorMessages={this.state.errorMessages}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}
         handleBrandChange={this.handleBrandChange}
@@ -152,7 +209,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     teaTypes: state.teaTypes,
     userID: state.auth.user.id,
-    currentTea: state.teas.allTeas[ownProps.match.params.id]
+    currentTea: state.teas.allTeas[ownProps.match.params.id],
+    serverErrors: state.auth.errors
   };
 };
 

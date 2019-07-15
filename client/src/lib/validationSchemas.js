@@ -23,3 +23,15 @@ export const password2Schema = object({
     .min(6)
     .max(30)
 });
+
+export const brandSchema = object({
+  brand: string().required()
+});
+
+export const teaTypeSchema = object({
+  teaType: string().required()
+});
+
+export const servingsSchema = object({
+  servings: string().required()
+});

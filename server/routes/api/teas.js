@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const teaNormalizer = require("../../normalizers/teaNormalizer");
 
+// Load input validation
+const validateTeaInput = require("../../validation/teas");
+
 // Load Tea model
 const Tea = require("../../models/Tea");
 
@@ -9,18 +12,16 @@ const Tea = require("../../models/Tea");
 // @desc Add new tea
 // @access Public
 router.post("/new-tea", (req, res) => {
-  // TODO Form validation
-
-  // const { errors, isValid } = validateRegisterInput(req.body);
+  const { errors, isValid } = validateTeaInput(req.body);
 
   // Check validation
-  // if (!isValid) {
-  //   return res.status(400).json(errors);
-  // }
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   Tea.findOne({ id: req.body.id }).then(tea => {
     if (tea) {
-      return res.status(400).json({ id: "This tea already exists" });
+      return res.status(400).json({ teaConflict: "This tea already exists" });
     }
 
     const newTea = new Tea({
@@ -40,6 +41,13 @@ router.post("/new-tea", (req, res) => {
 });
 
 router.put("/update-tea", (req, res) => {
+  const { errors, isValid } = validateTeaInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   Tea.findOneAndUpdate({ id: req.body.id }, req.body, { new: true }, function(
     err,
     tea
@@ -52,7 +60,7 @@ router.put("/update-tea", (req, res) => {
 router.delete("/delete-tea/:id", (req, res) => {
   // The "tea" in this callback function represents the document that was found.
   // It allows you to pass a reference back to the client in case they need a reference for some reason.
-  Tea.findOneAndDelete({ id: req.params.id }, {}, (err, todo) => {
+  Tea.findOneAndDelete({ id: req.params.id }, {}, err => {
     // As always, handle any potential errors:
     if (err) return res.status(500).send(err);
     // We'll create a simple object to send back with a message and the id of the document that was removed
