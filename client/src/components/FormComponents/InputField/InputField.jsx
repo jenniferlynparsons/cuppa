@@ -18,7 +18,7 @@ const InputField = React.memo(props => {
         />
         {props.datalist}
       </div>
-      {!props.error && (
+      {!props.error && props.errorMessage && (
         <p className="help is-danger" data-testid="inputerror">
           {props.errorMessage}
         </p>
