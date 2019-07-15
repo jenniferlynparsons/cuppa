@@ -1,6 +1,6 @@
 import React from "react";
 
-class DataList extends React.PureComponent {
+class DataList extends React.Component {
   render() {
     let options = [];
     if (this.props.options && this.props.processOptions) {

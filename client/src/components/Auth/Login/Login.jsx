@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import InputField from "../../FormComponents/InputField/InputField";
 
-export class Login extends React.PureComponent {
+export class Login extends React.Component {
   render() {
     return (
       <div className="container content" data-testid="login">
