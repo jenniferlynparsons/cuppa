@@ -1,5 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import {
+  filterCategorySchema,
+  filterCriteriaSchema
+} from "../../../lib/validationSchemas";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
 import { TeaCollectionTable } from "./TeaCollectionTable";
 import DataList from "../../FormComponents/DataList";
@@ -15,7 +19,15 @@ export class TeaCollectionTableContainer extends React.Component {
       filterCriteria: ""
     },
     filtered: false,
-    dataList: []
+    dataList: [],
+    errors: {
+      filterCategory: true,
+      filterCriteria: true
+    },
+    errorMessages: {
+      filterCategory: "Please choose a category",
+      filterCriteria: "Please enter a filter term"
+    }
   };
 
   columnHeaders = [
@@ -104,10 +116,14 @@ export class TeaCollectionTableContainer extends React.Component {
     let currentFilterState = this.state.memoizedIDs;
     let newFilterOrder;
 
-    if (
-      this.state.formControls.filterCategory !== "" &&
-      this.state.formControls.filterCriteria !== ""
-    ) {
+    const categoryvalid = filterCategorySchema.isValidSync(
+      this.state.formControls
+    );
+    const criteriavalid = filterCriteriaSchema.isValidSync(
+      this.state.formControls
+    );
+
+    if (categoryvalid && criteriavalid) {
       newFilterOrder = list.filter(item => {
         if (Number(this.state.formControls.filterCriteria)) {
           return (
@@ -136,8 +152,20 @@ export class TeaCollectionTableContainer extends React.Component {
       this.setState({
         sortedIDs: newFilterOrder,
         memoizedIDs: currentFilterState,
-        filtered: true
+        filtered: true,
+        errors: {
+          filterCategory: categoryvalid,
+          filterCriteria: criteriavalid
+        }
       });
+    } else {
+      this.setState(state => ({
+        errors: {
+          ...state.errors,
+          filterCategory: categoryvalid,
+          filterCriteria: criteriavalid
+        }
+      }));
     }
   };
 
@@ -150,7 +178,11 @@ export class TeaCollectionTableContainer extends React.Component {
         filterCriteria: ""
       },
       filtered: false,
-      dataList: []
+      dataList: [],
+      errors: {
+        filterCategory: true,
+        filterCriteria: true
+      }
     });
   };
 
@@ -182,6 +214,8 @@ export class TeaCollectionTableContainer extends React.Component {
           teaIDs={this.state.sortedIDs}
           formControls={this.state.formControls}
           filtered={this.state.filtered}
+          errors={this.state.errors}
+          errorMessages={this.state.errorMessages}
           handleDeleteClick={this.handleDeleteClick}
           handleSortClick={this.handleSortClick}
           handleFilterClick={this.handleFilterClick}

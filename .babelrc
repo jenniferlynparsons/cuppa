@@ -1,16 +1,15 @@
 {
   "env": {
     "test": {
-      "plugins": [
-        "transform-class-properties",
-        "dynamic-import-node",
-        "@babel/plugin-transform-runtime"
-      ]
+      "plugins": ["@babel/transform-runtime"]
     },
     "production": {
       "plugins": ["babel-plugin-jsx-remove-data-test-id"]
     }
   },
-  "presets": ["@babel/preset-env", "@babel/preset-react"],
-  "plugins": ["transform-class-properties"]
+  "presets": ["@babel/env", "@babel/react"],
+  "plugins": [
+    "@babel/proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread"
+  ]
 }

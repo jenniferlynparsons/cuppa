@@ -185,6 +185,7 @@ describe("TeaCollectionTableContainerClass interactions", () => {
       });
       fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(3);
+      expect(queryAllByTestId("inputerror").length).toEqual(1);
     });
 
     test("if user does not enter filter criteria, filter does not work", () => {
@@ -197,8 +198,9 @@ describe("TeaCollectionTableContainerClass interactions", () => {
           value: "brand"
         }
       });
-      fireEvent.blur(getByTestId("filterbutton"));
+      fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(3);
+      expect(queryAllByTestId("inputerror").length).toEqual(1);
     });
   });
 });

@@ -20,7 +20,7 @@ describe("auth reducer", () => {
   test("returns loading state true when the action type is 'USER_LOADING'", () => {
     const reducer = authReducer(storeFixture.loggedOutStore.auth, {
       type: "USER_LOADING",
-      payload: userLoadingPayload
+      payload: userLoadingPayload.loading
     });
     expect(reducer).toEqual(userLoadingState);
   });
@@ -31,5 +31,13 @@ describe("auth reducer", () => {
       payload: storeFixture.loggedInStore.auth.user
     });
     expect(reducer).toEqual(storeFixture.loggedInStore.auth);
+  });
+
+  test("returns error state when the action type is 'LOGIN_ERRORS'", () => {
+    const reducer = authReducer(storeFixture.loggedOutStore.auth, {
+      type: "LOGIN_ERRORS",
+      payload: { emailNotFound: "Email not found" }
+    });
+    expect(reducer).toEqual(storeFixture.loggedErrorStore.auth);
   });
 });
