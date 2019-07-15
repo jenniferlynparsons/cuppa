@@ -15,6 +15,13 @@ const updatedTea = {
   servings: 21
 };
 
+const missingDataTea = {
+  name: "",
+  brand: "Twinnings",
+  teaType: "Green",
+  servings: 21
+};
+
 const teaTypes = ["Black", "Green", "White", "Herbal"];
 
 // Reducer mock data
@@ -140,6 +147,7 @@ const emptyState = { allTeas: {}, teaIDs: [] };
 const teaFixture = {
   basicTea,
   updatedTea,
+  missingDataTea,
   teaTypes,
   reducerAddTea,
   reducerEditTea,

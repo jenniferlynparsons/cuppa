@@ -41,7 +41,7 @@ describe("TeaEditorContainer rendering", () => {
   });
 });
 
-describe("teaEditor form submit", () => {
+describe("teaEditor form success", () => {
   test("editor form submit succesfully adds tea", () => {
     const { getByTestId, queryByTestId } = renderWithRouter(
       <TeaEditorContainerClass
@@ -59,7 +59,7 @@ describe("teaEditor form submit", () => {
     fireEvent.change(getByTestId("brand"), {
       target: { value: teaFixture.basicTea.brand }
     });
-    fireEvent.change(getByTestId("type"), {
+    fireEvent.change(getByTestId("teaType"), {
       target: { value: teaFixture.basicTea.teaType }
     });
     fireEvent.change(getByTestId("servings"), {
@@ -101,5 +101,65 @@ describe("teaEditor form submit", () => {
     expect(dataFixture.history.push).toHaveBeenCalledWith(
       "/tea/1b1db861-0537-4b69-83d5-d9ee033530f8"
     );
+  });
+});
+
+describe("teaEditor form failure", () => {
+  describe("editor onSubmit returns an error message if data is invalid", () => {
+    test("missing information for new tea", () => {
+      const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
+        <TeaEditorContainerClass
+          teaTypes={teaFixture.teaTypes}
+          userID={dataFixture.mockUserID}
+          currentTea={""}
+          getTeas={mockFunc}
+          editTea={mockEdit}
+          editTeaFlash={mockEditTeaFlash}
+          history={dataFixture.history}
+        />
+      );
+
+      expect(queryByTestId("duplicatenotice")).toBeFalsy();
+
+      fireEvent.click(getByTestId("submit"));
+      expect(queryByTestId("incompletenotice")).toBeTruthy();
+      expect(queryAllByTestId("inputerror").length).toEqual(4);
+    });
+
+    test("missing information for existing tea", () => {
+      const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
+        <TeaEditorContainerClass
+          teaTypes={teaFixture.teaTypes}
+          userID={dataFixture.mockUserID}
+          currentTea={teaFixture.missingDataTea}
+          getTeas={mockFunc}
+          editTea={mockEdit}
+          editTeaFlash={mockEditTeaFlash}
+          history={dataFixture.history}
+        />
+      );
+
+      expect(queryByTestId("duplicatenotice")).toBeFalsy();
+
+      fireEvent.click(getByTestId("submit"));
+      expect(queryByTestId("incompletenotice")).toBeTruthy();
+      expect(queryAllByTestId("inputerror").length).toEqual(1);
+    });
+
+    test("duplicate tea", () => {
+      const { queryByTestId } = renderWithRouter(
+        <TeaEditorContainerClass
+          teaTypes={teaFixture.teaTypes}
+          userID={dataFixture.mockUserID}
+          currentTea={teaFixture.basicTea}
+          getTeas={mockFunc}
+          editTea={mockEdit}
+          editTeaFlash={mockEditTeaFlash}
+          history={dataFixture.history}
+          serverErrors={{ teaConflict: "This tea already exists" }}
+        />
+      );
+      expect(queryByTestId("duplicatenotice")).toBeTruthy();
+    });
   });
 });
