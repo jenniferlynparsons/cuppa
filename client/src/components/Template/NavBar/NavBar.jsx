@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.scss";
 
-class NavBar extends React.PureComponent {
+class NavBar extends React.Component {
   render() {
     return (
       <nav

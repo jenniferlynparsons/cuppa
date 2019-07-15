@@ -1,6 +1,6 @@
 import React from "react";
 
-export class Dashboard extends React.PureComponent {
+export class Dashboard extends React.Component {
   render() {
     return (
       <div data-testid="dashboard" className="container content">

@@ -7,7 +7,7 @@ import InputField from "../../FormComponents/InputField";
 
 library.add(faAngleDown, faAngleUp);
 
-export class TeaCollectionTable extends React.PureComponent {
+export class TeaCollectionTable extends React.Component {
   render() {
     return (
       <div data-testid="teacollection" className="container">
