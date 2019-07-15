@@ -1,4 +1,4 @@
-import { string, object } from "yup";
+import { string, number, object } from "yup";
 
 export const nameSchema = object({
   name: string().required()
@@ -34,4 +34,12 @@ export const teaTypeSchema = object({
 
 export const servingsSchema = object({
   servings: string().required()
+});
+
+export const filterCategorySchema = object({
+  filterCategory: string().required()
+});
+
+export const filterCriteriaSchema = object({
+  filterCriteria: string().required() || number().required()
 });

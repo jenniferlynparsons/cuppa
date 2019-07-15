@@ -15,11 +15,18 @@ export class TeaCollectionTable extends React.PureComponent {
           <form onSubmit={this.props.handleFilterClick}>
             <div className="field has-addons">
               <div className="control">
-                <span className="select is-small">
+                <div
+                  className={
+                    !this.props.errors.filterCategory
+                      ? "select is-small is-danger"
+                      : "select is-small"
+                  }
+                >
                   <select
                     data-testid="filterselect"
                     name="filterCategory"
                     value={this.props.formControls.filterCategory}
+                    onChange={this.props.handleFilterDropdownChange}
                     onBlur={this.props.handleFilterDropdownChange}
                   >
                     <option key="category" value="">
@@ -34,7 +41,7 @@ export class TeaCollectionTable extends React.PureComponent {
                       </option>
                     ))}
                   </select>
-                </span>
+                </div>
               </div>
               <InputField
                 datatestid="filterinput"
@@ -45,6 +52,8 @@ export class TeaCollectionTable extends React.PureComponent {
                 placeholder="Filter Text"
                 value={this.props.formControls.filterCriteria}
                 className="input is-small"
+                error={this.props.errors.filterCriteria}
+                errorClass="input is-small is-danger"
                 onChange={this.props.handleFilterInputChange}
               />
               <div className="control">
@@ -57,6 +66,16 @@ export class TeaCollectionTable extends React.PureComponent {
                 </button>
               </div>
             </div>
+            {!this.props.errors.filterCategory && (
+              <p className="help is-danger" data-testid="inputerror">
+                {this.props.errorMessages.filterCategory}
+              </p>
+            )}
+            {!this.props.errors.filterCriteria && (
+              <p className="help is-danger" data-testid="inputerror">
+                {this.props.errorMessages.filterCriteria}
+              </p>
+            )}
           </form>
           {this.props.filtered && (
             <div className="control">

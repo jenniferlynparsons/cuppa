@@ -36,7 +36,7 @@ describe("auth reducer", () => {
   test("returns error state when the action type is 'LOGIN_ERRORS'", () => {
     const reducer = authReducer(storeFixture.loggedOutStore.auth, {
       type: "LOGIN_ERRORS",
-      payload: { emailAlreadyExists: "Email not found" }
+      payload: { emailNotFound: "Email not found" }
     });
     expect(reducer).toEqual(storeFixture.loggedErrorStore.auth);
   });
