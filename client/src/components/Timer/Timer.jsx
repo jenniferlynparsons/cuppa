@@ -2,6 +2,13 @@ import React from "react";
 
 export class Timer extends React.Component {
   render() {
+    let minutes = ("0" + (Math.floor(this.props.timerTime / 60000) % 60)).slice(
+      -2
+    );
+    let seconds = ("0" + (Math.floor(this.props.timerTime / 1000) % 60)).slice(
+      -2
+    );
+
     return (
       <div
         className={
@@ -18,7 +25,9 @@ export class Timer extends React.Component {
             </p>
           </header>
           <section className="modal-card-body">
-            <p className="is-size-3">2:27</p>
+            <p className="is-size-3">
+              {minutes}:{seconds}
+            </p>
             <progress className="progress is-primary" value="15" max="100">
               15%
             </progress>
@@ -26,33 +35,40 @@ export class Timer extends React.Component {
           <div className="modal-card-foot is-centered">
             <button
               className={
-                this.props.showStartButton ? "button is-success" : "is-hidden"
+                !this.props.timerOn &&
+                this.props.timerTime === this.props.timerLength
+                  ? "button is-success"
+                  : "is-hidden"
               }
               onClick={this.props.handleStartTimer}
             >
-              {this.props.showStartButton ? "Start" : ""}
+              Start
             </button>
 
             <button
               className={
-                this.props.showResumeButton ? "button is-success" : "is-hidden"
+                !this.props.timerOn &&
+                this.props.timerTime > 0 &&
+                this.props.timerTime !== this.props.timerLength
+                  ? "button is-success"
+                  : "is-hidden"
               }
               onClick={this.props.handleResumeTimer}
             >
-              {this.props.showResumeButton ? "Resume" : ""}
+              Resume
             </button>
 
             <button
-              className={
-                this.props.showPauseButton ? "button is-danger" : "is-hidden"
-              }
+              className={this.props.timerOn ? "button is-danger" : "is-hidden"}
               onClick={this.props.handlePauseTimer}
             >
-              Pause
+              Pause {this.props.timerOn}
             </button>
             <button
               className={
-                this.props.showDoneButton ? "button is-primary" : "is-hidden"
+                !this.props.timerOn && this.props.timerTime === 0
+                  ? "button is-primary"
+                  : "is-hidden"
               }
               onClick={this.props.handleFinishTimer}
             >
