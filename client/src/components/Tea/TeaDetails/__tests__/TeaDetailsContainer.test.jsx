@@ -73,4 +73,18 @@ describe("teaDetails interactions", () => {
     fireEvent.click(getByTestId("teaeditlink"));
     expect(history.entries[1].pathname).toMatch("/update-tea/");
   });
+
+  test("user clicks make a cuppa updates quantity", () => {
+    const { getByTestId, history } = renderWithRouter(
+      <TeaDetailsContainerClass
+        tea={teaFixture.basicTea}
+        flash={"off"}
+        getTeas={mockFunc}
+        editTeaFlash={mockTeaFlash}
+      />
+    );
+
+    fireEvent.click(getByTestId("makecuppalink"));
+    expect(history.entries[1].pathname).toMatch("/make-cuppa/");
+  });
 });

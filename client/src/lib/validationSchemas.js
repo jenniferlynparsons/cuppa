@@ -33,7 +33,7 @@ export const teaTypeSchema = object({
 });
 
 export const servingsSchema = object({
-  servings: string().required()
+  servings: number().required()
 });
 
 export const filterCategorySchema = object({

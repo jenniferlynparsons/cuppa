@@ -1,12 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getTeas } from "../../../actions/teaActions";
+import { getTeas, editTea } from "../../../actions/teaActions";
 import { TeaDetails } from "./TeaDetails";
 import { editTeaFlash } from "../../../actions/flashActions";
 
 class TeaDetailsContainer extends Component {
+  state = {
+    showTimer: false
+  };
+
   updateFlash = status => {
     this.props.editTeaFlash(status);
+  };
+
+  handleOpenTimer = () => {
+    this.setState({ showTimer: true });
+  };
+  handleCloseTimer = () => {
+    this.setState({ showTimer: false });
+  };
+  handleTimerUpdateQty = updatedTea => {
+    this.props.editTea(updatedTea);
   };
 
   componentDidMount() {
@@ -17,8 +31,12 @@ class TeaDetailsContainer extends Component {
     return !this.props.tea ? null : (
       <TeaDetails
         tea={this.props.tea}
+        showTimer={this.state.showTimer}
         flash={this.props.flash}
         updateFlash={this.updateFlash}
+        handleOpenTimer={this.handleOpenTimer}
+        handleCloseTimer={this.handleCloseTimer}
+        handleTimerUpdateQty={this.handleTimerUpdateQty}
       />
     );
   }
@@ -34,6 +52,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   editTeaFlash,
+  editTea,
   getTeas
 };
 

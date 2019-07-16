@@ -32,7 +32,7 @@ const reducerAddTea = {
   name: "Lapsang Souchang",
   brand: "McNulty's",
   teaType: "Black",
-  servings: "12",
+  servings: 12,
   id: "3d4a3605-4368-4ee1-abe4-318d7982e491"
 };
 
@@ -51,7 +51,7 @@ const reducerEditTea = {
   name: "Lapsang Souchang",
   brand: "McNulty's",
   teaType: "Black",
-  servings: "14",
+  servings: 14,
   edit: true,
   brands: [],
   brandsDataList: [],
