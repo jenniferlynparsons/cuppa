@@ -18,12 +18,6 @@ class TimerContainer extends React.Component {
   };
 
   handleStartTimer = () => {
-    if (this.state.tea.servings === this.state.originalServings) {
-      this.setState({
-        tea: { ...this.state.tea, servings: this.state.tea.servings - 1 }
-      });
-    }
-
     this.startTimer();
   };
 
@@ -36,17 +30,23 @@ class TimerContainer extends React.Component {
   };
 
   handleCancelTimer = () => {
-    this.setState({
-      tea: { ...this.state.tea }
-    });
     this.resetTimer();
     this.props.handleCloseTimer();
   };
 
   handleFinishTimer = () => {
-    this.props.handleTimerUpdateQty(this.state.tea);
-    this.resetTimer();
-    this.props.handleCloseTimer();
+    if (this.state.tea.servings === this.state.originalServings) {
+      this.setState(
+        {
+          tea: { ...this.state.tea, servings: this.state.tea.servings - 1 }
+        },
+        () => {
+          this.props.handleTimerUpdateQty(this.state.tea);
+          this.resetTimer();
+          this.props.handleCloseTimer();
+        }
+      );
+    }
   };
 
   startTimer = () => {
@@ -74,15 +74,25 @@ class TimerContainer extends React.Component {
   };
 
   resetTimer = () => {
+    // this.props.tea.brewTime
     this.setState({
       timerOn: false,
-      timerTime: 0
+      timerTime: 2100
     });
   };
 
   componentDidMount() {
     // this.props.tea.brewTime
     this.setState({ timerTime: 2100 });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.tea && this.props.tea !== prevProps.tea) {
+      this.setState({
+        tea: this.props.tea,
+        originalServings: this.props.tea.servings
+      });
+    }
   }
 
   render() {
