@@ -6,6 +6,10 @@ const TeaTypeSchema = new Schema({
   name: {
     type: String,
     required: true
+  },
+  brewTime: {
+    type: Number,
+    required: true
   }
 });
 
