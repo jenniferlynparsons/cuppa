@@ -22,6 +22,14 @@ const missingDataTea = {
   servings: 21
 };
 
+const servingsUpdatedTea = {
+  teaID: "1b1db861-0537-4b69-83d5-d9ee033530f8",
+  name: "Basic Tea",
+  brand: "Lipton",
+  teaType: "Black",
+  servings: 11
+};
+
 const teaTypes = ["Black", "Green", "White", "Herbal"];
 
 // Reducer mock data
@@ -148,6 +156,7 @@ const teaFixture = {
   basicTea,
   updatedTea,
   missingDataTea,
+  servingsUpdatedTea,
   teaTypes,
   reducerAddTea,
   reducerEditTea,

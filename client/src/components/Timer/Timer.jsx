@@ -11,6 +11,7 @@ export class Timer extends React.Component {
 
     return (
       <div
+        data-testid="timermodal"
         className={
           this.props.showTimer
             ? "modal is-active has-text-centered"
@@ -34,6 +35,7 @@ export class Timer extends React.Component {
           </section>
           <div className="modal-card-foot is-centered">
             <button
+              data-testid="starttimer"
               className={
                 !this.props.timerOn &&
                 this.props.timerTime === this.props.timerLength
@@ -46,6 +48,7 @@ export class Timer extends React.Component {
             </button>
 
             <button
+              data-testid="resumetimer"
               className={
                 !this.props.timerOn &&
                 this.props.timerTime > 0 &&
@@ -59,12 +62,14 @@ export class Timer extends React.Component {
             </button>
 
             <button
+              data-testid="pausetimer"
               className={this.props.timerOn ? "button is-danger" : "is-hidden"}
               onClick={this.props.handlePauseTimer}
             >
               Pause {this.props.timerOn}
             </button>
             <button
+              data-testid="donetimer"
               className={
                 !this.props.timerOn && this.props.timerTime === 0
                   ? "button is-primary"
@@ -75,6 +80,7 @@ export class Timer extends React.Component {
               Done!
             </button>
             <button
+              data-testid="canceltimer"
               className={this.props.timerTime !== 0 ? "button" : "is-hidden"}
               onClick={this.props.handleCancelTimer}
             >

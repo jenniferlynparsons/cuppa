@@ -1,5 +1,6 @@
 import React from "react";
 import { fireEvent } from "@testing-library/react";
+import "jest-dom/extend-expect";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
 import teaFixture from "../../../../test/__fixtures__/teaFixture";
@@ -8,10 +9,8 @@ import TeaDetailsContainer from "../TeaDetailsContainer";
 import { TeaDetailsContainerClass } from "../TeaDetailsContainer";
 
 let mockFunc;
-let mockTeaFlash;
 beforeEach(() => {
   mockFunc = jest.fn();
-  mockTeaFlash = jest.fn();
 });
 
 describe("TeaDetailsContainer rendering", () => {
@@ -37,7 +36,7 @@ describe("TeaDetailsContainer flash", () => {
         tea={teaFixture.basicTea}
         flash={"on"}
         getTeas={mockFunc}
-        editTeaFlash={mockTeaFlash}
+        editTeaFlash={mockFunc}
       />
     );
 
@@ -50,12 +49,12 @@ describe("TeaDetailsContainer flash", () => {
         tea={teaFixture.basicTea}
         flash={"on"}
         getTeas={mockFunc}
-        editTeaFlash={mockTeaFlash}
+        editTeaFlash={mockFunc}
       />
     );
 
     fireEvent.click(getByTestId("flash"), "off");
-    expect(mockTeaFlash).toBeCalledWith("off");
+    expect(mockFunc).toBeCalledWith("off");
   });
 });
 
@@ -66,25 +65,63 @@ describe("teaDetails interactions", () => {
         tea={teaFixture.basicTea}
         flash={"on"}
         getTeas={mockFunc}
-        editTeaFlash={mockTeaFlash}
+        editTeaFlash={mockFunc}
       />
     );
 
     fireEvent.click(getByTestId("teaeditlink"));
     expect(history.entries[1].pathname).toMatch("/update-tea/");
   });
+});
 
-  test("user clicks make a cuppa updates quantity", () => {
-    const { getByTestId, history } = renderWithRouter(
+describe("tea timer interactions", () => {
+  test("user can display timer modal", () => {
+    const { getByTestId, queryByTestId } = renderWithRouter(
       <TeaDetailsContainerClass
         tea={teaFixture.basicTea}
         flash={"off"}
         getTeas={mockFunc}
-        editTeaFlash={mockTeaFlash}
+        editTeaFlash={mockFunc}
       />
     );
 
     fireEvent.click(getByTestId("makecuppalink"));
-    expect(history.entries[1].pathname).toMatch("/make-cuppa/");
+    expect(queryByTestId("timermodal")).toHaveClass("is-active");
+  });
+
+  test("user can hide timer modal", () => {
+    const { getByTestId, queryByTestId } = renderWithRouter(
+      <TeaDetailsContainerClass
+        tea={teaFixture.basicTea}
+        flash={"off"}
+        getTeas={mockFunc}
+        editTeaFlash={mockFunc}
+      />
+    );
+
+    fireEvent.click(getByTestId("makecuppalink"));
+    fireEvent.click(getByTestId("canceltimer"));
+    expect(queryByTestId("timermodal")).not.toHaveClass("is-active");
+  });
+
+  test("completed timer updates quantity on hand", () => {
+    const { getByTestId, queryByTestId } = renderWithRouter(
+      <TeaDetailsContainerClass
+        tea={teaFixture.basicTea}
+        flash={"off"}
+        getTeas={mockFunc}
+        editTeaFlash={mockFunc}
+        editTea={mockFunc}
+      />
+    );
+
+    fireEvent.click(getByTestId("makecuppalink"));
+    fireEvent.click(getByTestId("starttimer"));
+    setTimeout(function() {
+      expect(queryByTestId("donetimer")).toHaveClass("button");
+      fireEvent.click(getByTestId("donetimer"));
+      expect(queryByTestId("timermodal")).not.toHaveClass("is-active");
+      expect(mockFunc).toHaveBeenCalledWith(teaFixture.servingsUpdatedTea);
+    }, 2500);
   });
 });
