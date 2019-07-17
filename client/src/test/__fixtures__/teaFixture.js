@@ -22,6 +22,14 @@ const missingDataTea = {
   servings: 21
 };
 
+const servingsUpdatedTea = {
+  teaID: "1b1db861-0537-4b69-83d5-d9ee033530f8",
+  name: "Basic Tea",
+  brand: "Lipton",
+  teaType: "Black",
+  servings: 11
+};
+
 const teaTypes = ["Black", "Green", "White", "Herbal"];
 
 // Reducer mock data
@@ -32,7 +40,7 @@ const reducerAddTea = {
   name: "Lapsang Souchang",
   brand: "McNulty's",
   teaType: "Black",
-  servings: "12",
+  servings: 12,
   id: "3d4a3605-4368-4ee1-abe4-318d7982e491"
 };
 
@@ -51,7 +59,7 @@ const reducerEditTea = {
   name: "Lapsang Souchang",
   brand: "McNulty's",
   teaType: "Black",
-  servings: "14",
+  servings: 14,
   edit: true,
   brands: [],
   brandsDataList: [],
@@ -148,6 +156,7 @@ const teaFixture = {
   basicTea,
   updatedTea,
   missingDataTea,
+  servingsUpdatedTea,
   teaTypes,
   reducerAddTea,
   reducerEditTea,

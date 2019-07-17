@@ -145,7 +145,7 @@ describe("TeaCollectionTableContainerClass interactions", () => {
       });
       fireEvent.change(getByTestId("filterinput"), {
         target: {
-          value: "22"
+          value: 22
         }
       });
       fireEvent.click(getByTestId("filterbutton"));

@@ -74,7 +74,7 @@ export class TeaEditorContainer extends React.Component {
 
   handleServingsChange = event => {
     this.setState({
-      servings: event.currentTarget.value
+      servings: Number(event.currentTarget.value)
     });
   };
 
