@@ -20,8 +20,6 @@ router.post("/new-tea-type", (req, res) => {
   }
 
   TeaType.findOne({ id: req.body.id }).then(teaType => {
-    console.log("-------yo--------");
-    console.log(teaType);
     if (teaType) {
       return res
         .status(400)
@@ -43,8 +41,6 @@ router.post("/new-tea-type", (req, res) => {
 });
 
 router.put("/update-tea-type", (req, res) => {
-  console.log("---------------yo-----------------");
-  console.log(req.body);
   const { errors, isValid } = validateTeaTypeInput(req.body);
 
   // Check validation
@@ -57,6 +53,9 @@ router.put("/update-tea-type", (req, res) => {
     req.body,
     { new: true },
     function(err, teaType) {
+      console.log("-------------server response------------");
+      console.log(teaType);
+      // console.log(res.json());
       if (err) return res.send(500, { error: err });
       return res.json(teaTypeNormalizer(teaType));
     }
@@ -79,7 +78,7 @@ router.delete("/delete-tea-type/:id", (req, res) => {
   });
 });
 
-// get the tea with that id (accessed at GET http://localhost:8080/api/teas/:tea_id)
+// get the teaType with that id (accessed at GET http://localhost:8080/api/teas/:tea_id)
 router.get("/tea-type/:id", (req, res) => {
   TeaType.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {

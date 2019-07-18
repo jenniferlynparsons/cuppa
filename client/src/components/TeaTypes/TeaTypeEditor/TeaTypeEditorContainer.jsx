@@ -28,6 +28,7 @@ export class TeaTypeEditorContainer extends React.Component {
       name: false
     },
     userID: this.props.userID,
+    teaTypeID: this.props.currentTeaType ? this.props.currentTeaType.id : "",
     name: this.props.currentTeaType ? this.props.currentTeaType.name : "",
     brewTimeMin: this.props.currentTeaType
       ? convertTimeToMinSec(this.props.currentTeaType.brewTime).minute
@@ -160,25 +161,6 @@ export class TeaTypeEditorContainer extends React.Component {
           teaTypeConflict: false
         }
       }));
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      (this.props.currentTeaType && !prevProps.currentTeaType) ||
-      (this.props.currentTeaType &&
-        this.props.currentTeaType.id !== prevProps.currentTeaType.id)
-    ) {
-      const brewTimeData = convertTimeToMinSec(
-        this.props.currentTeaType.brewTime
-      );
-      this.setState({
-        teaTypeID: this.props.currentTeaType.id,
-        name: this.props.currentTeaType.name,
-        brewTimeMin: brewTimeData.minute,
-        brewTimeSec: brewTimeData.seconds,
-        edit: true
-      });
     }
   }
 

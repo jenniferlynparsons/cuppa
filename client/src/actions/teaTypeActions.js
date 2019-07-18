@@ -20,6 +20,7 @@ export const editTeaType = teaType => {
   return dispatch => {
     console.log(teaType);
     return API.put("/teaTypes/update-tea-type", teaType).then(response => {
+      console.log(`edit tea action: ${response}`);
       dispatch({
         type: teaTypeActionTypes.EDIT_TEATYPE,
         payload: response

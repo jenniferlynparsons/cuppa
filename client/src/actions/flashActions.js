@@ -6,6 +6,6 @@ export const editTeaFlash = status => ({
 });
 
 export const editTeaTypeFlash = status => ({
-  type: flashActionTypes.EDIT_TEA__TYPE_FLASH,
+  type: flashActionTypes.EDIT_TEA_TYPE_FLASH,
   payload: status
 });

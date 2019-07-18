@@ -10,7 +10,7 @@ export default (state = { allTeaTypes: {}, teaTypeIDs: [] }, action) => {
       return { ...state, allTeaTypes: addAllTeaTypes, teaIDs: addIDsArr };
     }
     case "EDIT_TEATYPE": {
-      console.log(action.payload);
+      console.log(`edit action.payload: ${action.payload}`);
       let updateAllTeaTypes = {
         ...state.allTeaTypes,
         [action.payload.id]: action.payload
@@ -26,7 +26,7 @@ export default (state = { allTeaTypes: {}, teaTypeIDs: [] }, action) => {
     case "GET_TEATYPES": {
       let getAllTeaTypes = {};
       let getIDsArr = [];
-      console.log(action.payload);
+      console.log(`get action.payload: ${action.payload}`);
       action.payload.forEach(teaType => {
         getAllTeaTypes[teaType.id] = teaType;
         getIDsArr.push(teaType.id);
