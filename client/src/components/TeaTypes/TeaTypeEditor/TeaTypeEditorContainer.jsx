@@ -1,7 +1,15 @@
 import React from "react";
 import uuidv4 from "uuid/v4";
 import { connect } from "react-redux";
-import { nameSchema, brewTimeSchema } from "../../../lib/validationSchemas";
+import {
+  convertTimeToMinSec,
+  convertTimeToMill
+} from "../../../lib/timeConverter";
+import {
+  nameSchema,
+  brewTimeMinSchema,
+  brewTimeSecSchema
+} from "../../../lib/validationSchemas";
 import {
   editTeaType,
   addTeaType,
@@ -21,19 +29,24 @@ export class TeaTypeEditorContainer extends React.Component {
     },
     userID: this.props.userID,
     name: this.props.currentTeaType ? this.props.currentTeaType.name : "",
-    brewTime: this.props.currentTeaType
-      ? this.props.currentTeaType.brewTime
+    brewTimeMin: this.props.currentTeaType
+      ? convertTimeToMinSec(this.props.currentTeaType.brewTime).minute
+      : "",
+    brewTimeSec: this.props.currentTeaType
+      ? convertTimeToMinSec(this.props.currentTeaType.brewTime).seconds
       : "",
     edit: !!this.props.currentTeaType,
     errors: {
       name: true,
       brewTime: true,
+      brewTimeMin: true,
+      brewTimeSec: true,
       incomplete: true,
       teaTypeConflict: true
     },
     errorMessages: {
       name: "Please enter a tea type name",
-      brand: "Please enter a tea brew time"
+      brewTime: "Please enter a tea brew time"
     }
   };
 
@@ -49,9 +62,15 @@ export class TeaTypeEditorContainer extends React.Component {
     });
   };
 
-  handleBrewTimeChange = event => {
+  handleBrewTimeMinChange = event => {
     this.setState({
-      brewTime: event.currentTarget.value
+      brewTimeMin: event.currentTarget.value
+    });
+  };
+
+  handleBrewTimeSecChange = event => {
+    this.setState({
+      brewTimeSec: event.currentTarget.value
     });
   };
 
@@ -73,15 +92,29 @@ export class TeaTypeEditorContainer extends React.Component {
     event.preventDefault();
 
     const namevalid = nameSchema.isValidSync(this.state);
-    const brewTimevalid = brewTimeSchema.isValidSync(this.state);
+    const brewtimeminvalid = brewTimeMinSchema.isValidSync(this.state);
+    const brewtimesecvalid = brewTimeSecSchema.isValidSync(this.state);
+    const brewtimevalid =
+      brewTimeMinSchema.isValidSync(this.state) &&
+      brewTimeSecSchema.isValidSync(this.state);
 
-    if (namevalid && brewTimevalid) {
+    const typeData = {
+      userID: this.state.userID,
+      teaTypeID: this.state.teaTypeID,
+      name: this.state.name,
+      brewTime: convertTimeToMill(
+        this.state.brewTimeMin,
+        this.state.brewTimeSec
+      )
+    };
+
+    if (namevalid && brewtimevalid) {
       if (this.state.edit === true) {
-        this.props.editTeaType(this.state);
+        this.props.editTeaType(typeData);
         this.props.editTeaTypeFlash("on");
         this.props.history.push("/teaTypes/");
       } else {
-        this.props.addTeaType(this.state);
+        this.props.addTeaType(typeData);
         this.setState({
           flash: {
             name: this.state.name,
@@ -93,7 +126,8 @@ export class TeaTypeEditorContainer extends React.Component {
           teaTypeID: "",
           userID: this.props.userID,
           name: "",
-          brewTime: "",
+          brewTimeMin: "",
+          brewTimeSec: "",
           edit: false,
           errors: {
             name: true,
@@ -107,7 +141,9 @@ export class TeaTypeEditorContainer extends React.Component {
         errors: {
           ...state.errors,
           name: namevalid,
-          brewTime: brewTimevalid,
+          brewTime: brewtimevalid,
+          brewTimeMin: brewtimeminvalid,
+          brewTimeSec: brewtimesecvalid,
           incomplete: false
         }
       }));
@@ -133,10 +169,14 @@ export class TeaTypeEditorContainer extends React.Component {
       (this.props.currentTeaType &&
         this.props.currentTeaType.id !== prevProps.currentTeaType.id)
     ) {
+      const brewTimeData = convertTimeToMinSec(
+        this.props.currentTeaType.brewTime
+      );
       this.setState({
         teaTypeID: this.props.currentTeaType.id,
         name: this.props.currentTeaType.name,
-        brewTime: this.props.currentTeaType.brewTime,
+        brewTimeMin: brewTimeData.minute,
+        brewTimeSec: brewTimeData.seconds,
         edit: true
       });
     }
@@ -146,13 +186,15 @@ export class TeaTypeEditorContainer extends React.Component {
     return (
       <TeaTypeEditor
         name={this.state.name}
-        brewTime={this.state.brewTime}
+        brewTimeMin={this.state.brewTimeMin}
+        brewTimeSec={this.state.brewTimeSec}
         flash={this.state.flash}
         errors={this.state.errors}
         errorMessages={this.state.errorMessages}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}
-        handleBrewTimeChange={this.handleBrewTimeChange}
+        handleBrewTimeMinChange={this.handleBrewTimeMinChange}
+        handleBrewTimeSecChange={this.handleBrewTimeSecChange}
         handleSubmitButton={this.handleSubmitButton}
         handleFormSubmit={this.handleFormSubmit}
       />

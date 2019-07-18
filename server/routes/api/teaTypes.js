@@ -19,8 +19,10 @@ router.post("/new-tea-type", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  TeaType.findOne({ id: req.body.id }).then(tea => {
-    if (tea) {
+  TeaType.findOne({ id: req.body.id }).then(teaType => {
+    console.log("-------yo--------");
+    console.log(teaType);
+    if (teaType) {
       return res
         .status(400)
         .json({ teaTypeConflict: "This tea type already exists" });
@@ -41,6 +43,8 @@ router.post("/new-tea-type", (req, res) => {
 });
 
 router.put("/update-tea-type", (req, res) => {
+  console.log("---------------yo-----------------");
+  console.log(req);
   const { errors, isValid } = validateTeaTypeInput(req.body);
 
   // Check validation

@@ -1,4 +1,4 @@
-import typesReducer from "../typesReducers";
+import typesReducer from "../teaTypesReducers";
 
 describe("types reducer", () => {
   test("returns default state when there is no action type", () => {

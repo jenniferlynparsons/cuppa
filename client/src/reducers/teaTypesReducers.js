@@ -1,7 +1,3 @@
-// export default (state = ["Black", "Green", "White", "Herbal"]) => {
-//   return state;
-// };
-
 export default (state = { allTeaTypes: {}, teaTypeIDs: [] }, action) => {
   switch (action.type) {
     case "ADD_TEATYPE": {
@@ -29,15 +25,15 @@ export default (state = { allTeaTypes: {}, teaTypeIDs: [] }, action) => {
     case "GET_TEATYPES": {
       let getAllTeaTypes = {};
       let getIDsArr = [];
-
+      console.log(action.payload);
       action.payload.forEach(teaType => {
         getAllTeaTypes[teaType.id] = teaType;
         getIDsArr.push(teaType.id);
       });
       return {
         ...state,
-        allTeas: getAllTeaTypes,
-        teaIDs: getIDsArr
+        allTeaTypes: getAllTeaTypes,
+        teaTypeIDs: getIDsArr
       };
     }
     default:

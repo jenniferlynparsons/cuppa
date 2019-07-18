@@ -9,7 +9,8 @@ const defaultProps = {
   type: "text",
   list: "brands",
   placeholder: "Tea Brand",
-  value: "Lipton"
+  value: "Lipton",
+  onChange: jest.fn()
 };
 
 describe("InputField rendering", () => {

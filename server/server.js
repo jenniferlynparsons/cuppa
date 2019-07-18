@@ -8,6 +8,7 @@ const path = require("path");
 
 const users = require("./routes/api/users");
 const teas = require("./routes/api/teas");
+const teaTypes = require("./routes/api/teaTypes");
 
 const app = express();
 
@@ -26,7 +27,7 @@ const db = process.env.MONGOURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(db, { useNewUrlParser: true })
+  .connect(db, { useNewUrlParser: true, useFindAndModify: false })
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
 
@@ -41,6 +42,7 @@ app.use(express.static("client/dist"));
 // Routes
 app.use("/api/users", users);
 app.use("/api/teas", teas);
+app.use("/api/teaTypes", teaTypes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/dist"));

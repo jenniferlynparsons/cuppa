@@ -3,7 +3,7 @@ import { teaTypeActionTypes } from "../lib/actionTypes";
 
 // Add TeaType
 export const addTeaType = teaType => {
-  teaType.id = teaType.teaID;
+  teaType.id = teaType.teaTypeID;
   return dispatch => {
     return API.post("/teaTypes/new-tea-type", teaType).then(response => {
       dispatch({
@@ -16,8 +16,9 @@ export const addTeaType = teaType => {
 
 // Edit TeaType
 export const editTeaType = teaType => {
-  teaType.id = teaType.teaID;
+  teaType.id = teaType.teaTypeID;
   return dispatch => {
+    console.log(teaType);
     return API.put("/teaTypes/update-tea-type", teaType).then(response => {
       dispatch({
         type: teaTypeActionTypes.EDIT_TEATYPE,
@@ -43,6 +44,7 @@ export const deleteTeaType = teaTypeID => {
 export const getTeaTypes = listOwner => {
   return dispatch => {
     return API.get(`/teaTypes/teaTypesList/${listOwner}`).then(response => {
+      console.log(response);
       dispatch({
         type: teaTypeActionTypes.GET_TEATYPES,
         payload: response

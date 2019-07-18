@@ -19,7 +19,7 @@ export class TeaTypeEditor extends React.Component {
             Please enter the tea type details.
           </div>
         )}
-
+        {this.props.errorMessages.teaTypeConflict}
         {!this.props.errors.teaTypeConflict && (
           <div className="notification is-danger" data-testid="duplicatenotice">
             This tea type already exists in our system. Please try again.
@@ -46,26 +46,45 @@ export class TeaTypeEditor extends React.Component {
               errorMessage={this.props.errorMessages.name}
               errorClass="input is-danger"
               onChange={this.props.handleNameChange}
-              onBlur={this.props.handleBlur("name")}
             />
           </div>
           <div className="field">
-            <label className="label" htmlFor="brewTime">
-              Brew Time
-            </label>
-            <InputField
-              datatestid="brewtime"
-              name="brewTime"
-              id="brewTime"
-              type="text"
-              placeholder="Tea brewTime"
-              value={this.props.brewTime}
-              className="input"
-              error={this.props.errors.brewTime}
-              errorMessage={this.props.errorMessages.brewTime}
-              errorClass="input is-danger"
-              onChange={this.props.handlebrewTimeChange}
-            />
+            <p className="label">Brew Time</p>
+            <div className="columns">
+              <div className="column is-one-quarter">
+                <InputField
+                  datatestid="brewtimemin"
+                  name="brewTimeMin"
+                  id="brewTimeMin"
+                  type="number"
+                  placeholder="Min"
+                  value={this.props.brewTimeMin}
+                  className="input is-one-fifth"
+                  error={this.props.errors.brewTimeMin}
+                  errorClass="input is-danger is-one-fifth"
+                  onChange={this.props.handleBrewTimeMinChange}
+                />
+              </div>
+              <div className="column is-one-quarter">
+                <InputField
+                  datatestid="brewtime"
+                  name="brewTime"
+                  id="brewTime"
+                  type="number"
+                  placeholder="Sec"
+                  value={this.props.brewTimeSec}
+                  className="input is-one-fifth"
+                  error={this.props.errors.brewTimeSec}
+                  errorClass="input is-danger is-one-fifth"
+                  onChange={this.props.handleBrewTimeSecChange}
+                />
+              </div>
+            </div>
+            {!this.props.errors.brewTime && (
+              <p className="help is-danger" data-testid="inputerror">
+                {this.props.errorMessages.brewTime}
+              </p>
+            )}
           </div>
           <div className="control">
             <button

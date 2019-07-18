@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { convertTimeToMinSec } from "../../../lib/timeConverter";
 
 export class TeaTypeCollectionTable extends React.Component {
   render() {
@@ -20,10 +21,13 @@ export class TeaTypeCollectionTable extends React.Component {
           <tbody>
             {this.props.teaTypeIDs.map(teaTypeID => {
               const teaType = this.props.allTeaTypes[teaTypeID];
+              const brewTime = convertTimeToMinSec(teaType.brewTime);
               return (
                 <tr key={teaType.id}>
                   <td>{teaType.name}</td>
-                  <td>{teaType.brewTime}</td>
+                  <td>
+                    {brewTime.minute}:{brewTime.seconds}
+                  </td>
                   <td>
                     <Link
                       to={"/update-tea-type/" + teaType.id}
