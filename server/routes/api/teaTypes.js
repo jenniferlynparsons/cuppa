@@ -44,7 +44,7 @@ router.post("/new-tea-type", (req, res) => {
 
 router.put("/update-tea-type", (req, res) => {
   console.log("---------------yo-----------------");
-  console.log(req);
+  console.log(req.body);
   const { errors, isValid } = validateTeaTypeInput(req.body);
 
   // Check validation

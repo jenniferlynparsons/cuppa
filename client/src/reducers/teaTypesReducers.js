@@ -10,6 +10,7 @@ export default (state = { allTeaTypes: {}, teaTypeIDs: [] }, action) => {
       return { ...state, allTeaTypes: addAllTeaTypes, teaIDs: addIDsArr };
     }
     case "EDIT_TEATYPE": {
+      console.log(action.payload);
       let updateAllTeaTypes = {
         ...state.allTeaTypes,
         [action.payload.id]: action.payload
