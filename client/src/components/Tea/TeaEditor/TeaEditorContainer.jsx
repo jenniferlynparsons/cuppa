@@ -94,19 +94,29 @@ export class TeaEditorContainer extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-
     const namevalid = nameSchema.isValidSync(this.state);
     const brandvalid = brandSchema.isValidSync(this.state);
     const teaTypevalid = teaTypeSchema.isValidSync(this.state);
     const servingsvalid = servingsSchema.isValidSync(this.state);
 
+    const teaData = {
+      userID: this.state.userID,
+      teaID: this.state.teaID,
+      name: this.state.name,
+      brand: this.state.brand,
+      teaType: this.state.teaType,
+      servings: this.state.servings
+    };
+
+    console.log(teaData);
+
     if (namevalid && brandvalid && teaTypevalid && servingsvalid) {
       if (this.state.edit === true) {
-        this.props.editTea(this.state);
+        this.props.editTea(teaData);
         this.props.editTeaFlash("on");
         this.props.history.push("/tea/" + this.state.teaID);
       } else {
-        this.props.addTea(this.state);
+        this.props.addTea(teaData);
         this.setState({
           flash: {
             name: this.state.name,
@@ -128,7 +138,8 @@ export class TeaEditorContainer extends React.Component {
             brand: true,
             teaType: true,
             servings: true,
-            incomplete: true
+            incomplete: true,
+            teaConflict: true
           }
         });
       }
