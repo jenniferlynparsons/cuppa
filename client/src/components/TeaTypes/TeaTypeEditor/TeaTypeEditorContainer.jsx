@@ -133,7 +133,8 @@ export class TeaTypeEditorContainer extends React.Component {
           errors: {
             name: true,
             brewTime: true,
-            incomplete: true
+            incomplete: true,
+            teaTypeConflict: true
           }
         });
       }

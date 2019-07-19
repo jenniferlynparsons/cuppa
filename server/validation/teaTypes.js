@@ -6,7 +6,7 @@ module.exports = function validateTeaTypeInput(data) {
 
   // Convert empty fields to an empty string so we can use validator functions
   data.name = !isEmpty(data.name) ? data.name : "";
-  data.brewTime = !isEmpty(data.brewTime + "") ? data.brewTime + "" : "";
+  // data.brewTime = !isEmpty(data.brewTime + "") ? data.brewTime + "" : "";
 
   // Name checks
   if (Validator.isEmpty(data.name)) {
@@ -14,9 +14,9 @@ module.exports = function validateTeaTypeInput(data) {
   }
 
   // brewTime checks
-  if (Validator.isEmpty(data.brewTime)) {
-    errors.brewTime = "BrewTime field is required";
-  }
+  // if (Validator.isEmpty(data.brewTime)) {
+  //   errors.brewTime = "BrewTime field is required";
+  // }
 
   return {
     errors,
