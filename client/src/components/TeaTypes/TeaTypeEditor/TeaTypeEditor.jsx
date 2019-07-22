@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import InputField from "../../FormComponents/InputField";
 
 export class TeaTypeEditor extends React.Component {
@@ -7,7 +8,8 @@ export class TeaTypeEditor extends React.Component {
       <div className="container" data-testid="teatypeeditor">
         {this.props.flash.name && (
           <div className="notification is-success" data-testid="flash">
-            {this.props.flash.name} has been succesfully saved.
+            {this.props.flash.name} has been succesfully saved.{" "}
+            <Link to={"/tea-types/"}>View all types.</Link>
           </div>
         )}
 
