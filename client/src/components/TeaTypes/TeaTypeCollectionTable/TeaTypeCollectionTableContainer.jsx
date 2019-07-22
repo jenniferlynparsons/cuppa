@@ -4,6 +4,10 @@ import { deleteTeaType, getTeaTypes } from "../../../actions/teaTypeActions";
 import { TeaTypeCollectionTable } from "./TeaTypeCollectionTable";
 
 export class TeaTypeCollectionTableContainer extends React.Component {
+  state = {
+    allTeaTypes: {},
+    teaTypeIDs: []
+  };
   columnHeaders = [
     { colName: "name", colTitle: "Name" },
     { colName: "brewTime", colTitle: "Brew Time" }
@@ -13,15 +17,31 @@ export class TeaTypeCollectionTableContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeaTypes(this.props.userID);
+    this.setState({
+      allTeaTypes: this.props.allTeaTypes,
+      teaTypeIDs: this.props.teaTypeIDs
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.teaTypeIDs &&
+      this.props.teaTypeIDs !== prevProps.teaTypeIDs
+    ) {
+      this.setState({
+        allTeaTypes: this.props.allTeaTypes,
+        teaTypeIDs: this.props.teaTypeIDs
+      });
+    }
   }
 
   render() {
     return (
-      this.props.teaTypes.allTeaTypes && (
+      this.props.allTeaTypes && (
         <TeaTypeCollectionTable
           columnHeaders={this.columnHeaders}
-          allTeaTypes={this.props.teaTypes.allTeaTypes}
-          teaTypeIDs={this.props.teaTypes.teaTypeIDs}
+          allTeaTypes={this.state.allTeaTypes}
+          teaTypeIDs={this.state.teaTypeIDs}
           handleDeleteClick={this.handleDeleteClick}
         />
       )
@@ -31,7 +51,8 @@ export class TeaTypeCollectionTableContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    teaTypes: state.teaTypes,
+    allTeaTypes: state.teaTypes.allTeaTypes,
+    teaTypeIDs: state.teaTypes.teaTypeIDs,
     userID: state.auth.user.id
   };
 };

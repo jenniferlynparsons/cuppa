@@ -113,7 +113,7 @@ export class TeaTypeEditorContainer extends React.Component {
       if (this.state.edit === true) {
         this.props.editTeaType(typeData);
         this.props.editTeaTypeFlash("on");
-        this.props.history.push("/teaTypes/");
+        this.props.history.push("/tea-types/");
       } else {
         this.props.addTeaType(typeData);
         this.setState({
@@ -165,6 +165,24 @@ export class TeaTypeEditorContainer extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      (this.props.currentTeaType && !prevProps.currentTeaType) ||
+      (this.props.currentTeaType &&
+        this.props.currentTeaType.id !== prevProps.currentTeaType.id)
+    ) {
+      this.setState({
+        teaID: this.props.currentTeaType.id,
+        name: this.props.currentTeaType.name,
+        brewTimeMin: convertTimeToMinSec(this.props.currentTeaType.brewTime)
+          .minute,
+        brewTimeSec: convertTimeToMinSec(this.props.currentTeaType.brewTime)
+          .seconds,
+        edit: true
+      });
+    }
+  }
+
   render() {
     return (
       <TeaTypeEditor
@@ -187,7 +205,6 @@ export class TeaTypeEditorContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    teaTypes: state.teaTypes,
     userID: state.auth.user.id,
     currentTeaType: state.teaTypes.allTeaTypes[ownProps.match.params.id],
     serverErrors: state.auth.errors

@@ -19,7 +19,7 @@ export class TeaTypeEditor extends React.Component {
             Please enter the tea type details.
           </div>
         )}
-        {this.props.errorMessages.teaTypeConflict}
+
         {!this.props.errors.teaTypeConflict && (
           <div className="notification is-danger" data-testid="duplicatenotice">
             This tea type already exists in our system. Please try again.

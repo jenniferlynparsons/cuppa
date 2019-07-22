@@ -35,7 +35,9 @@ router.post("/new-tea-type", (req, res) => {
 
     newTeaType
       .save()
-      .then(teaType => res.json(teaTypeNormalizer(teaType)))
+      .then(teaType => {
+        res.json(teaTypeNormalizer(teaType));
+      })
       .catch(err => console.log(err));
   });
 });
@@ -53,9 +55,6 @@ router.put("/update-tea-type", (req, res) => {
     req.body,
     { new: true },
     function(err, teaType) {
-      console.log("-------------server response------------");
-      console.log(teaType);
-      // console.log(res.json());
       if (err) return res.send(500, { error: err });
       return res.json(teaTypeNormalizer(teaType));
     }

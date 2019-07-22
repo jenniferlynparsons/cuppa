@@ -1,36 +1,117 @@
-const basicTeaTypes = {
-  teaTypes: {
-    "25070e52-e635-4883-ae9b-583113573b9f": {
-      id: "25070e52-e635-4883-ae9b-583113573b9f",
+// Component mock data
+const basicTeaType = {
+  id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+  name: "Black",
+  brewTime: 12360000
+};
+
+const updatedTeaType = {
+  id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+  name: "Green",
+  brewTime: 12360000
+};
+
+const missingDataTeaType = {
+  id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+  name: "",
+  brewTime: 12360000
+};
+
+// Reducer mock data
+
+const reducerAddTeaType = {
+  userID: "5cf18ae7d39d81638810de09",
+  teaTypeID: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+  id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+  name: "Black",
+  brewTime: 12360000
+};
+
+const reducerEditTeaType = {
+  userID: "5cf18ae7d39d81638810de09",
+  teaTypeID: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+  id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+  name: "Green",
+  brewTime: 12360000
+};
+
+const teaTypePostResponse = {
+  type: "ADD_TEATYPE",
+  payload: {
+    id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+    name: "Black",
+    brewTime: 12360000
+  }
+};
+
+const teaTypePutResponse = {
+  type: "EDIT_TEATYPE",
+  payload: {
+    id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+    name: "Green",
+    brewTime: 12360000
+  }
+};
+
+const teaTypeGetResponse = {
+  type: "GET_TEATYPES",
+  payload: [
+    {
+      id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
       name: "Black",
-      brewTime: 180000
+      brewTime: 12360000
     },
-    "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
-      id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
+    {
+      id: "69fb326d-b76a-4198-a4a1-eaf0785752c6",
       name: "Green",
-      brewTime: 180000
-    },
-    "dc8a7690-de4a-47e8-8225-5548c0f51669": {
-      id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
-      name: "White",
-      brewTime: 180000
-    },
-    "dc8a7690-de4a-48t2-8225-5548c0f51669": {
-      id: "dc8a7690-de4a-48t2-8225-5548c0f51669",
-      name: "Herbal",
-      brewTime: 180000
+      brewTime: 10800000
     }
-  },
-  teaTypeIDs: [
-    "25070e52-e635-4883-ae9b-583113573b9f",
-    "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
-    "dc8a7690-de4a-47e8-8225-5548c0f51669",
-    "dc8a7690-de4a-48t2-8225-5548c0f51669"
   ]
 };
 
+const getTeaTypesPayload = [
+  {
+    id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+    name: "Black",
+    brewTime: 12360000
+  },
+  {
+    id: "69fb326d-b76a-4198-a4a1-eaf0785752c6",
+    name: "Green",
+    brewTime: 10800000
+  }
+];
+
+const addTeaTypePayload = {
+  id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+  name: "Black",
+  brewTime: 12360000
+};
+
+const editTeaTypePayload = {
+  id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+  name: "Green",
+  brewTime: 12360000
+};
+
+const deleteTeaTypePayload = "69fb326d-b76a-4198-a4a1-eaf0785752c6";
+
+const emptyState = { allTeaTypes: {}, teaTypeIDs: [] };
+
 const teaTypeFixture = {
-  basicTeaTypes
+  basicTeaType,
+  updatedTeaType,
+  missingDataTeaType,
+  reducerAddTeaType,
+  reducerEditTeaType,
+  teaTypePostResponse,
+  teaTypePutResponse,
+  teaTypeGetResponse,
+  getTeaTypesPayload,
+  addTeaTypePayload,
+  editTeaTypePayload,
+  deleteTeaTypePayload,
+  emptyState
 };
 
 export default teaTypeFixture;
