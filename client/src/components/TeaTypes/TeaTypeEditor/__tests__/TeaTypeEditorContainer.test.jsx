@@ -96,7 +96,7 @@ describe("teaTypeEditor form success", () => {
 
 describe("teaTypeEditor form failure", () => {
   describe("editor onSubmit returns an error message if data is invalid", () => {
-    test("missing information for new tea", () => {
+    test("missing information for new tea type", () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <TeaTypeEditorContainerClass
           teaTypes={teaTypeFixture.teaTypes}

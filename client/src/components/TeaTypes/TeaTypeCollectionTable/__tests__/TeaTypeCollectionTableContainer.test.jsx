@@ -51,7 +51,7 @@ describe("TeaTypeCollectionTableContainerClass interactions", () => {
       expect(mockDeleteTeaType).toHaveBeenCalled();
     });
 
-    test("user clicks edit link redirects to tea editor", () => {
+    test("user clicks edit link redirects to tea type editor", () => {
       const { getAllByTestId, history } = renderWithRouter(
         <TeaTypeCollectionTableContainerClass {...mockDefaultProps} />
       );

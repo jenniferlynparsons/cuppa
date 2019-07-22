@@ -34,14 +34,14 @@ export class TeaTypeEditor extends React.Component {
         >
           <div className="field">
             <label className="label" htmlFor="name">
-              Tea Name
+              Tea Type Name
             </label>
             <InputField
               datatestid="name"
               name="name"
               id="name"
               type="text"
-              placeholder="Tea Name"
+              placeholder="Tea Type Name"
               value={this.props.name}
               className="input"
               error={this.props.errors.name}

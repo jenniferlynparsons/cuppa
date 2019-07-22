@@ -8,7 +8,7 @@ describe("types reducer", () => {
     expect(reducer).toEqual({ allTeaTypes: {}, teaTypeIDs: [] });
   });
 
-  test("returns default state when the action type is 'GET_TEAS'", () => {
+  test("returns default state when the action type is 'GET_TEATYPES'", () => {
     const reducer = teaTypeReducer(undefined, {
       type: "GET_TEATYPES",
       payload: teaTypeFixture.getTeaTypesPayload
@@ -17,7 +17,7 @@ describe("types reducer", () => {
     expect(reducer).toEqual(storeFixture.basicStore.teaTypes);
   });
 
-  test("returns a state with a new tea when the action type is 'ADD_TEA'", () => {
+  test("returns a state with a new tea when the action type is 'ADD_TEATYPE'", () => {
     const reducer = teaTypeReducer(storeFixture.basicStore.teaTypes, {
       type: "ADD_TEATYPE",
       payload: teaTypeFixture.addTeaTypePayload
@@ -26,7 +26,7 @@ describe("types reducer", () => {
     expect(reducer).toEqual(storeFixture.addedStore.teaTypes);
   });
 
-  test("returns a state with an updated tea when the action type is 'EDIT_TEA'", () => {
+  test("returns a state with an updated tea when the action type is 'EDIT_TEATYPE'", () => {
     const reducer = teaTypeReducer(storeFixture.basicStore.teaTypes, {
       type: "EDIT_TEATYPE",
       payload: teaTypeFixture.editTeaTypePayload
@@ -35,7 +35,7 @@ describe("types reducer", () => {
     expect(reducer).toEqual(storeFixture.updatedStore.teaTypes);
   });
 
-  test("returns a state with an updated teaIDs array when the action type is 'DELETE_TEA'", () => {
+  test("returns a state with an updated teaIDs array when the action type is 'DELETE_TEATYPE'", () => {
     const reducer = teaTypeReducer(storeFixture.basicStore.teaTypes, {
       type: "DELETE_TEATYPE",
       payload: teaTypeFixture.deleteTeaTypePayload

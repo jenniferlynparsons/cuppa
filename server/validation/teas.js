@@ -8,7 +8,7 @@ module.exports = function validateTeaInput(data) {
   data.name = !isEmpty(data.name) ? data.name : "";
   data.brand = !isEmpty(data.brand) ? data.brand : "";
   data.teaType = !isEmpty(data.teaType) ? data.teaType : "";
-  // data.servings = !isEmpty(data.servings) ? data.servings : "";
+  data.servings = !isEmpty(data.servings) ? data.servings : "";
 
   // Name checks
   if (Validator.isEmpty(data.name)) {
@@ -26,9 +26,9 @@ module.exports = function validateTeaInput(data) {
   }
 
   // servings checks
-  // if (Validator.isEmpty(data.servings)) {
-  //   errors.servings = "Servings field is required";
-  // }
+  if (Validator.isEmpty(data.servings)) {
+    errors.servings = "Servings field is required";
+  }
 
   return {
     errors,

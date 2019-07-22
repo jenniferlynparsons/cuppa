@@ -5,11 +5,11 @@ const teaTypeNormalizer = require("../../normalizers/teaTypeNormalizer");
 // Load input validation
 const validateTeaTypeInput = require("../../validation/teaTypes");
 
-// Load Tea model
+// Load Tea Type model
 const TeaType = require("../../models/TeaType");
 
-// @route POST api/teas/new-tea
-// @desc Add new tea
+// @route POST api/tea-types/new-tea-type
+// @desc Add new tea type
 // @access Public
 router.post("/new-tea-type", (req, res) => {
   const { errors, isValid } = validateTeaTypeInput(req.body);
@@ -62,7 +62,7 @@ router.put("/update-tea-type", (req, res) => {
 });
 
 router.delete("/delete-tea-type/:id", (req, res) => {
-  // The "tea" in this callback function represents the document that was found.
+  // The "teaType" in this callback function represents the document that was found.
   // It allows you to pass a reference back to the client in case they need a reference for some reason.
   TeaType.findOneAndDelete({ id: req.params.id }, {}, err => {
     // As always, handle any potential errors:
@@ -77,7 +77,7 @@ router.delete("/delete-tea-type/:id", (req, res) => {
   });
 });
 
-// get the teaType with that id (accessed at GET http://localhost:8080/api/teas/:tea_id)
+// get the teaType with that id (accessed at GET http://localhost:8080/api/tea-types/:tea_type_id)
 router.get("/tea-type/:id", (req, res) => {
   TeaType.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {

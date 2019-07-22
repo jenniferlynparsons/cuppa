@@ -163,7 +163,6 @@ export class TeaEditorContainer extends React.Component {
     this.props.getTeaTypes(this.props.userID);
     if (this.props.serverErrors && this.props.serverErrors.teaConflict) {
       this.setState(state => ({
-        teaTypes: this.props.teaTypes,
         errors: {
           ...state.errors,
           teaConflict: false
@@ -183,7 +182,6 @@ export class TeaEditorContainer extends React.Component {
         name: this.props.currentTea.name,
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,
-        teaTypes: this.props.teaTypes,
         servings: this.props.currentTea.servings,
         edit: true,
         brandsDataList: this.props.teas.teaIDs.map(teaID => {
@@ -196,7 +194,7 @@ export class TeaEditorContainer extends React.Component {
   render() {
     return (
       <TeaEditor
-        teaTypes={this.state.teaTypes}
+        teaTypes={this.props.teaTypes}
         name={this.state.name}
         brand={this.state.brand}
         brandsDataList={
