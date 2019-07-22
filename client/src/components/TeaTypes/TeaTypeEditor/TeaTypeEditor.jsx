@@ -57,6 +57,8 @@ export class TeaTypeEditor extends React.Component {
                   name="brewTimeMin"
                   id="brewTimeMin"
                   type="number"
+                  min="0"
+                  max="59"
                   placeholder="Min"
                   value={this.props.brewTimeMin}
                   className="input is-one-fifth"
@@ -67,10 +69,12 @@ export class TeaTypeEditor extends React.Component {
               </div>
               <div className="column is-one-quarter">
                 <InputField
-                  datatestid="brewtime"
-                  name="brewTime"
-                  id="brewTime"
+                  datatestid="brewtimesec"
+                  name="brewTimeSec"
+                  id="brewTimeSec"
                   type="number"
+                  min="0"
+                  max="59"
                   placeholder="Sec"
                   value={this.props.brewTimeSec}
                   className="input is-one-fifth"

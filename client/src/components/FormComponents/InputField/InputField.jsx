@@ -18,6 +18,8 @@ class InputField extends React.Component {
             value={this.props.value}
             onChange={this.props.onChange}
             onBlur={this.props.onBlur}
+            min={this.props.min}
+            max={this.props.max}
           />
           {this.props.datalist}
         </div>

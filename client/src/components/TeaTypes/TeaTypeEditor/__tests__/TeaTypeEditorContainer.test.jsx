@@ -5,18 +5,16 @@ import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
-import teaFixture from "../../../../test/__fixtures__/teaFixture";
-import TeaEditorContainer from "../TeaTypeEditorContainer";
-import { TeaEditorContainerClass } from "../TeaTypeEditorContainer";
+import teaTypeFixture from "../../../../test/__fixtures__/teaTypeFixture";
+import TeaTypeEditorContainer from "../TeaTypeEditorContainer";
+import { TeaTypeEditorContainerClass } from "../TeaTypeEditorContainer";
 
 let mockFunc;
 let mockAdd;
 let mockEdit;
-let mockEditTeaFlash;
 
 beforeEach(() => {
   mockFunc = jest.fn();
-  mockEditTeaFlash = jest.fn();
   mockAdd = jest.fn(() => {
     return storeFixture.addedStore;
   });
@@ -25,96 +23,88 @@ beforeEach(() => {
   });
 });
 
-describe("TeaEditorContainer rendering", () => {
+describe("TeaTypeEditorContainer rendering", () => {
   test("renders the component with redux without errors", () => {
     let store = makeMockStore(storeFixture.basicStore);
     const { queryByTestId } = renderWithRouter(
-      <TeaEditorContainer
+      <TeaTypeEditorContainer
         store={store}
         match={{
           params: { id: dataFixture.mockUserID }
         }}
       />
     );
-
-    expect(queryByTestId("teaeditor")).toBeTruthy();
+    expect(queryByTestId("teatypeeditor")).toBeTruthy();
   });
 });
 
-describe("teaEditor form success", () => {
-  test("editor form submit succesfully adds tea", () => {
+describe("teaTypeEditor form success", () => {
+  test("editor form submit succesfully adds tea type", () => {
     const { getByTestId, queryByTestId } = renderWithRouter(
-      <TeaEditorContainerClass
-        teaTypes={teaFixture.teaTypes}
+      <TeaTypeEditorContainerClass
+        teaTypes={teaTypeFixture.teaTypes}
         userID={dataFixture.mockUserID}
-        currentTea={""}
-        getTeas={mockFunc}
-        addTea={mockAdd}
+        getTeaTypes={mockFunc}
+        addTeaType={mockAdd}
       />
     );
 
     fireEvent.change(getByTestId("name"), {
-      target: { value: teaFixture.basicTea.name }
+      target: { value: teaTypeFixture.basicTeaTypeFormValues.name }
     });
-    fireEvent.change(getByTestId("brand"), {
-      target: { value: teaFixture.basicTea.brand }
+    fireEvent.change(getByTestId("brewtimemin"), {
+      target: { value: teaTypeFixture.basicTeaTypeFormValues.brewTimeMin }
     });
-    fireEvent.change(getByTestId("teaType"), {
-      target: { value: teaFixture.basicTea.teaType }
+    fireEvent.change(getByTestId("brewtimesec"), {
+      target: { value: teaTypeFixture.basicTeaTypeFormValues.brewTimeSec }
     });
-    fireEvent.change(getByTestId("servings"), {
-      target: { value: 12 }
-    });
-    expect(getByTestId("teaeditorform")).toHaveFormValues({
-      name: teaFixture.basicTea.name,
-      brand: teaFixture.basicTea.brand,
-      servings: 12,
-      type: teaFixture.basicTea.teaType
+    expect(getByTestId("teatypeeditorform")).toHaveFormValues({
+      name: teaTypeFixture.basicTeaTypeFormValues.name,
+      brewTimeMin: teaTypeFixture.basicTeaTypeFormValues.brewTimeMin,
+      brewTimeSec: teaTypeFixture.basicTeaTypeFormValues.brewTimeSec
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(queryByTestId("flash")).toHaveTextContent(/Basic Tea/);
+    expect(queryByTestId("flash")).toHaveTextContent(/Black/);
   });
 
-  test("editor form succesfully updates tea", () => {
+  test("editor form succesfully updates tea type", () => {
     const { getByTestId } = renderWithRouter(
-      <TeaEditorContainerClass
-        teaTypes={teaFixture.teaTypes}
+      <TeaTypeEditorContainerClass
+        teaTypes={teaTypeFixture.teaTypes}
         userID={dataFixture.mockUserID}
-        currentTea={teaFixture.basicTea}
-        getTeas={mockFunc}
-        editTea={mockEdit}
-        editTeaFlash={mockEditTeaFlash}
+        currentTeaType={teaTypeFixture.basicTeaType}
+        getTeaTypes={mockFunc}
+        editTeaType={mockEdit}
+        editTeaTypeFlash={mockEdit}
         history={dataFixture.history}
       />
     );
 
-    fireEvent.change(getByTestId("brand"), {
-      target: { value: teaFixture.updatedTea.brand }
+    fireEvent.change(getByTestId("name"), {
+      target: { value: teaTypeFixture.updatedTeaTypeFormValues.name }
     });
 
-    expect(getByTestId("teaeditorform")).toHaveFormValues({
-      brand: teaFixture.updatedTea.brand
+    expect(getByTestId("teatypeeditorform")).toHaveFormValues({
+      name: teaTypeFixture.updatedTeaType.name
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(dataFixture.history.push).toHaveBeenCalledWith(
-      "/tea/1b1db861-0537-4b69-83d5-d9ee033530f8"
-    );
+    expect(dataFixture.history.push).toHaveBeenCalledWith("/tea-types/");
   });
 });
 
-describe("teaEditor form failure", () => {
+describe("teaTypeEditor form failure", () => {
   describe("editor onSubmit returns an error message if data is invalid", () => {
     test("missing information for new tea", () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
-        <TeaEditorContainerClass
-          teaTypes={teaFixture.teaTypes}
+        <TeaTypeEditorContainerClass
+          teaTypes={teaTypeFixture.teaTypes}
           userID={dataFixture.mockUserID}
-          currentTea={""}
-          getTeas={mockFunc}
-          editTea={mockEdit}
-          editTeaFlash={mockEditTeaFlash}
+          currentTeaType={""}
+          getTeaTypes={mockFunc}
+          editTeaType={mockEdit}
+          editTeaTypeFlash={mockEdit}
           history={dataFixture.history}
         />
       );
@@ -123,18 +113,18 @@ describe("teaEditor form failure", () => {
 
       fireEvent.click(getByTestId("submit"));
       expect(queryByTestId("incompletenotice")).toBeTruthy();
-      expect(queryAllByTestId("inputerror").length).toEqual(4);
+      expect(queryAllByTestId("inputerror").length).toEqual(2);
     });
 
-    test("missing information for existing tea", () => {
+    test("missing information for existing tea type", () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
-        <TeaEditorContainerClass
-          teaTypes={teaFixture.teaTypes}
+        <TeaTypeEditorContainerClass
+          teaTypes={teaTypeFixture.teaTypes}
           userID={dataFixture.mockUserID}
-          currentTea={teaFixture.missingDataTea}
-          getTeas={mockFunc}
-          editTea={mockEdit}
-          editTeaFlash={mockEditTeaFlash}
+          currentTeaType={teaTypeFixture.missingDataTeaType}
+          getTeaTypes={mockFunc}
+          editTeaType={mockEdit}
+          editTeaTypeFlash={mockEdit}
           history={dataFixture.history}
         />
       );
@@ -146,17 +136,17 @@ describe("teaEditor form failure", () => {
       expect(queryAllByTestId("inputerror").length).toEqual(1);
     });
 
-    test("duplicate tea", () => {
+    test("duplicate tea type", () => {
       const { queryByTestId } = renderWithRouter(
-        <TeaEditorContainerClass
-          teaTypes={teaFixture.teaTypes}
+        <TeaTypeEditorContainerClass
+          teaTypes={teaTypeFixture.teaTypes}
           userID={dataFixture.mockUserID}
-          currentTea={teaFixture.basicTea}
-          getTeas={mockFunc}
-          editTea={mockEdit}
-          editTeaFlash={mockEditTeaFlash}
+          currentTeaType={teaTypeFixture.missingDataTeaType}
+          getTeaTypes={mockFunc}
+          editTeaType={mockEdit}
+          editTeaTypeFlash={mockEdit}
           history={dataFixture.history}
-          serverErrors={{ teaConflict: "This tea already exists" }}
+          serverErrors={{ teaTypeConflict: "This tea type already exists" }}
         />
       );
       expect(queryByTestId("duplicatenotice")).toBeTruthy();

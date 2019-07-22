@@ -8,6 +8,7 @@ import {
   servingsSchema
 } from "../../../lib/validationSchemas";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
+import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editTeaFlash } from "../../../actions/flashActions";
 import { TeaEditor } from "./TeaEditor";
 import DataList from "../../FormComponents/DataList";
@@ -28,6 +29,7 @@ export class TeaEditorContainer extends React.Component {
     name: this.props.currentTea ? this.props.currentTea.name : "",
     brand: this.props.currentTea ? this.props.currentTea.brand : "",
     teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
+    teaTypes: this.props.teaTypes ? this.props.teaTypes : "",
     servings: this.props.currentTea ? this.props.currentTea.servings : "",
     edit: !!this.props.currentTea,
     brands: [],
@@ -108,8 +110,6 @@ export class TeaEditorContainer extends React.Component {
       servings: this.state.servings
     };
 
-    console.log(teaData);
-
     if (namevalid && brandvalid && teaTypevalid && servingsvalid) {
       if (this.state.edit === true) {
         this.props.editTea(teaData);
@@ -131,6 +131,7 @@ export class TeaEditorContainer extends React.Component {
           name: "",
           brand: "",
           teaType: "",
+          teaTypes: this.props.teaTypes,
           servings: "",
           edit: false,
           errors: {
@@ -159,9 +160,10 @@ export class TeaEditorContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
-
+    this.props.getTeaTypes(this.props.userID);
     if (this.props.serverErrors && this.props.serverErrors.teaConflict) {
       this.setState(state => ({
+        teaTypes: this.props.teaTypes,
         errors: {
           ...state.errors,
           teaConflict: false
@@ -181,6 +183,7 @@ export class TeaEditorContainer extends React.Component {
         name: this.props.currentTea.name,
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,
+        teaTypes: this.props.teaTypes,
         servings: this.props.currentTea.servings,
         edit: true,
         brandsDataList: this.props.teas.teaIDs.map(teaID => {
@@ -193,7 +196,7 @@ export class TeaEditorContainer extends React.Component {
   render() {
     return (
       <TeaEditor
-        teaTypes={this.props.teaTypes}
+        teaTypes={this.state.teaTypes}
         name={this.state.name}
         brand={this.state.brand}
         brandsDataList={
@@ -219,6 +222,7 @@ export class TeaEditorContainer extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     teaTypes: state.teaTypes,
+    teas: state.teas,
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
     serverErrors: state.auth.errors
@@ -229,7 +233,8 @@ const mapDispatchToProps = {
   editTea,
   addTea,
   editTeaFlash,
-  getTeas
+  getTeas,
+  getTeaTypes
 };
 
 export default connect(

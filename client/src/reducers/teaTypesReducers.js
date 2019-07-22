@@ -7,7 +7,7 @@ export default (state = { allTeaTypes: {}, teaTypeIDs: [] }, action) => {
       };
 
       let addIDsArr = [...new Set([...state.teaTypeIDs, action.payload.id])];
-      return { ...state, allTeaTypes: addAllTeaTypes, teaIDs: addIDsArr };
+      return { ...state, allTeaTypes: addAllTeaTypes, teaTypeIDs: addIDsArr };
     }
     case "EDIT_TEATYPE": {
       console.log(`edit action.payload: ${action.payload}`);
@@ -26,7 +26,6 @@ export default (state = { allTeaTypes: {}, teaTypeIDs: [] }, action) => {
     case "GET_TEATYPES": {
       let getAllTeaTypes = {};
       let getIDsArr = [];
-      console.log(`get action.payload: ${action.payload}`);
       action.payload.forEach(teaType => {
         getAllTeaTypes[teaType.id] = teaType;
         getIDsArr.push(teaType.id);

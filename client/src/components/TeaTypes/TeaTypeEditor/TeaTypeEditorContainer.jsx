@@ -70,8 +70,11 @@ export class TeaTypeEditorContainer extends React.Component {
   };
 
   handleBrewTimeSecChange = event => {
+    const newSec =
+      (event.currentTarget.value < 10 ? "0" : "") +
+      Number(event.currentTarget.value);
     this.setState({
-      brewTimeSec: event.currentTarget.value
+      brewTimeSec: newSec
     });
   };
 
@@ -105,7 +108,7 @@ export class TeaTypeEditorContainer extends React.Component {
       name: this.state.name,
       brewTime: convertTimeToMill(
         this.state.brewTimeMin,
-        this.state.brewTimeSec
+        Number(this.state.brewTimeSec)
       )
     };
 

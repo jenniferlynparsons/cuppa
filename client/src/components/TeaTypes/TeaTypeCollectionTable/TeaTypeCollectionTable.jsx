@@ -6,6 +6,9 @@ export class TeaTypeCollectionTable extends React.Component {
   render() {
     return (
       <div data-testid="teatypecollection" className="container">
+        <Link to={"/new-tea-type"} className="button is-primary">
+          Add A New Type
+        </Link>
         <table className="table is-striped is-fullwidth">
           <thead>
             <tr>
