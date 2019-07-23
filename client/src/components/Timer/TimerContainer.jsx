@@ -12,6 +12,7 @@ class TimerContainer extends React.Component {
     progress: 0,
     tea: {
       teaID: this.props.tea ? this.props.tea.id : "",
+      id: this.props.tea ? this.props.tea.id : "",
       name: this.props.tea ? this.props.tea.name : "",
       brand: this.props.tea ? this.props.tea.brand : "",
       teaType: this.props.tea ? this.props.tea.teaType : "",
