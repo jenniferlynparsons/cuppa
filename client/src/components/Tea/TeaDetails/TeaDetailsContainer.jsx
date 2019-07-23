@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getTeas, editTea } from "../../../actions/teaActions";
-import { TeaDetails } from "./TeaDetails";
+import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editTeaFlash } from "../../../actions/flashActions";
+import { TeaDetails } from "./TeaDetails";
 
 class TeaDetailsContainer extends Component {
   state = {
@@ -25,12 +26,14 @@ class TeaDetailsContainer extends Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
+    this.props.getTeaTypes(this.props.userID);
   }
 
   render() {
     return !this.props.tea ? null : (
       <TeaDetails
         tea={this.props.tea}
+        brewTime={this.props.brewTime}
         showTimer={this.state.showTimer}
         flash={this.props.flash}
         updateFlash={this.updateFlash}
@@ -42,8 +45,24 @@ class TeaDetailsContainer extends Component {
   }
 }
 
+const getBrewTime = (mapState, mapOwnProps) => {
+  if (mapState.teaTypes.teaTypeIDs.length > 0) {
+    let currentTeaType = mapState.teaTypes.teaTypeIDs.filter(typeID => {
+      return (
+        mapState.teaTypes.allTeaTypes[typeID].name ===
+        mapState.teas.allTeas[mapOwnProps.match.params.id].teaType
+      );
+    });
+
+    return mapState.teaTypes.allTeaTypes[currentTeaType[0]].brewTime;
+  } else {
+    return "";
+  }
+};
+
 const mapStateToProps = (state, ownProps) => {
   return {
+    brewTime: getBrewTime(state, ownProps),
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,
     userID: state.auth.user.id
@@ -53,7 +72,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = {
   editTeaFlash,
   editTea,
-  getTeas
+  getTeas,
+  getTeaTypes
 };
 
 export default connect(

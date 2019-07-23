@@ -1,12 +1,12 @@
 import React from "react";
+import { convertTimeToMinSec } from "../../lib/timeConverter";
 import { Timer } from "./Timer";
-
 class TimerContainer extends React.Component {
   state = {
     timerOn: false,
     timerStart: 0,
     timerTime: 0,
-    timerLength: 2100,
+    timerLength: 0,
     tea: {
       teaID: this.props.tea ? this.props.tea.id : "",
       name: this.props.tea ? this.props.tea.name : "",
@@ -58,8 +58,11 @@ class TimerContainer extends React.Component {
     this.timer = setInterval(() => {
       const newTime = this.state.timerTime - 10;
       if (newTime >= 0) {
+        const timerBrewTime = convertTimeToMinSec(newTime);
         this.setState({
-          timerTime: newTime
+          timerTime: newTime,
+          minutes: timerBrewTime.minute,
+          seconds: timerBrewTime.seconds
         });
       } else {
         clearInterval(this.timer);
@@ -74,23 +77,31 @@ class TimerContainer extends React.Component {
   };
 
   resetTimer = () => {
-    // this.props.tea.brewTime
+    const resetBrewTime = convertTimeToMinSec(this.props.brewTime);
     this.setState({
       timerOn: false,
-      timerTime: 2100
+      timerTime: this.props.brewTime,
+      minutes: resetBrewTime.minute,
+      seconds: resetBrewTime.seconds
     });
   };
-
-  componentDidMount() {
-    // this.props.tea.brewTime
-    this.setState({ timerTime: 2100 });
-  }
 
   componentDidUpdate(prevProps) {
     if (this.props.tea && this.props.tea !== prevProps.tea) {
       this.setState({
         tea: this.props.tea,
-        originalServings: this.props.tea.servings
+        originalServings: this.props.tea.servings,
+        timerTime: this.props.brewTime
+      });
+    }
+    if (this.props.brewTime && this.props.brewTime !== prevProps.brewTime) {
+      const initialBrewTime = convertTimeToMinSec(this.props.brewTime);
+
+      this.setState({
+        timerTime: this.props.brewTime,
+        timerLength: this.props.brewTime,
+        minutes: initialBrewTime.minute,
+        seconds: initialBrewTime.seconds
       });
     }
   }
@@ -98,10 +109,12 @@ class TimerContainer extends React.Component {
   render() {
     return (
       <Timer
-        tea={this.state.tea}
+        teaName={this.state.tea.name}
         timerOn={this.state.timerOn}
         timerTime={this.state.timerTime}
         timerLength={this.state.timerLength}
+        minutes={this.state.minutes}
+        seconds={this.state.seconds}
         showTimer={this.props.showTimer}
         handleStartTimer={this.handleStartTimer}
         handlePauseTimer={this.handlePauseTimer}
