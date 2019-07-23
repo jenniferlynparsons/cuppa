@@ -45,7 +45,7 @@ class TeaDetailsContainer extends Component {
   }
 }
 
-const getBrewTime = (mapState, mapOwnProps) => {
+const selectBrewTime = (mapState, mapOwnProps) => {
   if (mapState.teaTypes.teaTypeIDs.length > 0) {
     let currentTeaType = mapState.teaTypes.teaTypeIDs.filter(typeID => {
       return (
@@ -62,7 +62,7 @@ const getBrewTime = (mapState, mapOwnProps) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    brewTime: getBrewTime(state, ownProps),
+    brewTime: selectBrewTime(state, ownProps),
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,
     userID: state.auth.user.id

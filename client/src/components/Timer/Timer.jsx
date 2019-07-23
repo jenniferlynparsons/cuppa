@@ -22,8 +22,12 @@ export class Timer extends React.Component {
             <p className="is-size-3">
               {this.props.minutes}:{this.props.seconds}
             </p>
-            <progress className="progress is-primary" value="15" max="100">
-              15%
+            <progress
+              className="progress is-primary"
+              value={this.props.progress}
+              max="100"
+            >
+              {this.props.progress}%
             </progress>
           </section>
           <div className="modal-card-foot is-centered">
