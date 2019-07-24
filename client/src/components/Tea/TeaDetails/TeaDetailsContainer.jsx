@@ -55,8 +55,6 @@ const selectBrewTime = (mapState, mapOwnProps) => {
     });
 
     return mapState.teaTypes.allTeaTypes[currentTeaType[0]].brewTime;
-  } else {
-    return "";
   }
 };
 
