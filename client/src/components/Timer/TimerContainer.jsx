@@ -7,8 +7,12 @@ class TimerContainer extends React.Component {
     timerStart: 0,
     timerTime: 0,
     timerLength: 0,
+    minutes: 0,
+    seconds: 0,
+    progress: 0,
     tea: {
       teaID: this.props.tea ? this.props.tea.id : "",
+      id: this.props.tea ? this.props.tea.id : "",
       name: this.props.tea ? this.props.tea.name : "",
       brand: this.props.tea ? this.props.tea.brand : "",
       teaType: this.props.tea ? this.props.tea.teaType : "",
@@ -30,6 +34,7 @@ class TimerContainer extends React.Component {
   };
 
   handleCancelTimer = () => {
+    this.stopTimer();
     this.resetTimer();
     this.props.handleCloseTimer();
   };
@@ -41,9 +46,9 @@ class TimerContainer extends React.Component {
           tea: { ...this.state.tea, servings: this.state.tea.servings - 1 }
         },
         () => {
-          this.props.handleTimerUpdateQty(this.state.tea);
           this.resetTimer();
           this.props.handleCloseTimer();
+          this.props.handleTimerUpdateQty(this.state.tea);
         }
       );
     }
@@ -52,23 +57,26 @@ class TimerContainer extends React.Component {
   startTimer = () => {
     this.setState({
       timerOn: true,
-      timerTime: this.state.timerTime,
       timerStart: this.state.timerTime
     });
     this.timer = setInterval(() => {
-      const newTime = this.state.timerTime - 10;
+      const newTime = this.state.timerTime - 1;
       if (newTime >= 0) {
         const timerBrewTime = convertTimeToMinSec(newTime);
+        const progressUpdate = Math.abs(
+          100 - ((newTime / this.props.brewTime) * 100).toFixed(1)
+        );
         this.setState({
           timerTime: newTime,
           minutes: timerBrewTime.minute,
-          seconds: timerBrewTime.seconds
+          seconds: timerBrewTime.seconds,
+          progress: progressUpdate
         });
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
       }
-    }, 10);
+    }, 1000);
   };
 
   stopTimer = () => {
@@ -81,6 +89,7 @@ class TimerContainer extends React.Component {
     this.setState({
       timerOn: false,
       timerTime: this.props.brewTime,
+      progress: 0,
       minutes: resetBrewTime.minute,
       seconds: resetBrewTime.seconds
     });
@@ -90,8 +99,7 @@ class TimerContainer extends React.Component {
     if (this.props.tea && this.props.tea !== prevProps.tea) {
       this.setState({
         tea: this.props.tea,
-        originalServings: this.props.tea.servings,
-        timerTime: this.props.brewTime
+        originalServings: this.props.tea.servings
       });
     }
     if (this.props.brewTime && this.props.brewTime !== prevProps.brewTime) {
@@ -113,6 +121,7 @@ class TimerContainer extends React.Component {
         timerOn={this.state.timerOn}
         timerTime={this.state.timerTime}
         timerLength={this.state.timerLength}
+        progress={this.state.progress}
         minutes={this.state.minutes}
         seconds={this.state.seconds}
         showTimer={this.props.showTimer}

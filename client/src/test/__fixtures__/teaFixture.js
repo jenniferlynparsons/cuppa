@@ -1,6 +1,7 @@
 // Component mock data
 const basicTea = {
   id: "1b1db861-0537-4b69-83d5-d9ee033530f8",
+  teaID: "1b1db861-0537-4b69-83d5-d9ee033530f8",
   name: "Basic Tea",
   brand: "Lipton",
   teaType: "Black",
@@ -9,6 +10,7 @@ const basicTea = {
 
 const updatedTea = {
   id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
+  teaID: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
   name: "Green Dragon",
   brand: "Twinnings",
   teaType: "Green",
@@ -23,6 +25,7 @@ const missingDataTea = {
 };
 
 const servingsUpdatedTea = {
+  id: "1b1db861-0537-4b69-83d5-d9ee033530f8",
   teaID: "1b1db861-0537-4b69-83d5-d9ee033530f8",
   name: "Basic Tea",
   brand: "Lipton",

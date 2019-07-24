@@ -1,18 +1,12 @@
-export const convertTimeToMinSec = milliseconds => {
-  console.log(`milliseconds: ${milliseconds}`);
-  let minute, seconds;
-  seconds = Math.floor(milliseconds / 1000);
-  minute = Math.floor(seconds / 60);
-  seconds = minute % 60;
-  console.log(`seconds: ${seconds}`);
-  minute = (minute - (minute % 60)) / 60;
-  console.log(`minute: ${minute}`);
+export const convertTimeToMinSec = totalSeconds => {
+  const minute = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
   return {
-    minute: seconds == 60 ? minute + 1 + ":00" : minute,
+    minute: (minute < 10 ? "0" : "") + minute,
     seconds: (seconds < 10 ? "0" : "") + seconds
   };
 };
 
-export const convertTimeToMill = (min, sec) => {
-  return min * (60000 * 60) + sec * 60000;
+export const convertTimeToSec = (min, sec) => {
+  return min * 60 + sec;
 };

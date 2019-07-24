@@ -3,7 +3,7 @@ import uuidv4 from "uuid/v4";
 import { connect } from "react-redux";
 import {
   convertTimeToMinSec,
-  convertTimeToMill
+  convertTimeToSec
 } from "../../../lib/timeConverter";
 import {
   nameSchema,
@@ -106,7 +106,7 @@ export class TeaTypeEditorContainer extends React.Component {
       userID: this.state.userID,
       teaTypeID: this.state.teaTypeID,
       name: this.state.name,
-      brewTime: convertTimeToMill(
+      brewTime: convertTimeToSec(
         this.state.brewTimeMin,
         Number(this.state.brewTimeSec)
       )
