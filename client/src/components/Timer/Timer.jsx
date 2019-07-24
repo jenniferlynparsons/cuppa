@@ -2,13 +2,6 @@ import React from "react";
 
 export class Timer extends React.Component {
   render() {
-    let minutes = ("0" + (Math.floor(this.props.timerTime / 60000) % 60)).slice(
-      -2
-    );
-    let seconds = ("0" + (Math.floor(this.props.timerTime / 1000) % 60)).slice(
-      -2
-    );
-
     return (
       <div
         data-testid="timermodal"
@@ -21,16 +14,18 @@ export class Timer extends React.Component {
         <div className="modal-background"></div>
         <div className="modal-card">
           <header className="modal-card-head">
-            <p className="modal-card-title">
-              {this.props.tea.name} - {this.props.tea.servings}
-            </p>
+            <p className="modal-card-title">{this.props.teaName}</p>
           </header>
           <section className="modal-card-body">
             <p className="is-size-3">
-              {minutes}:{seconds}
+              {this.props.minutes}:{this.props.seconds}
             </p>
-            <progress className="progress is-primary" value="15" max="100">
-              15%
+            <progress
+              className="progress is-primary"
+              value={this.props.progress}
+              max="100"
+            >
+              {this.props.progress}%
             </progress>
           </section>
           <div className="modal-card-foot is-centered">

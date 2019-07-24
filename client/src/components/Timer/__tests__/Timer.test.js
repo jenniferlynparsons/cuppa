@@ -14,6 +14,7 @@ describe("Timer interactions", () => {
     const { getByTestId, queryByTestId } = render(
       <TimerContainer
         tea={teaFixture.basicTea}
+        brewTime={16200000}
         handleCloseTimer={mockFunc}
         handleTimerUpdateQty={mockFunc}
       />
@@ -28,6 +29,7 @@ describe("Timer interactions", () => {
     const { getByTestId, queryByTestId } = render(
       <TimerContainer
         tea={teaFixture.basicTea}
+        brewTime={16200000}
         handleCloseTimer={mockFunc}
         handleTimerUpdateQty={mockFunc}
       />
@@ -44,6 +46,7 @@ describe("Timer interactions", () => {
     const { getByTestId, queryByTestId } = render(
       <TimerContainer
         tea={teaFixture.basicTea}
+        brewTime={16200000}
         handleCloseTimer={mockFunc}
         handleTimerUpdateQty={mockFunc}
       />
@@ -62,6 +65,7 @@ describe("Timer interactions", () => {
     const { getByTestId, queryByTestId } = render(
       <TimerContainer
         tea={teaFixture.basicTea}
+        brewTime={16200000}
         handleCloseTimer={mockFunc}
         handleTimerUpdateQty={mockFunc}
       />

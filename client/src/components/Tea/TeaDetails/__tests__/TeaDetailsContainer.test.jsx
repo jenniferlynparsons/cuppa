@@ -34,8 +34,10 @@ describe("TeaDetailsContainer flash", () => {
     const { queryByTestId } = renderWithRouter(
       <TeaDetailsContainerClass
         tea={teaFixture.basicTea}
+        teaTypes={teaFixture.teaTypes}
         flash={"on"}
         getTeas={mockFunc}
+        getTeaTypes={mockFunc}
         editTeaFlash={mockFunc}
       />
     );
@@ -47,8 +49,10 @@ describe("TeaDetailsContainer flash", () => {
     const { getByTestId } = renderWithRouter(
       <TeaDetailsContainerClass
         tea={teaFixture.basicTea}
+        teaTypes={teaFixture.teaTypes}
         flash={"on"}
         getTeas={mockFunc}
+        getTeaTypes={mockFunc}
         editTeaFlash={mockFunc}
       />
     );
@@ -63,8 +67,10 @@ describe("teaDetails interactions", () => {
     const { getByTestId, history } = renderWithRouter(
       <TeaDetailsContainerClass
         tea={teaFixture.basicTea}
+        teaTypes={teaFixture.teaTypes}
         flash={"on"}
         getTeas={mockFunc}
+        getTeaTypes={mockFunc}
         editTeaFlash={mockFunc}
       />
     );
@@ -79,8 +85,10 @@ describe("tea timer interactions", () => {
     const { getByTestId, queryByTestId } = renderWithRouter(
       <TeaDetailsContainerClass
         tea={teaFixture.basicTea}
+        teaTypes={teaFixture.teaTypes}
         flash={"off"}
         getTeas={mockFunc}
+        getTeaTypes={mockFunc}
         editTeaFlash={mockFunc}
       />
     );
@@ -93,8 +101,10 @@ describe("tea timer interactions", () => {
     const { getByTestId, queryByTestId } = renderWithRouter(
       <TeaDetailsContainerClass
         tea={teaFixture.basicTea}
+        teaTypes={teaFixture.teaTypes}
         flash={"off"}
         getTeas={mockFunc}
+        getTeaTypes={mockFunc}
         editTeaFlash={mockFunc}
       />
     );
@@ -108,8 +118,10 @@ describe("tea timer interactions", () => {
     const { getByTestId, queryByTestId } = renderWithRouter(
       <TeaDetailsContainerClass
         tea={teaFixture.basicTea}
+        teaTypes={teaFixture.teaTypes}
         flash={"off"}
         getTeas={mockFunc}
+        getTeaTypes={mockFunc}
         editTeaFlash={mockFunc}
         editTea={mockFunc}
       />

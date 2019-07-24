@@ -12,11 +12,9 @@ import { TeaEditorContainerClass } from "../TeaEditorContainer";
 let mockFunc;
 let mockAdd;
 let mockEdit;
-let mockEditTeaFlash;
 
 beforeEach(() => {
   mockFunc = jest.fn();
-  mockEditTeaFlash = jest.fn();
   mockAdd = jest.fn(() => {
     return storeFixture.addedStore;
   });
@@ -49,6 +47,7 @@ describe("teaEditor form success", () => {
         userID={dataFixture.mockUserID}
         currentTea={""}
         getTeas={mockFunc}
+        getTeaTypes={mockFunc}
         addTea={mockAdd}
       />
     );
@@ -83,8 +82,9 @@ describe("teaEditor form success", () => {
         userID={dataFixture.mockUserID}
         currentTea={teaFixture.basicTea}
         getTeas={mockFunc}
+        getTeaTypes={mockFunc}
         editTea={mockEdit}
-        editTeaFlash={mockEditTeaFlash}
+        editTeaFlash={mockFunc}
         history={dataFixture.history}
       />
     );
@@ -113,8 +113,9 @@ describe("teaEditor form failure", () => {
           userID={dataFixture.mockUserID}
           currentTea={""}
           getTeas={mockFunc}
+          getTeaTypes={mockFunc}
           editTea={mockEdit}
-          editTeaFlash={mockEditTeaFlash}
+          editTeaFlash={mockFunc}
           history={dataFixture.history}
         />
       );
@@ -133,8 +134,9 @@ describe("teaEditor form failure", () => {
           userID={dataFixture.mockUserID}
           currentTea={teaFixture.missingDataTea}
           getTeas={mockFunc}
+          getTeaTypes={mockFunc}
           editTea={mockEdit}
-          editTeaFlash={mockEditTeaFlash}
+          editTeaFlash={mockFunc}
           history={dataFixture.history}
         />
       );
@@ -153,8 +155,9 @@ describe("teaEditor form failure", () => {
           userID={dataFixture.mockUserID}
           currentTea={teaFixture.basicTea}
           getTeas={mockFunc}
+          getTeaTypes={mockFunc}
           editTea={mockEdit}
-          editTeaFlash={mockEditTeaFlash}
+          editTeaFlash={mockFunc}
           history={dataFixture.history}
           serverErrors={{ teaConflict: "This tea already exists" }}
         />

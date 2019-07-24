@@ -1,5 +1,5 @@
 import { makeMockStore } from "../../test/testUtils";
-import { editTeaFlash } from "../flashActions";
+import { editTeaFlash, editTeaTypeFlash } from "../flashActions";
 
 const store = makeMockStore({});
 const mockStatus = "on";
@@ -16,5 +16,16 @@ describe("editTeaFlash", () => {
     store.dispatch(editTeaFlash(mockStatus));
     expect(store.getActions()[0].payload).toEqual(mockStatus);
     expect(store.getActions()[0].type).toEqual("EDIT_TEA_FLASH");
+  });
+});
+
+describe("editTeaTypeFlash", () => {
+  test("returns an object", () => {
+    expect(editTeaTypeFlash(mockStatus)).toBeInstanceOf(Object);
+  });
+  test("it returns the EDIT_TEA_TYPE_FLASH action type and payload", () => {
+    store.dispatch(editTeaTypeFlash(mockStatus));
+    expect(store.getActions()[0].payload).toEqual(mockStatus);
+    expect(store.getActions()[0].type).toEqual("EDIT_TEA_TYPE_FLASH");
   });
 });

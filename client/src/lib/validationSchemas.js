@@ -36,6 +36,14 @@ export const servingsSchema = object({
   servings: number().required()
 });
 
+export const brewTimeMinSchema = object({
+  brewTimeMin: number().required()
+});
+
+export const brewTimeSecSchema = object({
+  brewTimeSec: number().required()
+});
+
 export const filterCategorySchema = object({
   filterCategory: string().required()
 });
