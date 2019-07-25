@@ -1,5 +1,4 @@
 import React from "react";
-import uuidv4 from "uuid/v4";
 import { connect } from "react-redux";
 import {
   nameSchema,
@@ -17,7 +16,7 @@ export class TeaEditorContainer extends React.Component {
   state = {
     flash: {
       name: "",
-      teaID: ""
+      id: ""
     },
     touched: {
       name: false,
@@ -25,7 +24,7 @@ export class TeaEditorContainer extends React.Component {
     },
     userID: this.props.userID,
     currentTea: this.props.currentTea || "",
-    teaID: this.props.currentTea ? this.props.currentTea.id : "",
+    id: this.props.currentTea ? this.props.currentTea.id : "",
     name: this.props.currentTea ? this.props.currentTea.name : "",
     brand: this.props.currentTea ? this.props.currentTea.brand : "",
     teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
@@ -81,12 +80,6 @@ export class TeaEditorContainer extends React.Component {
   };
 
   handleSubmitButton = () => {
-    if (!this.state.teaID) {
-      this.setState({
-        teaID: uuidv4()
-      });
-    }
-
     this.setState(state => ({
       touched: {
         ...state.touched
@@ -103,7 +96,7 @@ export class TeaEditorContainer extends React.Component {
 
     const teaData = {
       userID: this.state.userID,
-      teaID: this.state.teaID,
+      id: this.state.id,
       name: this.state.name,
       brand: this.state.brand,
       teaType: this.state.teaType,
@@ -114,19 +107,19 @@ export class TeaEditorContainer extends React.Component {
       if (this.state.edit === true) {
         this.props.editTea(teaData);
         this.props.editTeaFlash("on");
-        this.props.history.push("/tea/" + this.state.teaID);
+        this.props.history.push("/tea/" + this.state.id);
       } else {
         this.props.addTea(teaData);
         this.setState({
           flash: {
             name: this.state.name,
-            teaID: this.state.teaID
+            id: this.state.id
           },
           touched: {
             name: false,
             servings: false
           },
-          teaID: "",
+          id: "",
           userID: this.props.userID,
           name: "",
           brand: "",
@@ -178,14 +171,14 @@ export class TeaEditorContainer extends React.Component {
         this.props.currentTea.id !== prevProps.currentTea.id)
     ) {
       this.setState({
-        teaID: this.props.currentTea.id,
+        id: this.props.currentTea.id,
         name: this.props.currentTea.name,
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,
         servings: this.props.currentTea.servings,
         edit: true,
-        brandsDataList: this.props.teas.teaIDs.map(teaID => {
-          return this.props.teas.allTeas[teaID].brand;
+        brandsDataList: this.props.teas.ids.map(id => {
+          return this.props.teas.allTeas[id].brand;
         })
       });
     }

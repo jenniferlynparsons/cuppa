@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const teaTypeNormalizer = require("../../normalizers/teaTypeNormalizer");
 
 // Load input validation
@@ -27,7 +28,7 @@ router.post("/", (req, res) => {
     }
 
     const newTeaType = new TeaType({
-      id: req.body.id,
+      id: new mongoose.mongo.ObjectId(),
       userID: req.body.userID,
       name: req.body.name,
       brewTime: req.body.brewTime

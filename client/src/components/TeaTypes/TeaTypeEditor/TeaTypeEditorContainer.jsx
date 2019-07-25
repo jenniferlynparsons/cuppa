@@ -1,5 +1,4 @@
 import React from "react";
-import uuidv4 from "uuid/v4";
 import { connect } from "react-redux";
 import {
   convertTimeToMinSec,
@@ -22,13 +21,13 @@ export class TeaTypeEditorContainer extends React.Component {
   state = {
     flash: {
       name: "",
-      teaTypeID: ""
+      id: ""
     },
     touched: {
       name: false
     },
     userID: this.props.userID,
-    teaTypeID: this.props.currentTeaType ? this.props.currentTeaType.id : "",
+    id: this.props.currentTeaType ? this.props.currentTeaType.id : "",
     name: this.props.currentTeaType ? this.props.currentTeaType.name : "",
     brewTimeMin: this.props.currentTeaType
       ? convertTimeToMinSec(this.props.currentTeaType.brewTime).minute
@@ -79,12 +78,6 @@ export class TeaTypeEditorContainer extends React.Component {
   };
 
   handleSubmitButton = () => {
-    if (!this.state.teaTypeID) {
-      this.setState({
-        teaTypeID: uuidv4()
-      });
-    }
-
     this.setState(state => ({
       touched: {
         ...state.touched
@@ -104,7 +97,7 @@ export class TeaTypeEditorContainer extends React.Component {
 
     const typeData = {
       userID: this.state.userID,
-      teaTypeID: this.state.teaTypeID,
+      id: this.state.id,
       name: this.state.name,
       brewTime: convertTimeToSec(
         this.state.brewTimeMin,
@@ -122,12 +115,12 @@ export class TeaTypeEditorContainer extends React.Component {
         this.setState({
           flash: {
             name: this.state.name,
-            teaTypeID: this.state.teaTypeID
+            id: this.state.teaTypeID
           },
           touched: {
             name: false
           },
-          teaTypeID: "",
+          id: "",
           userID: this.props.userID,
           name: "",
           brewTimeMin: "",
@@ -177,7 +170,7 @@ export class TeaTypeEditorContainer extends React.Component {
         this.props.currentTeaType.id !== prevProps.currentTeaType.id)
     ) {
       this.setState({
-        teaID: this.props.currentTeaType.id,
+        id: this.props.currentTeaType.id,
         name: this.props.currentTeaType.name,
         brewTimeMin: convertTimeToMinSec(this.props.currentTeaType.brewTime)
           .minute,

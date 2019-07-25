@@ -15,11 +15,9 @@ export const loginAction = userData => {
         //check that setCurrentUser is called with decoded
         dispatch(authActions.setCurrentUser(decoded));
       })
-      .catch(error => {
-        // handle error
-        const errorObj = error.response.data;
-        dispatch(authActions.setErrorResponse(errorObj));
-      });
+      .catch(error =>
+        dispatch(authActions.setErrorResponse(error.response.data))
+      );
   };
 };
 
@@ -36,11 +34,9 @@ export const registerUser = (userData, history) => {
         const decoded = jwt_decode(token);
         dispatch(authActions.setCurrentUser(decoded));
       })
-      .catch(error => {
-        // handle error
-        const errorObj = error.response.data;
-        dispatch(authActions.setErrorResponse(errorObj));
-      });
+      .catch(error =>
+        dispatch(authActions.setErrorResponse(error.response.data))
+      );
   };
 };
 
