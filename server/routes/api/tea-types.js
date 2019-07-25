@@ -8,10 +8,10 @@ const validateTeaTypeInput = require("../../validation/teaTypes");
 // Load Tea Type model
 const TeaType = require("../../models/TeaType");
 
-// @route POST api/tea-types/new-tea-type
+// @route POST api/tea-types
 // @desc Add new tea type
 // @access Public
-router.post("/new-tea-type", (req, res) => {
+router.post("/", (req, res) => {
   const { errors, isValid } = validateTeaTypeInput(req.body);
 
   // Check validation
@@ -42,7 +42,10 @@ router.post("/new-tea-type", (req, res) => {
   });
 });
 
-router.put("/update-tea-type", (req, res) => {
+// @route PUT api/tea-types
+// @desc Edit tea type
+// @access Public
+router.put("/", (req, res) => {
   const { errors, isValid } = validateTeaTypeInput(req.body);
 
   // Check validation
@@ -61,7 +64,10 @@ router.put("/update-tea-type", (req, res) => {
   );
 });
 
-router.delete("/delete-tea-type/:id", (req, res) => {
+// @route DELETE api/tea-types
+// @desc Delete tea type
+// @access Public
+router.delete("/:id", (req, res) => {
   // The "teaType" in this callback function represents the document that was found.
   // It allows you to pass a reference back to the client in case they need a reference for some reason.
   TeaType.findOneAndDelete({ id: req.params.id }, {}, err => {
@@ -77,8 +83,10 @@ router.delete("/delete-tea-type/:id", (req, res) => {
   });
 });
 
-// get the teaType with that id (accessed at GET http://localhost:8080/api/tea-types/:tea_type_id)
-router.get("/tea-type/:id", (req, res) => {
+// @route GET api/tea-types/:id
+// @desc Get individual tea type
+// @access Public
+router.get("/type/:id", (req, res) => {
   TeaType.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {
       res.send(err);
@@ -91,8 +99,14 @@ router.get("/tea-type/:id", (req, res) => {
   });
 });
 
-router.get("/teaTypesList/:id", function(req, res) {
+// @route GET api/tea-types/:id
+// @desc Get all tea types
+// @access Public
+router.get("/:id", function(req, res) {
   TeaType.find({ userID: req.params.id }, function(err, teaTypes) {
+    if (err) {
+      res.send(err);
+    }
     res.send(teaTypes.map(teaTypeNormalizer));
   });
 });

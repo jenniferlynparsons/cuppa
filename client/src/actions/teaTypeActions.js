@@ -5,7 +5,7 @@ import { teaTypeActionTypes } from "../lib/actionTypes";
 export const addTeaType = teaType => {
   teaType.id = teaType.teaTypeID;
   return dispatch => {
-    return API.post("/teaTypes/new-tea-type", teaType)
+    return API.post("/tea-types", teaType)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.ADD_TEATYPE,
@@ -22,7 +22,7 @@ export const addTeaType = teaType => {
 export const editTeaType = teaType => {
   teaType.id = teaType.teaTypeID;
   return dispatch => {
-    API.put("/teaTypes/update-tea-type", teaType)
+    API.put("/tea-types", teaType)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.EDIT_TEATYPE,
@@ -38,7 +38,7 @@ export const editTeaType = teaType => {
 // Delete TeaType
 export const deleteTeaType = teaTypeID => {
   return dispatch => {
-    return API.delete(`/teaTypes/delete-tea-type/${teaTypeID}`)
+    return API.delete(`/tea-types/${teaTypeID}`)
       .then(() => {
         dispatch({
           type: teaTypeActionTypes.DELETE_TEATYPE,
@@ -54,7 +54,7 @@ export const deleteTeaType = teaTypeID => {
 // Get TeaTypes
 export const getTeaTypes = listOwner => {
   return dispatch => {
-    return API.get(`/teaTypes/teaTypesList/${listOwner}`)
+    return API.get(`/tea-types/${listOwner}`)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.GET_TEATYPES,

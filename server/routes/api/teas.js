@@ -8,10 +8,10 @@ const validateTeaInput = require("../../validation/teas");
 // Load Tea model
 const Tea = require("../../models/Tea");
 
-// @route POST api/teas/new-tea
+// @route POST api/teas
 // @desc Add new tea
 // @access Public
-router.post("/new-tea", (req, res) => {
+router.post("/", (req, res) => {
   const { errors, isValid } = validateTeaInput(req.body);
 
   // Check validation
@@ -40,7 +40,10 @@ router.post("/new-tea", (req, res) => {
   });
 });
 
-router.put("/update-tea", (req, res) => {
+// @route PUT api/teas
+// @desc Update tea
+// @access Public
+router.put("/", (req, res) => {
   const { errors, isValid } = validateTeaInput(req.body);
 
   // Check validation
@@ -57,7 +60,10 @@ router.put("/update-tea", (req, res) => {
   });
 });
 
-router.delete("/delete-tea/:id", (req, res) => {
+// @route DELETE api/teas/:id
+// @desc Delete tea
+// @access Public
+router.delete("/:id", (req, res) => {
   // The "tea" in this callback function represents the document that was found.
   // It allows you to pass a reference back to the client in case they need a reference for some reason.
   Tea.findOneAndDelete({ id: req.params.id }, {}, err => {
@@ -73,7 +79,9 @@ router.delete("/delete-tea/:id", (req, res) => {
   });
 });
 
-// get the tea with that id (accessed at GET http://localhost:8080/api/teas/:tea_id)
+// @route GET api/teas/:id
+// @desc Get individual tea
+// @access Public
 router.get("/tea/:id", (req, res) => {
   Tea.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {
@@ -87,7 +95,10 @@ router.get("/tea/:id", (req, res) => {
   });
 });
 
-router.get("/teasList/:id", function(req, res) {
+// @route GET api/teas
+// @desc Get all teas
+// @access Public
+router.get("/:id", function(req, res) {
   Tea.find({ userID: req.params.id }, function(err, teas) {
     res.send(teas.map(teaNormalizer));
   });
