@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editTeaFlash } from "../../../actions/flashActions";
+import { selectBrewTime } from "../../../reducers/teaTypesReducers";
 import { TeaDetails } from "./TeaDetails";
 
 class TeaDetailsContainer extends Component {
@@ -44,19 +45,6 @@ class TeaDetailsContainer extends Component {
     );
   }
 }
-
-const selectBrewTime = (mapState, mapOwnProps) => {
-  if (mapState.teaTypes.teaTypeIDs.length > 0) {
-    let currentTeaType = mapState.teaTypes.teaTypeIDs.filter(typeID => {
-      return (
-        mapState.teaTypes.allTeaTypes[typeID].name ===
-        mapState.teas.allTeas[mapOwnProps.match.params.id].teaType
-      );
-    });
-
-    return mapState.teaTypes.allTeaTypes[currentTeaType[0]].brewTime;
-  }
-};
 
 const mapStateToProps = (state, ownProps) => {
   return {
