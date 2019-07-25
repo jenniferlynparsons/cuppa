@@ -86,16 +86,15 @@ export class TeaEditor extends React.Component {
                   name="type"
                   id="type"
                   value={this.props.teaType}
-                  disabled={!this.props.teaTypes.teaTypeIDs.length}
+                  disabled={!this.props.teaTypes.length}
                   onChange={this.props.handleTypeChange}
                   onBlur={this.props.handleTypeChange}
                 >
                   <option />
-                  {this.props.teaTypes.teaTypeIDs.map(typeID => {
-                    const teaType = this.props.teaTypes.allTeaTypes[typeID];
+                  {this.props.teaTypes.map(teaType => {
                     return (
-                      <option key={teaType.name} value={teaType.name}>
-                        {teaType.name}
+                      <option key={teaType} value={teaType}>
+                        {teaType}
                       </option>
                     );
                   })}

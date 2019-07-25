@@ -9,6 +9,7 @@ import {
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editTeaFlash } from "../../../actions/flashActions";
+import { selectTeaTypes } from "../../../reducers/teaTypesReducers";
 import { TeaEditor } from "./TeaEditor";
 import DataList from "../../FormComponents/DataList";
 
@@ -212,7 +213,7 @@ export class TeaEditorContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    teaTypes: state.teaTypes,
+    teaTypes: selectTeaTypes(state.teaTypes),
     teas: state.teas,
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],

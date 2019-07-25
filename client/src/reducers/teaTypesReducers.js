@@ -54,3 +54,10 @@ export const selectBrewTime = (state, ownProps) => {
       : "";
   }
 };
+
+export const selectTeaTypes = state => {
+  return state.teaTypeIDs.map(typeID => {
+    const teaType = state.allTeaTypes[typeID];
+    return teaType.name;
+  });
+};
