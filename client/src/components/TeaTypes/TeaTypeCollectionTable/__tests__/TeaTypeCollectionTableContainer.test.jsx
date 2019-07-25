@@ -5,7 +5,7 @@ import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
-import teaFixture from "../../../../test/__fixtures__/teaFixture";
+import teaTypeFixture from "../../../../test/__fixtures__/teaTypeFixture";
 import TeaTypeCollectionContainer from "../TeaTypeCollectionTableContainer";
 import { TeaTypeCollectionTableContainerClass } from "../TeaTypeCollectionTableContainer";
 
@@ -14,18 +14,18 @@ let mockDeleteTeaType;
 let mockDefaultProps;
 
 beforeEach(() => {
-  mockGetTeaTypes = jest.fn(() => {
-    return storeFixture.basicStore;
-  });
+  mockGetTeaTypes = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockDeleteTeaType = jest.fn(() => {
     return storeFixture.deletedStore;
   });
   mockDefaultProps = {
-    allTeaTypes: teaFixture.teaTypes.allTeaTypes,
-    teaTypeIDs: teaFixture.teaTypes.teaTypeIDs,
+    allTeaTypes: teaTypeFixture.teaTypes.allTeaTypes,
+    teaTypeIDs: teaTypeFixture.teaTypes.teaTypeIDs,
     userID: dataFixture.mockUserID,
     getTeaTypes: mockGetTeaTypes,
-    deleteTeaType: mockDeleteTeaType
+    deleteTeaType: mockDeleteTeaType,
+    flash: "success",
+    clearFlash: jest.fn()
   };
 });
 
@@ -37,6 +37,14 @@ describe("TeaTypeCollectionContainer rendering", () => {
     );
 
     expect(queryByTestId("teatypecollection")).toBeTruthy();
+  });
+
+  test("renders the component with flash message", () => {
+    const { queryByTestId } = renderWithRouter(
+      <TeaTypeCollectionTableContainerClass {...mockDefaultProps} />
+    );
+
+    expect(queryByTestId("flash")).toBeTruthy();
   });
 });
 

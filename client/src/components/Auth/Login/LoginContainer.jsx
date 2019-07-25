@@ -8,16 +8,16 @@ class LoginContainer extends Component {
   state = {
     email: "",
     password: "",
-    errors: {
+    inputValidation: {
       email: true,
       emailNotFound: true,
-      password: true,
-      incomplete: true
+      password: true
     },
     errorMessages: {
       email: "Please enter a valid email address",
       password: "Please enter a valid password"
-    }
+    },
+    loadingStatus: "inprogress"
   };
 
   handleInputChange = e => {
@@ -39,12 +39,11 @@ class LoginContainer extends Component {
       this.props.loginAction(userData);
     } else {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
+        inputValidation: {
+          ...state.inputValidation,
           email: emailvalid,
           emailNotFound: true,
-          password: passvalid,
-          incomplete: false
+          password: passvalid
         }
       }));
     }
@@ -53,25 +52,23 @@ class LoginContainer extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
-    }
-    if (this.props.serverErrors && this.props.serverErrors.emailNotFound) {
-      this.setState(state => ({
-        errors: {
-          ...state.errors,
-          emailNotFound: false
-        }
-      }));
+    } else {
+      this.setState({ loadingStatus: "complete" });
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+  componentDidUpdate(prevProps) {
+    if (this.props.auth.isAuthenticated && !prevProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    if (nextProps.serverErrors.emailNotFound) {
+    if (
+      this.props.serverErrors &&
+      !prevProps.serverErrors &&
+      this.props.serverErrors.emailNotFound
+    ) {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
+        inputValidation: {
+          ...state.inputValidation,
           emailNotFound: false
         }
       }));
@@ -79,22 +76,30 @@ class LoginContainer extends Component {
   }
 
   render() {
-    return (
-      <Login
-        email={this.state.email}
-        password={this.state.password}
-        errors={this.state.errors}
-        errorMessages={this.state.errorMessages}
-        onChange={this.handleInputChange}
-        onSubmit={this.handleFormSubmit}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
+        <Login
+          email={this.state.email}
+          password={this.state.password}
+          inputValidation={this.state.inputValidation}
+          errorMessages={this.state.errorMessages}
+          onChange={this.handleInputChange}
+          onSubmit={this.handleFormSubmit}
+        />
+      );
+    }
   }
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  serverErrors: state.auth.errors
+  serverErrors: state.errors.serverErrors
 });
 
 export default connect(

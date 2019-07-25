@@ -5,6 +5,7 @@ import {
   filterCriteriaSchema
 } from "../../../lib/validationSchemas";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
+import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { TeaCollectionTable } from "./TeaCollectionTable";
 import DataList from "../../FormComponents/DataList";
 
@@ -20,14 +21,15 @@ export class TeaCollectionTableContainer extends React.Component {
     },
     filtered: false,
     dataList: [],
-    errors: {
+    inputValidation: {
       filterCategory: true,
       filterCriteria: true
     },
     errorMessages: {
       filterCategory: "Please choose a category",
       filterCriteria: "Please enter a filter term"
-    }
+    },
+    loadingStatus: "inprogress"
   };
 
   columnHeaders = [
@@ -153,15 +155,15 @@ export class TeaCollectionTableContainer extends React.Component {
         sortedIDs: newFilterOrder,
         memoizedIDs: currentFilterState,
         filtered: true,
-        errors: {
+        inputValidation: {
           filterCategory: categoryvalid,
           filterCriteria: criteriavalid
         }
       });
     } else {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
+        inputValidation: {
+          ...state.inputValidation,
           filterCategory: categoryvalid,
           filterCriteria: criteriavalid
         }
@@ -179,7 +181,7 @@ export class TeaCollectionTableContainer extends React.Component {
       },
       filtered: false,
       dataList: [],
-      errors: {
+      inputValidation: {
         filterCategory: true,
         filterCriteria: true
       }
@@ -187,10 +189,14 @@ export class TeaCollectionTableContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getTeas(this.props.userID);
-    this.setState({
-      sortedIDs: this.props.teas.teaIDs
-    });
+    this.props.getTeas(this.props.userID).then(() =>
+      this.setState({
+        sortedIDs: this.props.teas.teaIDs
+      })
+    );
+    this.props
+      .getTeaTypes(this.props.userID)
+      .then(() => this.setState({ loadingStatus: "complete" }));
   }
 
   componentDidUpdate(prevProps) {
@@ -205,16 +211,23 @@ export class TeaCollectionTableContainer extends React.Component {
   }
 
   render() {
-    return (
-      this.props.teas.allTeas && (
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
         <TeaCollectionTable
           datalist={<DataList id="fcriteria" options={this.state.dataList} />}
           columnHeaders={this.columnHeaders}
           allTeas={this.props.teas.allTeas}
           teaIDs={this.state.sortedIDs}
+          teaTypes={this.props.teaTypes}
           formControls={this.state.formControls}
           filtered={this.state.filtered}
-          errors={this.state.errors}
+          inputValidation={this.state.inputValidation}
           errorMessages={this.state.errorMessages}
           handleDeleteClick={this.handleDeleteClick}
           handleSortClick={this.handleSortClick}
@@ -224,8 +237,8 @@ export class TeaCollectionTableContainer extends React.Component {
           handleFilterInputChange={this.handleFilterInputChange}
           handleSortColumn={this.handleSortColumn}
         />
-      )
-    );
+      );
+    }
   }
 }
 
@@ -239,7 +252,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   deleteTea,
-  getTeas
+  getTeas,
+  getTeaTypes
 };
 
 export default connect(

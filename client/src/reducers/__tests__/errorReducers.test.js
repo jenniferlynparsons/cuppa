@@ -7,9 +7,9 @@ describe("error reducer", () => {
   });
   test("returns error state when action.payload is not empty", () => {
     const reducer = errorReducer(undefined, {
-      type: "GET_ERRORS",
+      type: "SERVER_ERRORS",
       payload: { error: "There was an error" }
     });
-    expect(reducer).toEqual({ error: "There was an error" });
+    expect(reducer).toEqual({ serverErrors: { error: "There was an error" } });
   });
 });
