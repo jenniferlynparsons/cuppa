@@ -7,10 +7,10 @@ export class TeaTypeEditor extends React.Component {
     return (
       <div className="container" data-testid="teatypeeditor">
         {this.props.flash.name && (
-          <div className="notification is-success" data-testid="flash">
+          <p className="notification is-success" data-testid="flash">
             {this.props.flash.name} has been succesfully saved.{" "}
             <Link to={"/tea-types/"}>View all types.</Link>
-          </div>
+          </p>
         )}
 
         {!this.props.inputValidation.complete && (
@@ -46,7 +46,7 @@ export class TeaTypeEditor extends React.Component {
               className="input"
               inputValidation={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.handleNameChange}
             />
           </div>

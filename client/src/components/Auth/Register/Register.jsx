@@ -38,7 +38,7 @@ export class Register extends React.Component {
               className="input"
               inputValidation={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.onChange}
             />
           </div>
@@ -54,7 +54,7 @@ export class Register extends React.Component {
               className="input"
               inputValidation={this.props.inputValidation.email}
               errorMessage={this.props.errorMessages.email}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.onChange}
             />
           </div>
@@ -71,7 +71,7 @@ export class Register extends React.Component {
               className="input"
               inputValidation={this.props.inputValidation.password}
               errorMessage={this.props.errorMessages.password}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.onChange}
             />
           </div>
@@ -88,7 +88,7 @@ export class Register extends React.Component {
               className="input"
               inputValidation={this.props.inputValidation.password2}
               errorMessage={this.props.errorMessages.password2}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.onChange}
             />
           </div>

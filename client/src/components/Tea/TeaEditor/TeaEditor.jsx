@@ -7,10 +7,10 @@ export class TeaEditor extends React.Component {
     return (
       <div className="container" data-testid="teaeditor">
         {this.props.flash.name && (
-          <div className="notification is-success" data-testid="flash">
+          <p className="notification is-success" data-testid="flash">
             {this.props.flash.name} has been succesfully saved.{" "}
             <Link to={"../../tea/" + this.props.flash.teaID}>View details</Link>
-          </div>
+          </p>
         )}
 
         {!this.props.inputValidation.complete && (
@@ -46,7 +46,7 @@ export class TeaEditor extends React.Component {
               className="input"
               inputValidation={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.handleNameChange}
               onBlur={this.props.handleBlur("name")}
             />
@@ -67,7 +67,7 @@ export class TeaEditor extends React.Component {
               className="input"
               inputValidation={this.props.inputValidation.brand}
               errorMessage={this.props.errorMessages.brand}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.handleBrandChange}
             />
           </div>
@@ -123,7 +123,7 @@ export class TeaEditor extends React.Component {
               className="input"
               inputValidation={this.props.inputValidation.servings}
               errorMessage={this.props.errorMessages.servings}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.handleServingsChange}
               onBlur={this.props.handleBlur("servings")}
             />

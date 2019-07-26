@@ -142,7 +142,8 @@ export class TeaTypeEditorContainer extends React.Component {
           brewTime: brewtimevalid,
           brewTimeMin: brewtimeminvalid,
           brewTimeSec: brewtimesecvalid,
-          complete: false
+          complete: false,
+          noDuplicate: true
         }
       }));
     }

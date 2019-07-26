@@ -8,14 +8,14 @@ export class TeaDetails extends React.Component {
       <>
         <div className="container content" data-testid="teadetails">
           {this.props.flash === "on" && (
-            <div className="notification is-success">
+            <p className="notification is-success">
               <button
                 data-testid="flash"
                 className="delete"
                 onClick={() => this.props.updateFlash("off")}
               />
               {this.props.tea.name} has been succesfully updated.
-            </div>
+            </p>
           )}
           <h1>{this.props.tea.name}</h1>
           <ul>
