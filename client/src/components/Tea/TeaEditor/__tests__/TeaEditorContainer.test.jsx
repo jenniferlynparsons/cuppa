@@ -159,7 +159,7 @@ describe("teaEditor form failure", () => {
           editTea={mockEdit}
           editTeaFlash={mockFunc}
           history={dataFixture.history}
-          serverErrors={{ teaConflict: "This tea already exists" }}
+          serverErrors={{ noDuplicate: "This tea already exists" }}
         />
       );
       expect(queryByTestId("duplicatenotice")).toBeTruthy();

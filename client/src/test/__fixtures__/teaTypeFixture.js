@@ -38,7 +38,7 @@ const missingDataTeaType = {
   brewTime: 12360000
 };
 
-const allTeaTypes = {
+const teaTypes = {
   allTeaTypes: {
     "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe": {
       id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
@@ -167,7 +167,7 @@ const teaTypeFixture = {
   updatedTeaType,
   missingDataTeaTypeFormValues,
   missingDataTeaType,
-  allTeaTypes,
+  teaTypes,
   reducerAddTeaType,
   reducerEditTeaType,
   teaTypePostResponse,

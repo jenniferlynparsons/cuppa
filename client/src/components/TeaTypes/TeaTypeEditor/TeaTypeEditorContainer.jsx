@@ -35,13 +35,13 @@ export class TeaTypeEditorContainer extends React.Component {
       ? convertTimeToMinSec(this.props.currentTeaType.brewTime).seconds
       : "",
     edit: !!this.props.currentTeaType,
-    errors: {
+    inputValidation: {
       name: true,
       brewTime: true,
       brewTimeMin: true,
       brewTimeSec: true,
-      incomplete: true,
-      teaTypeConflict: true
+      complete: true,
+      noDuplicate: true
     },
     errorMessages: {
       name: "Please enter a tea type name",
@@ -124,25 +124,25 @@ export class TeaTypeEditorContainer extends React.Component {
           brewTimeMin: "",
           brewTimeSec: "",
           edit: false,
-          errors: {
+          inputValidation: {
             name: true,
             brewTime: true,
             brewTimeMin: true,
             brewTimeSec: true,
-            incomplete: true,
-            teaTypeConflict: true
+            complete: true,
+            noDuplicate: true
           }
         });
       }
     } else {
       this.setState(state => ({
-        errors: {
+        inputValidation: {
           ...state.errors,
           name: namevalid,
           brewTime: brewtimevalid,
           brewTimeMin: brewtimeminvalid,
           brewTimeSec: brewtimesecvalid,
-          incomplete: false
+          complete: false
         }
       }));
     }
@@ -150,6 +150,15 @@ export class TeaTypeEditorContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeaTypes(this.props.userID);
+    if (this.props.serverErrors && this.props.serverErrors.noDuplicate) {
+      this.setState(state => ({
+        inputValidation: {
+          ...state.inputValidation,
+          noDuplicate: false
+        },
+        flash: { name: "" }
+      }));
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -170,9 +179,9 @@ export class TeaTypeEditorContainer extends React.Component {
     }
     if (this.props.serverErrors && !prevProps.serverErrors) {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
-          teaTypeConflict: false
+        inputValidation: {
+          ...state.inputValidation,
+          noDuplicate: false
         },
         flash: { name: "" }
       }));
@@ -186,7 +195,7 @@ export class TeaTypeEditorContainer extends React.Component {
         brewTimeMin={this.state.brewTimeMin}
         brewTimeSec={this.state.brewTimeSec}
         flash={this.state.flash}
-        errors={this.state.errors}
+        inputValidation={this.state.inputValidation}
         errorMessages={this.state.errorMessages}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}
@@ -200,7 +209,6 @@ export class TeaTypeEditorContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return {
     userID: state.auth.user.id,
     currentTeaType: state.teaTypes.allTeaTypes[ownProps.match.params.id],

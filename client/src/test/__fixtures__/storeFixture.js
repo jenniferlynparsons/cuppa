@@ -3,16 +3,17 @@ const loggedOutStore = {
     isAuthenticated: false,
     user: {},
     loading: false
-  }
+  },
+  errors: { serverErrors: "" }
 };
 
 const loggedErrorStore = {
   auth: {
     isAuthenticated: false,
     user: {},
-    loading: false,
-    errors: { emailNotFound: "Email not found" }
-  }
+    loading: false
+  },
+  errors: { serverErrors: { emailNotFound: "Email not found" } }
 };
 
 const loggedInStore = {
@@ -25,21 +26,22 @@ const loggedInStore = {
       id: "5c63123a4c318b298b23d4",
       name: "Jennifer"
     }
-  }
+  },
+  errors: { serverErrors: "" }
 };
 
 const basicStore = {
   auth: {
     isAuthenticated: true,
+    loading: false,
     user: {
       id: "5c6313a4c318bb62298b23d4",
       name: "Jennifer",
       iat: 1560457432,
       exp: 1592014358
-    },
-    loading: false
+    }
   },
-  errors: {},
+  errors: { serverErrors: "" },
   teas: {
     allTeas: {
       "25070e52-e635-4883-ae9b-583113573b9f": {
@@ -114,7 +116,7 @@ const addedStore = {
     },
     loading: false
   },
-  errors: {},
+  errors: { serverErrors: "" },
   teas: {
     allTeas: {
       "25070e52-e635-4883-ae9b-583113573b9f": {
@@ -197,7 +199,7 @@ const updatedStore = {
     },
     loading: false
   },
-  errors: {},
+  errors: { serverErrors: "" },
   teas: {
     allTeas: {
       "25070e52-e635-4883-ae9b-583113573b9f": {
@@ -272,7 +274,7 @@ const deletedStore = {
     },
     loading: false
   },
-  errors: {},
+  errors: { serverErrors: "" },
   teas: {
     allTeas: {
       "25070e52-e635-4883-ae9b-583113573b9f": {

@@ -8,11 +8,11 @@ class LoginContainer extends Component {
   state = {
     email: "",
     password: "",
-    errors: {
+    inputValidation: {
       email: true,
       emailNotFound: true,
       password: true,
-      incomplete: true
+      complete: true
     },
     errorMessages: {
       email: "Please enter a valid email address",
@@ -39,12 +39,12 @@ class LoginContainer extends Component {
       this.props.loginAction(userData);
     } else {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
+        inputValidation: {
+          ...state.inputValidation,
           email: emailvalid,
           emailNotFound: true,
           password: passvalid,
-          incomplete: false
+          complete: false
         }
       }));
     }
@@ -56,8 +56,8 @@ class LoginContainer extends Component {
     }
     if (this.props.serverErrors && this.props.serverErrors.emailNotFound) {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
+        inputValidation: {
+          ...state.inputValidation,
           emailNotFound: false
         }
       }));
@@ -70,8 +70,8 @@ class LoginContainer extends Component {
     }
     if (nextProps.serverErrors.emailNotFound) {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
+        inputValidation: {
+          ...state.inputValidation,
           emailNotFound: false
         }
       }));
@@ -83,7 +83,7 @@ class LoginContainer extends Component {
       <Login
         email={this.state.email}
         password={this.state.password}
-        errors={this.state.errors}
+        inputValidation={this.state.inputValidation}
         errorMessages={this.state.errorMessages}
         onChange={this.handleInputChange}
         onSubmit={this.handleFormSubmit}
@@ -94,7 +94,7 @@ class LoginContainer extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  serverErrors: state.auth.errors
+  serverErrors: state.errors.serverErrors
 });
 
 export default connect(

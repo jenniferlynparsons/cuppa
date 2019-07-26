@@ -15,13 +15,13 @@ class RegisterContainer extends Component {
     email: "",
     password: "",
     password2: "",
-    errors: {
+    inputValidation: {
       name: true,
       email: true,
-      emailAlreadyExists: true,
+      emailDoesNotExist: true,
       password: true,
       password2: true,
-      incomplete: true
+      complete: true
     },
     errorMessages: {
       name: "Please enter a valid name",
@@ -56,14 +56,14 @@ class RegisterContainer extends Component {
       this.props.registerUser(newUser, this.props.history);
     } else {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
+        inputValidation: {
+          ...state.inputValidation,
           name: namevalid,
           email: emailvalid,
-          emailAlreadyExists: true,
+          emailDoesNotExist: true,
           password: passvalid,
           password2: pass2valid === passmatch ? pass2valid : false,
-          incomplete: false
+          complete: false
         }
       }));
     }
@@ -73,11 +73,11 @@ class RegisterContainer extends Component {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    if (this.props.serverErrors && this.props.serverErrors.emailAlreadyExists) {
+    if (this.props.serverErrors && this.props.serverErrors.emailDoesNotExist) {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
-          emailAlreadyExists: false
+        inputValidation: {
+          ...state.inputValidation,
+          emailDoesNotExist: false
         }
       }));
     }
@@ -87,11 +87,11 @@ class RegisterContainer extends Component {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    if (nextProps.serverErrors.emailAlreadyExists) {
+    if (nextProps.serverErrors.emailDoesNotExist) {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
-          emailAlreadyExists: false
+        inputValidation: {
+          ...state.inputValidation,
+          emailDoesNotExist: false
         }
       }));
     }
@@ -103,7 +103,7 @@ class RegisterContainer extends Component {
         email={this.state.email}
         password={this.state.password}
         password2={this.state.password2}
-        errors={this.state.errors}
+        inputValidation={this.state.inputValidation}
         errorMessages={this.state.errorMessages}
         onChange={this.handleInputChange}
         onSubmit={this.handleFormSubmit}
@@ -114,7 +114,7 @@ class RegisterContainer extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  serverErrors: state.auth.errors
+  serverErrors: state.errors.serverErrors
 });
 
 export default connect(

@@ -34,13 +34,13 @@ export class TeaEditorContainer extends React.Component {
     edit: !!this.props.currentTea,
     brands: [],
     brandsDataList: [],
-    errors: {
+    inputValidation: {
       name: true,
       brand: true,
       teaType: true,
       servings: true,
-      incomplete: true,
-      teaConflict: true
+      complete: true,
+      noDuplicate: true
     },
     errorMessages: {
       name: "Please enter a tea name",
@@ -128,25 +128,25 @@ export class TeaEditorContainer extends React.Component {
           teaTypes: this.props.teaTypes,
           servings: "",
           edit: false,
-          errors: {
+          inputValidation: {
             name: true,
             brand: true,
             teaType: true,
             servings: true,
-            incomplete: true,
-            teaConflict: true
+            complete: true,
+            noDuplicate: true
           }
         });
       }
     } else {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
+        inputValidation: {
+          ...state.inputValidation,
           name: namevalid,
           brand: brandvalid,
           teaType: teaTypevalid,
           servings: servingsvalid,
-          incomplete: false
+          complete: false
         }
       }));
     }
@@ -155,12 +155,13 @@ export class TeaEditorContainer extends React.Component {
   componentDidMount() {
     this.props.getTeas(this.props.userID);
     this.props.getTeaTypes(this.props.userID);
-    if (this.props.serverErrors && this.props.serverErrors.teaConflict) {
+    if (this.props.serverErrors && this.props.serverErrors.noDuplicate) {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
-          teaConflict: false
-        }
+        inputValidation: {
+          ...state.inputValidation,
+          noDuplicate: false
+        },
+        flash: { name: "" }
       }));
     }
   }
@@ -185,9 +186,9 @@ export class TeaEditorContainer extends React.Component {
     }
     if (this.props.serverErrors && !prevProps.serverErrors) {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
-          teaConflict: false
+        inputValidation: {
+          ...state.inputValidation,
+          noDuplicate: false
         },
         flash: { name: "" }
       }));
@@ -206,7 +207,7 @@ export class TeaEditorContainer extends React.Component {
         teaType={this.state.teaType}
         servings={this.state.servings}
         flash={this.state.flash}
-        errors={this.state.errors}
+        inputValidation={this.state.inputValidation}
         errorMessages={this.state.errorMessages}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}

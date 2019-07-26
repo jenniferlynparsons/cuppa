@@ -6,7 +6,7 @@ export const addTeaType = teaType => {
   return dispatch => {
     return API.post("/tea-types", teaType)
       .then(response => {
-        if (response.teaTypeConflict) {
+        if (response && response.noDuplicate) {
           dispatch({
             type: errorActionTypes.SERVER_ERRORS,
             payload: response

@@ -118,7 +118,7 @@ describe("Register form failure", () => {
       const { queryByTestId } = renderWithRouter(
         <RegisterContainerComponent
           auth={storeFixture.loggedErrorStore}
-          serverErrors={{ emailAlreadyExists: "Email already exists" }}
+          serverErrors={{ emailDoesNotExist: "Email already exists" }}
           loginAction={mockFunc}
         />
       );

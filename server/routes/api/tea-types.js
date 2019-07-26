@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
 
   TeaType.findOne({ name: req.body.name }).then(teaType => {
     if (teaType) {
-      return res.json({ teaTypeConflict: "This tea type already exists" });
+      return res.json({ noDuplicate: "This tea type already exists" });
     }
 
     const newTeaType = new TeaType({
