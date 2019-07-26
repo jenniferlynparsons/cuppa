@@ -7,7 +7,7 @@ export class TeaDetails extends React.Component {
     return (
       <>
         <div className="container content" data-testid="teadetails">
-          {this.props.flash === "on" && (
+          {this.props.flash === "success" && (
             <p className="notification is-success">
               <button
                 data-testid="flash"

@@ -8,7 +8,7 @@ import {
 } from "../../../lib/validationSchemas";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
-import { editTeaFlash } from "../../../actions/flashActions";
+import { editFlash } from "../../../actions/flashActions";
 import { selectTeaTypes } from "../../../reducers/teaTypesReducers";
 import { TeaEditor } from "./TeaEditor";
 import DataList from "../../FormComponents/DataList";
@@ -31,7 +31,6 @@ export class TeaEditorContainer extends React.Component {
     teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
     teaTypes: this.props.teaTypes ? this.props.teaTypes : "",
     servings: this.props.currentTea ? this.props.currentTea.servings : "",
-    edit: !!this.props.currentTea,
     brands: [],
     brandsDataList: [],
     inputValidation: {
@@ -105,9 +104,9 @@ export class TeaEditorContainer extends React.Component {
     };
 
     if (namevalid && brandvalid && teaTypevalid && servingsvalid) {
-      if (this.state.edit === true) {
+      if (this.props.edit === true) {
         this.props.editTea(teaData);
-        this.props.editTeaFlash("on");
+        this.props.editFlash("success");
         this.props.history.push("/tea/" + this.state.id);
       } else {
         this.props.addTea(teaData);
@@ -127,7 +126,6 @@ export class TeaEditorContainer extends React.Component {
           teaType: "",
           teaTypes: this.props.teaTypes,
           servings: "",
-          edit: false,
           inputValidation: {
             name: true,
             brand: true,
@@ -178,7 +176,6 @@ export class TeaEditorContainer extends React.Component {
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,
         servings: this.props.currentTea.servings,
-        edit: true,
         brandsDataList: this.props.teas.ids.map(id => {
           return this.props.teas.allTeas[id].brand;
         })
@@ -227,6 +224,7 @@ const mapStateToProps = (state, ownProps) => {
     teas: state.teas,
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
+    edit: state.teas.allTeas[ownProps.match.params.id] ? true : false,
     serverErrors: state.errors.serverErrors
   };
 };
@@ -234,7 +232,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = {
   editTea,
   addTea,
-  editTeaFlash,
+  editFlash,
   getTeas,
   getTeaTypes
 };

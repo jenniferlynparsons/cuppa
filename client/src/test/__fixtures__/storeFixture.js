@@ -185,7 +185,7 @@ const addedStore = {
       "8a4c0f27-3778-49b3-9d46-a272e372da2e"
     ]
   },
-  flash: "on"
+  flash: "success"
 };
 
 const updatedStore = {

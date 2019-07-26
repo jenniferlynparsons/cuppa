@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
-import { editTeaFlash } from "../../../actions/flashActions";
+import { editFlash } from "../../../actions/flashActions";
 import { selectBrewTime } from "../../../reducers/teaTypesReducers";
 import { TeaDetails } from "./TeaDetails";
 
@@ -12,7 +12,7 @@ class TeaDetailsContainer extends Component {
   };
 
   updateFlash = status => {
-    this.props.editTeaFlash(status);
+    this.props.editFlash(status);
   };
 
   handleOpenTimer = () => {
@@ -56,7 +56,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = {
-  editTeaFlash,
+  editFlash,
   editTea,
   getTeas,
   getTeaTypes

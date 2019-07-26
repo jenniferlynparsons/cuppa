@@ -7,9 +7,9 @@ describe("flash reducer", () => {
   });
   test("returns 'on' state when action.payload is 'on'", () => {
     const reducer = flashReducer(undefined, {
-      type: "EDIT_TEA_FLASH",
-      payload: "on"
+      type: "EDIT_FLASH",
+      payload: "success"
     });
-    expect(reducer).toEqual("on");
+    expect(reducer).toEqual("success");
   });
 });

@@ -74,9 +74,10 @@ describe("teaTypeEditor form success", () => {
         teaTypes={teaTypeFixture.teaTypes}
         userID={dataFixture.mockUserID}
         currentTeaType={teaTypeFixture.basicTeaType}
+        edit={true}
         getTeaTypes={mockFunc}
         editTeaType={mockEdit}
-        editTeaTypeFlash={mockEdit}
+        editFlash={mockEdit}
         history={dataFixture.history}
       />
     );
@@ -104,7 +105,7 @@ describe("teaTypeEditor form failure", () => {
           currentTeaType={""}
           getTeaTypes={mockFunc}
           editTeaType={mockEdit}
-          editTeaTypeFlash={mockEdit}
+          editFlash={mockEdit}
           history={dataFixture.history}
         />
       );
@@ -124,7 +125,7 @@ describe("teaTypeEditor form failure", () => {
           currentTeaType={teaTypeFixture.missingDataTeaType}
           getTeaTypes={mockFunc}
           editTeaType={mockEdit}
-          editTeaTypeFlash={mockEdit}
+          editFlash={mockEdit}
           history={dataFixture.history}
         />
       );
@@ -144,7 +145,7 @@ describe("teaTypeEditor form failure", () => {
           currentTeaType={teaTypeFixture.missingDataTeaType}
           getTeaTypes={mockFunc}
           editTeaType={mockEdit}
-          editTeaTypeFlash={mockEdit}
+          editFlash={mockEdit}
           history={dataFixture.history}
           serverErrors={{ noDuplicate: "This tea type already exists" }}
         />

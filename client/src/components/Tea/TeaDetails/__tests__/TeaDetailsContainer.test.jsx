@@ -35,10 +35,10 @@ describe("TeaDetailsContainer flash", () => {
       <TeaDetailsContainerClass
         tea={teaFixture.basicTea}
         teaTypes={teaFixture.teaTypes}
-        flash={"on"}
+        flash={"success"}
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
-        editTeaFlash={mockFunc}
+        editFlash={mockFunc}
       />
     );
 
@@ -50,10 +50,10 @@ describe("TeaDetailsContainer flash", () => {
       <TeaDetailsContainerClass
         tea={teaFixture.basicTea}
         teaTypes={teaFixture.teaTypes}
-        flash={"on"}
+        flash={"success"}
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
-        editTeaFlash={mockFunc}
+        editFlash={mockFunc}
       />
     );
 
@@ -68,10 +68,10 @@ describe("teaDetails interactions", () => {
       <TeaDetailsContainerClass
         tea={teaFixture.basicTea}
         teaTypes={teaFixture.teaTypes}
-        flash={"on"}
+        flash={"success"}
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
-        editTeaFlash={mockFunc}
+        editFlash={mockFunc}
       />
     );
 
@@ -89,7 +89,7 @@ describe("tea timer interactions", () => {
         flash={"off"}
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
-        editTeaFlash={mockFunc}
+        editFlash={mockFunc}
       />
     );
 
@@ -105,7 +105,7 @@ describe("tea timer interactions", () => {
         flash={"off"}
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
-        editTeaFlash={mockFunc}
+        editFlash={mockFunc}
       />
     );
 
@@ -122,7 +122,7 @@ describe("tea timer interactions", () => {
         flash={"off"}
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
-        editTeaFlash={mockFunc}
+        editFlash={mockFunc}
         editTea={mockFunc}
       />
     );

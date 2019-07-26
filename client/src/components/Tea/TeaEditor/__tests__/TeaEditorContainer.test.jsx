@@ -75,16 +75,17 @@ describe("teaEditor form success", () => {
     expect(queryByTestId("flash")).toHaveTextContent(/Basic Tea/);
   });
 
-  test("editor form succesfully updates tea", () => {
+  test("editor form succesfully updates tea", async () => {
     const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass
         teaTypes={teaFixture.teaTypes}
         userID={dataFixture.mockUserID}
         currentTea={teaFixture.basicTea}
+        edit={true}
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
         editTea={mockEdit}
-        editTeaFlash={mockFunc}
+        editFlash={mockFunc}
         history={dataFixture.history}
       />
     );
@@ -98,7 +99,7 @@ describe("teaEditor form success", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(dataFixture.history.push).toHaveBeenCalledWith(
+    await expect(dataFixture.history.push).toHaveBeenCalledWith(
       "/tea/1b1db861-0537-4b69-83d5-d9ee033530f8"
     );
   });
@@ -115,7 +116,7 @@ describe("teaEditor form failure", () => {
           getTeas={mockFunc}
           getTeaTypes={mockFunc}
           editTea={mockEdit}
-          editTeaFlash={mockFunc}
+          editFlash={mockFunc}
           history={dataFixture.history}
         />
       );
@@ -136,7 +137,7 @@ describe("teaEditor form failure", () => {
           getTeas={mockFunc}
           getTeaTypes={mockFunc}
           editTea={mockEdit}
-          editTeaFlash={mockFunc}
+          editFlash={mockFunc}
           history={dataFixture.history}
         />
       );
@@ -157,7 +158,7 @@ describe("teaEditor form failure", () => {
           getTeas={mockFunc}
           getTeaTypes={mockFunc}
           editTea={mockEdit}
-          editTeaFlash={mockFunc}
+          editFlash={mockFunc}
           history={dataFixture.history}
           serverErrors={{ noDuplicate: "This tea already exists" }}
         />

@@ -14,7 +14,7 @@ import {
   addTeaType,
   getTeaTypes
 } from "../../../actions/teaTypeActions";
-import { editTeaTypeFlash } from "../../../actions/flashActions";
+import { editFlash } from "../../../actions/flashActions";
 import { TeaTypeEditor } from "./TeaTypeEditor";
 
 export class TeaTypeEditorContainer extends React.Component {
@@ -34,7 +34,6 @@ export class TeaTypeEditorContainer extends React.Component {
     brewTimeSec: this.props.currentTeaType
       ? convertTimeToMinSec(this.props.currentTeaType.brewTime).seconds
       : "",
-    edit: !!this.props.currentTeaType,
     inputValidation: {
       name: true,
       brewTime: true,
@@ -105,9 +104,9 @@ export class TeaTypeEditorContainer extends React.Component {
     };
 
     if (namevalid && brewtimevalid) {
-      if (this.state.edit === true) {
+      if (this.props.edit === true) {
         this.props.editTeaType(typeData);
-        this.props.editTeaTypeFlash("on");
+        this.props.editFlash("success");
         this.props.history.push("/tea-types/");
       } else {
         this.props.addTeaType(typeData);
@@ -123,7 +122,6 @@ export class TeaTypeEditorContainer extends React.Component {
           name: "",
           brewTimeMin: "",
           brewTimeSec: "",
-          edit: false,
           inputValidation: {
             name: true,
             brewTime: true,
@@ -174,8 +172,7 @@ export class TeaTypeEditorContainer extends React.Component {
         brewTimeMin: convertTimeToMinSec(this.props.currentTeaType.brewTime)
           .minute,
         brewTimeSec: convertTimeToMinSec(this.props.currentTeaType.brewTime)
-          .seconds,
-        edit: true
+          .seconds
       });
     }
     if (this.props.serverErrors && !prevProps.serverErrors) {
@@ -213,6 +210,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     userID: state.auth.user.id,
     currentTeaType: state.teaTypes.allTeaTypes[ownProps.match.params.id],
+    edit: state.teaTypes.allTeaTypes[ownProps.match.params.id] ? true : false,
     serverErrors: state.errors.serverErrors
   };
 };
@@ -220,7 +218,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = {
   editTeaType,
   addTeaType,
-  editTeaTypeFlash,
+  editFlash,
   getTeaTypes
 };
 
