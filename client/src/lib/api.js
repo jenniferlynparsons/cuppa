@@ -16,36 +16,28 @@ function get(path, payload) {
   return api
     .get(path, payload)
     .then(response => response.data)
-    .catch(function(error) {
-      console.log(error);
-    });
+    .catch(error => console.log(error));
 }
 
 function post(path, payload, config = {}) {
   return api
     .post(path, payload, config)
     .then(response => response.data)
-    .catch(function(error) {
-      console.log(error);
-    });
+    .catch(error => console.log(error));
 }
 
 function put(path, payload, config = {}) {
   return api
     .put(path, payload, config)
     .then(response => response.data)
-    .catch(function(error) {
-      console.log(error);
-    });
+    .catch(error => console.log(error));
 }
 
 function deleteRequest(path, payload, config = {}) {
   return api
     .delete(path, payload, config)
     .then(response => response.data)
-    .catch(function(error) {
-      console.log(error);
-    });
+    .catch(error => console.log(error));
 }
 
 export default {

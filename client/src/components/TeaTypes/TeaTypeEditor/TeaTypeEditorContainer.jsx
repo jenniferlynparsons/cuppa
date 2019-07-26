@@ -105,32 +105,34 @@ export class TeaTypeEditorContainer extends React.Component {
 
     if (namevalid && brewtimevalid) {
       if (this.props.edit === true) {
-        this.props.editTeaType(typeData);
-        this.props.editFlash("success");
-        this.props.history.push("/tea-types/");
+        this.props
+          .editTeaType(typeData)
+          .then(this.props.editFlash("success"))
+          .then(this.props.history.push("/tea-types/"));
       } else {
-        this.props.addTeaType(typeData);
-        this.setState({
-          flash: {
-            name: this.state.name
-          },
-          touched: {
-            name: false
-          },
-          id: "",
-          userID: this.props.userID,
-          name: "",
-          brewTimeMin: "",
-          brewTimeSec: "",
-          inputValidation: {
-            name: true,
-            brewTime: true,
-            brewTimeMin: true,
-            brewTimeSec: true,
-            complete: true,
-            noDuplicate: true
-          }
-        });
+        this.props.addTeaType(typeData).then(
+          this.setState({
+            flash: {
+              name: this.state.name
+            },
+            touched: {
+              name: false
+            },
+            id: "",
+            userID: this.props.userID,
+            name: "",
+            brewTimeMin: "",
+            brewTimeSec: "",
+            inputValidation: {
+              name: true,
+              brewTime: true,
+              brewTimeMin: true,
+              brewTimeSec: true,
+              complete: true,
+              noDuplicate: true
+            }
+          })
+        );
       }
     } else {
       this.setState(state => ({

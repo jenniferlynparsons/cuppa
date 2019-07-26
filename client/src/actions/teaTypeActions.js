@@ -3,8 +3,8 @@ import { teaTypeActionTypes, errorActionTypes } from "../lib/actionTypes";
 
 // Add TeaType
 export const addTeaType = teaType => {
-  return dispatch => {
-    return API.post("/tea-types", teaType)
+  return dispatch =>
+    API.post("/tea-types", teaType)
       .then(response => {
         if (response && response.noDuplicate) {
           dispatch({
@@ -19,13 +19,12 @@ export const addTeaType = teaType => {
         }
       })
       .catch(error => console.log(error));
-  };
 };
 
 // Edit TeaType
 export const editTeaType = teaType => {
-  return dispatch => {
-    return API.put("/tea-types", teaType)
+  return dispatch =>
+    API.put("/tea-types", teaType)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.EDIT_TEATYPE,
@@ -33,7 +32,6 @@ export const editTeaType = teaType => {
         });
       })
       .catch(error => console.log(error));
-  };
 };
 
 // Delete TeaType
@@ -52,8 +50,8 @@ export const deleteTeaType = teaTypeID => {
 
 // Get TeaTypes
 export const getTeaTypes = listOwner => {
-  return dispatch => {
-    return API.get(`/tea-types/${listOwner}`)
+  return dispatch =>
+    API.get(`/tea-types/${listOwner}`)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.GET_TEATYPES,
@@ -61,7 +59,6 @@ export const getTeaTypes = listOwner => {
         });
       })
       .catch(error => console.log(error));
-  };
 };
 
 const teaActions = {

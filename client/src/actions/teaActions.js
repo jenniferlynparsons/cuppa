@@ -3,7 +3,6 @@ import { teaActionTypes, errorActionTypes } from "../lib/actionTypes";
 
 // Add Tea
 export const addTea = tea => {
-  tea.id = tea.teaID;
   return dispatch => {
     return API.post("/teas", tea)
       .then(response => {
@@ -25,7 +24,6 @@ export const addTea = tea => {
 
 // Edit Tea
 export const editTea = tea => {
-  tea.id = tea.teaID;
   return dispatch => {
     return API.put("/teas", tea)
       .then(response => {

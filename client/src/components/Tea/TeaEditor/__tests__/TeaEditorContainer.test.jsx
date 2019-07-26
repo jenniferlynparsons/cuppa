@@ -15,12 +15,8 @@ let mockEdit;
 
 beforeEach(() => {
   mockFunc = jest.fn();
-  mockAdd = jest.fn(() => {
-    return storeFixture.addedStore;
-  });
-  mockEdit = jest.fn(() => {
-    return storeFixture.updatedStore;
-  });
+  mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
+  mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
 });
 
 describe("TeaEditorContainer rendering", () => {
@@ -75,7 +71,7 @@ describe("teaEditor form success", () => {
     expect(queryByTestId("flash")).toHaveTextContent(/Basic Tea/);
   });
 
-  test("editor form succesfully updates tea", async () => {
+  test("editor form succesfully updates tea", () => {
     const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass
         teaTypes={teaFixture.teaTypes}
@@ -99,7 +95,7 @@ describe("teaEditor form success", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-    await expect(dataFixture.history.push).toHaveBeenCalledWith(
+    expect(dataFixture.history.push).toHaveBeenCalledWith(
       "/tea/1b1db861-0537-4b69-83d5-d9ee033530f8"
     );
   });

@@ -105,36 +105,38 @@ export class TeaEditorContainer extends React.Component {
 
     if (namevalid && brandvalid && teaTypevalid && servingsvalid) {
       if (this.props.edit === true) {
-        this.props.editTea(teaData);
-        this.props.editFlash("success");
-        this.props.history.push("/tea/" + this.state.id);
+        this.props
+          .editTea(teaData)
+          .then(this.props.editFlash("success"))
+          .then(this.props.history.push("/tea/" + this.state.id));
       } else {
-        this.props.addTea(teaData);
-        this.setState({
-          flash: {
-            name: this.state.name,
-            id: this.state.id
-          },
-          touched: {
-            name: false,
-            servings: false
-          },
-          id: "",
-          userID: this.props.userID,
-          name: "",
-          brand: "",
-          teaType: "",
-          teaTypes: this.props.teaTypes,
-          servings: "",
-          inputValidation: {
-            name: true,
-            brand: true,
-            teaType: true,
-            servings: true,
-            complete: true,
-            noDuplicate: true
-          }
-        });
+        this.props.addTea(teaData).then(
+          this.setState({
+            flash: {
+              name: this.state.name,
+              id: this.state.id
+            },
+            touched: {
+              name: false,
+              servings: false
+            },
+            id: "",
+            userID: this.props.userID,
+            name: "",
+            brand: "",
+            teaType: "",
+            teaTypes: this.props.teaTypes,
+            servings: "",
+            inputValidation: {
+              name: true,
+              brand: true,
+              teaType: true,
+              servings: true,
+              complete: true,
+              noDuplicate: true
+            }
+          })
+        );
       }
     } else {
       this.setState(state => ({

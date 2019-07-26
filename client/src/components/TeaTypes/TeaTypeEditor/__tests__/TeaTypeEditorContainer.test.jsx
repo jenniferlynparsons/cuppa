@@ -15,12 +15,8 @@ let mockEdit;
 
 beforeEach(() => {
   mockFunc = jest.fn();
-  mockAdd = jest.fn(() => {
-    return storeFixture.addedStore;
-  });
-  mockEdit = jest.fn(() => {
-    return storeFixture.updatedStore;
-  });
+  mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
+  mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
 });
 
 describe("TeaTypeEditorContainer rendering", () => {
