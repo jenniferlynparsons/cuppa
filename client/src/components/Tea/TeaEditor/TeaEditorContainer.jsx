@@ -183,6 +183,15 @@ export class TeaEditorContainer extends React.Component {
         })
       });
     }
+    if (this.props.serverErrors && !prevProps.serverErrors) {
+      this.setState(state => ({
+        errors: {
+          ...state.errors,
+          teaConflict: false
+        },
+        flash: { name: "" }
+      }));
+    }
   }
 
   render() {
@@ -217,7 +226,7 @@ const mapStateToProps = (state, ownProps) => {
     teas: state.teas,
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
-    serverErrors: state.auth.errors
+    serverErrors: state.errors.serverErrors
   };
 };
 

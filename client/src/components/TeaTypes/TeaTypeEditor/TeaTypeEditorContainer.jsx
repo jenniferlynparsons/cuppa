@@ -20,8 +20,7 @@ import { TeaTypeEditor } from "./TeaTypeEditor";
 export class TeaTypeEditorContainer extends React.Component {
   state = {
     flash: {
-      name: "",
-      id: ""
+      name: ""
     },
     touched: {
       name: false
@@ -114,8 +113,7 @@ export class TeaTypeEditorContainer extends React.Component {
         this.props.addTeaType(typeData);
         this.setState({
           flash: {
-            name: this.state.name,
-            id: this.state.teaTypeID
+            name: this.state.name
           },
           touched: {
             name: false
@@ -152,15 +150,6 @@ export class TeaTypeEditorContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeaTypes(this.props.userID);
-
-    if (this.props.serverErrors && this.props.serverErrors.teaTypeConflict) {
-      this.setState(state => ({
-        errors: {
-          ...state.errors,
-          teaTypeConflict: false
-        }
-      }));
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -178,6 +167,15 @@ export class TeaTypeEditorContainer extends React.Component {
           .seconds,
         edit: true
       });
+    }
+    if (this.props.serverErrors && !prevProps.serverErrors) {
+      this.setState(state => ({
+        errors: {
+          ...state.errors,
+          teaTypeConflict: false
+        },
+        flash: { name: "" }
+      }));
     }
   }
 
@@ -202,10 +200,11 @@ export class TeaTypeEditorContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state);
   return {
     userID: state.auth.user.id,
     currentTeaType: state.teaTypes.allTeaTypes[ownProps.match.params.id],
-    serverErrors: state.auth.errors
+    serverErrors: state.errors.serverErrors
   };
 };
 

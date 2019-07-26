@@ -22,3 +22,7 @@ export const teaTypeActionTypes = {
   DELETE_TEATYPE: "DELETE_TEATYPE",
   GET_TEATYPES: "GET_TEATYPES"
 };
+
+export const errorActionTypes = {
+  SERVER_ERRORS: "SERVER_ERRORS"
+};

@@ -1,5 +1,5 @@
 import API from "../lib/api";
-import { teaActionTypes } from "../lib/actionTypes";
+import { teaActionTypes, errorActionTypes } from "../lib/actionTypes";
 
 // Add Tea
 export const addTea = tea => {
@@ -7,10 +7,17 @@ export const addTea = tea => {
   return dispatch => {
     return API.post("/teas", tea)
       .then(response => {
-        dispatch({
-          type: teaActionTypes.ADD_TEA,
-          payload: response
-        });
+        if (response.teaConflict) {
+          dispatch({
+            type: errorActionTypes.SERVER_ERRORS,
+            payload: response
+          });
+        } else {
+          dispatch({
+            type: teaActionTypes.ADD_TEA,
+            payload: response
+          });
+        }
       })
       .catch(error => console.log(error));
   };
@@ -56,6 +63,13 @@ export const getTeas = listOwner => {
         });
       })
       .catch(error => console.log(error));
+  };
+};
+
+export const setErrorResponse = errorObj => {
+  return {
+    type: teaActionTypes.SERVER_ERRORS,
+    payload: errorObj
   };
 };
 

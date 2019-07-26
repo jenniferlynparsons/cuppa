@@ -20,9 +20,9 @@ router.post("/", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  Tea.findOne({ id: req.body.id }).then(tea => {
+  Tea.findOne({}).then(tea => {
     if (tea) {
-      return res.status(400).json({ teaConflict: "This tea already exists" });
+      return res.json({ teaConflict: "This tea already exists" });
     }
 
     const newTea = new Tea({

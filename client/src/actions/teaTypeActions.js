@@ -1,16 +1,22 @@
 import API from "../lib/api";
-import { teaTypeActionTypes } from "../lib/actionTypes";
+import { teaTypeActionTypes, errorActionTypes } from "../lib/actionTypes";
 
 // Add TeaType
 export const addTeaType = teaType => {
-  // teaType.id = teaType.teaTypeID;
   return dispatch => {
     return API.post("/tea-types", teaType)
       .then(response => {
-        dispatch({
-          type: teaTypeActionTypes.ADD_TEATYPE,
-          payload: response
-        });
+        if (response.teaTypeConflict) {
+          dispatch({
+            type: errorActionTypes.SERVER_ERRORS,
+            payload: response
+          });
+        } else {
+          dispatch({
+            type: teaTypeActionTypes.ADD_TEATYPE,
+            payload: response
+          });
+        }
       })
       .catch(error => console.log(error));
   };
@@ -18,7 +24,6 @@ export const addTeaType = teaType => {
 
 // Edit TeaType
 export const editTeaType = teaType => {
-  // teaType.id = teaType.teaTypeID;
   return dispatch => {
     API.put("/tea-types", teaType)
       .then(response => {
