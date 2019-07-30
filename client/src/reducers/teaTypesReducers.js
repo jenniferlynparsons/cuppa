@@ -7,11 +7,7 @@ export default (state = { allTeaTypes: {}, teaTypeIDs: [] }, action) => {
       };
 
       let addIDsArr = [...new Set([...state.teaTypeIDs, action.payload.id])];
-      return {
-        ...state,
-        allTeaTypes: addAllTeaTypes,
-        teaTypeIDs: addIDsArr
-      };
+      return { ...state, allTeaTypes: addAllTeaTypes, teaTypeIDs: addIDsArr };
     }
     case "EDIT_TEATYPE": {
       let updateAllTeaTypes = {
@@ -36,8 +32,7 @@ export default (state = { allTeaTypes: {}, teaTypeIDs: [] }, action) => {
       return {
         ...state,
         allTeaTypes: getAllTeaTypes,
-        teaTypeIDs: getIDsArr,
-        loading: "complete"
+        teaTypeIDs: getIDsArr
       };
     }
     default:

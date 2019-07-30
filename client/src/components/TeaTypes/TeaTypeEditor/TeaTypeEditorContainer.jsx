@@ -15,7 +15,6 @@ import {
   getTeaTypes
 } from "../../../actions/teaTypeActions";
 import { editFlash } from "../../../actions/flashActions";
-import { getLoadingStatus } from "../../../actions/loadingActions";
 import { TeaTypeEditor } from "./TeaTypeEditor";
 
 export class TeaTypeEditorContainer extends React.Component {
@@ -46,8 +45,7 @@ export class TeaTypeEditorContainer extends React.Component {
     errorMessages: {
       name: "Please enter a tea type name",
       brewTime: "Please enter a tea brew time"
-    },
-    loading: "inprogress"
+    }
   };
 
   handleBlur = field => () => {
@@ -151,32 +149,17 @@ export class TeaTypeEditorContainer extends React.Component {
     }
   };
 
-  serverErrorStateUpdate = () => {
-    this.setState(state => ({
-      inputValidation: {
-        ...state.inputValidation,
-        noDuplicate: false
-      },
-      flash: { name: "" }
-    }));
-  };
-
-  loadingStatusStateUpdate = () => {
-    this.setState({ loading: false });
-  };
-
   componentDidMount() {
-    this.props.getLoadingStatus;
-
     this.props.getTeaTypes(this.props.userID);
-
-    this.props.serverErrors &&
-      this.props.serverErrors.noDuplicate &&
-      this.serverErrorStateUpdate();
-
-    this.props.loading &&
-      this.props.loading === "complete" &&
-      this.loadingStatusStateUpdate();
+    if (this.props.serverErrors && this.props.serverErrors.noDuplicate) {
+      this.setState(state => ({
+        inputValidation: {
+          ...state.inputValidation,
+          noDuplicate: false
+        },
+        flash: { name: "" }
+      }));
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -194,35 +177,34 @@ export class TeaTypeEditorContainer extends React.Component {
           .seconds
       });
     }
-
-    this.props.serverErrors &&
-      !prevProps.serverErrors &&
-      this.serverErrorStateUpdate();
-
-    this.props.loading !== prevProps.loading && this.loadingStatusStateUpdate();
+    if (this.props.serverErrors && !prevProps.serverErrors) {
+      this.setState(state => ({
+        inputValidation: {
+          ...state.inputValidation,
+          noDuplicate: false
+        },
+        flash: { name: "" }
+      }));
+    }
   }
 
   render() {
-    if (this.state.loading) {
-      return <p data-testid="loading">Loading...</p>;
-    } else {
-      return (
-        <TeaTypeEditor
-          name={this.state.name}
-          brewTimeMin={this.state.brewTimeMin}
-          brewTimeSec={this.state.brewTimeSec}
-          flash={this.state.flash}
-          inputValidation={this.state.inputValidation}
-          errorMessages={this.state.errorMessages}
-          handleBlur={this.handleBlur}
-          handleNameChange={this.handleNameChange}
-          handleBrewTimeMinChange={this.handleBrewTimeMinChange}
-          handleBrewTimeSecChange={this.handleBrewTimeSecChange}
-          handleSubmitButton={this.handleSubmitButton}
-          handleFormSubmit={this.handleFormSubmit}
-        />
-      );
-    }
+    return (
+      <TeaTypeEditor
+        name={this.state.name}
+        brewTimeMin={this.state.brewTimeMin}
+        brewTimeSec={this.state.brewTimeSec}
+        flash={this.state.flash}
+        inputValidation={this.state.inputValidation}
+        errorMessages={this.state.errorMessages}
+        handleBlur={this.handleBlur}
+        handleNameChange={this.handleNameChange}
+        handleBrewTimeMinChange={this.handleBrewTimeMinChange}
+        handleBrewTimeSecChange={this.handleBrewTimeSecChange}
+        handleSubmitButton={this.handleSubmitButton}
+        handleFormSubmit={this.handleFormSubmit}
+      />
+    );
   }
 }
 
@@ -231,8 +213,7 @@ const mapStateToProps = (state, ownProps) => {
     userID: state.auth.user.id,
     currentTeaType: state.teaTypes.allTeaTypes[ownProps.match.params.id],
     edit: state.teaTypes.allTeaTypes[ownProps.match.params.id] ? true : false,
-    serverErrors: state.errors.serverErrors,
-    loading: state.teaTypes.loading
+    serverErrors: state.errors.serverErrors
   };
 };
 
@@ -240,8 +221,7 @@ const mapDispatchToProps = {
   editTeaType,
   addTeaType,
   editFlash,
-  getTeaTypes,
-  getLoadingStatus
+  getTeaTypes
 };
 
 export default connect(

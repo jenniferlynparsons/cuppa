@@ -25,7 +25,3 @@ export const teaTypeActionTypes = {
 export const errorActionTypes = {
   SERVER_ERRORS: "SERVER_ERRORS"
 };
-
-export const loadingActionTypes = {
-  LOADING: "LOADING"
-};
