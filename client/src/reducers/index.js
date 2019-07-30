@@ -4,13 +4,15 @@ import errorReducer from "./errorReducers";
 import teaReducers from "./teaReducers";
 import teaTypesReducer from "./teaTypesReducers";
 import flashReducer from "./flashReducers";
+import loadingReducer from "./loadingReducers";
 
 const appReducer = combineReducers({
   auth: authReducer,
   errors: errorReducer,
   teas: teaReducers,
   teaTypes: teaTypesReducer,
-  flash: flashReducer
+  flash: flashReducer,
+  loading: loadingReducer
 });
 
 export const rootReducer = (state, action) => {

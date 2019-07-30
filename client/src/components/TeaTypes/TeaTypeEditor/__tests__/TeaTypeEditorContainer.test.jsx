@@ -32,6 +32,20 @@ describe("TeaTypeEditorContainer rendering", () => {
     );
     expect(queryByTestId("teatypeeditor")).toBeTruthy();
   });
+
+  test("renders loading state while waiting for props", () => {
+    const { queryByTestId } = renderWithRouter(
+      <TeaTypeEditorContainerClass
+        teaTypes={""}
+        userID={dataFixture.mockUserID}
+        loading={"inprogress"}
+        getTeaTypes={mockFunc}
+        addTeaType={mockAdd}
+      />
+    );
+    expect(queryByTestId("loading")).toBeTruthy();
+    expect(queryByTestId("teatypeeditor")).toBeFalsy();
+  });
 });
 
 describe("teaTypeEditor form success", () => {
@@ -40,6 +54,7 @@ describe("teaTypeEditor form success", () => {
       <TeaTypeEditorContainerClass
         teaTypes={teaTypeFixture.teaTypes}
         userID={dataFixture.mockUserID}
+        loading={"complete"}
         getTeaTypes={mockFunc}
         addTeaType={mockAdd}
       />
@@ -69,6 +84,7 @@ describe("teaTypeEditor form success", () => {
       <TeaTypeEditorContainerClass
         teaTypes={teaTypeFixture.teaTypes}
         userID={dataFixture.mockUserID}
+        loading={"complete"}
         currentTeaType={teaTypeFixture.basicTeaType}
         edit={true}
         getTeaTypes={mockFunc}
@@ -98,6 +114,7 @@ describe("teaTypeEditor form failure", () => {
         <TeaTypeEditorContainerClass
           teaTypes={teaTypeFixture.teaTypes}
           userID={dataFixture.mockUserID}
+          loading={"complete"}
           currentTeaType={""}
           getTeaTypes={mockFunc}
           editTeaType={mockEdit}
@@ -118,6 +135,7 @@ describe("teaTypeEditor form failure", () => {
         <TeaTypeEditorContainerClass
           teaTypes={teaTypeFixture.teaTypes}
           userID={dataFixture.mockUserID}
+          loading={"complete"}
           currentTeaType={teaTypeFixture.missingDataTeaType}
           getTeaTypes={mockFunc}
           editTeaType={mockEdit}
@@ -138,7 +156,8 @@ describe("teaTypeEditor form failure", () => {
         <TeaTypeEditorContainerClass
           teaTypes={teaTypeFixture.teaTypes}
           userID={dataFixture.mockUserID}
-          currentTeaType={teaTypeFixture.missingDataTeaType}
+          loading={"complete"}
+          currentTeaType={teaTypeFixture.basicTeaType}
           getTeaTypes={mockFunc}
           editTeaType={mockEdit}
           editFlash={mockEdit}

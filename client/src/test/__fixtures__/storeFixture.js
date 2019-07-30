@@ -73,6 +73,7 @@ const basicStore = {
     ]
   },
   teaTypes: {
+    loading: "complete",
     allTeaTypes: {
       "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe": {
         id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
@@ -156,6 +157,7 @@ const addedStore = {
     ]
   },
   teaTypes: {
+    loading: "complete",
     allTeaTypes: {
       "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe": {
         id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
@@ -231,6 +233,7 @@ const updatedStore = {
     ]
   },
   teaTypes: {
+    loading: "complete",
     allTeaTypes: {
       "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe": {
         id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
@@ -305,6 +308,7 @@ const deletedStore = {
     ]
   },
   teaTypes: {
+    loading: "complete",
     allTeaTypes: {
       "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe": {
         id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
