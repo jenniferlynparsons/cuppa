@@ -154,7 +154,7 @@ export class TeaTypeEditorContainer extends React.Component {
     this.props
       .getTeaTypes(this.props.userID)
       .then(this.setState({ loadingStatus: "complete" }));
-    if (this.props.serverErrors && this.props.serverErrors.noDuplicate) {
+    if (this.props.serverErrors && this.props.serverErrors.duplicate) {
       this.setState(state => ({
         valid: {
           ...state.valid,
@@ -201,7 +201,7 @@ export class TeaTypeEditorContainer extends React.Component {
           brewTimeMin={this.state.brewTimeMin}
           brewTimeSec={this.state.brewTimeSec}
           flash={this.state.flash}
-          inputValidation={this.state.inputValidation}
+          valid={this.state.valid}
           errorMessages={this.state.errorMessages}
           handleBlur={this.handleBlur}
           handleNameChange={this.handleNameChange}
