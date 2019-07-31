@@ -34,13 +34,13 @@ export class TeaTypeEditorContainer extends React.Component {
     brewTimeSec: this.props.currentTeaType
       ? convertTimeToMinSec(this.props.currentTeaType.brewTime).seconds
       : "",
-    inputValidation: {
+    valid: {
       name: true,
       brewTime: true,
       brewTimeMin: true,
       brewTimeSec: true,
       complete: true,
-      noDuplicate: true
+      duplicateTea: true
     },
     errorMessages: {
       name: "Please enter a tea type name",
@@ -124,27 +124,27 @@ export class TeaTypeEditorContainer extends React.Component {
             name: "",
             brewTimeMin: "",
             brewTimeSec: "",
-            inputValidation: {
+            valid: {
               name: true,
               brewTime: true,
               brewTimeMin: true,
               brewTimeSec: true,
               complete: true,
-              noDuplicate: true
+              duplicateTea: true
             }
           })
         );
       }
     } else {
       this.setState(state => ({
-        inputValidation: {
+        valid: {
           ...state.errors,
           name: namevalid,
           brewTime: brewtimevalid,
           brewTimeMin: brewtimeminvalid,
           brewTimeSec: brewtimesecvalid,
           complete: false,
-          noDuplicate: true
+          duplicateTea: true
         }
       }));
     }
@@ -156,9 +156,9 @@ export class TeaTypeEditorContainer extends React.Component {
       .then(this.setState({ loadingStatus: "complete" }));
     if (this.props.serverErrors && this.props.serverErrors.noDuplicate) {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
-          noDuplicate: false
+        valid: {
+          ...state.valid,
+          duplicateTea: false
         },
         flash: { name: "" }
       }));
@@ -182,9 +182,9 @@ export class TeaTypeEditorContainer extends React.Component {
     }
     if (this.props.serverErrors && !prevProps.serverErrors) {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
-          noDuplicate: false
+        valid: {
+          ...state.valid,
+          duplicateTea: false
         },
         flash: { name: "" }
       }));

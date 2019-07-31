@@ -6,7 +6,7 @@ export const addTeaType = teaType => {
   return dispatch =>
     API.post("/tea-types", teaType)
       .then(response => {
-        if (response && response.noDuplicate) {
+        if (response && response.duplicateTea) {
           dispatch({
             type: errorActionTypes.SERVER_ERRORS,
             payload: response
@@ -18,7 +18,7 @@ export const addTeaType = teaType => {
           });
         }
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
 };
 
 // Edit TeaType
@@ -31,7 +31,7 @@ export const editTeaType = teaType => {
           payload: response
         });
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
 };
 
 // Delete TeaType
@@ -44,7 +44,7 @@ export const deleteTeaType = teaTypeID => {
           payload: teaTypeID
         });
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
   };
 };
 
@@ -58,7 +58,7 @@ export const getTeaTypes = listOwner => {
           payload: response
         });
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
 };
 
 const teaActions = {

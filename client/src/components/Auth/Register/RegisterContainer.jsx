@@ -15,10 +15,10 @@ class RegisterContainer extends Component {
     email: "",
     password: "",
     password2: "",
-    inputValidation: {
+    valid: {
       name: true,
       email: true,
-      emailDoesNotExist: true,
+      duplicateEmail: true,
       password: true,
       password2: true,
       complete: true
@@ -56,11 +56,11 @@ class RegisterContainer extends Component {
       this.props.registerUser(newUser, this.props.history);
     } else {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
+        valid: {
+          ...state.valid,
           name: namevalid,
           email: emailvalid,
-          emailDoesNotExist: true,
+          duplicateEmail: true,
           password: passvalid,
           password2: pass2valid === passmatch ? pass2valid : false,
           complete: false
@@ -73,11 +73,11 @@ class RegisterContainer extends Component {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    if (this.props.serverErrors && this.props.serverErrors.emailDoesNotExist) {
+    if (this.props.serverErrors && this.props.serverErrors.duplicateEmail) {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
-          emailDoesNotExist: false
+        valid: {
+          ...state.valid,
+          duplicateEmail: false
         }
       }));
     }
@@ -87,11 +87,11 @@ class RegisterContainer extends Component {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    if (nextProps.serverErrors.emailDoesNotExist) {
+    if (nextProps.serverErrors.duplicateEmail) {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
-          emailDoesNotExist: false
+        valid: {
+          ...state.valid,
+          duplicateEmail: false
         }
       }));
     }
@@ -103,7 +103,7 @@ class RegisterContainer extends Component {
         email={this.state.email}
         password={this.state.password}
         password2={this.state.password2}
-        inputValidation={this.state.inputValidation}
+        valid={this.state.valid}
         errorMessages={this.state.errorMessages}
         onChange={this.handleInputChange}
         onSubmit={this.handleFormSubmit}

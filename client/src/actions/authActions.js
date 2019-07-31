@@ -22,7 +22,7 @@ export const loginAction = userData => {
           dispatch(authActions.setCurrentUser(decoded));
         }
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
   };
 };
 
@@ -31,7 +31,7 @@ export const registerUser = (userData, history) => {
   return dispatch => {
     return API.post("/users/register", userData)
       .then(response => {
-        if (response && response.emailDoesNotExist) {
+        if (response && response.duplicateEmail) {
           dispatch({
             type: errorActionTypes.SERVER_ERRORS,
             payload: response
@@ -46,7 +46,7 @@ export const registerUser = (userData, history) => {
           dispatch(authActions.setCurrentUser(decoded));
         }
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
   };
 };
 

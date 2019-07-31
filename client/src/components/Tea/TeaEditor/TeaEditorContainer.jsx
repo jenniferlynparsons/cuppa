@@ -33,13 +33,13 @@ export class TeaEditorContainer extends React.Component {
     servings: this.props.currentTea ? this.props.currentTea.servings : "",
     brands: [],
     brandsDataList: [],
-    inputValidation: {
+    valid: {
       name: true,
       brand: true,
       teaType: true,
       servings: true,
       complete: true,
-      noDuplicate: true
+      duplicateTea: true
     },
     errorMessages: {
       name: "Please enter a tea name",
@@ -127,21 +127,21 @@ export class TeaEditorContainer extends React.Component {
             teaType: "",
             teaTypes: this.props.teaTypes,
             servings: "",
-            inputValidation: {
+            valid: {
               name: true,
               brand: true,
               teaType: true,
               servings: true,
               complete: true,
-              noDuplicate: true
+              duplicateTea: true
             }
           })
         );
       }
     } else {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
+        valid: {
+          ...state.valid,
           name: namevalid,
           brand: brandvalid,
           teaType: teaTypevalid,
@@ -155,11 +155,11 @@ export class TeaEditorContainer extends React.Component {
   componentDidMount() {
     this.props.getTeas(this.props.userID);
     this.props.getTeaTypes(this.props.userID);
-    if (this.props.serverErrors && this.props.serverErrors.noDuplicate) {
+    if (this.props.serverErrors && this.props.serverErrors.duplicateTea) {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
-          noDuplicate: false
+        valid: {
+          ...state.valid,
+          duplicateTea: false
         },
         flash: { name: "" }
       }));
@@ -185,9 +185,9 @@ export class TeaEditorContainer extends React.Component {
     }
     if (this.props.serverErrors && !prevProps.serverErrors) {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
-          noDuplicate: false
+        valid: {
+          ...state.valid,
+          duplicateTea: false
         },
         flash: { name: "" }
       }));
@@ -206,7 +206,7 @@ export class TeaEditorContainer extends React.Component {
         teaType={this.state.teaType}
         servings={this.state.servings}
         flash={this.state.flash}
-        inputValidation={this.state.inputValidation}
+        valid={this.state.valid}
         errorMessages={this.state.errorMessages}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}
