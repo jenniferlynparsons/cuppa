@@ -45,7 +45,8 @@ export class TeaTypeEditorContainer extends React.Component {
     errorMessages: {
       name: "Please enter a tea type name",
       brewTime: "Please enter a tea brew time"
-    }
+    },
+    loadingStatus: "inprogress"
   };
 
   handleBlur = field => () => {
@@ -150,7 +151,9 @@ export class TeaTypeEditorContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getTeaTypes(this.props.userID);
+    this.props
+      .getTeaTypes(this.props.userID)
+      .then(this.setState({ loadingStatus: "complete" }));
     if (this.props.serverErrors && this.props.serverErrors.noDuplicate) {
       this.setState(state => ({
         inputValidation: {
@@ -189,22 +192,26 @@ export class TeaTypeEditorContainer extends React.Component {
   }
 
   render() {
-    return (
-      <TeaTypeEditor
-        name={this.state.name}
-        brewTimeMin={this.state.brewTimeMin}
-        brewTimeSec={this.state.brewTimeSec}
-        flash={this.state.flash}
-        inputValidation={this.state.inputValidation}
-        errorMessages={this.state.errorMessages}
-        handleBlur={this.handleBlur}
-        handleNameChange={this.handleNameChange}
-        handleBrewTimeMinChange={this.handleBrewTimeMinChange}
-        handleBrewTimeSecChange={this.handleBrewTimeSecChange}
-        handleSubmitButton={this.handleSubmitButton}
-        handleFormSubmit={this.handleFormSubmit}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return <p>Loading...</p>;
+    } else {
+      return (
+        <TeaTypeEditor
+          name={this.state.name}
+          brewTimeMin={this.state.brewTimeMin}
+          brewTimeSec={this.state.brewTimeSec}
+          flash={this.state.flash}
+          inputValidation={this.state.inputValidation}
+          errorMessages={this.state.errorMessages}
+          handleBlur={this.handleBlur}
+          handleNameChange={this.handleNameChange}
+          handleBrewTimeMinChange={this.handleBrewTimeMinChange}
+          handleBrewTimeSecChange={this.handleBrewTimeSecChange}
+          handleSubmitButton={this.handleSubmitButton}
+          handleFormSubmit={this.handleFormSubmit}
+        />
+      );
+    }
   }
 }
 
