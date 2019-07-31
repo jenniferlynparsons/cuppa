@@ -8,7 +8,7 @@ class InputField extends React.Component {
           <input
             data-testid={this.props.datatestid}
             className={
-              !this.props.inputValidation
+              !this.props.valid
                 ? this.props.className + " " + this.props.errorClass
                 : this.props.className
             }
@@ -25,7 +25,7 @@ class InputField extends React.Component {
           />
           {this.props.datalist}
         </div>
-        {!this.props.inputValidation && this.props.errorMessage && (
+        {!this.props.valid && this.props.errorMessage && (
           <p className="help is-danger" data-testid="inputerror">
             {this.props.errorMessage}
           </p>

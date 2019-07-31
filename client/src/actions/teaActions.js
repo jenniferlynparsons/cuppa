@@ -6,7 +6,7 @@ export const addTea = tea => {
   return dispatch => {
     return API.post("/teas", tea)
       .then(response => {
-        if (response && response.noDuplicate) {
+        if (response && response.duplicateTea) {
           dispatch({
             type: errorActionTypes.SERVER_ERRORS,
             payload: response
@@ -18,7 +18,7 @@ export const addTea = tea => {
           });
         }
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
   };
 };
 
@@ -32,7 +32,7 @@ export const editTea = tea => {
           payload: response
         });
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
   };
 };
 
@@ -46,7 +46,7 @@ export const deleteTea = teaID => {
           payload: teaID
         });
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
   };
 };
 
@@ -60,7 +60,7 @@ export const getTeas = listOwner => {
           payload: response
         });
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
   };
 };
 

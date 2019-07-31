@@ -8,7 +8,7 @@ class LoginContainer extends Component {
   state = {
     email: "",
     password: "",
-    inputValidation: {
+    valid: {
       email: true,
       emailNotFound: true,
       password: true,
@@ -39,8 +39,8 @@ class LoginContainer extends Component {
       this.props.loginAction(userData);
     } else {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
+        valid: {
+          ...state.valid,
           email: emailvalid,
           emailNotFound: true,
           password: passvalid,
@@ -56,8 +56,8 @@ class LoginContainer extends Component {
     }
     if (this.props.serverErrors && this.props.serverErrors.emailNotFound) {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
+        valid: {
+          ...state.valid,
           emailNotFound: false
         }
       }));
@@ -70,8 +70,8 @@ class LoginContainer extends Component {
     }
     if (nextProps.serverErrors.emailNotFound) {
       this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
+        valid: {
+          ...state.valid,
           emailNotFound: false
         }
       }));
@@ -83,7 +83,7 @@ class LoginContainer extends Component {
       <Login
         email={this.state.email}
         password={this.state.password}
-        inputValidation={this.state.inputValidation}
+        valid={this.state.valid}
         errorMessages={this.state.errorMessages}
         onChange={this.handleInputChange}
         onSubmit={this.handleFormSubmit}

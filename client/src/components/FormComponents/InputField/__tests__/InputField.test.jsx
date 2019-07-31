@@ -20,7 +20,7 @@ const defaultErrorProps = {
   list: "brands",
   placeholder: "Tea Brand",
   value: "Lipton",
-  inputValidation: false,
+  valid: false,
   errorMessage: "There is an error",
   errorClass: "is-danger",
   onChange: jest.fn()
@@ -47,7 +47,7 @@ const numberErrorProps = {
   max: "0",
   placeholder: "Sec",
   value: "",
-  inputValidation: false,
+  valid: false,
   errorMessage: "There is an error",
   errorClass: "is-danger",
   onChange: jest.fn()
