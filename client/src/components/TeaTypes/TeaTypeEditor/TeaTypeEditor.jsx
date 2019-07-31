@@ -22,7 +22,7 @@ export class TeaTypeEditor extends React.Component {
           </div>
         )}
 
-        {!this.props.valid.duplicateTea && (
+        {!this.props.valid.duplicate && (
           <div className="notification is-danger" data-testid="duplicatenotice">
             This tea type already exists in our system. Please try again.
           </div>

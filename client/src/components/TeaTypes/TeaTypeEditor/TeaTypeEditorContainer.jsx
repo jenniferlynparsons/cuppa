@@ -40,7 +40,7 @@ export class TeaTypeEditorContainer extends React.Component {
       brewTimeMin: true,
       brewTimeSec: true,
       complete: true,
-      duplicateTea: true
+      duplicate: true
     },
     errorMessages: {
       name: "Please enter a tea type name",
@@ -130,7 +130,7 @@ export class TeaTypeEditorContainer extends React.Component {
               brewTimeMin: true,
               brewTimeSec: true,
               complete: true,
-              duplicateTea: true
+              duplicate: true
             }
           })
         );
@@ -144,7 +144,7 @@ export class TeaTypeEditorContainer extends React.Component {
           brewTimeMin: brewtimeminvalid,
           brewTimeSec: brewtimesecvalid,
           complete: false,
-          duplicateTea: true
+          duplicate: true
         }
       }));
     }
@@ -158,7 +158,7 @@ export class TeaTypeEditorContainer extends React.Component {
       this.setState(state => ({
         valid: {
           ...state.valid,
-          duplicateTea: false
+          duplicate: false
         },
         flash: { name: "" }
       }));
@@ -184,7 +184,7 @@ export class TeaTypeEditorContainer extends React.Component {
       this.setState(state => ({
         valid: {
           ...state.valid,
-          duplicateTea: false
+          duplicate: false
         },
         flash: { name: "" }
       }));

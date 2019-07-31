@@ -14,7 +14,7 @@ let mockAdd;
 let mockEdit;
 
 beforeEach(() => {
-  mockFunc = jest.fn();
+  mockFunc = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
   mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
 });
@@ -143,7 +143,7 @@ describe("teaTypeEditor form failure", () => {
           editTeaType={mockEdit}
           editFlash={mockEdit}
           history={dataFixture.history}
-          serverErrors={{ duplicateTea: "This tea type already exists" }}
+          serverErrors={{ duplicate: "This tea type already exists" }}
         />
       );
       expect(queryByTestId("duplicatenotice")).toBeTruthy();

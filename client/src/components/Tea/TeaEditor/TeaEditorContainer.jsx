@@ -39,7 +39,7 @@ export class TeaEditorContainer extends React.Component {
       teaType: true,
       servings: true,
       complete: true,
-      duplicateTea: true
+      duplicate: true
     },
     errorMessages: {
       name: "Please enter a tea name",
@@ -133,7 +133,7 @@ export class TeaEditorContainer extends React.Component {
               teaType: true,
               servings: true,
               complete: true,
-              duplicateTea: true
+              duplicate: true
             }
           })
         );
@@ -155,11 +155,11 @@ export class TeaEditorContainer extends React.Component {
   componentDidMount() {
     this.props.getTeas(this.props.userID);
     this.props.getTeaTypes(this.props.userID);
-    if (this.props.serverErrors && this.props.serverErrors.duplicateTea) {
+    if (this.props.serverErrors && this.props.serverErrors.duplicate) {
       this.setState(state => ({
         valid: {
           ...state.valid,
-          duplicateTea: false
+          duplicate: false
         },
         flash: { name: "" }
       }));
@@ -187,7 +187,7 @@ export class TeaEditorContainer extends React.Component {
       this.setState(state => ({
         valid: {
           ...state.valid,
-          duplicateTea: false
+          duplicate: false
         },
         flash: { name: "" }
       }));
