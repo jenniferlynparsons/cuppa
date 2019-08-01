@@ -56,11 +56,15 @@ class LoginContainer extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+  componentDidUpdate(prevProps) {
+    if (this.props.auth.isAuthenticated && !prevProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    if (nextProps.serverErrors.emailNotFound) {
+    if (
+      this.props.serverErrors &&
+      !prevProps.serverErrors &&
+      this.props.serverErrors.emailNotFound
+    ) {
       this.setState(state => ({
         inputValidation: {
           ...state.inputValidation,
