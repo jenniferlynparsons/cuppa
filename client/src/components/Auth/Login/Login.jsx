@@ -11,7 +11,7 @@ export class Login extends React.Component {
         <p>
           Don&apos;t have an account? <Link to="/register">Register</Link>
         </p>
-        {!this.props.valid.complete && (
+        {!this.props.inputValidation.complete && (
           <div
             className="notification is-danger"
             data-testid="incompletenotice"
@@ -19,7 +19,7 @@ export class Login extends React.Component {
             Please provide a valid email address and password
           </div>
         )}
-        {!this.props.valid.emailNotFound && (
+        {!this.props.inputValidation.emailNotFound && (
           <div className="notification is-danger" data-testid="notfoundnotice">
             This email does not exist in our system. Please try again or{" "}
             <Link to="/register">register</Link> for an account.
@@ -36,7 +36,7 @@ export class Login extends React.Component {
               type="email"
               value={this.props.email}
               className="input"
-              valid={this.props.valid.email}
+              valid={this.props.inputValidation.email}
               errorMessage={this.props.errorMessages.email}
               errorClass="is-danger"
               onChange={this.props.onChange}
@@ -52,7 +52,7 @@ export class Login extends React.Component {
               type="password"
               value={this.props.password}
               className="input"
-              valid={this.props.valid.password}
+              valid={this.props.inputValidation.password}
               errorMessage={this.props.errorMessages.password}
               errorClass="is-danger"
               onChange={this.props.onChange}

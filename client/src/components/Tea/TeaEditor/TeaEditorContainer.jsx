@@ -33,7 +33,7 @@ export class TeaEditorContainer extends React.Component {
     servings: this.props.currentTea ? this.props.currentTea.servings : "",
     brands: [],
     brandsDataList: [],
-    valid: {
+    inputValidation: {
       name: true,
       brand: true,
       teaType: true,
@@ -127,7 +127,7 @@ export class TeaEditorContainer extends React.Component {
             teaType: "",
             teaTypes: this.props.teaTypes,
             servings: "",
-            valid: {
+            inputValidation: {
               name: true,
               brand: true,
               teaType: true,
@@ -140,8 +140,8 @@ export class TeaEditorContainer extends React.Component {
       }
     } else {
       this.setState(state => ({
-        valid: {
-          ...state.valid,
+        inputValidation: {
+          ...state.inputValidation,
           name: namevalid,
           brand: brandvalid,
           teaType: teaTypevalid,
@@ -157,8 +157,8 @@ export class TeaEditorContainer extends React.Component {
     this.props.getTeaTypes(this.props.userID);
     if (this.props.serverErrors && this.props.serverErrors.duplicate) {
       this.setState(state => ({
-        valid: {
-          ...state.valid,
+        inputValidation: {
+          ...state.inputValidation,
           duplicate: false
         },
         flash: { name: "" }
@@ -185,8 +185,8 @@ export class TeaEditorContainer extends React.Component {
     }
     if (this.props.serverErrors && !prevProps.serverErrors) {
       this.setState(state => ({
-        valid: {
-          ...state.valid,
+        inputValidation: {
+          ...state.inputValidation,
           duplicate: false
         },
         flash: { name: "" }
@@ -206,7 +206,7 @@ export class TeaEditorContainer extends React.Component {
         teaType={this.state.teaType}
         servings={this.state.servings}
         flash={this.state.flash}
-        valid={this.state.valid}
+        inputValidation={this.state.inputValidation}
         errorMessages={this.state.errorMessages}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}

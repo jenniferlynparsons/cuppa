@@ -13,7 +13,7 @@ export class TeaEditor extends React.Component {
           </p>
         )}
 
-        {!this.props.valid.complete && (
+        {!this.props.inputValidation.complete && (
           <div
             className="notification is-danger"
             data-testid="incompletenotice"
@@ -22,7 +22,7 @@ export class TeaEditor extends React.Component {
           </div>
         )}
 
-        {!this.props.valid.duplicate && (
+        {!this.props.inputValidation.duplicate && (
           <div className="notification is-danger" data-testid="duplicatenotice">
             This tea already exists in our system. Please try again.
           </div>
@@ -44,7 +44,7 @@ export class TeaEditor extends React.Component {
               placeholder="Tea Name"
               value={this.props.name}
               className="input"
-              valid={this.props.valid.name}
+              valid={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
               errorClass="is-danger"
               onChange={this.props.handleNameChange}
@@ -65,7 +65,7 @@ export class TeaEditor extends React.Component {
               placeholder="Tea Brand"
               value={this.props.brand}
               className="input"
-              valid={this.props.valid.brand}
+              valid={this.props.inputValidation.brand}
               errorMessage={this.props.errorMessages.brand}
               errorClass="is-danger"
               onChange={this.props.handleBrandChange}
@@ -78,7 +78,7 @@ export class TeaEditor extends React.Component {
             <div className="control">
               <div
                 className={
-                  !this.props.valid.teaType
+                  !this.props.inputValidation.teaType
                     ? "select is-danger"
                     : "select"
                 }
@@ -103,7 +103,7 @@ export class TeaEditor extends React.Component {
                 </select>
               </div>
             </div>
-            {!this.props.valid.teaType && (
+            {!this.props.inputValidation.teaType && (
               <p className="help is-danger" data-testid="inputerror">
                 {this.props.errorMessages.teaType}
               </p>
@@ -121,7 +121,7 @@ export class TeaEditor extends React.Component {
               placeholder="Servings Available"
               value={this.props.servings}
               className="input"
-              valid={this.props.valid.servings}
+              valid={this.props.inputValidation.servings}
               errorMessage={this.props.errorMessages.servings}
               errorClass="is-danger"
               onChange={this.props.handleServingsChange}

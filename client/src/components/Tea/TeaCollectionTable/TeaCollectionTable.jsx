@@ -17,7 +17,7 @@ export class TeaCollectionTable extends React.Component {
               <div className="control">
                 <div
                   className={
-                    !this.props.valid.filterCategory
+                    !this.props.inputValidation.filterCategory
                       ? "select is-small is-danger"
                       : "select is-small"
                   }
@@ -52,7 +52,7 @@ export class TeaCollectionTable extends React.Component {
                 placeholder="Filter Text"
                 value={this.props.formControls.filterCriteria}
                 className="input is-small"
-                valid={this.props.valid.filterCriteria}
+                valid={this.props.inputValidation.filterCriteria}
                 errorClass="input is-small is-danger"
                 onChange={this.props.handleFilterInputChange}
               />
@@ -66,12 +66,12 @@ export class TeaCollectionTable extends React.Component {
                 </button>
               </div>
             </div>
-            {!this.props.valid.filterCategory && (
+            {!this.props.inputValidation.filterCategory && (
               <p className="help is-danger" data-testid="inputerror">
                 {this.props.errorMessages.filterCategory}
               </p>
             )}
-            {!this.props.valid.filterCriteria && (
+            {!this.props.inputValidation.filterCriteria && (
               <p className="help is-danger" data-testid="inputerror">
                 {this.props.errorMessages.filterCriteria}
               </p>

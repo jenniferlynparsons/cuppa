@@ -34,7 +34,7 @@ export class TeaTypeEditorContainer extends React.Component {
     brewTimeSec: this.props.currentTeaType
       ? convertTimeToMinSec(this.props.currentTeaType.brewTime).seconds
       : "",
-    valid: {
+    inputValidation: {
       name: true,
       brewTime: true,
       brewTimeMin: true,
@@ -123,7 +123,7 @@ export class TeaTypeEditorContainer extends React.Component {
             name: "",
             brewTimeMin: "",
             brewTimeSec: "",
-            valid: {
+            inputValidation: {
               name: true,
               brewTime: true,
               brewTimeMin: true,
@@ -136,7 +136,7 @@ export class TeaTypeEditorContainer extends React.Component {
       }
     } else {
       this.setState(state => ({
-        valid: {
+        inputValidation: {
           ...state.errors,
           name: namevalid,
           brewTime: brewtimevalid,
@@ -153,8 +153,8 @@ export class TeaTypeEditorContainer extends React.Component {
     this.props.getTeaTypes(this.props.userID);
     if (this.props.serverErrors && this.props.serverErrors.duplicate) {
       this.setState(state => ({
-        valid: {
-          ...state.valid,
+        inputValidation: {
+          ...state.inputValidation,
           duplicate: false
         },
         flash: { name: "" }
@@ -179,8 +179,8 @@ export class TeaTypeEditorContainer extends React.Component {
     }
     if (this.props.serverErrors && !prevProps.serverErrors) {
       this.setState(state => ({
-        valid: {
-          ...state.valid,
+        inputValidation: {
+          ...state.inputValidation,
           duplicate: false
         },
         flash: { name: "" }
@@ -195,7 +195,7 @@ export class TeaTypeEditorContainer extends React.Component {
         brewTimeMin={this.state.brewTimeMin}
         brewTimeSec={this.state.brewTimeSec}
         flash={this.state.flash}
-        valid={this.state.valid}
+        inputValidation={this.state.inputValidation}
         errorMessages={this.state.errorMessages}
         handleBlur={this.handleBlur}
         handleNameChange={this.handleNameChange}

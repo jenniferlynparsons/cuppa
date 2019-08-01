@@ -15,7 +15,7 @@ class RegisterContainer extends Component {
     email: "",
     password: "",
     password2: "",
-    valid: {
+    inputValidation: {
       name: true,
       email: true,
       duplicateEmail: true,
@@ -56,8 +56,8 @@ class RegisterContainer extends Component {
       this.props.registerUser(newUser, this.props.history);
     } else {
       this.setState(state => ({
-        valid: {
-          ...state.valid,
+        inputValidation: {
+          ...state.inputValidation,
           name: namevalid,
           email: emailvalid,
           duplicateEmail: true,
@@ -75,8 +75,8 @@ class RegisterContainer extends Component {
     }
     if (this.props.serverErrors && this.props.serverErrors.duplicateEmail) {
       this.setState(state => ({
-        valid: {
-          ...state.valid,
+        inputValidation: {
+          ...state.inputValidation,
           duplicateEmail: false
         }
       }));
@@ -89,8 +89,8 @@ class RegisterContainer extends Component {
     }
     if (nextProps.serverErrors.duplicateEmail) {
       this.setState(state => ({
-        valid: {
-          ...state.valid,
+        inputValidation: {
+          ...state.inputValidation,
           duplicateEmail: false
         }
       }));
@@ -103,7 +103,7 @@ class RegisterContainer extends Component {
         email={this.state.email}
         password={this.state.password}
         password2={this.state.password2}
-        valid={this.state.valid}
+        inputValidation={this.state.inputValidation}
         errorMessages={this.state.errorMessages}
         onChange={this.handleInputChange}
         onSubmit={this.handleFormSubmit}

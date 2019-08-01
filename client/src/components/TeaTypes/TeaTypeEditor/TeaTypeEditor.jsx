@@ -13,7 +13,7 @@ export class TeaTypeEditor extends React.Component {
           </p>
         )}
 
-        {!this.props.valid.complete && (
+        {!this.props.inputValidation.complete && (
           <div
             className="notification is-danger"
             data-testid="incompletenotice"
@@ -22,7 +22,7 @@ export class TeaTypeEditor extends React.Component {
           </div>
         )}
 
-        {!this.props.valid.duplicate && (
+        {!this.props.inputValidation.duplicate && (
           <div className="notification is-danger" data-testid="duplicatenotice">
             This tea type already exists in our system. Please try again.
           </div>
@@ -44,7 +44,7 @@ export class TeaTypeEditor extends React.Component {
               placeholder="Tea Type Name"
               value={this.props.name}
               className="input"
-              valid={this.props.valid.name}
+              valid={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
               errorClass="is-danger"
               onChange={this.props.handleNameChange}
@@ -64,7 +64,7 @@ export class TeaTypeEditor extends React.Component {
                   placeholder="Min"
                   value={this.props.brewTimeMin}
                   className="input is-one-fifth"
-                  valid={this.props.valid.brewTimeMin}
+                  valid={this.props.inputValidation.brewTimeMin}
                   errorClass="input is-danger is-one-fifth"
                   onChange={this.props.handleBrewTimeMinChange}
                 />
@@ -80,13 +80,13 @@ export class TeaTypeEditor extends React.Component {
                   placeholder="Sec"
                   value={this.props.brewTimeSec}
                   className="input is-one-fifth"
-                  valid={this.props.valid.brewTimeSec}
+                  valid={this.props.inputValidation.brewTimeSec}
                   errorClass="input is-danger is-one-fifth"
                   onChange={this.props.handleBrewTimeSecChange}
                 />
               </div>
             </div>
-            {!this.props.valid.brewTime && (
+            {!this.props.inputValidation.brewTime && (
               <p className="help is-danger" data-testid="inputerror">
                 {this.props.errorMessages.brewTime}
               </p>
