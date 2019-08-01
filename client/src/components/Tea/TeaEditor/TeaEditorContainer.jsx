@@ -155,15 +155,6 @@ export class TeaEditorContainer extends React.Component {
   componentDidMount() {
     this.props.getTeas(this.props.userID);
     this.props.getTeaTypes(this.props.userID);
-    if (this.props.serverErrors && this.props.serverErrors.duplicate) {
-      this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
-          duplicate: false
-        },
-        flash: { name: "" }
-      }));
-    }
   }
 
   componentDidUpdate(prevProps) {
