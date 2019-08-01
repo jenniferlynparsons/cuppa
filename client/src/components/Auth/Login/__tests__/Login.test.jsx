@@ -74,18 +74,5 @@ describe("Login form failure", () => {
       fireEvent.click(getByTestId("submit"));
       expect(queryByTestId("inputerror")).toBeTruthy();
     });
-
-    // TODO: sort out issues with rerender that prevent server errors from appearing
-    // test("mismatched email", () => {
-    //   const { queryByTestId } = renderWithRouter(
-    //     <LoginContainerComponent
-    //       auth={storeFixture.loggedErrorStore}
-    //       serverErrors={{ emailNotFound: "Email not found" }}
-    //       loginAction={mockFunc}
-    //     />
-    //   );
-
-    //   expect(queryByTestId("notfoundnotice")).toBeTruthy();
-    // });
   });
 });

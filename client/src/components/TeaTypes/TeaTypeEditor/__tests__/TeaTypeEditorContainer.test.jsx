@@ -12,15 +12,11 @@ import { TeaTypeEditorContainerClass } from "../TeaTypeEditorContainer";
 let mockFunc;
 let mockAdd;
 let mockEdit;
-// let mockDuplicate;
 
 beforeEach(() => {
   mockFunc = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
   mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
-  // mockDuplicate = jest.fn(() =>
-  //   Promise.resolve(teaTypeFixture.duplicateTeaTypes)
-  // );
 });
 
 describe("TeaTypeEditorContainer rendering", () => {
@@ -136,56 +132,5 @@ describe("teaTypeEditor form failure", () => {
       expect(queryByTestId("incompletenotice")).toBeTruthy();
       expect(queryAllByTestId("inputerror").length).toEqual(1);
     });
-
-    // TODO: sort out issues with rerender that prevent server errors from appearing
-    // test("duplicate tea type", () => {
-    //   const { getByTestId, queryByTestId, rerender } = renderWithRouter(
-    //     <TeaTypeEditorContainerClass
-    //       teaTypes={teaTypeFixture.teaTypes}
-    //       userID={dataFixture.mockUserID}
-    //       currentTeaType={""}
-    //       getTeaTypes={mockFunc}
-    //       addTeaType={mockDuplicate}
-    //       editFlash={mockEdit}
-    //       history={dataFixture.history}
-    //     />
-    //   );
-
-    //   expect(queryByTestId("duplicatenotice")).toBeFalsy();
-
-    //   fireEvent.change(getByTestId("name"), {
-    //     target: { value: teaTypeFixture.basicTeaTypeFormValues.name }
-    //   });
-    //   fireEvent.change(getByTestId("brewtimemin"), {
-    //     target: { value: teaTypeFixture.basicTeaTypeFormValues.brewTimeMin }
-    //   });
-    //   fireEvent.change(getByTestId("brewtimesec"), {
-    //     target: { value: teaTypeFixture.basicTeaTypeFormValues.brewTimeSec }
-    //   });
-    //   expect(getByTestId("teatypeeditorform")).toHaveFormValues({
-    //     name: teaTypeFixture.basicTeaTypeFormValues.name,
-    //     brewTimeMin: teaTypeFixture.basicTeaTypeFormValues.brewTimeMin,
-    //     brewTimeSec: teaTypeFixture.basicTeaTypeFormValues.brewTimeSec
-    //   });
-
-    //   fireEvent.click(getByTestId("submit"));
-    //   expect(mockDuplicate).toHaveBeenCalled();
-
-    //   rerender(
-    //     <TeaTypeEditorContainerClass
-    //       teaTypes={teaTypeFixture.teaTypes}
-    //       userID={dataFixture.mockUserID}
-    //       currentTeaType={""}
-    //       getTeaTypes={mockFunc}
-    //       addTeaType={mockDuplicate}
-    //       editFlash={mockEdit}
-    //       history={dataFixture.history}
-    //       errors={{
-    //         serverErrors: { duplicate: "This tea type already exists" }
-    //       }}
-    //     />
-    //   );
-    //   expect(queryByTestId("duplicatenotice")).toBeTruthy();
-    // });
   });
 });
