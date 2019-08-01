@@ -153,16 +153,7 @@ export class TeaTypeEditorContainer extends React.Component {
   componentDidMount() {
     this.props
       .getTeaTypes(this.props.userID)
-      .then(this.setState({ loadingStatus: "complete" }));
-    if (this.props.serverErrors && this.props.serverErrors.duplicate) {
-      this.setState(state => ({
-        valid: {
-          ...state.valid,
-          duplicate: false
-        },
-        flash: { name: "" }
-      }));
-    }
+      .then(() => this.setState({ loadingStatus: "complete" }));
   }
 
   componentDidUpdate(prevProps) {
