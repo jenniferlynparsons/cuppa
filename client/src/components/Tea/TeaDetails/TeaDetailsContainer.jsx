@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
-import { editFlash } from "../../../actions/flashActions";
+import { editFlash, clearFlash } from "../../../actions/flashActions";
 import { selectBrewTime } from "../../../reducers/teaTypesReducers";
 import { TeaDetails } from "./TeaDetails";
 
 class TeaDetailsContainer extends Component {
   state = {
-    showTimer: false
+    showTimer: false,
+    flash: "off"
   };
 
   updateFlash = status => {
@@ -25,6 +26,11 @@ class TeaDetailsContainer extends Component {
     this.props.editTea(updatedTea);
   };
 
+  componentWillMount() {
+    this.setState({ flash: this.props.flash });
+    this.props.clearFlash();
+  }
+
   componentDidMount() {
     this.props.getTeas(this.props.userID);
     this.props.getTeaTypes(this.props.userID);
@@ -36,7 +42,7 @@ class TeaDetailsContainer extends Component {
         tea={this.props.tea}
         brewTime={this.props.brewTime}
         showTimer={this.state.showTimer}
-        flash={this.props.flash}
+        flash={this.state.flash}
         updateFlash={this.updateFlash}
         handleOpenTimer={this.handleOpenTimer}
         handleCloseTimer={this.handleCloseTimer}
@@ -57,6 +63,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   editFlash,
+  clearFlash,
   editTea,
   getTeas,
   getTeaTypes

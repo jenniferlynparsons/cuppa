@@ -25,7 +25,9 @@ beforeEach(() => {
     teaTypeIDs: teaTypeFixture.teaTypes.teaTypeIDs,
     userID: dataFixture.mockUserID,
     getTeaTypes: mockGetTeaTypes,
-    deleteTeaType: mockDeleteTeaType
+    deleteTeaType: mockDeleteTeaType,
+    flash: "success",
+    clearFlash: jest.fn()
   };
 });
 
@@ -37,6 +39,14 @@ describe("TeaTypeCollectionContainer rendering", () => {
     );
 
     expect(queryByTestId("teatypecollection")).toBeTruthy();
+  });
+
+  test("renders the component with flash message", () => {
+    const { queryByTestId } = renderWithRouter(
+      <TeaTypeCollectionTableContainerClass {...mockDefaultProps} />
+    );
+
+    expect(queryByTestId("flash")).toBeTruthy();
   });
 });
 

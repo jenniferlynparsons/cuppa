@@ -6,7 +6,8 @@ export const teaActionTypes = {
 };
 
 export const flashActionTypes = {
-  EDIT_FLASH: "EDIT_FLASH"
+  EDIT_FLASH: "EDIT_FLASH",
+  CLEAR_FLASH: "CLEAR_FLASH"
 };
 
 export const authActionTypes = {

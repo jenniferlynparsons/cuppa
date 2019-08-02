@@ -39,6 +39,7 @@ describe("TeaDetailsContainer flash", () => {
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
         editFlash={mockFunc}
+        clearFlash={mockFunc}
       />
     );
 
@@ -54,6 +55,7 @@ describe("TeaDetailsContainer flash", () => {
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
         editFlash={mockFunc}
+        clearFlash={mockFunc}
       />
     );
 
@@ -72,6 +74,7 @@ describe("teaDetails interactions", () => {
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
         editFlash={mockFunc}
+        clearFlash={mockFunc}
       />
     );
 
@@ -90,6 +93,7 @@ describe("tea timer interactions", () => {
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
         editFlash={mockFunc}
+        clearFlash={mockFunc}
       />
     );
 
@@ -106,6 +110,7 @@ describe("tea timer interactions", () => {
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
         editFlash={mockFunc}
+        clearFlash={mockFunc}
       />
     );
 
@@ -123,6 +128,7 @@ describe("tea timer interactions", () => {
         getTeas={mockFunc}
         getTeaTypes={mockFunc}
         editFlash={mockFunc}
+        clearFlash={mockFunc}
         editTea={mockFunc}
       />
     );

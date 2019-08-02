@@ -82,6 +82,7 @@ describe("teaEditor form success", () => {
         getTeaTypes={mockFunc}
         editTea={mockEdit}
         editFlash={mockFunc}
+        clearFlash={mockFunc}
         history={dataFixture.history}
       />
     );
@@ -113,6 +114,7 @@ describe("teaEditor form failure", () => {
           getTeaTypes={mockFunc}
           editTea={mockEdit}
           editFlash={mockFunc}
+          clearFlash={mockFunc}
           history={dataFixture.history}
         />
       );
@@ -134,6 +136,7 @@ describe("teaEditor form failure", () => {
           getTeaTypes={mockFunc}
           editTea={mockEdit}
           editFlash={mockFunc}
+          clearFlash={mockFunc}
           history={dataFixture.history}
         />
       );
