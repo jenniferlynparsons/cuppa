@@ -17,6 +17,15 @@ const updatedTea = {
   servings: 21
 };
 
+const basicDataTea = {
+  userID: "5c6313a4c318bb62298b23d4",
+  id: "",
+  name: "Basic Tea",
+  brand: "Lipton",
+  teaType: "5d39dd1f0487d1116140bac1",
+  servings: 12
+};
+
 const missingDataTea = {
   name: "",
   brand: "Twinnings",
@@ -156,6 +165,7 @@ const emptyState = { allTeas: {}, teaIDs: [] };
 const teaFixture = {
   basicTea,
   updatedTea,
+  basicDataTea,
   missingDataTea,
   servingsUpdatedTea,
   reducerAddTea,

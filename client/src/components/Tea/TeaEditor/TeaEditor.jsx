@@ -9,7 +9,7 @@ export class TeaEditor extends React.Component {
         {this.props.flash.name && (
           <p className="notification is-success" data-testid="flash">
             {this.props.flash.name} has been succesfully saved.{" "}
-            <Link to={"../../tea/" + this.props.flash.teaID}>View details</Link>
+            <Link to={"../../tea/" + this.props.flash.id}>View details</Link>
           </p>
         )}
 
@@ -129,11 +129,7 @@ export class TeaEditor extends React.Component {
             />
           </div>
           <div className="control">
-            <button
-              data-testid="submit"
-              className="button is-primary"
-              onClick={this.props.handleSubmitButton}
-            >
+            <button data-testid="submit" className="button is-primary">
               Submit
             </button>
           </div>

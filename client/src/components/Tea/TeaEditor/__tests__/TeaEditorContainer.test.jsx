@@ -38,7 +38,7 @@ describe("TeaEditorContainer rendering", () => {
 
 describe("teaEditor form success", () => {
   test("editor form submit succesfully adds tea", () => {
-    const { getByTestId, queryByTestId } = renderWithRouter(
+    const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass
         teaTypes={teaTypeFixture.allTeaTypesArray}
         userID={dataFixture.mockUserID}
@@ -69,7 +69,8 @@ describe("teaEditor form success", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(queryByTestId("flash")).toHaveTextContent(/Basic Tea/);
+
+    expect(mockAdd).toHaveBeenCalledWith(teaFixture.basicDataTea);
   });
 
   test("editor form succesfully updates tea", () => {

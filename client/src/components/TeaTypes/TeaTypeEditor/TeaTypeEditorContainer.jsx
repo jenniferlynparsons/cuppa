@@ -48,6 +48,8 @@ export class TeaTypeEditorContainer extends React.Component {
     }
   };
 
+  initialState = this.state;
+
   handleBlur = field => () => {
     this.setState(state => ({
       touched: { ...state.touched, [field]: true }
@@ -73,14 +75,6 @@ export class TeaTypeEditorContainer extends React.Component {
     this.setState({
       brewTimeSec: newSec
     });
-  };
-
-  handleSubmitButton = () => {
-    this.setState(state => ({
-      touched: {
-        ...state.touched
-      }
-    }));
   };
 
   handleFormSubmit = event => {
@@ -112,24 +106,9 @@ export class TeaTypeEditorContainer extends React.Component {
       } else {
         this.props.addTeaType(typeData).then(
           this.setState({
+            ...this.initialState,
             flash: {
               name: this.state.name
-            },
-            touched: {
-              name: false
-            },
-            id: "",
-            userID: this.props.userID,
-            name: "",
-            brewTimeMin: "",
-            brewTimeSec: "",
-            inputValidation: {
-              name: true,
-              brewTime: true,
-              brewTimeMin: true,
-              brewTimeSec: true,
-              complete: true,
-              duplicate: true
             }
           })
         );
@@ -192,7 +171,6 @@ export class TeaTypeEditorContainer extends React.Component {
         handleNameChange={this.handleNameChange}
         handleBrewTimeMinChange={this.handleBrewTimeMinChange}
         handleBrewTimeSecChange={this.handleBrewTimeSecChange}
-        handleSubmitButton={this.handleSubmitButton}
         handleFormSubmit={this.handleFormSubmit}
       />
     );

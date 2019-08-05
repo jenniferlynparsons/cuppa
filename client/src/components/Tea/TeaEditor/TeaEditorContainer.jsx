@@ -48,6 +48,8 @@ export class TeaEditorContainer extends React.Component {
     }
   };
 
+  initialState = this.state;
+
   handleBlur = field => () => {
     this.setState(state => ({
       touched: { ...state.touched, [field]: true }
@@ -78,14 +80,6 @@ export class TeaEditorContainer extends React.Component {
     });
   };
 
-  handleSubmitButton = () => {
-    this.setState(state => ({
-      touched: {
-        ...state.touched
-      }
-    }));
-  };
-
   handleFormSubmit = event => {
     event.preventDefault();
     const namevalid = nameSchema.isValidSync(this.state);
@@ -111,29 +105,7 @@ export class TeaEditorContainer extends React.Component {
       } else {
         this.props.addTea(teaData).then(
           this.setState({
-            flash: {
-              name: this.state.name,
-              id: this.state.id
-            },
-            touched: {
-              name: false,
-              servings: false
-            },
-            id: "",
-            userID: this.props.userID,
-            name: "",
-            brand: "",
-            teaType: "",
-            teaTypes: this.props.teaTypes,
-            servings: "",
-            inputValidation: {
-              name: true,
-              brand: true,
-              teaType: true,
-              servings: true,
-              complete: true,
-              duplicate: true
-            }
+            ...this.initialState
           })
         );
       }
@@ -173,13 +145,25 @@ export class TeaEditorContainer extends React.Component {
         })
       });
     }
+    if (
+      (this.props.updatedTea && !prevProps.updatedTea) ||
+      (this.props.updatedTea &&
+        this.props.updatedTea.id !== prevProps.updatedTea.id)
+    ) {
+      this.setState({
+        flash: {
+          name: this.props.updatedTea.name,
+          id: this.props.updatedTea.id
+        }
+      });
+    }
     if (this.props.serverErrors && !prevProps.serverErrors) {
       this.setState(state => ({
         inputValidation: {
           ...state.inputValidation,
           duplicate: false
         },
-        flash: { name: "" }
+        flash: { name: "", id: "" }
       }));
     }
   }
@@ -203,7 +187,6 @@ export class TeaEditorContainer extends React.Component {
         handleBrandChange={this.handleBrandChange}
         handleTypeChange={this.handleTypeChange}
         handleServingsChange={this.handleServingsChange}
-        handleSubmitButton={this.handleSubmitButton}
         handleFormSubmit={this.handleFormSubmit}
       />
     );
@@ -216,6 +199,7 @@ const mapStateToProps = (state, ownProps) => {
     teas: state.teas,
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
+    updatedTea: state.teas.updatedTea,
     edit: state.teas.allTeas[ownProps.match.params.id] ? true : false,
     serverErrors: state.errors.serverErrors
   };

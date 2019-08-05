@@ -153,7 +153,14 @@ const addedStore = {
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
       "dc8a7690-de4a-47e8-8225-5548c0f51669",
       "1b1db861-0537-4b69-83d5-d9ee033530f8"
-    ]
+    ],
+    updatedTea: {
+      brand: "Lipton",
+      id: "1b1db861-0537-4b69-83d5-d9ee033530f8",
+      name: "Basic Tea",
+      servings: 12,
+      teaType: "5d39dd1f0487d1116140bac1"
+    }
   },
   teaTypes: {
     allTeaTypes: {
@@ -228,7 +235,14 @@ const updatedStore = {
       "25070e52-e635-4883-ae9b-583113573b9f",
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
       "dc8a7690-de4a-47e8-8225-5548c0f51669"
-    ]
+    ],
+    updatedTea: {
+      brand: "Celestial Seasonings",
+      id: "25070e52-e635-4883-ae9b-583113573b9f",
+      name: "Sleepytime",
+      servings: 22,
+      teaType: "5d40b6871f88450253bdbf40"
+    }
   },
   teaTypes: {
     allTeaTypes: {
@@ -302,7 +316,8 @@ const deletedStore = {
     teaIDs: [
       "25070e52-e635-4883-ae9b-583113573b9f",
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d"
-    ]
+    ],
+    updatedTea: "dc8a7690-de4a-47e8-8225-5548c0f51669"
   },
   teaTypes: {
     allTeaTypes: {
