@@ -102,7 +102,7 @@ router.get("/:id", (req, res) => {
 // @desc Get all tea types
 // @access Public
 router.get("/", function(req, res) {
-  TeaType.find({ userID: req.query.id }, function(err, teaTypes) {
+  TeaType.find({ userID: req.query.userID }, function(err, teaTypes) {
     if (err) {
       res.send(err);
     }
