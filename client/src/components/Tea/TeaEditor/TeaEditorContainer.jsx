@@ -9,7 +9,7 @@ import {
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash } from "../../../actions/flashActions";
-import { selectTeaTypes } from "../../../reducers/teaTypesReducers";
+import { selectTeaTypes } from "../../../selectors/teaTypeSelectors";
 import { TeaEditor } from "./TeaEditor";
 import DataList from "../../FormComponents/DataList";
 
@@ -31,7 +31,6 @@ export class TeaEditorContainer extends React.Component {
     teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
     teaTypes: this.props.teaTypes ? this.props.teaTypes : "",
     servings: this.props.currentTea ? this.props.currentTea.servings : "",
-    brands: [],
     brandsDataList: [],
     inputValidation: {
       name: true,

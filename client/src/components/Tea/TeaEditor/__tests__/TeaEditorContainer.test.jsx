@@ -6,6 +6,7 @@ import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import teaFixture from "../../../../test/__fixtures__/teaFixture";
+import teaTypeFixture from "../../../../test/__fixtures__/teaTypeFixture";
 import TeaEditorContainer from "../TeaEditorContainer";
 import { TeaEditorContainerClass } from "../TeaEditorContainer";
 
@@ -39,7 +40,7 @@ describe("teaEditor form success", () => {
   test("editor form submit succesfully adds tea", () => {
     const { getByTestId, queryByTestId } = renderWithRouter(
       <TeaEditorContainerClass
-        teaTypes={teaFixture.teaTypes}
+        teaTypes={teaTypeFixture.allTeaTypesArray}
         userID={dataFixture.mockUserID}
         currentTea={""}
         getTeas={mockFunc}
@@ -55,7 +56,7 @@ describe("teaEditor form success", () => {
       target: { value: teaFixture.basicTea.brand }
     });
     fireEvent.change(getByTestId("teaType"), {
-      target: { value: teaFixture.basicTea.teaType }
+      target: { value: "5d39dd1f0487d1116140bac1" }
     });
     fireEvent.change(getByTestId("servings"), {
       target: { value: 12 }
@@ -74,7 +75,7 @@ describe("teaEditor form success", () => {
   test("editor form succesfully updates tea", () => {
     const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass
-        teaTypes={teaFixture.teaTypes}
+        teaTypes={teaTypeFixture.allTeaTypesArray}
         userID={dataFixture.mockUserID}
         currentTea={teaFixture.basicTea}
         edit={true}
@@ -107,7 +108,7 @@ describe("teaEditor form failure", () => {
     test("missing information for new tea", () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <TeaEditorContainerClass
-          teaTypes={teaFixture.teaTypes}
+          teaTypes={teaTypeFixture.allTeaTypesArray}
           userID={dataFixture.mockUserID}
           currentTea={""}
           getTeas={mockFunc}
@@ -129,7 +130,7 @@ describe("teaEditor form failure", () => {
     test("missing information for existing tea", () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <TeaEditorContainerClass
-          teaTypes={teaFixture.teaTypes}
+          teaTypes={teaTypeFixture.allTeaTypesArray}
           userID={dataFixture.mockUserID}
           currentTea={teaFixture.missingDataTea}
           getTeas={mockFunc}

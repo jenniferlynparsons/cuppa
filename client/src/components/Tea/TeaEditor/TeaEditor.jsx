@@ -95,8 +95,8 @@ export class TeaEditor extends React.Component {
                   <option />
                   {this.props.teaTypes.map(teaType => {
                     return (
-                      <option key={teaType} value={teaType}>
-                        {teaType}
+                      <option key={teaType.id} value={teaType.id}>
+                        {teaType.name}
                       </option>
                     );
                   })}

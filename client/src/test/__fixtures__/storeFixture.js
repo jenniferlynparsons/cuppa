@@ -48,21 +48,21 @@ const basicStore = {
         id: "25070e52-e635-4883-ae9b-583113573b9f",
         name: "Sleepytime",
         brand: "Celestial Seasonings",
-        teaType: "Herbal",
+        teaType: "5d40b6871f88450253bdbf40",
         servings: 22
       },
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
         brand: "Celestial Seasonings",
-        teaType: "Green",
+        teaType: "5d48277169b3160191797d14",
         servings: 21
       },
       "dc8a7690-de4a-47e8-8225-5548c0f51669": {
         id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
         name: "Lapsang Souchang",
         brand: "McNulty's",
-        teaType: "Black",
+        teaType: "5d39dd1f0487d1116140bac1",
         servings: 12
       }
     },
@@ -74,13 +74,13 @@ const basicStore = {
   },
   teaTypes: {
     allTeaTypes: {
-      "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe": {
-        id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+      "5d39dd1f0487d1116140bac1": {
+        id: "5d39dd1f0487d1116140bac1",
         name: "Black",
         brewTime: 12360000
       },
-      "69fb326d-b76a-4198-a4a1-eaf0785752c6": {
-        id: "69fb326d-b76a-4198-a4a1-eaf0785752c6",
+      "5d48277169b3160191797d14": {
+        id: "5d48277169b3160191797d14",
         name: "Green",
         brewTime: 10800000
       },
@@ -89,17 +89,17 @@ const basicStore = {
         name: "White",
         brewTime: 7800000
       },
-      "8a4c0f27-3778-49b3-9d46-a272e372da2e": {
-        id: "8a4c0f27-3778-49b3-9d46-a272e372da2e",
+      "5d40b6871f88450253bdbf40": {
+        id: "5d40b6871f88450253bdbf40",
         name: "Herbal",
         brewTime: 14400000
       }
     },
     teaTypeIDs: [
-      "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
-      "69fb326d-b76a-4198-a4a1-eaf0785752c6",
+      "5d39dd1f0487d1116140bac1",
+      "5d48277169b3160191797d14",
       "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-      "8a4c0f27-3778-49b3-9d46-a272e372da2e"
+      "5d40b6871f88450253bdbf40"
     ]
   },
   flash: "off"
@@ -123,28 +123,28 @@ const addedStore = {
         id: "25070e52-e635-4883-ae9b-583113573b9f",
         name: "Sleepytime",
         brand: "Celestial Seasonings",
-        teaType: "Herbal",
+        teaType: "5d40b6871f88450253bdbf40",
         servings: 22
       },
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
         brand: "Celestial Seasonings",
-        teaType: "Green",
+        teaType: "5d48277169b3160191797d14",
         servings: 21
       },
       "dc8a7690-de4a-47e8-8225-5548c0f51669": {
         id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
         name: "Lapsang Souchang",
         brand: "McNulty's",
-        teaType: "Black",
+        teaType: "5d39dd1f0487d1116140bac1",
         servings: 12
       },
       "1b1db861-0537-4b69-83d5-d9ee033530f8": {
         id: "1b1db861-0537-4b69-83d5-d9ee033530f8",
         name: "Basic Tea",
         brand: "Lipton",
-        teaType: "Black",
+        teaType: "5d39dd1f0487d1116140bac1",
         servings: 12
       }
     },
@@ -157,13 +157,13 @@ const addedStore = {
   },
   teaTypes: {
     allTeaTypes: {
-      "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe": {
-        id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+      "5d39dd1f0487d1116140bac1": {
+        id: "5d39dd1f0487d1116140bac1",
         name: "Black",
         brewTime: 12360000
       },
-      "69fb326d-b76a-4198-a4a1-eaf0785752c6": {
-        id: "69fb326d-b76a-4198-a4a1-eaf0785752c6",
+      "5d48277169b3160191797d14": {
+        id: "5d48277169b3160191797d14",
         name: "Green",
         brewTime: 10800000
       },
@@ -172,17 +172,17 @@ const addedStore = {
         name: "White",
         brewTime: 7800000
       },
-      "8a4c0f27-3778-49b3-9d46-a272e372da2e": {
-        id: "8a4c0f27-3778-49b3-9d46-a272e372da2e",
+      "5d40b6871f88450253bdbf40": {
+        id: "5d40b6871f88450253bdbf40",
         name: "Herbal",
         brewTime: 14400000
       }
     },
     teaTypeIDs: [
-      "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
-      "69fb326d-b76a-4198-a4a1-eaf0785752c6",
+      "5d39dd1f0487d1116140bac1",
+      "5d48277169b3160191797d14",
       "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-      "8a4c0f27-3778-49b3-9d46-a272e372da2e"
+      "5d40b6871f88450253bdbf40"
     ]
   },
   flash: "success"
@@ -206,21 +206,21 @@ const updatedStore = {
         id: "25070e52-e635-4883-ae9b-583113573b9f",
         name: "Sleepytime",
         brand: "Celestial Seasonings",
-        teaType: "Herbal",
+        teaType: "5d40b6871f88450253bdbf40",
         servings: 22
       },
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
         brand: "Celestial Seasonings",
-        teaType: "Green",
+        teaType: "5d48277169b3160191797d14",
         servings: 21
       },
       "dc8a7690-de4a-47e8-8225-5548c0f51669": {
         id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
         name: "Lapsang Souchang",
         brand: "McNulty's",
-        teaType: "Black",
+        teaType: "5d39dd1f0487d1116140bac1",
         servings: 12
       }
     },
@@ -232,13 +232,13 @@ const updatedStore = {
   },
   teaTypes: {
     allTeaTypes: {
-      "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe": {
-        id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+      "5d39dd1f0487d1116140bac1": {
+        id: "5d39dd1f0487d1116140bac1",
         name: "Green",
         brewTime: 12360000
       },
-      "69fb326d-b76a-4198-a4a1-eaf0785752c6": {
-        id: "69fb326d-b76a-4198-a4a1-eaf0785752c6",
+      "5d48277169b3160191797d14": {
+        id: "5d48277169b3160191797d14",
         name: "Green",
         brewTime: 10800000
       },
@@ -247,17 +247,17 @@ const updatedStore = {
         name: "White",
         brewTime: 7800000
       },
-      "8a4c0f27-3778-49b3-9d46-a272e372da2e": {
-        id: "8a4c0f27-3778-49b3-9d46-a272e372da2e",
+      "5d40b6871f88450253bdbf40": {
+        id: "5d40b6871f88450253bdbf40",
         name: "Herbal",
         brewTime: 14400000
       }
     },
     teaTypeIDs: [
-      "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
-      "69fb326d-b76a-4198-a4a1-eaf0785752c6",
+      "5d39dd1f0487d1116140bac1",
+      "5d48277169b3160191797d14",
       "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-      "8a4c0f27-3778-49b3-9d46-a272e372da2e"
+      "5d40b6871f88450253bdbf40"
     ]
   },
   flash: "off"
@@ -281,21 +281,21 @@ const deletedStore = {
         id: "25070e52-e635-4883-ae9b-583113573b9f",
         name: "Sleepytime",
         brand: "Celestial Seasonings",
-        teaType: "Herbal",
+        teaType: "5d40b6871f88450253bdbf40",
         servings: 22
       },
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
         brand: "Celestial Seasonings",
-        teaType: "Green",
+        teaType: "5d48277169b3160191797d14",
         servings: 21
       },
       "dc8a7690-de4a-47e8-8225-5548c0f51669": {
         id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
         name: "Lapsang Souchang",
         brand: "McNulty's",
-        teaType: "Black",
+        teaType: "5d39dd1f0487d1116140bac1",
         servings: 12
       }
     },
@@ -306,13 +306,13 @@ const deletedStore = {
   },
   teaTypes: {
     allTeaTypes: {
-      "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe": {
-        id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+      "5d39dd1f0487d1116140bac1": {
+        id: "5d39dd1f0487d1116140bac1",
         name: "Black",
         brewTime: 12360000
       },
-      "69fb326d-b76a-4198-a4a1-eaf0785752c6": {
-        id: "69fb326d-b76a-4198-a4a1-eaf0785752c6",
+      "5d48277169b3160191797d14": {
+        id: "5d48277169b3160191797d14",
         name: "Green",
         brewTime: 10800000
       },
@@ -321,16 +321,16 @@ const deletedStore = {
         name: "White",
         brewTime: 7800000
       },
-      "8a4c0f27-3778-49b3-9d46-a272e372da2e": {
-        id: "8a4c0f27-3778-49b3-9d46-a272e372da2e",
+      "5d40b6871f88450253bdbf40": {
+        id: "5d40b6871f88450253bdbf40",
         name: "Herbal",
         brewTime: 14400000
       }
     },
     teaTypeIDs: [
-      "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+      "5d39dd1f0487d1116140bac1",
       "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-      "8a4c0f27-3778-49b3-9d46-a272e372da2e"
+      "5d40b6871f88450253bdbf40"
     ]
   },
   flash: "off"
@@ -354,21 +354,21 @@ const duplicateErrorStore = {
         id: "25070e52-e635-4883-ae9b-583113573b9f",
         name: "Sleepytime",
         brand: "Celestial Seasonings",
-        teaType: "Herbal",
+        teaType: "5d40b6871f88450253bdbf40",
         servings: 22
       },
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
         brand: "Celestial Seasonings",
-        teaType: "Green",
+        teaType: "5d48277169b3160191797d14",
         servings: 21
       },
       "dc8a7690-de4a-47e8-8225-5548c0f51669": {
         id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
         name: "Lapsang Souchang",
         brand: "McNulty's",
-        teaType: "Black",
+        teaType: "5d39dd1f0487d1116140bac1",
         servings: 12
       }
     },
@@ -381,13 +381,13 @@ const duplicateErrorStore = {
   teaTypes: {
     errors: { serverErrors: { duplicate: "This tea type already exists" } },
     allTeaTypes: {
-      "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe": {
-        id: "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
+      "5d39dd1f0487d1116140bac1": {
+        id: "5d39dd1f0487d1116140bac1",
         name: "Black",
         brewTime: 12360000
       },
-      "69fb326d-b76a-4198-a4a1-eaf0785752c6": {
-        id: "69fb326d-b76a-4198-a4a1-eaf0785752c6",
+      "5d48277169b3160191797d14": {
+        id: "5d48277169b3160191797d14",
         name: "Green",
         brewTime: 10800000
       },
@@ -396,17 +396,17 @@ const duplicateErrorStore = {
         name: "White",
         brewTime: 7800000
       },
-      "8a4c0f27-3778-49b3-9d46-a272e372da2e": {
-        id: "8a4c0f27-3778-49b3-9d46-a272e372da2e",
+      "5d40b6871f88450253bdbf40": {
+        id: "5d40b6871f88450253bdbf40",
         name: "Herbal",
         brewTime: 14400000
       }
     },
     teaTypeIDs: [
-      "9d6ed94b-d7b1-4ff9-912e-6bcef4d2eafe",
-      "69fb326d-b76a-4198-a4a1-eaf0785752c6",
+      "5d39dd1f0487d1116140bac1",
+      "5d48277169b3160191797d14",
       "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-      "8a4c0f27-3778-49b3-9d46-a272e372da2e"
+      "5d40b6871f88450253bdbf40"
     ]
   },
   flash: "off"

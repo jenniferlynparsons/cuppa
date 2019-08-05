@@ -5,13 +5,13 @@ import { renderWithRouter } from "../../../../test/routerTestUtils";
 import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
-import teaFixture from "../../../../test/__fixtures__/teaFixture";
 import TeaCollectionTableContainer from "../TeaCollectionTableContainer";
 import { TeaCollectionTableContainerClass } from "../TeaCollectionTableContainer";
 
 let mockGetTeas;
 let mockDeleteTea;
 let mockDefaultProps;
+let mockGetTeaTypes;
 
 beforeEach(() => {
   mockGetTeas = jest.fn(() => {
@@ -20,12 +20,16 @@ beforeEach(() => {
   mockDeleteTea = jest.fn(() => {
     return storeFixture.deletedStore;
   });
+  mockGetTeaTypes = jest.fn(() => {
+    return storeFixture.basicStore;
+  });
   mockDefaultProps = {
+    userID: dataFixture.mockUserID,
+    teas: storeFixture.basicStore.teas,
+    teaTypes: storeFixture.basicStore.teaTypes,
     getTeas: mockGetTeas,
     deleteTea: mockDeleteTea,
-    teaTypes: teaFixture.teaTypes,
-    teas: storeFixture.basicStore.teas,
-    userID: dataFixture.mockUserID
+    getTeaTypes: mockGetTeaTypes
   };
 });
 

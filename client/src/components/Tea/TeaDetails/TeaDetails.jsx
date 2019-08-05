@@ -25,7 +25,7 @@ export class TeaDetails extends React.Component {
             </li>
             <li>
               <span className="has-text-grey-light">Type:</span>{" "}
-              {this.props.tea.teaType}
+              {this.props.teaType}
             </li>
             <li>
               <span className="has-text-grey-light">Servings:</span>{" "}

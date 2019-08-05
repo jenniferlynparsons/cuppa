@@ -5,6 +5,7 @@ import {
   filterCriteriaSchema
 } from "../../../lib/validationSchemas";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
+import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { TeaCollectionTable } from "./TeaCollectionTable";
 import DataList from "../../FormComponents/DataList";
 
@@ -188,6 +189,7 @@ export class TeaCollectionTableContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
+    this.props.getTeaTypes(this.props.userID);
     this.setState({
       sortedIDs: this.props.teas.teaIDs
     });
@@ -212,6 +214,7 @@ export class TeaCollectionTableContainer extends React.Component {
           columnHeaders={this.columnHeaders}
           allTeas={this.props.teas.allTeas}
           teaIDs={this.state.sortedIDs}
+          teaTypes={this.props.teaTypes}
           formControls={this.state.formControls}
           filtered={this.state.filtered}
           inputValidation={this.state.inputValidation}
@@ -239,7 +242,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   deleteTea,
-  getTeas
+  getTeas,
+  getTeaTypes
 };
 
 export default connect(

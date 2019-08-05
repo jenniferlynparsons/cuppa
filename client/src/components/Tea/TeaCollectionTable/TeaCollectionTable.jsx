@@ -130,6 +130,13 @@ export class TeaCollectionTable extends React.Component {
           <tbody>
             {this.props.teaIDs.map(teaID => {
               const tea = this.props.allTeas[teaID];
+              const teaTypeID = this.props.teaTypes.teaTypeIDs.find(typeID => {
+                return (
+                  this.props.teaTypes.allTeaTypes[typeID].id ===
+                  this.props.allTeas[teaID].teaType
+                );
+              });
+              const teaType = this.props.teaTypes.allTeaTypes[teaTypeID];
               return (
                 <tr key={tea.id}>
                   <td>
@@ -138,7 +145,7 @@ export class TeaCollectionTable extends React.Component {
                     </Link>
                   </td>
                   <td>{tea.brand}</td>
-                  <td>{tea.teaType}</td>
+                  <td>{teaType && teaType.name}</td>
                   <td>{tea.servings}</td>
                   <td>
                     <Link to={"/update-tea/" + tea.id} data-testid="editlink">

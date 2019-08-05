@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
-import { selectBrewTime } from "../../../reducers/teaTypesReducers";
+import { selectSingleTeaType } from "../../../selectors/teaTypeSelectors";
 import { TeaDetails } from "./TeaDetails";
 
 class TeaDetailsContainer extends Component {
@@ -40,6 +40,7 @@ class TeaDetailsContainer extends Component {
     return !this.props.tea ? null : (
       <TeaDetails
         tea={this.props.tea}
+        teaType={this.props.teaType}
         brewTime={this.props.brewTime}
         showTimer={this.state.showTimer}
         flash={this.state.flash}
@@ -53,8 +54,11 @@ class TeaDetailsContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const teatype = selectSingleTeaType(state, ownProps);
+
   return {
-    brewTime: selectBrewTime(state, ownProps),
+    brewTime: teatype && teatype.brewTime,
+    teaType: teatype && teatype.name,
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,
     userID: state.auth.user.id
