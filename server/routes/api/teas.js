@@ -99,8 +99,8 @@ router.get("/tea/:id", (req, res) => {
 // @route GET api/teas
 // @desc Get all teas
 // @access Public
-router.get("/:id", function(req, res) {
-  Tea.find({ userID: req.params.id }, function(err, teas) {
+router.get("/", function(req, res) {
+  Tea.find({ userID: req.query.id }, function(err, teas) {
     res.send(teas.map(teaNormalizer));
   });
 });
