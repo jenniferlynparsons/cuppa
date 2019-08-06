@@ -22,7 +22,7 @@ beforeEach(() => {
 describe("TeaTypeEditorContainer rendering", () => {
   test("renders the component with redux without errors", async () => {
     let store = makeMockStore(storeFixture.basicStore);
-    const { queryByTestId } = renderWithRouter(
+    const { queryByTestId } = await renderWithRouter(
       <TeaTypeEditorContainer
         store={store}
         match={{
@@ -46,6 +46,7 @@ describe("teaTypeEditor form success", () => {
         addTeaType={mockAdd}
       />
     );
+    expect(getByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();
 
     fireEvent.change(getByTestId("name"), {
