@@ -108,6 +108,7 @@ export class TeaTypeEditorContainer extends React.Component {
         this.props.addTeaType(typeData).then(
           this.setState({
             ...this.initialState,
+            loadingStatus: "complete",
             flash: {
               name: this.state.name
             }
@@ -130,9 +131,9 @@ export class TeaTypeEditorContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props
-      .getTeaTypes(this.props.userID)
-      .then(() => this.setState({ loadingStatus: "complete" }));
+    this.props.getTeaTypes(this.props.userID).then(() => {
+      this.setState({ loadingStatus: "complete" });
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -171,7 +172,7 @@ export class TeaTypeEditorContainer extends React.Component {
           brewTimeMin={this.state.brewTimeMin}
           brewTimeSec={this.state.brewTimeSec}
           flash={this.state.flash}
-          valid={this.state.valid}
+          inputValidation={this.state.inputValidation}
           errorMessages={this.state.errorMessages}
           handleBlur={this.handleBlur}
           handleNameChange={this.handleNameChange}

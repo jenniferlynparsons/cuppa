@@ -45,7 +45,8 @@ export class TeaEditorContainer extends React.Component {
       brand: "Please enter a tea brand",
       teaType: "Please choose a tea type",
       servings: "Please enter the number of servings available"
-    }
+    },
+    loadingStatus: "inprogress"
   };
 
   initialState = this.state;
@@ -105,7 +106,8 @@ export class TeaEditorContainer extends React.Component {
       } else {
         this.props.addTea(teaData).then(
           this.setState({
-            ...this.initialState
+            ...this.initialState,
+            loadingStatus: "complete"
           })
         );
       }
@@ -125,7 +127,9 @@ export class TeaEditorContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
-    this.props.getTeaTypes(this.props.userID);
+    this.props.getTeaTypes(this.props.userID).then(() => {
+      this.setState({ loadingStatus: "complete" });
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -169,27 +173,31 @@ export class TeaEditorContainer extends React.Component {
   }
 
   render() {
-    return (
-      <TeaEditor
-        teaTypes={this.props.teaTypes}
-        name={this.state.name}
-        brand={this.state.brand}
-        brandsDataList={
-          <DataList id="brands" options={this.state.brandsDataList} />
-        }
-        teaType={this.state.teaType}
-        servings={this.state.servings}
-        flash={this.state.flash}
-        inputValidation={this.state.inputValidation}
-        errorMessages={this.state.errorMessages}
-        handleBlur={this.handleBlur}
-        handleNameChange={this.handleNameChange}
-        handleBrandChange={this.handleBrandChange}
-        handleTypeChange={this.handleTypeChange}
-        handleServingsChange={this.handleServingsChange}
-        handleFormSubmit={this.handleFormSubmit}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return <p>Loading...</p>;
+    } else {
+      return (
+        <TeaEditor
+          teaTypes={this.props.teaTypes}
+          name={this.state.name}
+          brand={this.state.brand}
+          brandsDataList={
+            <DataList id="brands" options={this.state.brandsDataList} />
+          }
+          teaType={this.state.teaType}
+          servings={this.state.servings}
+          flash={this.state.flash}
+          inputValidation={this.state.inputValidation}
+          errorMessages={this.state.errorMessages}
+          handleBlur={this.handleBlur}
+          handleNameChange={this.handleNameChange}
+          handleBrandChange={this.handleBrandChange}
+          handleTypeChange={this.handleTypeChange}
+          handleServingsChange={this.handleServingsChange}
+          handleFormSubmit={this.handleFormSubmit}
+        />
+      );
+    }
   }
 }
 

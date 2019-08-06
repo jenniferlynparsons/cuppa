@@ -15,13 +15,13 @@ let mockAdd;
 let mockEdit;
 
 beforeEach(() => {
-  mockFunc = jest.fn();
+  mockFunc = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
   mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
 });
 
 describe("TeaEditorContainer rendering", () => {
-  test("renders the component with redux without errors", () => {
+  test("renders the component with redux without errors", async () => {
     let store = makeMockStore(storeFixture.basicStore);
     const { queryByTestId } = renderWithRouter(
       <TeaEditorContainer
@@ -31,13 +31,14 @@ describe("TeaEditorContainer rendering", () => {
         }}
       />
     );
+    await Promise.resolve();
 
     expect(queryByTestId("teaeditor")).toBeTruthy();
   });
 });
 
 describe("teaEditor form success", () => {
-  test("editor form submit succesfully adds tea", () => {
+  test("editor form submit succesfully adds tea", async () => {
     const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass
         teaTypes={teaTypeFixture.allTeaTypesArray}
@@ -48,6 +49,7 @@ describe("teaEditor form success", () => {
         addTea={mockAdd}
       />
     );
+    await Promise.resolve();
 
     fireEvent.change(getByTestId("name"), {
       target: { value: teaFixture.basicTea.name }
@@ -73,7 +75,7 @@ describe("teaEditor form success", () => {
     expect(mockAdd).toHaveBeenCalledWith(teaFixture.basicDataTea);
   });
 
-  test("editor form succesfully updates tea", () => {
+  test("editor form succesfully updates tea", async () => {
     const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass
         teaTypes={teaTypeFixture.allTeaTypesArray}
@@ -88,6 +90,7 @@ describe("teaEditor form success", () => {
         history={dataFixture.history}
       />
     );
+    await Promise.resolve();
 
     fireEvent.change(getByTestId("brand"), {
       target: { value: teaFixture.updatedTea.brand }
@@ -106,7 +109,7 @@ describe("teaEditor form success", () => {
 
 describe("teaEditor form failure", () => {
   describe("editor onSubmit returns an error message if data is invalid", () => {
-    test("missing information for new tea", () => {
+    test("missing information for new tea", async () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <TeaEditorContainerClass
           teaTypes={teaTypeFixture.allTeaTypesArray}
@@ -120,6 +123,7 @@ describe("teaEditor form failure", () => {
           history={dataFixture.history}
         />
       );
+      await Promise.resolve();
 
       expect(queryByTestId("duplicatenotice")).toBeFalsy();
 
@@ -128,7 +132,7 @@ describe("teaEditor form failure", () => {
       expect(queryAllByTestId("inputerror").length).toEqual(4);
     });
 
-    test("missing information for existing tea", () => {
+    test("missing information for existing tea", async () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <TeaEditorContainerClass
           teaTypes={teaTypeFixture.allTeaTypesArray}
@@ -142,6 +146,7 @@ describe("teaEditor form failure", () => {
           history={dataFixture.history}
         />
       );
+      await Promise.resolve();
 
       expect(queryByTestId("duplicatenotice")).toBeFalsy();
 

@@ -79,9 +79,9 @@ describe("getTeas", () => {
     expect(getTeas(storeFixture.basicStore.userID)).toBeInstanceOf(Function);
   });
   test("it calls 'post' on the API with the correct path and the tea data", () => {
-    store.dispatch(getTeas(storeFixture.basicStore.userID));
+    store.dispatch(getTeas(storeFixture.basicStore.auth.user.id));
     expect(API.get).toHaveBeenCalledWith(
-      `/teas/${storeFixture.basicStore.userID}`
+      `/teas?userID=${storeFixture.basicStore.auth.user.id}`
     );
   });
   test("it returns the GET_TEAS action type and payload", async () => {
