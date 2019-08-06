@@ -9,7 +9,8 @@ import { TeaDetails } from "./TeaDetails";
 class TeaDetailsContainer extends Component {
   state = {
     showTimer: false,
-    flash: "off"
+    flash: "off",
+    loadingStatus: "inprogress"
   };
 
   updateFlash = status => {
@@ -33,23 +34,33 @@ class TeaDetailsContainer extends Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
-    this.props.getTeaTypes(this.props.userID);
+    this.props
+      .getTeaTypes(this.props.userID)
+      .then(() => this.setState({ loadingStatus: "complete" }));
   }
 
   render() {
-    return !this.props.tea ? null : (
-      <TeaDetails
-        tea={this.props.tea}
-        teaType={this.props.teaType}
-        brewTime={this.props.brewTime}
-        showTimer={this.state.showTimer}
-        flash={this.state.flash}
-        updateFlash={this.updateFlash}
-        handleOpenTimer={this.handleOpenTimer}
-        handleCloseTimer={this.handleCloseTimer}
-        handleTimerUpdateQty={this.handleTimerUpdateQty}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
+        <TeaDetails
+          tea={this.props.tea}
+          teaType={this.props.teaType}
+          brewTime={this.props.brewTime}
+          showTimer={this.state.showTimer}
+          flash={this.state.flash}
+          updateFlash={this.updateFlash}
+          handleOpenTimer={this.handleOpenTimer}
+          handleCloseTimer={this.handleCloseTimer}
+          handleTimerUpdateQty={this.handleTimerUpdateQty}
+        />
+      );
+    }
   }
 }
 

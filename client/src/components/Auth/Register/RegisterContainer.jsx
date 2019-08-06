@@ -28,7 +28,8 @@ class RegisterContainer extends Component {
       email: "Please enter a valid email address",
       password: "Please enter a valid password",
       password2: "Please make sure the passwords match"
-    }
+    },
+    loadingStatus: "inprogress"
   };
 
   handleInputChange = e => {
@@ -72,6 +73,8 @@ class RegisterContainer extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
+    } else {
+      this.setState({ loadingStatus: "complete" });
     }
   }
 
@@ -94,17 +97,25 @@ class RegisterContainer extends Component {
   }
 
   render() {
-    return (
-      <Register
-        email={this.state.email}
-        password={this.state.password}
-        password2={this.state.password2}
-        inputValidation={this.state.inputValidation}
-        errorMessages={this.state.errorMessages}
-        onChange={this.handleInputChange}
-        onSubmit={this.handleFormSubmit}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
+        <Register
+          email={this.state.email}
+          password={this.state.password}
+          password2={this.state.password2}
+          inputValidation={this.state.inputValidation}
+          errorMessages={this.state.errorMessages}
+          onChange={this.handleInputChange}
+          onSubmit={this.handleFormSubmit}
+        />
+      );
+    }
   }
 }
 

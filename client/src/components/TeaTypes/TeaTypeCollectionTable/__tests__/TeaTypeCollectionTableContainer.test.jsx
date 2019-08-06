@@ -14,9 +14,7 @@ let mockDeleteTeaType;
 let mockDefaultProps;
 
 beforeEach(() => {
-  mockGetTeaTypes = jest.fn(() => {
-    return storeFixture.basicStore;
-  });
+  mockGetTeaTypes = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockDeleteTeaType = jest.fn(() => {
     return storeFixture.deletedStore;
   });

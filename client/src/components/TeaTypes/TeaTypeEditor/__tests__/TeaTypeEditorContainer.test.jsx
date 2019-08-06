@@ -27,7 +27,7 @@ describe("teaTypeEditor form success", () => {
         addTeaType={mockAdd}
       />
     );
-    expect(getByTestId("loadingmessage")).toBeTruthy();
+    expect(queryByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();
 
     fireEvent.change(getByTestId("name"), {

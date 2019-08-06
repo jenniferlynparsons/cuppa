@@ -28,7 +28,8 @@ export class TeaCollectionTableContainer extends React.Component {
     errorMessages: {
       filterCategory: "Please choose a category",
       filterCriteria: "Please enter a filter term"
-    }
+    },
+    loadingStatus: "inprogress"
   };
 
   columnHeaders = [
@@ -188,11 +189,14 @@ export class TeaCollectionTableContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getTeas(this.props.userID);
-    this.props.getTeaTypes(this.props.userID);
-    this.setState({
-      sortedIDs: this.props.teas.teaIDs
-    });
+    this.props.getTeas(this.props.userID).then(() =>
+      this.setState({
+        sortedIDs: this.props.teas.teaIDs
+      })
+    );
+    this.props
+      .getTeaTypes(this.props.userID)
+      .then(() => this.setState({ loadingStatus: "complete" }));
   }
 
   componentDidUpdate(prevProps) {
@@ -207,8 +211,14 @@ export class TeaCollectionTableContainer extends React.Component {
   }
 
   render() {
-    return (
-      this.props.teas.allTeas && (
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
         <TeaCollectionTable
           datalist={<DataList id="fcriteria" options={this.state.dataList} />}
           columnHeaders={this.columnHeaders}
@@ -227,8 +237,8 @@ export class TeaCollectionTableContainer extends React.Component {
           handleFilterInputChange={this.handleFilterInputChange}
           handleSortColumn={this.handleSortColumn}
         />
-      )
-    );
+      );
+    }
   }
 }
 
