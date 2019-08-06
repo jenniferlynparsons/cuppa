@@ -174,7 +174,11 @@ export class TeaEditorContainer extends React.Component {
 
   render() {
     if (this.state.loadingStatus !== "complete") {
-      return <p>Loading...</p>;
+      return (
+        <div className="pageloader">
+          <span className="title">Loading</span>
+        </div>
+      );
     } else {
       return (
         <TeaEditor
