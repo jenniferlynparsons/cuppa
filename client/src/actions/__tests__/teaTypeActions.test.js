@@ -59,7 +59,7 @@ describe("editTeaType", () => {
   test("it calls 'put' on the API with the correct path and the tea type data", () => {
     store.dispatch(editTeaType(teaTypeFixture.reducerEditTeaType));
     expect(API.put).toHaveBeenCalledWith(
-      "/tea-types",
+      "/tea-types/5d39dd1f0487d1116140bac1",
       teaTypeFixture.reducerEditTeaType
     );
   });
@@ -104,7 +104,7 @@ describe("getTeaTypes", () => {
   test("it calls 'post' on the API with the correct path and the tea type data", () => {
     store.dispatch(getTeaTypes(storeFixture.basicStore.auth.user.id));
     expect(API.get).toHaveBeenCalledWith(
-      `/tea-types/${storeFixture.basicStore.auth.user.id}`
+      `/tea-types?userID=${storeFixture.basicStore.auth.user.id}`
     );
   });
   test("it returns the GET_TEATYPES action type and payload", async () => {

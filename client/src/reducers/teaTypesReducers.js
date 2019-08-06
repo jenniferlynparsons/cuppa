@@ -39,25 +39,3 @@ export default (state = { allTeaTypes: {}, teaTypeIDs: [] }, action) => {
       return state;
   }
 };
-
-export const selectBrewTime = (state, ownProps) => {
-  if (state.teaTypes.teaTypeIDs.length > 0) {
-    let currentTeaType = state.teaTypes.teaTypeIDs.find(typeID => {
-      return (
-        state.teaTypes.allTeaTypes[typeID].name ===
-        state.teas.allTeas[ownProps.match.params.id].teaType
-      );
-    });
-
-    return currentTeaType
-      ? state.teaTypes.allTeaTypes[currentTeaType].brewTime
-      : "";
-  }
-};
-
-export const selectTeaTypes = state => {
-  return state.teaTypeIDs.map(typeID => {
-    const teaType = state.allTeaTypes[typeID];
-    return teaType.name;
-  });
-};

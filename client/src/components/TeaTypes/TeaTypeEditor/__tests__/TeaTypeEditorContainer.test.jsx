@@ -2,25 +2,19 @@ import React from "react";
 import "jest-dom/extend-expect";
 import { fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
-import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import teaTypeFixture from "../../../../test/__fixtures__/teaTypeFixture";
-import TeaTypeEditorContainer from "../TeaTypeEditorContainer";
 import { TeaTypeEditorContainerClass } from "../TeaTypeEditorContainer";
 
 let mockFunc;
 let mockAdd;
 let mockEdit;
-// let mockDuplicate;
 
 beforeEach(() => {
   mockFunc = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
   mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
-  // mockDuplicate = jest.fn(() =>
-  //   Promise.resolve(teaTypeFixture.duplicateTeaTypes)
-  // );
 });
 
 // TODO: resolve promise-based issue with rendering
@@ -40,7 +34,7 @@ beforeEach(() => {
 // });
 
 describe("teaTypeEditor form success", () => {
-  test("editor form submit succesfully adds tea type", () => {
+  test("editor form submit succesfully adds tea type", async () => {
     const { getByTestId, queryByTestId } = renderWithRouter(
       <TeaTypeEditorContainerClass
         teaTypes={teaTypeFixture.teaTypes}
@@ -49,6 +43,7 @@ describe("teaTypeEditor form success", () => {
         addTeaType={mockAdd}
       />
     );
+    await Promise.resolve();
 
     fireEvent.change(getByTestId("name"), {
       target: { value: teaTypeFixture.basicTeaTypeFormValues.name }
@@ -69,7 +64,7 @@ describe("teaTypeEditor form success", () => {
     expect(queryByTestId("flash")).toHaveTextContent(/Black/);
   });
 
-  test("editor form succesfully updates tea type", () => {
+  test("editor form succesfully updates tea type", async () => {
     const { getByTestId } = renderWithRouter(
       <TeaTypeEditorContainerClass
         teaTypes={teaTypeFixture.teaTypes}
@@ -82,6 +77,7 @@ describe("teaTypeEditor form success", () => {
         history={dataFixture.history}
       />
     );
+    await Promise.resolve();
 
     fireEvent.change(getByTestId("name"), {
       target: { value: teaTypeFixture.updatedTeaTypeFormValues.name }
@@ -98,7 +94,7 @@ describe("teaTypeEditor form success", () => {
 
 describe("teaTypeEditor form failure", () => {
   describe("editor onSubmit returns an error message if data is invalid", () => {
-    test("missing information for new tea type", () => {
+    test("missing information for new tea type", async () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <TeaTypeEditorContainerClass
           teaTypes={teaTypeFixture.teaTypes}
@@ -110,6 +106,7 @@ describe("teaTypeEditor form failure", () => {
           history={dataFixture.history}
         />
       );
+      await Promise.resolve();
 
       expect(queryByTestId("duplicatenotice")).toBeFalsy();
 
@@ -118,7 +115,7 @@ describe("teaTypeEditor form failure", () => {
       expect(queryAllByTestId("inputerror").length).toEqual(2);
     });
 
-    test("missing information for existing tea type", () => {
+    test("missing information for existing tea type", async () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <TeaTypeEditorContainerClass
           teaTypes={teaTypeFixture.teaTypes}
@@ -130,6 +127,7 @@ describe("teaTypeEditor form failure", () => {
           history={dataFixture.history}
         />
       );
+      await Promise.resolve();
 
       expect(queryByTestId("duplicatenotice")).toBeFalsy();
 
@@ -137,56 +135,5 @@ describe("teaTypeEditor form failure", () => {
       expect(queryByTestId("incompletenotice")).toBeTruthy();
       expect(queryAllByTestId("inputerror").length).toEqual(1);
     });
-
-    // TODO: sort out issues with rerender that prevent server errors from appearing
-    // test("duplicate tea type", () => {
-    //   const { getByTestId, queryByTestId, rerender } = renderWithRouter(
-    //     <TeaTypeEditorContainerClass
-    //       teaTypes={teaTypeFixture.teaTypes}
-    //       userID={dataFixture.mockUserID}
-    //       currentTeaType={""}
-    //       getTeaTypes={mockFunc}
-    //       addTeaType={mockDuplicate}
-    //       editFlash={mockEdit}
-    //       history={dataFixture.history}
-    //     />
-    //   );
-
-    //   expect(queryByTestId("duplicatenotice")).toBeFalsy();
-
-    //   fireEvent.change(getByTestId("name"), {
-    //     target: { value: teaTypeFixture.basicTeaTypeFormValues.name }
-    //   });
-    //   fireEvent.change(getByTestId("brewtimemin"), {
-    //     target: { value: teaTypeFixture.basicTeaTypeFormValues.brewTimeMin }
-    //   });
-    //   fireEvent.change(getByTestId("brewtimesec"), {
-    //     target: { value: teaTypeFixture.basicTeaTypeFormValues.brewTimeSec }
-    //   });
-    //   expect(getByTestId("teatypeeditorform")).toHaveFormValues({
-    //     name: teaTypeFixture.basicTeaTypeFormValues.name,
-    //     brewTimeMin: teaTypeFixture.basicTeaTypeFormValues.brewTimeMin,
-    //     brewTimeSec: teaTypeFixture.basicTeaTypeFormValues.brewTimeSec
-    //   });
-
-    //   fireEvent.click(getByTestId("submit"));
-    //   expect(mockDuplicate).toHaveBeenCalled();
-
-    //   rerender(
-    //     <TeaTypeEditorContainerClass
-    //       teaTypes={teaTypeFixture.teaTypes}
-    //       userID={dataFixture.mockUserID}
-    //       currentTeaType={""}
-    //       getTeaTypes={mockFunc}
-    //       addTeaType={mockDuplicate}
-    //       editFlash={mockEdit}
-    //       history={dataFixture.history}
-    //       errors={{
-    //         serverErrors: { duplicate: "This tea type already exists" }
-    //       }}
-    //     />
-    //   );
-    //   expect(queryByTestId("duplicatenotice")).toBeTruthy();
-    // });
   });
 });

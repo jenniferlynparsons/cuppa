@@ -12,18 +12,15 @@ export class Register extends React.Component {
           Already have an account? <Link to="/login">Log in</Link>
         </p>
         {!this.props.inputValidation.complete && (
-          <div
-            className="notification is-danger"
-            data-testid="incompletenotice"
-          >
+          <p className="notification is-danger" data-testid="incompletenotice">
             Please provide a valid email address and password.
-          </div>
+          </p>
         )}
         {!this.props.inputValidation.duplicateEmail && (
-          <div className="notification is-danger" data-testid="notfoundnotice">
+          <p className="notification is-danger" data-testid="notfoundnotice">
             This email already exists in our system. Please try again or{" "}
             <Link to="/login">login</Link> to your account.
-          </div>
+          </p>
         )}
         <form noValidate={true} onSubmit={this.props.onSubmit}>
           <div className="field">

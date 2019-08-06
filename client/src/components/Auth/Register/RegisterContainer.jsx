@@ -75,11 +75,15 @@ class RegisterContainer extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+  componentDidUpdate(prevProps) {
+    if (this.props.auth.isAuthenticated && !prevProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    if (nextProps.serverErrors.duplicateEmail) {
+    if (
+      this.props.serverErrors &&
+      !prevProps.serverErrors &&
+      this.props.serverErrors.duplicateEmail
+    ) {
       this.setState(state => ({
         inputValidation: {
           ...state.inputValidation,

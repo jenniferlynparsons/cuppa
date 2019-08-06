@@ -93,11 +93,7 @@ export class TeaTypeEditor extends React.Component {
             )}
           </div>
           <div className="control">
-            <button
-              data-testid="submit"
-              className="button is-primary"
-              onClick={this.props.handleSubmitButton}
-            >
+            <button data-testid="submit" className="button is-primary">
               Submit
             </button>
           </div>

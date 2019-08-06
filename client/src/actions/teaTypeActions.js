@@ -24,7 +24,7 @@ export const addTeaType = teaType => {
 // Edit TeaType
 export const editTeaType = teaType => {
   return dispatch =>
-    API.put("/tea-types", teaType)
+    API.put(`/tea-types/${teaType.id}`, teaType)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.EDIT_TEATYPE,
@@ -51,7 +51,7 @@ export const deleteTeaType = teaTypeID => {
 // Get TeaTypes
 export const getTeaTypes = listOwner => {
   return dispatch =>
-    API.get(`/tea-types/${listOwner}`)
+    API.get(`/tea-types?userID=${listOwner}`)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.GET_TEATYPES,

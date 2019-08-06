@@ -53,7 +53,7 @@ export const deleteTea = teaID => {
 // Get Teas
 export const getTeas = listOwner => {
   return dispatch => {
-    return API.get(`/teas/${listOwner}`)
+    return API.get(`/teas?userID=${listOwner}`)
       .then(response => {
         dispatch({
           type: teaActionTypes.GET_TEAS,

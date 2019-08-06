@@ -9,7 +9,7 @@ import {
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash } from "../../../actions/flashActions";
-import { selectTeaTypes } from "../../../reducers/teaTypesReducers";
+import { selectTeaTypes } from "../../../selectors/teaTypeSelectors";
 import { TeaEditor } from "./TeaEditor";
 import DataList from "../../FormComponents/DataList";
 
@@ -31,7 +31,6 @@ export class TeaEditorContainer extends React.Component {
     teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
     teaTypes: this.props.teaTypes ? this.props.teaTypes : "",
     servings: this.props.currentTea ? this.props.currentTea.servings : "",
-    brands: [],
     brandsDataList: [],
     inputValidation: {
       name: true,
@@ -46,8 +45,11 @@ export class TeaEditorContainer extends React.Component {
       brand: "Please enter a tea brand",
       teaType: "Please choose a tea type",
       servings: "Please enter the number of servings available"
-    }
+    },
+    loadingStatus: "inprogress"
   };
+
+  initialState = this.state;
 
   handleBlur = field => () => {
     this.setState(state => ({
@@ -79,14 +81,6 @@ export class TeaEditorContainer extends React.Component {
     });
   };
 
-  handleSubmitButton = () => {
-    this.setState(state => ({
-      touched: {
-        ...state.touched
-      }
-    }));
-  };
-
   handleFormSubmit = event => {
     event.preventDefault();
     const namevalid = nameSchema.isValidSync(this.state);
@@ -112,29 +106,8 @@ export class TeaEditorContainer extends React.Component {
       } else {
         this.props.addTea(teaData).then(
           this.setState({
-            flash: {
-              name: this.state.name,
-              id: this.state.id
-            },
-            touched: {
-              name: false,
-              servings: false
-            },
-            id: "",
-            userID: this.props.userID,
-            name: "",
-            brand: "",
-            teaType: "",
-            teaTypes: this.props.teaTypes,
-            servings: "",
-            inputValidation: {
-              name: true,
-              brand: true,
-              teaType: true,
-              servings: true,
-              complete: true,
-              duplicate: true
-            }
+            ...this.initialState,
+            loadingStatus: "complete"
           })
         );
       }
@@ -154,7 +127,9 @@ export class TeaEditorContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
-    this.props.getTeaTypes(this.props.userID);
+    this.props.getTeaTypes(this.props.userID).then(() => {
+      this.setState({ loadingStatus: "complete" });
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -174,40 +149,55 @@ export class TeaEditorContainer extends React.Component {
         })
       });
     }
+    if (
+      (this.props.updatedTea && !prevProps.updatedTea) ||
+      (this.props.updatedTea &&
+        this.props.updatedTea.id !== prevProps.updatedTea.id)
+    ) {
+      this.setState({
+        flash: {
+          name: this.props.updatedTea.name,
+          id: this.props.updatedTea.id
+        }
+      });
+    }
     if (this.props.serverErrors && !prevProps.serverErrors) {
       this.setState(state => ({
         inputValidation: {
           ...state.inputValidation,
           duplicate: false
         },
-        flash: { name: "" }
+        flash: { name: "", id: "" }
       }));
     }
   }
 
   render() {
-    return (
-      <TeaEditor
-        teaTypes={this.props.teaTypes}
-        name={this.state.name}
-        brand={this.state.brand}
-        brandsDataList={
-          <DataList id="brands" options={this.state.brandsDataList} />
-        }
-        teaType={this.state.teaType}
-        servings={this.state.servings}
-        flash={this.state.flash}
-        inputValidation={this.state.inputValidation}
-        errorMessages={this.state.errorMessages}
-        handleBlur={this.handleBlur}
-        handleNameChange={this.handleNameChange}
-        handleBrandChange={this.handleBrandChange}
-        handleTypeChange={this.handleTypeChange}
-        handleServingsChange={this.handleServingsChange}
-        handleSubmitButton={this.handleSubmitButton}
-        handleFormSubmit={this.handleFormSubmit}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return <p>Loading...</p>;
+    } else {
+      return (
+        <TeaEditor
+          teaTypes={this.props.teaTypes}
+          name={this.state.name}
+          brand={this.state.brand}
+          brandsDataList={
+            <DataList id="brands" options={this.state.brandsDataList} />
+          }
+          teaType={this.state.teaType}
+          servings={this.state.servings}
+          flash={this.state.flash}
+          inputValidation={this.state.inputValidation}
+          errorMessages={this.state.errorMessages}
+          handleBlur={this.handleBlur}
+          handleNameChange={this.handleNameChange}
+          handleBrandChange={this.handleBrandChange}
+          handleTypeChange={this.handleTypeChange}
+          handleServingsChange={this.handleServingsChange}
+          handleFormSubmit={this.handleFormSubmit}
+        />
+      );
+    }
   }
 }
 
@@ -217,6 +207,7 @@ const mapStateToProps = (state, ownProps) => {
     teas: state.teas,
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
+    updatedTea: state.teas.updatedTea,
     edit: state.teas.allTeas[ownProps.match.params.id] ? true : false,
     serverErrors: state.errors.serverErrors
   };

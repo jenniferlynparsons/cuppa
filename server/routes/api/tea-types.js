@@ -44,7 +44,7 @@ router.post("/", (req, res) => {
 // @route PUT api/tea-types
 // @desc Edit tea type
 // @access Public
-router.put("/", (req, res) => {
+router.put("/:id", (req, res) => {
   const { errors, isValid } = validateTeaTypeInput(req.body);
 
   // Check validation
@@ -53,7 +53,7 @@ router.put("/", (req, res) => {
   }
 
   TeaType.findOneAndUpdate(
-    { id: req.body.id },
+    { id: req.params.id },
     req.body,
     { new: true },
     function(err, teaType) {
@@ -85,7 +85,7 @@ router.delete("/:id", (req, res) => {
 // @route GET api/tea-types/:id
 // @desc Get individual tea type
 // @access Public
-router.get("/type/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   TeaType.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {
       res.send(err);
@@ -101,8 +101,8 @@ router.get("/type/:id", (req, res) => {
 // @route GET api/tea-types/:id
 // @desc Get all tea types
 // @access Public
-router.get("/:id", function(req, res) {
-  TeaType.find({ userID: req.params.id }, function(err, teaTypes) {
+router.get("/", function(req, res) {
+  TeaType.find({ userID: req.query.userID }, function(err, teaTypes) {
     if (err) {
       res.send(err);
     }
