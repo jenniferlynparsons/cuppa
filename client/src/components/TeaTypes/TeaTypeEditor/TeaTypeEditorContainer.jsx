@@ -131,8 +131,8 @@ export class TeaTypeEditorContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getTeaTypes(this.props.userID).then(() => {
-      this.setState({ loadingStatus: "complete" });
+    return this.props.getTeaTypes(this.props.userID).then(() => {
+      return this.setState({ loadingStatus: "complete" });
     });
   }
 
