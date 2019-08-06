@@ -2,11 +2,9 @@ import React from "react";
 import "jest-dom/extend-expect";
 import { fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
-import { makeMockStore } from "../../../../test/testUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import teaTypeFixture from "../../../../test/__fixtures__/teaTypeFixture";
-import TeaTypeEditorContainer from "../TeaTypeEditorContainer";
 import { TeaTypeEditorContainerClass } from "../TeaTypeEditorContainer";
 
 let mockFunc;
@@ -17,23 +15,6 @@ beforeEach(() => {
   mockFunc = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
   mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
-});
-
-describe("TeaTypeEditorContainer rendering", () => {
-  test("renders the component with redux without errors", async () => {
-    let store = makeMockStore(storeFixture.basicStore);
-    const { queryByTestId } = await renderWithRouter(
-      <TeaTypeEditorContainer
-        store={store}
-        match={{
-          params: { id: dataFixture.mockUserID }
-        }}
-      />
-    );
-    await Promise.resolve();
-
-    expect(queryByTestId("teatypeeditor")).toBeTruthy();
-  });
 });
 
 describe("teaTypeEditor form success", () => {
