@@ -83,7 +83,7 @@ router.delete("/:id", (req, res) => {
 // @route GET api/teas/:id
 // @desc Get individual tea
 // @access Public
-router.get("/tea/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   Tea.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {
       res.send(err);

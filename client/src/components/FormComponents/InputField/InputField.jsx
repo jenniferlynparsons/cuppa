@@ -7,11 +7,10 @@ class InputField extends React.Component {
         <div className="control" data-testid="inputfield">
           <input
             data-testid={this.props.datatestid}
-            className={
-              !this.props.valid
-                ? this.props.className + " " + this.props.errorClass
-                : this.props.className
-            }
+            className={[
+              this.props.className,
+              this.props.valid ? "" : this.props.errorClass
+            ].join(" ")}
             id={this.props.id}
             name={this.props.name}
             type={this.props.type}

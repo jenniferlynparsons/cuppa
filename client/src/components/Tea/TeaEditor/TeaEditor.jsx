@@ -77,11 +77,10 @@ export class TeaEditor extends React.Component {
             </label>
             <div className="control">
               <div
-                className={
-                  !this.props.inputValidation.teaType
-                    ? "select is-danger"
-                    : "select"
-                }
+                className={[
+                  "select",
+                  this.props.inputValidation.teaType ? "" : "is-danger"
+                ].join(" ")}
               >
                 <select
                   data-testid="teaType"
