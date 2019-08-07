@@ -11,8 +11,7 @@ class LoginContainer extends Component {
     inputValidation: {
       email: true,
       emailNotFound: true,
-      password: true,
-      complete: true
+      password: true
     },
     errorMessages: {
       email: "Please enter a valid email address",
@@ -49,6 +48,12 @@ class LoginContainer extends Component {
         }
       }));
     }
+  };
+
+  validationComplete = () => {
+    return (
+      this.state.inputValidation.email && this.state.inputValidation.password
+    );
   };
 
   componentDidMount() {
@@ -93,6 +98,7 @@ class LoginContainer extends Component {
           errorMessages={this.state.errorMessages}
           onChange={this.handleInputChange}
           onSubmit={this.handleFormSubmit}
+          validationComplete={this.validationComplete}
         />
       );
     }

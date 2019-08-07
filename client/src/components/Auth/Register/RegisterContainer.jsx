@@ -20,8 +20,7 @@ class RegisterContainer extends Component {
       email: true,
       duplicateEmail: true,
       password: true,
-      password2: true,
-      complete: true
+      password2: true
     },
     errorMessages: {
       name: "Please enter a valid name",
@@ -70,6 +69,15 @@ class RegisterContainer extends Component {
     }
   };
 
+  validationComplete = () => {
+    return (
+      this.state.inputValidation.name &&
+      this.state.inputValidation.email &&
+      this.state.inputValidation.password &&
+      this.state.inputValidation.password2
+    );
+  };
+
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
@@ -113,6 +121,7 @@ class RegisterContainer extends Component {
           errorMessages={this.state.errorMessages}
           onChange={this.handleInputChange}
           onSubmit={this.handleFormSubmit}
+          validationComplete={this.validationComplete}
         />
       );
     }

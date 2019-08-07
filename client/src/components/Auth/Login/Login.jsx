@@ -11,7 +11,7 @@ export class Login extends React.Component {
         <p>
           Don&apos;t have an account? <Link to="/register">Register</Link>
         </p>
-        {!this.props.inputValidation.complete && (
+        {!this.props.validationComplete() && (
           <p className="notification is-danger" data-testid="incompletenotice">
             Please provide a valid email address and password
           </p>

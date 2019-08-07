@@ -13,7 +13,7 @@ export class TeaTypeEditor extends React.Component {
           </p>
         )}
 
-        {!this.props.inputValidation.complete && (
+        {!this.props.validationComplete() && (
           <div
             className="notification is-danger"
             data-testid="incompletenotice"

@@ -39,7 +39,6 @@ export class TeaTypeEditorContainer extends React.Component {
       brewTime: true,
       brewTimeMin: true,
       brewTimeSec: true,
-      complete: true,
       duplicate: true
     },
     errorMessages: {
@@ -130,6 +129,16 @@ export class TeaTypeEditorContainer extends React.Component {
     }
   };
 
+  validationComplete = () => {
+    return (
+      this.state.inputValidation.name &&
+      this.state.inputValidation.brewTime &&
+      this.state.inputValidation.brewTimeMin &&
+      this.state.inputValidation.brewTimeSec &&
+      this.state.inputValidation.duplicate
+    );
+  };
+
   componentDidMount() {
     return this.props.getTeaTypes(this.props.userID).then(() => {
       return this.setState({ loadingStatus: "complete" });
@@ -184,6 +193,7 @@ export class TeaTypeEditorContainer extends React.Component {
           handleBrewTimeSecChange={this.handleBrewTimeSecChange}
           handleSubmitButton={this.handleSubmitButton}
           handleFormSubmit={this.handleFormSubmit}
+          validationComplete={this.validationComplete}
         />
       );
     }
