@@ -1,9 +1,11 @@
 export const validationComplete = inputs => {
   let valid = true;
-  for (let key in inputs) {
+
+  Object.keys(inputs).forEach(key => {
     if (inputs[key] === false) {
       valid = false;
     }
-  }
+  });
+
   return valid;
 };
