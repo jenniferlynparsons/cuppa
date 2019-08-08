@@ -99,6 +99,8 @@ class TimerContainer extends React.Component {
     const initialBrewTime = convertTimeToMinSec(this.props.brewTime);
 
     this.setState({
+      tea: this.props.tea,
+      originalServings: this.props.tea.servings,
       timerTime: this.props.brewTime,
       timerLength: this.props.brewTime,
       minutes: initialBrewTime.minute,
