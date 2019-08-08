@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { validationComplete } from "../../../lib/validationComplete";
 import {
   convertTimeToMinSec,
   convertTimeToSec
@@ -183,7 +182,6 @@ export class TeaTypeEditorContainer extends React.Component {
           handleBrewTimeSecChange={this.handleBrewTimeSecChange}
           handleSubmitButton={this.handleSubmitButton}
           handleFormSubmit={this.handleFormSubmit}
-          validationComplete={validationComplete}
         />
       );
     }

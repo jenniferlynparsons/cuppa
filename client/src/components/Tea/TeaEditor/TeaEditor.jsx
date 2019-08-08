@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { validationComplete } from "../../../lib/validationComplete";
 import InputField from "../../FormComponents/InputField";
 
 export class TeaEditor extends React.Component {
@@ -13,7 +14,7 @@ export class TeaEditor extends React.Component {
           </p>
         )}
 
-        {!this.props.validationComplete(this.props.inputValidation) && (
+        {!validationComplete(this.props.inputValidation) && (
           <div
             className="notification is-danger"
             data-testid="incompletenotice"

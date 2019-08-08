@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { validationComplete } from "../../../lib/validationComplete";
 import {
   nameSchema,
   brandSchema,
@@ -198,7 +197,6 @@ export class TeaEditorContainer extends React.Component {
           handleTypeChange={this.handleTypeChange}
           handleServingsChange={this.handleServingsChange}
           handleFormSubmit={this.handleFormSubmit}
-          validationComplete={validationComplete}
         />
       );
     }

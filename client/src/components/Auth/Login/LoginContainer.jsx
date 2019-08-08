@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { validationComplete } from "../../../lib/validationComplete";
 import { emailSchema, passwordSchema } from "../../../lib/validationSchemas";
 import { loginAction } from "../../../actions/authActions";
 import { Login } from "./Login";
@@ -92,7 +91,6 @@ class LoginContainer extends Component {
           errorMessages={this.state.errorMessages}
           onChange={this.handleInputChange}
           onSubmit={this.handleFormSubmit}
-          validationComplete={validationComplete}
         />
       );
     }

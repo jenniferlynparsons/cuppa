@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { validationComplete } from "../../../lib/validationComplete";
 import InputField from "../../FormComponents/InputField/InputField";
 
 export class Login extends React.Component {
@@ -11,7 +12,7 @@ export class Login extends React.Component {
         <p>
           Don&apos;t have an account? <Link to="/register">Register</Link>
         </p>
-        {!this.props.validationComplete(this.props.inputValidation) && (
+        {!validationComplete(this.props.inputValidation) && (
           <p className="notification is-danger" data-testid="incompletenotice">
             Please provide a valid email address and password
           </p>
