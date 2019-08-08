@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { validationComplete } from "../../../lib/validationComplete";
 import {
   convertTimeToMinSec,
   convertTimeToSec
@@ -129,16 +130,6 @@ export class TeaTypeEditorContainer extends React.Component {
     }
   };
 
-  validationComplete = () => {
-    return (
-      this.state.inputValidation.name &&
-      this.state.inputValidation.brewTime &&
-      this.state.inputValidation.brewTimeMin &&
-      this.state.inputValidation.brewTimeSec &&
-      this.state.inputValidation.duplicate
-    );
-  };
-
   componentDidMount() {
     return this.props.getTeaTypes(this.props.userID).then(() => {
       return this.setState({ loadingStatus: "complete" });
@@ -193,7 +184,7 @@ export class TeaTypeEditorContainer extends React.Component {
           handleBrewTimeSecChange={this.handleBrewTimeSecChange}
           handleSubmitButton={this.handleSubmitButton}
           handleFormSubmit={this.handleFormSubmit}
-          validationComplete={this.validationComplete}
+          validationComplete={validationComplete}
         />
       );
     }

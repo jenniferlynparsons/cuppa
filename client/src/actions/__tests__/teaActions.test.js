@@ -44,7 +44,10 @@ describe("editTea", () => {
   });
   test("it calls 'put' on the API with the correct path and the tea data", () => {
     store.dispatch(editTea(teaFixture.reducerEditTea));
-    expect(API.put).toHaveBeenCalledWith("/teas", teaFixture.reducerEditTea);
+    expect(API.put).toHaveBeenCalledWith(
+      `/teas/${teaFixture.reducerEditTea.id}`,
+      teaFixture.reducerEditTea
+    );
   });
   test("it returns the EDIT_TEA action type and payload", async () => {
     await store.dispatch(editTea(teaFixture.reducerEditTea));

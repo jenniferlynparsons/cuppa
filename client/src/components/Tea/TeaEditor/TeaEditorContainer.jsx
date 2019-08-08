@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { validationComplete } from "../../../lib/validationComplete";
 import {
   nameSchema,
   brandSchema,
@@ -124,15 +125,6 @@ export class TeaEditorContainer extends React.Component {
     }
   };
 
-  validationComplete = () => {
-    return (
-      this.state.inputValidation.name &&
-      this.state.inputValidation.brand &&
-      this.state.inputValidation.teaType &&
-      this.state.inputValidation.servings
-    );
-  };
-
   componentDidMount() {
     this.props.getTeas(this.props.userID);
     this.props
@@ -207,7 +199,7 @@ export class TeaEditorContainer extends React.Component {
           handleTypeChange={this.handleTypeChange}
           handleServingsChange={this.handleServingsChange}
           handleFormSubmit={this.handleFormSubmit}
-          validationComplete={this.validationComplete}
+          validationComplete={validationComplete}
         />
       );
     }

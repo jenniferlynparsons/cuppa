@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { validationComplete } from "../../../lib/validationComplete";
 import {
   emailSchema,
   passwordSchema,
@@ -69,15 +70,6 @@ class RegisterContainer extends Component {
     }
   };
 
-  validationComplete = () => {
-    return (
-      this.state.inputValidation.name &&
-      this.state.inputValidation.email &&
-      this.state.inputValidation.password &&
-      this.state.inputValidation.password2
-    );
-  };
-
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
@@ -121,7 +113,7 @@ class RegisterContainer extends Component {
           errorMessages={this.state.errorMessages}
           onChange={this.handleInputChange}
           onSubmit={this.handleFormSubmit}
-          validationComplete={this.validationComplete}
+          validationComplete={validationComplete}
         />
       );
     }
