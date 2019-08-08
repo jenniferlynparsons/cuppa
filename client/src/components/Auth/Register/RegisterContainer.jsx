@@ -63,8 +63,7 @@ class RegisterContainer extends Component {
           email: emailvalid,
           duplicateEmail: true,
           password: passvalid,
-          password2: pass2valid === passmatch ? pass2valid : false,
-          complete: false
+          password2: pass2valid === passmatch ? pass2valid : false
         }
       }));
     }

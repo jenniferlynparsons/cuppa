@@ -44,8 +44,7 @@ class LoginContainer extends Component {
           ...state.inputValidation,
           email: emailvalid,
           emailNotFound: true,
-          password: passvalid,
-          complete: false
+          password: passvalid
         }
       }));
     }

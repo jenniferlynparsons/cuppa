@@ -118,8 +118,7 @@ export class TeaEditorContainer extends React.Component {
           name: namevalid,
           brand: brandvalid,
           teaType: teaTypevalid,
-          servings: servingsvalid,
-          complete: false
+          servings: servingsvalid
         }
       }));
     }
