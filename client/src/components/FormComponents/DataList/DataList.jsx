@@ -2,6 +2,7 @@ import React from "react";
 
 class DataList extends React.Component {
   render() {
+    console.log(this.props.options);
     let options = [];
     if (this.props.options && this.props.processOptions) {
       options = this.props.processOptions(this.props.options);
