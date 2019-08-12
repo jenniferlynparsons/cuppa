@@ -125,9 +125,14 @@ export class TeaEditorContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
-    this.props
-      .getTeaTypes(this.props.userID)
-      .then(() => this.setState({ loadingStatus: "complete" }));
+    this.props.getTeaTypes(this.props.userID).then(() =>
+      this.setState({
+        loadingStatus: "complete",
+        brandsDataList: this.props.teas.teaIDs.map(id => {
+          return this.props.teas.allTeas[id].brand;
+        })
+      })
+    );
   }
 
   componentDidUpdate(prevProps) {
@@ -142,7 +147,7 @@ export class TeaEditorContainer extends React.Component {
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,
         servings: this.props.currentTea.servings,
-        brandsDataList: this.props.teas.ids.map(id => {
+        brandsDataList: this.props.teas.teaIDs.map(id => {
           return this.props.teas.allTeas[id].brand;
         })
       });
