@@ -66,6 +66,7 @@ class NavBar extends React.Component {
                 ].join(" ")}
               >
                 <a
+                  href="# "
                   role="button"
                   className="navbar-link"
                   aria-label="menu"
