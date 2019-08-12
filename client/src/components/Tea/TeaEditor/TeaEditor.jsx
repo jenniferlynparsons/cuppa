@@ -120,6 +120,7 @@ export class TeaEditor extends React.Component {
               type="number"
               placeholder="Servings Available"
               value={this.props.servings}
+              min={0}
               className="input"
               valid={this.props.inputValidation.servings}
               errorMessage={this.props.errorMessages.servings}
