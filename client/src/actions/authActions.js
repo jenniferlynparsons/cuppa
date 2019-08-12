@@ -1,26 +1,19 @@
 import setAuthToken from "../lib/setAuthToken";
 import jwt_decode from "jwt-decode";
 import API from "../lib/api";
-import { authActionTypes, errorActionTypes } from "../lib/actionTypes";
+import { authActionTypes } from "../lib/actionTypes";
 
 // Login - get user token
 export const loginAction = userData => {
   return dispatch => {
-    return API.post("/users/login", userData)
+    return API.post("/users/login", userData, dispatch)
       .then(response => {
-        if (response && response.emailNotFound) {
-          dispatch({
-            type: errorActionTypes.SERVER_ERRORS,
-            payload: response
-          });
-        } else {
-          const { token } = response;
-          localStorage.setItem("jwtToken", token);
-          setAuthToken(token);
-          const decoded = jwt_decode(token);
-          //check that setCurrentUser is called with decoded
-          dispatch(authActions.setCurrentUser(decoded));
-        }
+        const { token } = response;
+        localStorage.setItem("jwtToken", token);
+        setAuthToken(token);
+        const decoded = jwt_decode(token);
+        //check that setCurrentUser is called with decoded
+        dispatch(authActions.setCurrentUser(decoded));
       })
       .catch(console.log);
   };
@@ -29,22 +22,15 @@ export const loginAction = userData => {
 // Register User
 export const registerUser = (userData, history) => {
   return dispatch => {
-    return API.post("/users/register", userData)
+    return API.post("/users/register", userData, dispatch)
       .then(response => {
-        if (response && response.duplicateEmail) {
-          dispatch({
-            type: errorActionTypes.SERVER_ERRORS,
-            payload: response
-          });
-        } else {
-          const arg = "/login";
-          history.push(arg);
-          const { token } = response;
-          localStorage.setItem("jwtToken", token);
-          setAuthToken(token);
-          const decoded = jwt_decode(token);
-          dispatch(authActions.setCurrentUser(decoded));
-        }
+        const arg = "/login";
+        history.push(arg);
+        const { token } = response;
+        localStorage.setItem("jwtToken", token);
+        setAuthToken(token);
+        const decoded = jwt_decode(token);
+        dispatch(authActions.setCurrentUser(decoded));
       })
       .catch(console.log);
   };

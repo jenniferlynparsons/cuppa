@@ -5,7 +5,16 @@ import { renderWithRouter } from "../../../../test/routerTestUtils";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import LoginContainer, { LoginContainerComponent } from "../LoginContainer";
 
-const mockFunc = jest.fn();
+let mockFunc;
+let mockDefaultProps;
+
+beforeEach(() => {
+  mockFunc = jest.fn();
+  mockDefaultProps = {
+    auth: storeFixture.loggedOutStore,
+    loginAction: mockFunc
+  };
+});
 
 describe("Login rendering", () => {
   test("login renders without error", () => {
@@ -21,10 +30,7 @@ describe("Login rendering", () => {
 describe("Login form success", () => {
   test("onSubmit submits the form with valid data", () => {
     const { getByTestId } = renderWithRouter(
-      <LoginContainerComponent
-        auth={storeFixture.loggedOutStore}
-        loginAction={mockFunc}
-      />
+      <LoginContainerComponent {...mockDefaultProps} />
     );
 
     fireEvent.change(getByTestId("email"), {
@@ -42,10 +48,7 @@ describe("Login form failure", () => {
   describe("onSubmit returns an error message if data is invalid", () => {
     test("missing email address and password", () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
-        <LoginContainerComponent
-          auth={storeFixture.loggedOutStore}
-          loginAction={mockFunc}
-        />
+        <LoginContainerComponent {...mockDefaultProps} />
       );
 
       expect(queryByTestId("notfoundnotice")).toBeFalsy();
@@ -57,10 +60,7 @@ describe("Login form failure", () => {
 
     test("invalid email address", () => {
       const { getByTestId, queryByTestId } = renderWithRouter(
-        <LoginContainerComponent
-          auth={storeFixture.loggedOutStore}
-          loginAction={mockFunc}
-        />
+        <LoginContainerComponent {...mockDefaultProps} />
       );
 
       expect(queryByTestId("notfoundnotice")).toBeFalsy();
@@ -73,6 +73,16 @@ describe("Login form failure", () => {
       });
       fireEvent.click(getByTestId("submit"));
       expect(queryByTestId("inputerror")).toBeTruthy();
+    });
+
+    test("incorrect password", () => {
+      const { queryByTestId } = renderWithRouter(
+        <LoginContainerComponent
+          {...mockDefaultProps}
+          serverErrors={{ passwordIncorrect: "The password is incorrect" }}
+        />
+      );
+      expect(queryByTestId("incorrectpasswordnotice")).toBeTruthy();
     });
   });
 });
