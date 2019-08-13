@@ -10,6 +10,7 @@ import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash } from "../../../actions/flashActions";
 import { selectTeaTypes } from "../../../selectors/teaTypeSelectors";
+import { selectBrands } from "../../../selectors/brandSelectors";
 import { TeaEditor } from "./TeaEditor";
 import DataList from "../../FormComponents/DataList";
 
@@ -127,10 +128,7 @@ export class TeaEditorContainer extends React.Component {
     this.props.getTeas(this.props.userID);
     this.props.getTeaTypes(this.props.userID).then(() =>
       this.setState({
-        loadingStatus: "complete",
-        brandsDataList: this.props.teas.teaIDs.map(id => {
-          return this.props.teas.allTeas[id].brand;
-        })
+        loadingStatus: "complete"
       })
     );
   }
@@ -147,9 +145,7 @@ export class TeaEditorContainer extends React.Component {
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,
         servings: this.props.currentTea.servings,
-        brandsDataList: this.props.teas.teaIDs.map(id => {
-          return this.props.teas.allTeas[id].brand;
-        })
+        brandsDataList: this.props.brandList
       });
     }
     if (
@@ -212,6 +208,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     teaTypes: selectTeaTypes(state.teaTypes),
     teas: state.teas,
+    brandList: selectBrands(state.teas),
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
     updatedTea: state.teas.updatedTea,
