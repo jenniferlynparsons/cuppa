@@ -11,11 +11,13 @@ class LoginContainer extends Component {
     inputValidation: {
       email: true,
       emailNotFound: true,
-      password: true
+      password: true,
+      passwordCorrect: true
     },
     errorMessages: {
       email: "Please enter a valid email address",
-      password: "Please enter a valid password"
+      password: "Please enter a valid password",
+      passwordCorrect: "The password is incorrect. Please try again."
     },
     loadingStatus: "inprogress"
   };
@@ -70,6 +72,18 @@ class LoginContainer extends Component {
         inputValidation: {
           ...state.inputValidation,
           emailNotFound: false
+        }
+      }));
+    }
+    if (
+      this.props.serverErrors &&
+      !prevProps.serverErrors &&
+      this.props.serverErrors.passwordCorrect
+    ) {
+      this.setState(state => ({
+        inputValidation: {
+          ...state.inputValidation,
+          passwordCorrect: false
         }
       }));
     }

@@ -8,7 +8,10 @@ export const loginAction = userData => {
   return dispatch => {
     return API.post("/users/login", userData)
       .then(response => {
-        if (response && response.emailNotFound) {
+        if (
+          (response && response.emailNotFound) ||
+          (response && response.passwordCorrect)
+        ) {
           dispatch({
             type: errorActionTypes.SERVER_ERRORS,
             payload: response
