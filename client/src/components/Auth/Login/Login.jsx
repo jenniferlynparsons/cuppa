@@ -23,6 +23,14 @@ export class Login extends React.Component {
             <Link to="/register">register</Link> for an account.
           </p>
         )}
+        {!this.props.inputValidation.passwordCorrect && (
+          <p
+            className="notification is-danger"
+            data-testid="incorrectpasswordnotice"
+          >
+            {this.props.inputValidation.passwordCorrect}
+          </p>
+        )}
         <form noValidate={true} onSubmit={this.props.onSubmit}>
           <div className="field">
             <label className="label" htmlFor="email">
