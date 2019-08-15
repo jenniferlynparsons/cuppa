@@ -17,48 +17,56 @@ function get(path, payload, dispatch) {
   return api
     .get(path, payload)
     .then(response => response.data)
-    .catch(error =>
+    .catch(error => {
       dispatch({
         type: errorActionTypes.SERVER_ERRORS,
         payload: error.response.data
-      })
-    );
+      });
+
+      throw Error;
+    });
 }
 
 function post(path, payload, dispatch, config = {}) {
   return api
     .post(path, payload, config)
     .then(response => response.data)
-    .catch(error =>
+    .catch(error => {
       dispatch({
         type: errorActionTypes.SERVER_ERRORS,
         payload: error.response.data
-      })
-    );
+      });
+
+      throw Error;
+    });
 }
 
 function put(path, payload, dispatch, config = {}) {
   return api
     .put(path, payload, config)
     .then(response => response.data)
-    .catch(error =>
+    .catch(error => {
       dispatch({
         type: errorActionTypes.SERVER_ERRORS,
         payload: error.response.data
-      })
-    );
+      });
+
+      throw Error;
+    });
 }
 
 function deleteRequest(path, payload, dispatch, config = {}) {
   return api
     .delete(path, payload, config)
     .then(response => response.data)
-    .catch(error =>
+    .catch(error => {
       dispatch({
         type: errorActionTypes.SERVER_ERRORS,
         payload: error.response.data
-      })
-    );
+      });
+
+      throw Error;
+    });
 }
 
 export default {
