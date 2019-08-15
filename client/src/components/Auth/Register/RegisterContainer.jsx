@@ -15,20 +15,20 @@ class RegisterContainer extends Component {
     email: "",
     password: "",
     password2: "",
-    errors: {
+    inputValidation: {
       name: true,
       email: true,
-      emailAlreadyExists: true,
+      duplicateEmail: true,
       password: true,
-      password2: true,
-      incomplete: true
+      password2: true
     },
     errorMessages: {
       name: "Please enter a valid name",
       email: "Please enter a valid email address",
       password: "Please enter a valid password",
       password2: "Please make sure the passwords match"
-    }
+    },
+    loadingStatus: "inprogress"
   };
 
   handleInputChange = e => {
@@ -56,14 +56,13 @@ class RegisterContainer extends Component {
       this.props.registerUser(newUser, this.props.history);
     } else {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
+        inputValidation: {
+          ...state.inputValidation,
           name: namevalid,
           email: emailvalid,
-          emailAlreadyExists: true,
+          duplicateEmail: true,
           password: passvalid,
-          password2: pass2valid === passmatch ? pass2valid : false,
-          incomplete: false
+          password2: pass2valid === passmatch ? pass2valid : false
         }
       }));
     }
@@ -72,49 +71,55 @@ class RegisterContainer extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
-    }
-    if (this.props.serverErrors && this.props.serverErrors.emailAlreadyExists) {
-      this.setState(state => ({
-        errors: {
-          ...state.errors,
-          emailAlreadyExists: false
-        }
-      }));
+    } else {
+      this.setState({ loadingStatus: "complete" });
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+  componentDidUpdate(prevProps) {
+    if (this.props.auth.isAuthenticated && !prevProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    if (nextProps.serverErrors.emailAlreadyExists) {
+    if (
+      this.props.serverErrors &&
+      !prevProps.serverErrors &&
+      this.props.serverErrors.duplicateEmail
+    ) {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
-          emailAlreadyExists: false
+        inputValidation: {
+          ...state.inputValidation,
+          duplicateEmail: false
         }
       }));
     }
   }
 
   render() {
-    return (
-      <Register
-        email={this.state.email}
-        password={this.state.password}
-        password2={this.state.password2}
-        errors={this.state.errors}
-        errorMessages={this.state.errorMessages}
-        onChange={this.handleInputChange}
-        onSubmit={this.handleFormSubmit}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
+        <Register
+          email={this.state.email}
+          password={this.state.password}
+          password2={this.state.password2}
+          inputValidation={this.state.inputValidation}
+          errorMessages={this.state.errorMessages}
+          onChange={this.handleInputChange}
+          onSubmit={this.handleFormSubmit}
+        />
+      );
+    }
   }
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  serverErrors: state.auth.errors
+  serverErrors: state.errors.serverErrors
 });
 
 export default connect(

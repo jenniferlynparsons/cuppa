@@ -7,18 +7,23 @@ export default (state = { allTeas: {}, teaIDs: [] }, action) => {
       };
 
       let addIDsArr = [...new Set([...state.teaIDs, action.payload.id])];
-      return { ...state, allTeas: addAllTeas, teaIDs: addIDsArr };
+      return {
+        ...state,
+        allTeas: addAllTeas,
+        teaIDs: addIDsArr,
+        updatedTea: action.payload
+      };
     }
     case "EDIT_TEA": {
       let updateAllTeas = {
         ...state.allTeas,
         [action.payload.id]: action.payload
       };
-      return { ...state, allTeas: updateAllTeas };
+      return { ...state, allTeas: updateAllTeas, updatedTea: action.payload };
     }
     case "DELETE_TEA": {
       let deleteIDsArr = state.teaIDs.filter(teaID => teaID !== action.payload);
-      return { ...state, teaIDs: deleteIDsArr };
+      return { ...state, teaIDs: deleteIDsArr, updatedTea: action.payload };
     }
     case "GET_TEAS": {
       let getAllTeas = {};

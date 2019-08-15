@@ -1,70 +1,64 @@
 import API from "../lib/api";
-import { teaTypeActionTypes } from "../lib/actionTypes";
+import { teaTypeActionTypes, errorActionTypes } from "../lib/actionTypes";
 
 // Add TeaType
 export const addTeaType = teaType => {
-  teaType.id = teaType.teaTypeID;
-  return dispatch => {
-    return API.post("/teaTypes/new-tea-type", teaType)
+  return dispatch =>
+    API.post("/tea-types", teaType)
       .then(response => {
-        dispatch({
-          type: teaTypeActionTypes.ADD_TEATYPE,
-          payload: response
-        });
+        if (response && response.duplicate) {
+          dispatch({
+            type: errorActionTypes.SERVER_ERRORS,
+            payload: response
+          });
+        } else {
+          dispatch({
+            type: teaTypeActionTypes.ADD_TEATYPE,
+            payload: response
+          });
+        }
       })
-      .catch(function(error) {
-        console.log(error);
-      });
-  };
+      .catch(console.log);
 };
 
 // Edit TeaType
 export const editTeaType = teaType => {
-  teaType.id = teaType.teaTypeID;
-  return dispatch => {
-    API.put("/teaTypes/update-tea-type", teaType)
+  return dispatch =>
+    API.put(`/tea-types/${teaType.id}`, teaType)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.EDIT_TEATYPE,
           payload: response
         });
       })
-      .catch(function(error) {
-        console.log(error);
-      });
-  };
+      .catch(console.log);
 };
 
 // Delete TeaType
 export const deleteTeaType = teaTypeID => {
   return dispatch => {
-    return API.delete(`/teaTypes/delete-tea-type/${teaTypeID}`)
+    return API.delete(`/tea-types/${teaTypeID}`)
       .then(() => {
         dispatch({
           type: teaTypeActionTypes.DELETE_TEATYPE,
           payload: teaTypeID
         });
       })
-      .catch(function(error) {
-        console.log(error);
-      });
+      .catch(console.log);
   };
 };
 
 // Get TeaTypes
 export const getTeaTypes = listOwner => {
-  return dispatch => {
-    return API.get(`/teaTypes/teaTypesList/${listOwner}`)
+  return dispatch =>
+    API.get(`/tea-types?userID=${listOwner}`)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.GET_TEATYPES,
           payload: response
         });
       })
-      .catch(function(error) {
-        console.log(error);
-      });
-  };
+      .catch(console.log);
 };
 
 const teaActions = {

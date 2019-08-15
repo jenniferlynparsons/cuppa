@@ -1,5 +1,4 @@
 import React from "react";
-import uuidv4 from "uuid/v4";
 import { connect } from "react-redux";
 import {
   nameSchema,
@@ -9,7 +8,8 @@ import {
 } from "../../../lib/validationSchemas";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
-import { editTeaFlash } from "../../../actions/flashActions";
+import { editFlash } from "../../../actions/flashActions";
+import { selectTeaTypes } from "../../../selectors/teaTypeSelectors";
 import { TeaEditor } from "./TeaEditor";
 import DataList from "../../FormComponents/DataList";
 
@@ -17,7 +17,7 @@ export class TeaEditorContainer extends React.Component {
   state = {
     flash: {
       name: "",
-      teaID: ""
+      id: ""
     },
     touched: {
       name: false,
@@ -25,30 +25,30 @@ export class TeaEditorContainer extends React.Component {
     },
     userID: this.props.userID,
     currentTea: this.props.currentTea || "",
-    teaID: this.props.currentTea ? this.props.currentTea.id : "",
+    id: this.props.currentTea ? this.props.currentTea.id : "",
     name: this.props.currentTea ? this.props.currentTea.name : "",
     brand: this.props.currentTea ? this.props.currentTea.brand : "",
     teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
     teaTypes: this.props.teaTypes ? this.props.teaTypes : "",
     servings: this.props.currentTea ? this.props.currentTea.servings : "",
-    edit: !!this.props.currentTea,
-    brands: [],
     brandsDataList: [],
-    errors: {
+    inputValidation: {
       name: true,
       brand: true,
       teaType: true,
       servings: true,
-      incomplete: true,
-      teaConflict: true
+      duplicate: true
     },
     errorMessages: {
       name: "Please enter a tea name",
       brand: "Please enter a tea brand",
       teaType: "Please choose a tea type",
       servings: "Please enter the number of servings available"
-    }
+    },
+    loadingStatus: "inprogress"
   };
+
+  initialState = this.state;
 
   handleBlur = field => () => {
     this.setState(state => ({
@@ -80,20 +80,6 @@ export class TeaEditorContainer extends React.Component {
     });
   };
 
-  handleSubmitButton = () => {
-    if (!this.state.teaID) {
-      this.setState({
-        teaID: uuidv4()
-      });
-    }
-
-    this.setState(state => ({
-      touched: {
-        ...state.touched
-      }
-    }));
-  };
-
   handleFormSubmit = event => {
     event.preventDefault();
     const namevalid = nameSchema.isValidSync(this.state);
@@ -103,7 +89,7 @@ export class TeaEditorContainer extends React.Component {
 
     const teaData = {
       userID: this.state.userID,
-      teaID: this.state.teaID,
+      id: this.state.id,
       name: this.state.name,
       brand: this.state.brand,
       teaType: this.state.teaType,
@@ -111,48 +97,27 @@ export class TeaEditorContainer extends React.Component {
     };
 
     if (namevalid && brandvalid && teaTypevalid && servingsvalid) {
-      if (this.state.edit === true) {
-        this.props.editTea(teaData);
-        this.props.editTeaFlash("on");
-        this.props.history.push("/tea/" + this.state.teaID);
+      if (this.props.edit === true) {
+        this.props
+          .editTea(teaData)
+          .then(this.props.editFlash("success"))
+          .then(this.props.history.push("/tea/" + this.state.id));
       } else {
-        this.props.addTea(teaData);
-        this.setState({
-          flash: {
-            name: this.state.name,
-            teaID: this.state.teaID
-          },
-          touched: {
-            name: false,
-            servings: false
-          },
-          teaID: "",
-          userID: this.props.userID,
-          name: "",
-          brand: "",
-          teaType: "",
-          teaTypes: this.props.teaTypes,
-          servings: "",
-          edit: false,
-          errors: {
-            name: true,
-            brand: true,
-            teaType: true,
-            servings: true,
-            incomplete: true,
-            teaConflict: true
-          }
-        });
+        this.props.addTea(teaData).then(
+          this.setState({
+            ...this.initialState,
+            loadingStatus: "complete"
+          })
+        );
       }
     } else {
       this.setState(state => ({
-        errors: {
-          ...state.errors,
+        inputValidation: {
+          ...state.inputValidation,
           name: namevalid,
           brand: brandvalid,
           teaType: teaTypevalid,
-          servings: servingsvalid,
-          incomplete: false
+          servings: servingsvalid
         }
       }));
     }
@@ -160,15 +125,9 @@ export class TeaEditorContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
-    this.props.getTeaTypes(this.props.userID);
-    if (this.props.serverErrors && this.props.serverErrors.teaConflict) {
-      this.setState(state => ({
-        errors: {
-          ...state.errors,
-          teaConflict: false
-        }
-      }));
-    }
+    this.props
+      .getTeaTypes(this.props.userID)
+      .then(() => this.setState({ loadingStatus: "complete" }));
   }
 
   componentDidUpdate(prevProps) {
@@ -178,59 +137,88 @@ export class TeaEditorContainer extends React.Component {
         this.props.currentTea.id !== prevProps.currentTea.id)
     ) {
       this.setState({
-        teaID: this.props.currentTea.id,
+        id: this.props.currentTea.id,
         name: this.props.currentTea.name,
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,
         servings: this.props.currentTea.servings,
-        edit: true,
-        brandsDataList: this.props.teas.teaIDs.map(teaID => {
-          return this.props.teas.allTeas[teaID].brand;
+        brandsDataList: this.props.teas.ids.map(id => {
+          return this.props.teas.allTeas[id].brand;
         })
       });
+    }
+    if (
+      (this.props.updatedTea && !prevProps.updatedTea) ||
+      (this.props.updatedTea &&
+        this.props.updatedTea.id !== prevProps.updatedTea.id)
+    ) {
+      this.setState({
+        flash: {
+          name: this.props.updatedTea.name,
+          id: this.props.updatedTea.id
+        }
+      });
+    }
+    if (this.props.serverErrors && !prevProps.serverErrors) {
+      this.setState(state => ({
+        inputValidation: {
+          ...state.inputValidation,
+          duplicate: false
+        },
+        flash: { name: "", id: "" }
+      }));
     }
   }
 
   render() {
-    return (
-      <TeaEditor
-        teaTypes={this.props.teaTypes}
-        name={this.state.name}
-        brand={this.state.brand}
-        brandsDataList={
-          <DataList id="brands" options={this.state.brandsDataList} />
-        }
-        teaType={this.state.teaType}
-        servings={this.state.servings}
-        flash={this.state.flash}
-        errors={this.state.errors}
-        errorMessages={this.state.errorMessages}
-        handleBlur={this.handleBlur}
-        handleNameChange={this.handleNameChange}
-        handleBrandChange={this.handleBrandChange}
-        handleTypeChange={this.handleTypeChange}
-        handleServingsChange={this.handleServingsChange}
-        handleSubmitButton={this.handleSubmitButton}
-        handleFormSubmit={this.handleFormSubmit}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div className="pageloader">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
+        <TeaEditor
+          teaTypes={this.props.teaTypes}
+          name={this.state.name}
+          brand={this.state.brand}
+          brandsDataList={
+            <DataList id="brands" options={this.state.brandsDataList} />
+          }
+          teaType={this.state.teaType}
+          servings={this.state.servings}
+          flash={this.state.flash}
+          inputValidation={this.state.inputValidation}
+          errorMessages={this.state.errorMessages}
+          handleBlur={this.handleBlur}
+          handleNameChange={this.handleNameChange}
+          handleBrandChange={this.handleBrandChange}
+          handleTypeChange={this.handleTypeChange}
+          handleServingsChange={this.handleServingsChange}
+          handleFormSubmit={this.handleFormSubmit}
+        />
+      );
+    }
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    teaTypes: state.teaTypes,
+    teaTypes: selectTeaTypes(state.teaTypes),
     teas: state.teas,
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
-    serverErrors: state.auth.errors
+    updatedTea: state.teas.updatedTea,
+    edit: state.teas.allTeas[ownProps.match.params.id] ? true : false,
+    serverErrors: state.errors.serverErrors
   };
 };
 
 const mapDispatchToProps = {
   editTea,
   addTea,
-  editTeaFlash,
+  editFlash,
   getTeas,
   getTeaTypes
 };

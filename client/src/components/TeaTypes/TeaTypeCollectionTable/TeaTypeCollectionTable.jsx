@@ -6,6 +6,11 @@ export class TeaTypeCollectionTable extends React.Component {
   render() {
     return (
       <div data-testid="teatypecollection" className="container">
+        {this.props.flash === "success" && (
+          <p data-testid="flash" className="notification is-success">
+            Tea type has been succesfully updated.
+          </p>
+        )}
         <Link to={"/new-tea-type"} className="button is-primary">
           Add A New Type
         </Link>

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const teaNormalizer = require("../../normalizers/teaNormalizer");
 
 // Load input validation
@@ -8,10 +9,10 @@ const validateTeaInput = require("../../validation/teas");
 // Load Tea model
 const Tea = require("../../models/Tea");
 
-// @route POST api/teas/new-tea
+// @route POST api/teas
 // @desc Add new tea
 // @access Public
-router.post("/new-tea", (req, res) => {
+router.post("/", (req, res) => {
   const { errors, isValid } = validateTeaInput(req.body);
 
   // Check validation
@@ -21,11 +22,11 @@ router.post("/new-tea", (req, res) => {
 
   Tea.findOne({ id: req.body.id }).then(tea => {
     if (tea) {
-      return res.status(400).json({ teaConflict: "This tea already exists" });
+      return res.json({ duplicate: "This tea already exists" });
     }
 
     const newTea = new Tea({
-      id: req.body.id,
+      id: new mongoose.mongo.ObjectId(),
       userID: req.body.userID,
       name: req.body.name,
       brand: req.body.brand,
@@ -40,7 +41,10 @@ router.post("/new-tea", (req, res) => {
   });
 });
 
-router.put("/update-tea", (req, res) => {
+// @route PUT api/teas
+// @desc Update tea
+// @access Public
+router.put("/:id", (req, res) => {
   const { errors, isValid } = validateTeaInput(req.body);
 
   // Check validation
@@ -57,7 +61,10 @@ router.put("/update-tea", (req, res) => {
   });
 });
 
-router.delete("/delete-tea/:id", (req, res) => {
+// @route DELETE api/teas/:id
+// @desc Delete tea
+// @access Public
+router.delete("/:id", (req, res) => {
   // The "tea" in this callback function represents the document that was found.
   // It allows you to pass a reference back to the client in case they need a reference for some reason.
   Tea.findOneAndDelete({ id: req.params.id }, {}, err => {
@@ -73,8 +80,10 @@ router.delete("/delete-tea/:id", (req, res) => {
   });
 });
 
-// get the tea with that id (accessed at GET http://localhost:8080/api/teas/:tea_id)
-router.get("/tea/:id", (req, res) => {
+// @route GET api/teas/:id
+// @desc Get individual tea
+// @access Public
+router.get("/:id", (req, res) => {
   Tea.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {
       res.send(err);
@@ -87,8 +96,11 @@ router.get("/tea/:id", (req, res) => {
   });
 });
 
-router.get("/teasList/:id", function(req, res) {
-  Tea.find({ userID: req.params.id }, function(err, teas) {
+// @route GET api/teas
+// @desc Get all teas
+// @access Public
+router.get("/", function(req, res) {
+  Tea.find({ userID: req.query.userID }, function(err, teas) {
     res.send(teas.map(teaNormalizer));
   });
 });

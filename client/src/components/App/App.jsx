@@ -19,7 +19,6 @@ import TeaDetails from "../Tea/TeaDetails";
 import TeaTypeEditor from "../TeaTypes/TeaTypeEditor";
 import TeaTypeCollectionTable from "../TeaTypes/TeaTypeCollectionTable";
 // Styles
-import "bulma/bulma.sass";
 import "../../common_styles/global.scss";
 
 // Check for token to keep user logged in

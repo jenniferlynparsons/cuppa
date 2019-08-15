@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const teaTypeNormalizer = require("../../normalizers/teaTypeNormalizer");
 
 // Load input validation
@@ -8,10 +9,10 @@ const validateTeaTypeInput = require("../../validation/teaTypes");
 // Load Tea Type model
 const TeaType = require("../../models/TeaType");
 
-// @route POST api/tea-types/new-tea-type
+// @route POST api/tea-types
 // @desc Add new tea type
 // @access Public
-router.post("/new-tea-type", (req, res) => {
+router.post("/", (req, res) => {
   const { errors, isValid } = validateTeaTypeInput(req.body);
 
   // Check validation
@@ -19,15 +20,13 @@ router.post("/new-tea-type", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  TeaType.findOne({ id: req.body.id }).then(teaType => {
+  TeaType.findOne({ name: req.body.name }).then(teaType => {
     if (teaType) {
-      return res
-        .status(400)
-        .json({ teaTypeConflict: "This tea type already exists" });
+      return res.json({ duplicate: "This tea type already exists" });
     }
 
     const newTeaType = new TeaType({
-      id: req.body.id,
+      id: new mongoose.mongo.ObjectId(),
       userID: req.body.userID,
       name: req.body.name,
       brewTime: req.body.brewTime
@@ -42,7 +41,10 @@ router.post("/new-tea-type", (req, res) => {
   });
 });
 
-router.put("/update-tea-type", (req, res) => {
+// @route PUT api/tea-types
+// @desc Edit tea type
+// @access Public
+router.put("/:id", (req, res) => {
   const { errors, isValid } = validateTeaTypeInput(req.body);
 
   // Check validation
@@ -51,7 +53,7 @@ router.put("/update-tea-type", (req, res) => {
   }
 
   TeaType.findOneAndUpdate(
-    { id: req.body.id },
+    { id: req.params.id },
     req.body,
     { new: true },
     function(err, teaType) {
@@ -61,7 +63,10 @@ router.put("/update-tea-type", (req, res) => {
   );
 });
 
-router.delete("/delete-tea-type/:id", (req, res) => {
+// @route DELETE api/tea-types
+// @desc Delete tea type
+// @access Public
+router.delete("/:id", (req, res) => {
   // The "teaType" in this callback function represents the document that was found.
   // It allows you to pass a reference back to the client in case they need a reference for some reason.
   TeaType.findOneAndDelete({ id: req.params.id }, {}, err => {
@@ -77,8 +82,10 @@ router.delete("/delete-tea-type/:id", (req, res) => {
   });
 });
 
-// get the teaType with that id (accessed at GET http://localhost:8080/api/tea-types/:tea_type_id)
-router.get("/tea-type/:id", (req, res) => {
+// @route GET api/tea-types/:id
+// @desc Get individual tea type
+// @access Public
+router.get("/:id", (req, res) => {
   TeaType.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {
       res.send(err);
@@ -91,8 +98,14 @@ router.get("/tea-type/:id", (req, res) => {
   });
 });
 
-router.get("/teaTypesList/:id", function(req, res) {
-  TeaType.find({ userID: req.params.id }, function(err, teaTypes) {
+// @route GET api/tea-types/:id
+// @desc Get all tea types
+// @access Public
+router.get("/", function(req, res) {
+  TeaType.find({ userID: req.query.userID }, function(err, teaTypes) {
+    if (err) {
+      res.send(err);
+    }
     res.send(teaTypes.map(teaTypeNormalizer));
   });
 });

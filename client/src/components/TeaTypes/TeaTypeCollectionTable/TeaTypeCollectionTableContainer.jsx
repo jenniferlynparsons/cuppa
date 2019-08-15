@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { deleteTeaType, getTeaTypes } from "../../../actions/teaTypeActions";
+import { editFlash, clearFlash } from "../../../actions/flashActions";
 import { TeaTypeCollectionTable } from "./TeaTypeCollectionTable";
 
 export class TeaTypeCollectionTableContainer extends React.Component {
   state = {
     allTeaTypes: {},
-    teaTypeIDs: []
+    teaTypeIDs: [],
+    flash: "off"
   };
   columnHeaders = [
     { colName: "name", colTitle: "Name" },
@@ -14,6 +16,11 @@ export class TeaTypeCollectionTableContainer extends React.Component {
   ];
 
   handleDeleteClick = teaType => this.props.deleteTeaType(teaType);
+
+  componentWillMount() {
+    this.setState({ flash: this.props.flash });
+    this.props.clearFlash();
+  }
 
   componentDidMount() {
     this.props.getTeaTypes(this.props.userID);
@@ -39,6 +46,7 @@ export class TeaTypeCollectionTableContainer extends React.Component {
     return (
       this.props.allTeaTypes && (
         <TeaTypeCollectionTable
+          flash={this.state.flash}
           columnHeaders={this.columnHeaders}
           allTeaTypes={this.state.allTeaTypes}
           teaTypeIDs={this.state.teaTypeIDs}
@@ -53,11 +61,14 @@ const mapStateToProps = state => {
   return {
     allTeaTypes: state.teaTypes.allTeaTypes,
     teaTypeIDs: state.teaTypes.teaTypeIDs,
-    userID: state.auth.user.id
+    userID: state.auth.user.id,
+    flash: state.flash
   };
 };
 
 const mapDispatchToProps = {
+  editFlash,
+  clearFlash,
   deleteTeaType,
   getTeaTypes
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import uuidv4 from "uuid/v4";
 import { connect } from "react-redux";
 import {
   convertTimeToMinSec,
@@ -15,20 +14,19 @@ import {
   addTeaType,
   getTeaTypes
 } from "../../../actions/teaTypeActions";
-import { editTeaTypeFlash } from "../../../actions/flashActions";
+import { editFlash } from "../../../actions/flashActions";
 import { TeaTypeEditor } from "./TeaTypeEditor";
 
 export class TeaTypeEditorContainer extends React.Component {
   state = {
     flash: {
-      name: "",
-      teaTypeID: ""
+      name: ""
     },
     touched: {
       name: false
     },
     userID: this.props.userID,
-    teaTypeID: this.props.currentTeaType ? this.props.currentTeaType.id : "",
+    id: this.props.currentTeaType ? this.props.currentTeaType.id : "",
     name: this.props.currentTeaType ? this.props.currentTeaType.name : "",
     brewTimeMin: this.props.currentTeaType
       ? convertTimeToMinSec(this.props.currentTeaType.brewTime).minute
@@ -36,20 +34,21 @@ export class TeaTypeEditorContainer extends React.Component {
     brewTimeSec: this.props.currentTeaType
       ? convertTimeToMinSec(this.props.currentTeaType.brewTime).seconds
       : "",
-    edit: !!this.props.currentTeaType,
-    errors: {
+    inputValidation: {
       name: true,
       brewTime: true,
       brewTimeMin: true,
       brewTimeSec: true,
-      incomplete: true,
-      teaTypeConflict: true
+      duplicate: true
     },
     errorMessages: {
       name: "Please enter a tea type name",
       brewTime: "Please enter a tea brew time"
-    }
+    },
+    loadingStatus: "inprogress"
   };
+
+  initialState = this.state;
 
   handleBlur = field => () => {
     this.setState(state => ({
@@ -78,20 +77,6 @@ export class TeaTypeEditorContainer extends React.Component {
     });
   };
 
-  handleSubmitButton = () => {
-    if (!this.state.teaTypeID) {
-      this.setState({
-        teaTypeID: uuidv4()
-      });
-    }
-
-    this.setState(state => ({
-      touched: {
-        ...state.touched
-      }
-    }));
-  };
-
   handleFormSubmit = event => {
     event.preventDefault();
 
@@ -104,7 +89,7 @@ export class TeaTypeEditorContainer extends React.Component {
 
     const typeData = {
       userID: this.state.userID,
-      teaTypeID: this.state.teaTypeID,
+      id: this.state.id,
       name: this.state.name,
       brewTime: convertTimeToSec(
         this.state.brewTimeMin,
@@ -113,61 +98,40 @@ export class TeaTypeEditorContainer extends React.Component {
     };
 
     if (namevalid && brewtimevalid) {
-      if (this.state.edit === true) {
-        this.props.editTeaType(typeData);
-        this.props.editTeaTypeFlash("on");
-        this.props.history.push("/tea-types/");
+      if (this.props.edit === true) {
+        this.props
+          .editTeaType(typeData)
+          .then(this.props.editFlash("success"))
+          .then(this.props.history.push("/tea-types/"));
       } else {
-        this.props.addTeaType(typeData);
-        this.setState({
-          flash: {
-            name: this.state.name,
-            teaTypeID: this.state.teaTypeID
-          },
-          touched: {
-            name: false
-          },
-          teaTypeID: "",
-          userID: this.props.userID,
-          name: "",
-          brewTimeMin: "",
-          brewTimeSec: "",
-          edit: false,
-          errors: {
-            name: true,
-            brewTime: true,
-            brewTimeMin: true,
-            brewTimeSec: true,
-            incomplete: true,
-            teaTypeConflict: true
-          }
-        });
+        this.props.addTeaType(typeData).then(
+          this.setState({
+            ...this.initialState,
+            loadingStatus: "complete",
+            flash: {
+              name: this.state.name
+            }
+          })
+        );
       }
     } else {
       this.setState(state => ({
-        errors: {
+        inputValidation: {
           ...state.errors,
           name: namevalid,
           brewTime: brewtimevalid,
           brewTimeMin: brewtimeminvalid,
           brewTimeSec: brewtimesecvalid,
-          incomplete: false
+          duplicate: true
         }
       }));
     }
   };
 
   componentDidMount() {
-    this.props.getTeaTypes(this.props.userID);
-
-    if (this.props.serverErrors && this.props.serverErrors.teaTypeConflict) {
-      this.setState(state => ({
-        errors: {
-          ...state.errors,
-          teaTypeConflict: false
-        }
-      }));
-    }
+    return this.props.getTeaTypes(this.props.userID).then(() => {
+      return this.setState({ loadingStatus: "complete" });
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -177,34 +141,50 @@ export class TeaTypeEditorContainer extends React.Component {
         this.props.currentTeaType.id !== prevProps.currentTeaType.id)
     ) {
       this.setState({
-        teaID: this.props.currentTeaType.id,
+        id: this.props.currentTeaType.id,
         name: this.props.currentTeaType.name,
         brewTimeMin: convertTimeToMinSec(this.props.currentTeaType.brewTime)
           .minute,
         brewTimeSec: convertTimeToMinSec(this.props.currentTeaType.brewTime)
-          .seconds,
-        edit: true
+          .seconds
       });
+    }
+    if (this.props.serverErrors && !prevProps.serverErrors) {
+      this.setState(state => ({
+        inputValidation: {
+          ...state.inputValidation,
+          duplicate: false
+        },
+        flash: { name: "" }
+      }));
     }
   }
 
   render() {
-    return (
-      <TeaTypeEditor
-        name={this.state.name}
-        brewTimeMin={this.state.brewTimeMin}
-        brewTimeSec={this.state.brewTimeSec}
-        flash={this.state.flash}
-        errors={this.state.errors}
-        errorMessages={this.state.errorMessages}
-        handleBlur={this.handleBlur}
-        handleNameChange={this.handleNameChange}
-        handleBrewTimeMinChange={this.handleBrewTimeMinChange}
-        handleBrewTimeSecChange={this.handleBrewTimeSecChange}
-        handleSubmitButton={this.handleSubmitButton}
-        handleFormSubmit={this.handleFormSubmit}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
+        <TeaTypeEditor
+          name={this.state.name}
+          brewTimeMin={this.state.brewTimeMin}
+          brewTimeSec={this.state.brewTimeSec}
+          flash={this.state.flash}
+          inputValidation={this.state.inputValidation}
+          errorMessages={this.state.errorMessages}
+          handleBlur={this.handleBlur}
+          handleNameChange={this.handleNameChange}
+          handleBrewTimeMinChange={this.handleBrewTimeMinChange}
+          handleBrewTimeSecChange={this.handleBrewTimeSecChange}
+          handleSubmitButton={this.handleSubmitButton}
+          handleFormSubmit={this.handleFormSubmit}
+        />
+      );
+    }
   }
 }
 
@@ -212,14 +192,15 @@ const mapStateToProps = (state, ownProps) => {
   return {
     userID: state.auth.user.id,
     currentTeaType: state.teaTypes.allTeaTypes[ownProps.match.params.id],
-    serverErrors: state.auth.errors
+    edit: state.teaTypes.allTeaTypes[ownProps.match.params.id] ? true : false,
+    serverErrors: state.errors.serverErrors
   };
 };
 
 const mapDispatchToProps = {
   editTeaType,
   addTeaType,
-  editTeaTypeFlash,
+  editFlash,
   getTeaTypes
 };
 

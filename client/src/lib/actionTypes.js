@@ -6,8 +6,8 @@ export const teaActionTypes = {
 };
 
 export const flashActionTypes = {
-  EDIT_TEA_FLASH: "EDIT_TEA_FLASH",
-  EDIT_TEA_TYPE_FLASH: "EDIT_TEA_TYPE_FLASH"
+  EDIT_FLASH: "EDIT_FLASH",
+  CLEAR_FLASH: "CLEAR_FLASH"
 };
 
 export const authActionTypes = {
@@ -21,4 +21,8 @@ export const teaTypeActionTypes = {
   EDIT_TEATYPE: "EDIT_TEATYPE",
   DELETE_TEATYPE: "DELETE_TEATYPE",
   GET_TEATYPES: "GET_TEATYPES"
+};
+
+export const errorActionTypes = {
+  SERVER_ERRORS: "SERVER_ERRORS"
 };
