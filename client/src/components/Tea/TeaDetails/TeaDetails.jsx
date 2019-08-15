@@ -36,7 +36,6 @@ export class TeaDetails extends React.Component {
           <button
             data-testid="makecuppalink"
             className="button is-primary"
-            disabled={this.props.tea.servings <= 0}
             onClick={this.props.handleOpenTimer}
           >
             Make A Cuppa

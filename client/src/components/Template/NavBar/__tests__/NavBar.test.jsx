@@ -6,12 +6,12 @@ import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import NavBarContainer from "../NavBarContainer";
 import { NavBarContainerComponent } from "../NavBarContainer";
 
-let mockFunc;
+let mockFunc = jest.fn();
+
 let loggedOutStore;
 let loggedInStore;
 
 beforeEach(() => {
-  mockFunc = jest.fn();
   loggedOutStore = makeMockStore(storeFixture.loggedOutStore);
   loggedInStore = makeMockStore(storeFixture.loggedInStore);
 });

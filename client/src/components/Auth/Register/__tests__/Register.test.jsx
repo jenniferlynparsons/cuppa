@@ -6,16 +6,7 @@ import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import RegisterContainer from "../RegisterContainer";
 import { RegisterContainerComponent } from "../RegisterContainer";
 
-let mockFunc;
-let mockDefaultProps;
-
-beforeEach(() => {
-  mockFunc = jest.fn();
-  mockDefaultProps = {
-    auth: storeFixture.loggedOutStore,
-    registerUser: mockFunc
-  };
-});
+let mockFunc = jest.fn();
 
 describe("Register rendering", () => {
   test("Register renders without error", () => {
@@ -31,7 +22,10 @@ describe("Register rendering", () => {
 describe("Register form success", () => {
   test("onSubmit submits the form with valid data", () => {
     const { getByTestId } = renderWithRouter(
-      <RegisterContainerComponent {...mockDefaultProps} />
+      <RegisterContainerComponent
+        auth={storeFixture.loggedOutStore}
+        registerUser={mockFunc}
+      />
     );
 
     fireEvent.change(getByTestId("name"), {
@@ -55,7 +49,10 @@ describe("Register form failure", () => {
   describe("onSubmit returns an error message if data is invalid", () => {
     test("missing information", () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
-        <RegisterContainerComponent {...mockDefaultProps} />
+        <RegisterContainerComponent
+          auth={storeFixture.loggedOutStore}
+          registerUser={mockFunc}
+        />
       );
 
       expect(queryByTestId("notfoundnotice")).toBeFalsy();
@@ -67,7 +64,10 @@ describe("Register form failure", () => {
 
     test("invalid email address", () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
-        <RegisterContainerComponent {...mockDefaultProps} />
+        <RegisterContainerComponent
+          auth={storeFixture.loggedOutStore}
+          registerUser={mockFunc}
+        />
       );
 
       expect(queryByTestId("notfoundnotice")).toBeFalsy();
@@ -90,7 +90,10 @@ describe("Register form failure", () => {
 
     test("mismatched passwords", () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
-        <RegisterContainerComponent {...mockDefaultProps} />
+        <RegisterContainerComponent
+          auth={storeFixture.loggedOutStore}
+          registerUser={mockFunc}
+        />
       );
 
       expect(queryByTestId("notfoundnotice")).toBeFalsy();

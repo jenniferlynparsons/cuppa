@@ -29,8 +29,7 @@ describe("addTea", () => {
   });
   test("it calls 'post' on the API with the correct path and the tea data", () => {
     store.dispatch(addTea(teaFixture.reducerAddTea));
-    let spy = jest.spyOn(API, "post");
-    expect(spy).toHaveBeenCalled();
+    expect(API.post).toHaveBeenCalledWith("/teas", teaFixture.reducerAddTea);
   });
   test("it returns the ADD_TEA action type and payload", async () => {
     await store.dispatch(addTea(teaFixture.reducerAddTea));
@@ -45,8 +44,10 @@ describe("editTea", () => {
   });
   test("it calls 'put' on the API with the correct path and the tea data", () => {
     store.dispatch(editTea(teaFixture.reducerEditTea));
-    let spy = jest.spyOn(API, "put");
-    expect(spy).toHaveBeenCalled();
+    expect(API.put).toHaveBeenCalledWith(
+      `/teas/${teaFixture.reducerEditTea.id}`,
+      teaFixture.reducerEditTea
+    );
   });
   test("it returns the EDIT_TEA action type and payload", async () => {
     await store.dispatch(editTea(teaFixture.reducerEditTea));
@@ -63,8 +64,9 @@ describe("deleteTea", () => {
   });
   test("it calls 'post' on the API with the correct path and the tea data", () => {
     store.dispatch(deleteTea(storeFixture.basicStore.teas.teaIDs[1]));
-    let spy = jest.spyOn(API, "delete");
-    expect(spy).toHaveBeenCalled();
+    expect(API.delete).toHaveBeenCalledWith(
+      `/teas/${storeFixture.basicStore.teas.teaIDs[1]}`
+    );
   });
   test("it returns the DELETE_TEA action type and payload", async () => {
     await store.dispatch(deleteTea(storeFixture.basicStore.teas.teaIDs[1]));
@@ -81,8 +83,9 @@ describe("getTeas", () => {
   });
   test("it calls 'post' on the API with the correct path and the tea data", () => {
     store.dispatch(getTeas(storeFixture.basicStore.auth.user.id));
-    let spy = jest.spyOn(API, "get");
-    expect(spy).toHaveBeenCalled();
+    expect(API.get).toHaveBeenCalledWith(
+      `/teas?userID=${storeFixture.basicStore.auth.user.id}`
+    );
   });
   test("it returns the GET_TEAS action type and payload", async () => {
     await store.dispatch(getTeas(storeFixture.basicStore.userID));

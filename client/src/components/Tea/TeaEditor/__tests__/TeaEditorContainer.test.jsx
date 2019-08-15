@@ -11,30 +11,24 @@ import { TeaEditorContainerClass } from "../TeaEditorContainer";
 let mockFunc;
 let mockAdd;
 let mockEdit;
-let mockDefaultProps;
 
 beforeEach(() => {
   mockFunc = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
   mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
-  mockDefaultProps = {
-    teaTypes: teaTypeFixture.allTeaTypesArray,
-    userID: dataFixture.mockUserID,
-    currentTea: "",
-    getTeas: mockFunc,
-    getTeaTypes: mockFunc,
-    addTea: mockAdd,
-    editTea: mockEdit,
-    editFlash: mockFunc,
-    clearFlash: mockFunc,
-    history: dataFixture.history
-  };
 });
 
 describe("teaEditor form success", () => {
   test("editor form submit succesfully adds tea", async () => {
     const { getByTestId } = renderWithRouter(
-      <TeaEditorContainerClass {...mockDefaultProps} />
+      <TeaEditorContainerClass
+        teaTypes={teaTypeFixture.allTeaTypesArray}
+        userID={dataFixture.mockUserID}
+        currentTea={""}
+        getTeas={mockFunc}
+        getTeaTypes={mockFunc}
+        addTea={mockAdd}
+      />
     );
     await Promise.resolve();
 
@@ -65,9 +59,16 @@ describe("teaEditor form success", () => {
   test("editor form succesfully updates tea", async () => {
     const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass
-        {...mockDefaultProps}
+        teaTypes={teaTypeFixture.allTeaTypesArray}
+        userID={dataFixture.mockUserID}
         currentTea={teaFixture.basicTea}
         edit={true}
+        getTeas={mockFunc}
+        getTeaTypes={mockFunc}
+        editTea={mockEdit}
+        editFlash={mockFunc}
+        clearFlash={mockFunc}
+        history={dataFixture.history}
       />
     );
     await Promise.resolve();
@@ -91,7 +92,17 @@ describe("teaEditor form failure", () => {
   describe("editor onSubmit returns an error message if data is invalid", () => {
     test("missing information for new tea", async () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
-        <TeaEditorContainerClass {...mockDefaultProps} />
+        <TeaEditorContainerClass
+          teaTypes={teaTypeFixture.allTeaTypesArray}
+          userID={dataFixture.mockUserID}
+          currentTea={""}
+          getTeas={mockFunc}
+          getTeaTypes={mockFunc}
+          editTea={mockEdit}
+          editFlash={mockFunc}
+          clearFlash={mockFunc}
+          history={dataFixture.history}
+        />
       );
       await Promise.resolve();
 
@@ -105,8 +116,15 @@ describe("teaEditor form failure", () => {
     test("missing information for existing tea", async () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <TeaEditorContainerClass
-          {...mockDefaultProps}
+          teaTypes={teaTypeFixture.allTeaTypesArray}
+          userID={dataFixture.mockUserID}
           currentTea={teaFixture.missingDataTea}
+          getTeas={mockFunc}
+          getTeaTypes={mockFunc}
+          editTea={mockEdit}
+          editFlash={mockFunc}
+          clearFlash={mockFunc}
+          history={dataFixture.history}
         />
       );
       await Promise.resolve();

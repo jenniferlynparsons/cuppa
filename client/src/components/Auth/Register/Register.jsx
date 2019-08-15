@@ -17,7 +17,7 @@ export class Register extends React.Component {
             Please provide a valid email address and password.
           </p>
         )}
-        {this.props.serverErrors && this.props.serverErrors.duplicateEmail && (
+        {!this.props.inputValidation.duplicateEmail && (
           <p className="notification is-danger" data-testid="notfoundnotice">
             This email already exists in our system. Please try again or{" "}
             <Link to="/login">login</Link> to your account.

@@ -46,10 +46,12 @@ describe("loginAction", () => {
   });
 
   describe("dispatching the returned function", () => {
-    test("it calls 'post' on the API", () => {
+    test("it calls 'post' on the API with the correct path and the user data", () => {
       store.dispatch(loginAction(dataFixture.loginData));
-      let spy = jest.spyOn(API, "post");
-      expect(spy).toHaveBeenCalled();
+      expect(API.post).toHaveBeenCalledWith(
+        "/users/login",
+        dataFixture.loginData
+      );
     });
 
     describe("when the POST call is successful", () => {
@@ -76,12 +78,14 @@ describe("registerUser", () => {
   });
 
   describe("dispatching the returned function", () => {
-    test("it calls 'post' on the API", () => {
+    test("it calls 'post' on the API with the correct path and the user data", () => {
       store.dispatch(
         registerUser(dataFixture.registerData, dataFixture.history)
       );
-      let spy = jest.spyOn(API, "post");
-      expect(spy).toHaveBeenCalled();
+      expect(API.post).toHaveBeenCalledWith(
+        "/users/register",
+        dataFixture.registerData
+      );
     });
 
     describe("when the POST call is successful", () => {

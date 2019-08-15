@@ -22,9 +22,7 @@ router.post("/", (req, res) => {
 
   TeaType.findOne({ name: req.body.name }).then(teaType => {
     if (teaType) {
-      return res
-        .status(409)
-        .json({ duplicate: "This tea type already exists" });
+      return res.json({ duplicate: "This tea type already exists" });
     }
 
     const newTeaType = new TeaType({
@@ -37,9 +35,9 @@ router.post("/", (req, res) => {
     newTeaType
       .save()
       .then(teaType => {
-        res.status(200).json(teaTypeNormalizer(teaType));
+        res.json(teaTypeNormalizer(teaType));
       })
-      .catch(err => res.status(500, { error: err }));
+      .catch(err => console.log(err));
   });
 });
 
@@ -60,7 +58,7 @@ router.put("/:id", (req, res) => {
     { new: true },
     function(err, teaType) {
       if (err) return res.send(500, { error: err });
-      return res.status(200).json(teaTypeNormalizer(teaType));
+      return res.json(teaTypeNormalizer(teaType));
     }
   );
 });
@@ -88,16 +86,14 @@ router.delete("/:id", (req, res) => {
 // @desc Get individual tea type
 // @access Public
 router.get("/:id", (req, res) => {
-  TeaType.findOne({ id: req.params.id }, (err, teaType) => {
+  TeaType.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {
-      return res.status(404).send(err);
+      res.send(err);
     }
-    if (teaType) {
-      return res.status(200).json(teaTypeNormalizer(teaType));
+    if (tea) {
+      res.json(teaTypeNormalizer(tea));
     } else {
-      return res
-        .status(404)
-        .json({ teaTypeMissing: "TeaType does not exist." });
+      return res.json({ message: "Tea does not exist." });
     }
   });
 });
@@ -108,15 +104,9 @@ router.get("/:id", (req, res) => {
 router.get("/", function(req, res) {
   TeaType.find({ userID: req.query.userID }, function(err, teaTypes) {
     if (err) {
-      return res.status(404).send(err);
+      res.send(err);
     }
-    if (teaTypes) {
-      return res.status(200).send(teaTypes.map(teaTypeNormalizer));
-    } else {
-      return res
-        .status(404)
-        .json({ teaTypesMissing: "TeaTypes do not exist." });
-    }
+    res.send(teaTypes.map(teaTypeNormalizer));
   });
 });
 

@@ -17,10 +17,10 @@ class InputField extends React.Component {
             list={this.props.list}
             placeholder={this.props.placeholder}
             value={this.props.value}
-            min={this.props.min}
-            max={this.props.max}
             onChange={this.props.onChange}
             onBlur={this.props.onBlur}
+            min={this.props.min}
+            max={this.props.max}
           />
           {this.props.datalist}
         </div>

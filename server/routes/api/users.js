@@ -27,7 +27,7 @@ router.post("/register", (req, res) => {
 
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      return res.status(409).json({ duplicateEmail: "Email already exists" });
+      return res.json({ duplicateEmail: "Email already exists" });
     } else {
       const newUser = new User({
         name: req.body.name,
@@ -43,6 +43,7 @@ router.post("/register", (req, res) => {
           newUser
             .save()
             .then(user => {
+              // res.json(user)
               const payload = {
                 id: user.id,
                 name: user.name
@@ -56,14 +57,14 @@ router.post("/register", (req, res) => {
                   expiresIn: 31556926 // 1 year in seconds
                 },
                 (err, token) => {
-                  res.status(200).json({
+                  res.json({
                     success: true,
                     token: "Bearer " + token
                   });
                 }
               );
             })
-            .catch(err => res.status(500, { error: err }));
+            .catch(err => console.log(err));
         });
       });
     }
@@ -90,7 +91,7 @@ router.post("/login", (req, res) => {
   User.findOne({ email }).then(user => {
     // Check if user exists
     if (!user) {
-      return res.status(404).send({ emailNotFound: "Email not found" });
+      return res.json({ emailNotFound: "Email not found" });
     }
 
     // Check password
@@ -111,7 +112,7 @@ router.post("/login", (req, res) => {
             expiresIn: 31556926 // 1 year in seconds
           },
           (err, token) => {
-            res.status(200).json({
+            res.json({
               success: true,
               token: "Bearer " + token
             });
@@ -120,7 +121,7 @@ router.post("/login", (req, res) => {
       } else {
         return res
           .status(400)
-          .send({ passwordInCorrect: "Password incorrect" });
+          .json({ passwordincorrect: "Password incorrect" });
       }
     });
   });
@@ -133,7 +134,7 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.status(200).json({
+    res.json({
       id: req.user.id,
       name: req.user.name,
       email: req.user.email

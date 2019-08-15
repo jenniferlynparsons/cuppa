@@ -10,7 +10,6 @@ import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash } from "../../../actions/flashActions";
 import { selectTeaTypes } from "../../../selectors/teaTypeSelectors";
-import { selectBrands } from "../../../selectors/brandSelectors";
 import { TeaEditor } from "./TeaEditor";
 import DataList from "../../FormComponents/DataList";
 
@@ -37,7 +36,8 @@ export class TeaEditorContainer extends React.Component {
       name: true,
       brand: true,
       teaType: true,
-      servings: true
+      servings: true,
+      duplicate: true
     },
     errorMessages: {
       name: "Please enter a tea name",
@@ -125,11 +125,9 @@ export class TeaEditorContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
-    this.props.getTeaTypes(this.props.userID).then(() =>
-      this.setState({
-        loadingStatus: "complete"
-      })
-    );
+    this.props
+      .getTeaTypes(this.props.userID)
+      .then(() => this.setState({ loadingStatus: "complete" }));
   }
 
   componentDidUpdate(prevProps) {
@@ -144,7 +142,9 @@ export class TeaEditorContainer extends React.Component {
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,
         servings: this.props.currentTea.servings,
-        brandsDataList: this.props.brandList
+        brandsDataList: this.props.teas.ids.map(id => {
+          return this.props.teas.allTeas[id].brand;
+        })
       });
     }
     if (
@@ -158,6 +158,15 @@ export class TeaEditorContainer extends React.Component {
           id: this.props.updatedTea.id
         }
       });
+    }
+    if (this.props.serverErrors && !prevProps.serverErrors) {
+      this.setState(state => ({
+        inputValidation: {
+          ...state.inputValidation,
+          duplicate: false
+        },
+        flash: { name: "", id: "" }
+      }));
     }
   }
 
@@ -181,7 +190,6 @@ export class TeaEditorContainer extends React.Component {
           servings={this.state.servings}
           flash={this.state.flash}
           inputValidation={this.state.inputValidation}
-          serverErrors={this.props.serverErrors}
           errorMessages={this.state.errorMessages}
           handleBlur={this.handleBlur}
           handleNameChange={this.handleNameChange}
@@ -199,7 +207,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     teaTypes: selectTeaTypes(state.teaTypes),
     teas: state.teas,
-    brandList: selectBrands(state.teas),
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
     updatedTea: state.teas.updatedTea,

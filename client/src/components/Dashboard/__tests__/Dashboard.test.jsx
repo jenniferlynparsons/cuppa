@@ -6,20 +6,15 @@ import storeFixture from "../../../test/__fixtures__/storeFixture";
 import DashboardContainer from "../DashboardContainer";
 import { DashboardContainerComponent } from "../DashboardContainer";
 
-let mockFunc;
-let mockDefaultProps;
+const mockLogoutUser = jest.fn();
 
+let store;
 beforeEach(() => {
-  mockFunc = jest.fn();
-  mockDefaultProps = {
-    auth: storeFixture.loggedInStore.auth,
-    logoutUser: mockFunc
-  };
+  store = makeMockStore(storeFixture.loggedInStore);
 });
 
 describe("Dashboard rendering", () => {
   test("dashboard renders without error when logged in", () => {
-    const store = makeMockStore(storeFixture.loggedInStore);
     const { queryByTestId } = renderWithRouter(
       <DashboardContainer store={store} />
     );
@@ -31,10 +26,13 @@ describe("Dashboard rendering", () => {
 describe("Dashboard interaction", () => {
   test("dashboard logout click logs out user", () => {
     const { getByTestId } = renderWithRouter(
-      <DashboardContainerComponent {...mockDefaultProps} />
+      <DashboardContainerComponent
+        auth={storeFixture.loggedInStore.auth}
+        logoutUser={mockLogoutUser}
+      />
     );
 
     fireEvent.click(getByTestId("logout"));
-    expect(mockFunc).toHaveBeenCalled();
+    expect(mockLogoutUser).toHaveBeenCalled();
   });
 });
