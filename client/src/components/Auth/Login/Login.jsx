@@ -12,27 +12,23 @@ export class Login extends React.Component {
         <p>
           Don&apos;t have an account? <Link to="/register">Register</Link>
         </p>
-        {!validationComplete(this.props.inputValidation) &&
-          this.props.inputValidation.passwordCorrect && (
-            <p
-              className="notification is-danger"
-              data-testid="incompletenotice"
-            >
-              Please provide a valid email address and password
-            </p>
-          )}
-        {!this.props.inputValidation.emailNotFound && (
+        {!validationComplete(this.props.inputValidation) && (
+          <p className="notification is-danger" data-testid="incompletenotice">
+            Please provide a valid email address and password
+          </p>
+        )}
+        {this.props.serverErrors && this.props.serverErrors.emailNotFound && (
           <p className="notification is-danger" data-testid="notfoundnotice">
             This email does not exist in our system. Please try again or{" "}
             <Link to="/register">register</Link> for an account.
           </p>
         )}
-        {!this.props.inputValidation.passwordCorrect && (
+        {this.props.serverErrors && this.props.serverErrors.passwordIncorrect && (
           <p
             className="notification is-danger"
             data-testid="incorrectpasswordnotice"
           >
-            {this.props.errorMessages.passwordCorrect}
+            {this.props.errorMessages.passwordIncorrect}
           </p>
         )}
         <form noValidate={true} onSubmit={this.props.onSubmit}>

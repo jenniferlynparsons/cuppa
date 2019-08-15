@@ -74,5 +74,15 @@ describe("Login form failure", () => {
       fireEvent.click(getByTestId("submit"));
       expect(queryByTestId("inputerror")).toBeTruthy();
     });
+
+    test("incorrect password", () => {
+      const { queryByTestId } = renderWithRouter(
+        <LoginContainerComponent
+          {...mockDefaultProps}
+          serverErrors={{ passwordIncorrect: "The password is incorrect" }}
+        />
+      );
+      expect(queryByTestId("incorrectpasswordnotice")).toBeTruthy();
+    });
   });
 });

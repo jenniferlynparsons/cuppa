@@ -37,8 +37,7 @@ export class TeaEditorContainer extends React.Component {
       name: true,
       brand: true,
       teaType: true,
-      servings: true,
-      duplicate: true
+      servings: true
     },
     errorMessages: {
       name: "Please enter a tea name",
@@ -160,15 +159,6 @@ export class TeaEditorContainer extends React.Component {
         }
       });
     }
-    if (this.props.serverErrors && !prevProps.serverErrors) {
-      this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
-          duplicate: false
-        },
-        flash: { name: "", id: "" }
-      }));
-    }
   }
 
   render() {
@@ -191,6 +181,7 @@ export class TeaEditorContainer extends React.Component {
           servings={this.state.servings}
           flash={this.state.flash}
           inputValidation={this.state.inputValidation}
+          serverErrors={this.props.serverErrors}
           errorMessages={this.state.errorMessages}
           handleBlur={this.handleBlur}
           handleNameChange={this.handleNameChange}
