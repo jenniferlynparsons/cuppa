@@ -3,23 +3,6 @@ import { Link } from "react-router-dom";
 import "./NavBar.scss";
 
 class NavBar extends React.Component {
-  state = {
-    menuActive: false,
-    dropdownActive: false
-  };
-
-  handleNavToggle = () => {
-    this.setState(prevState => ({
-      menuActive: !prevState.menuActive
-    }));
-  };
-
-  handleDropDownToggle = () => {
-    this.setState(prevState => ({
-      dropdownActive: !prevState.dropdownActive
-    }));
-  };
-
   render() {
     return (
       <nav
@@ -37,11 +20,12 @@ class NavBar extends React.Component {
               Cuppa
             </Link>
             <a
+              href="# "
               role="button"
               className="navbar-burger"
               aria-label="menu"
-              aria-expanded={this.state.menuActive}
-              onClick={this.handleNavToggle}
+              aria-expanded={this.props.menuActive}
+              onClick={this.props.handleNavToggle}
             >
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
@@ -51,7 +35,7 @@ class NavBar extends React.Component {
           <div
             className={[
               "navbar-menu",
-              this.state.menuActive ? "is-active" : ""
+              this.props.menuActive ? "is-active" : ""
             ].join(" ")}
           >
             <div className="navbar-start" />
@@ -62,7 +46,7 @@ class NavBar extends React.Component {
               <div
                 className={[
                   "navbar-item has-dropdown",
-                  this.state.dropdownActive ? "is-active" : ""
+                  this.props.dropdownActive ? "is-active" : ""
                 ].join(" ")}
               >
                 <a
@@ -70,17 +54,25 @@ class NavBar extends React.Component {
                   role="button"
                   className="navbar-link"
                   aria-label="menu"
-                  aria-expanded={this.state.dropdownActive}
-                  onClick={this.handleDropDownToggle}
+                  aria-expanded={this.props.dropdownActive}
+                  onClick={this.props.handleDropDownToggle}
                 >
                   My Account
                 </a>
 
                 <div className="navbar-dropdown">
-                  <Link className="navbar-item" to={"/dashboard"}>
+                  <Link
+                    className="navbar-item"
+                    to={"/dashboard"}
+                    onClick={this.props.handleDropDownToggle}
+                  >
                     Dashboard
                   </Link>
-                  <Link className="navbar-item" to={"/tea-types"}>
+                  <Link
+                    className="navbar-item"
+                    to={"/tea-types"}
+                    onClick={this.props.handleDropDownToggle}
+                  >
                     My Tea Types
                   </Link>
                   <hr className="navbar-divider" />
