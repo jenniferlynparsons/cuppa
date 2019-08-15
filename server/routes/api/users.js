@@ -91,7 +91,7 @@ router.post("/login", (req, res) => {
   User.findOne({ email }).then(user => {
     // Check if user exists
     if (!user) {
-      return res.json({ emailNotFound: "Email not found" });
+      return res.send({ emailNotFound: "Email not found" });
     }
 
     // Check password
@@ -119,7 +119,7 @@ router.post("/login", (req, res) => {
           }
         );
       } else {
-        return res.json({ passwordCorrect: "Password incorrect" });
+        return res.status(400).send({ passwordCorrect: "Password incorrect" });
       }
     });
   });
