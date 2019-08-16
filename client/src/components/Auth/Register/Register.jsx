@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { validationComplete } from "../../../lib/validationComplete";
 import InputField from "../../FormComponents/InputField/InputField";
 
 export class Register extends React.Component {
@@ -11,19 +12,16 @@ export class Register extends React.Component {
         <p>
           Already have an account? <Link to="/login">Log in</Link>
         </p>
-        {!this.props.errors.incomplete && (
-          <div
-            className="notification is-danger"
-            data-testid="incompletenotice"
-          >
+        {!validationComplete(this.props.inputValidation) && (
+          <p className="notification is-danger" data-testid="incompletenotice">
             Please provide a valid email address and password.
-          </div>
+          </p>
         )}
-        {!this.props.errors.emailAlreadyExists && (
-          <div className="notification is-danger" data-testid="notfoundnotice">
+        {!this.props.inputValidation.duplicateEmail && (
+          <p className="notification is-danger" data-testid="notfoundnotice">
             This email already exists in our system. Please try again or{" "}
             <Link to="/login">login</Link> to your account.
-          </div>
+          </p>
         )}
         <form noValidate={true} onSubmit={this.props.onSubmit}>
           <div className="field">
@@ -36,9 +34,9 @@ export class Register extends React.Component {
               type="text"
               value={this.props.name}
               className="input"
-              error={this.props.errors.name}
+              valid={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.onChange}
             />
           </div>
@@ -52,9 +50,9 @@ export class Register extends React.Component {
               type="email"
               value={this.props.email}
               className="input"
-              error={this.props.errors.email}
+              valid={this.props.inputValidation.email}
               errorMessage={this.props.errorMessages.email}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.onChange}
             />
           </div>
@@ -69,9 +67,9 @@ export class Register extends React.Component {
               type="password"
               value={this.props.password}
               className="input"
-              error={this.props.errors.password}
+              valid={this.props.inputValidation.password}
               errorMessage={this.props.errorMessages.password}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.onChange}
             />
           </div>
@@ -86,9 +84,9 @@ export class Register extends React.Component {
               type="password"
               value={this.props.password2}
               className="input"
-              error={this.props.errors.password2}
+              valid={this.props.inputValidation.password2}
               errorMessage={this.props.errorMessages.password2}
-              errorClass="input is-danger"
+              errorClass="is-danger"
               onChange={this.props.onChange}
             />
           </div>

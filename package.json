@@ -33,6 +33,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bulma": "^0.7.4",
+    "bulma-pageloader": "^2.1.0",
     "classnames": "^2.2.6",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
@@ -103,7 +104,9 @@
     "collectCoverageFrom": [
       "<rootDir>/client/src/components/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/client/src/actions/*.{js,ts,tsx}",
-      "<rootDir>/client/src/reducers/*.{js,ts,tsx}"
+      "<rootDir>/client/src/reducers/*.{js,ts,tsx}",
+      "<rootDir>/client/src/selectors/*.{js,ts,tsx}",
+      "<rootDir>/client/src/lib/*.{js,ts,tsx}"
     ],
     "coverageDirectory": "coverage",
     "moduleFileExtensions": [

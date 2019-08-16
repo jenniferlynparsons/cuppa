@@ -8,7 +8,7 @@ describe("types reducer", () => {
     expect(reducer).toEqual({ allTeaTypes: {}, teaTypeIDs: [] });
   });
 
-  test("returns default state when the action type is 'GET_TEATYPES'", () => {
+  test("returns all teas when the action type is 'GET_TEATYPES'", () => {
     const reducer = teaTypeReducer(undefined, {
       type: "GET_TEATYPES",
       payload: teaTypeFixture.getTeaTypesPayload

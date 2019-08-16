@@ -7,15 +7,15 @@ export class TeaDetails extends React.Component {
     return (
       <>
         <div className="container content" data-testid="teadetails">
-          {this.props.flash === "on" && (
-            <div className="notification is-success">
+          {this.props.flash === "success" && (
+            <p className="notification is-success">
               <button
                 data-testid="flash"
                 className="delete"
                 onClick={() => this.props.updateFlash("off")}
               />
               {this.props.tea.name} has been succesfully updated.
-            </div>
+            </p>
           )}
           <h1>{this.props.tea.name}</h1>
           <ul>
@@ -25,7 +25,7 @@ export class TeaDetails extends React.Component {
             </li>
             <li>
               <span className="has-text-grey-light">Type:</span>{" "}
-              {this.props.tea.teaType}
+              {this.props.teaType}
             </li>
             <li>
               <span className="has-text-grey-light">Servings:</span>{" "}

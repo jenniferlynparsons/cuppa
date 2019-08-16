@@ -37,7 +37,7 @@ describe("addTeaType", () => {
   test("it calls 'post' on the API with the correct path and the tea type data", () => {
     store.dispatch(addTeaType(teaTypeFixture.reducerAddTeaType));
     expect(API.post).toHaveBeenCalledWith(
-      "/teaTypes/new-tea-type",
+      "/tea-types",
       teaTypeFixture.reducerAddTeaType
     );
   });
@@ -59,7 +59,7 @@ describe("editTeaType", () => {
   test("it calls 'put' on the API with the correct path and the tea type data", () => {
     store.dispatch(editTeaType(teaTypeFixture.reducerEditTeaType));
     expect(API.put).toHaveBeenCalledWith(
-      "/teaTypes/update-tea-type",
+      "/tea-types/5d39dd1f0487d1116140bac1",
       teaTypeFixture.reducerEditTeaType
     );
   });
@@ -81,7 +81,7 @@ describe("deleteTeaType", () => {
   test("it calls 'post' on the API with the correct path and the tea type data", () => {
     store.dispatch(deleteTeaType(storeFixture.basicStore.teas.teaIDs[1]));
     expect(API.delete).toHaveBeenCalledWith(
-      `/teaTypes/delete-tea-type/${storeFixture.basicStore.teas.teaIDs[1]}`
+      `/tea-types/${storeFixture.basicStore.teas.teaIDs[1]}`
     );
   });
   test("it returns the DELETE_TEATYPE action type and payload", async () => {
@@ -102,9 +102,9 @@ describe("getTeaTypes", () => {
     );
   });
   test("it calls 'post' on the API with the correct path and the tea type data", () => {
-    store.dispatch(getTeaTypes(storeFixture.basicStore.userID));
+    store.dispatch(getTeaTypes(storeFixture.basicStore.auth.user.id));
     expect(API.get).toHaveBeenCalledWith(
-      `/teaTypes/teaTypesList/${storeFixture.basicStore.userID}`
+      `/tea-types?userID=${storeFixture.basicStore.auth.user.id}`
     );
   });
   test("it returns the GET_TEATYPES action type and payload", async () => {
