@@ -9,25 +9,28 @@ import { TeaDetailsContainerClass } from "../TeaDetailsContainer";
 let mockFunc;
 let mockGetTeas;
 let mockGetTeaTypes;
+let mockDefaultProps;
 
 beforeEach(() => {
   mockFunc = jest.fn();
   mockGetTeas = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockGetTeaTypes = jest.fn(() => Promise.resolve(storeFixture.basicStore));
+  mockDefaultProps = {
+    tea: teaFixture.basicTea,
+    teaTypes: teaFixture.teaTypes,
+    flash: "success",
+    getTeas: mockGetTeas,
+    getTeaTypes: mockGetTeaTypes,
+    editTea: mockFunc,
+    editFlash: mockFunc,
+    clearFlash: mockFunc
+  };
 });
 
 describe("TeaDetailsContainer flash", () => {
   test("tea detail renders with flash message after update", async () => {
     const { queryByTestId } = renderWithRouter(
-      <TeaDetailsContainerClass
-        tea={teaFixture.basicTea}
-        teaTypes={teaFixture.teaTypes}
-        flash={"success"}
-        getTeas={mockGetTeas}
-        getTeaTypes={mockGetTeaTypes}
-        editFlash={mockFunc}
-        clearFlash={mockFunc}
-      />
+      <TeaDetailsContainerClass {...mockDefaultProps} />
     );
     expect(queryByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();
@@ -37,15 +40,7 @@ describe("TeaDetailsContainer flash", () => {
 
   test("user clicks on delete flash fires click handler", async () => {
     const { queryByTestId, getByTestId } = renderWithRouter(
-      <TeaDetailsContainerClass
-        tea={teaFixture.basicTea}
-        teaTypes={teaFixture.teaTypes}
-        flash={"success"}
-        getTeas={mockGetTeas}
-        getTeaTypes={mockGetTeaTypes}
-        editFlash={mockFunc}
-        clearFlash={mockFunc}
-      />
+      <TeaDetailsContainerClass {...mockDefaultProps} />
     );
     expect(queryByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();
@@ -58,15 +53,7 @@ describe("TeaDetailsContainer flash", () => {
 describe("teaDetails interactions", () => {
   test("user clicks edit to update tea", async () => {
     const { queryByTestId, getByTestId, history } = renderWithRouter(
-      <TeaDetailsContainerClass
-        tea={teaFixture.basicTea}
-        teaTypes={teaFixture.teaTypes}
-        flash={"success"}
-        getTeas={mockGetTeas}
-        getTeaTypes={mockGetTeaTypes}
-        editFlash={mockFunc}
-        clearFlash={mockFunc}
-      />
+      <TeaDetailsContainerClass {...mockDefaultProps} />
     );
     expect(queryByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();
@@ -79,15 +66,7 @@ describe("teaDetails interactions", () => {
 describe("tea timer interactions", () => {
   test("user can display timer modal", async () => {
     const { queryByTestId, getByTestId } = renderWithRouter(
-      <TeaDetailsContainerClass
-        tea={teaFixture.basicTea}
-        teaTypes={teaFixture.teaTypes}
-        flash={"off"}
-        getTeas={mockGetTeas}
-        getTeaTypes={mockGetTeaTypes}
-        editFlash={mockFunc}
-        clearFlash={mockFunc}
-      />
+      <TeaDetailsContainerClass {...mockDefaultProps} flash={"off"} />
     );
     expect(queryByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();
@@ -98,15 +77,7 @@ describe("tea timer interactions", () => {
 
   test("user can hide timer modal", async () => {
     const { queryByTestId, getByTestId } = renderWithRouter(
-      <TeaDetailsContainerClass
-        tea={teaFixture.basicTea}
-        teaTypes={teaFixture.teaTypes}
-        flash={"off"}
-        getTeas={mockGetTeas}
-        getTeaTypes={mockGetTeaTypes}
-        editFlash={mockFunc}
-        clearFlash={mockFunc}
-      />
+      <TeaDetailsContainerClass {...mockDefaultProps} flash={"off"} />
     );
     expect(queryByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();
@@ -118,16 +89,7 @@ describe("tea timer interactions", () => {
 
   test("completed timer updates quantity on hand", async () => {
     const { queryByTestId, getByTestId } = renderWithRouter(
-      <TeaDetailsContainerClass
-        tea={teaFixture.basicTea}
-        teaTypes={teaFixture.teaTypes}
-        flash={"off"}
-        getTeas={mockGetTeas}
-        getTeaTypes={mockGetTeaTypes}
-        editFlash={mockFunc}
-        clearFlash={mockFunc}
-        editTea={mockFunc}
-      />
+      <TeaDetailsContainerClass {...mockDefaultProps} flash={"off"} />
     );
     expect(queryByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();

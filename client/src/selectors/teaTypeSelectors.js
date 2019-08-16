@@ -1,10 +1,12 @@
-export const selectTeaTypes = state => {
+import React from "react";
+
+export const selectTeaTypes = React.memo(state => {
   return state.teaTypeIDs.map(typeID => {
     return state.allTeaTypes[typeID];
   });
-};
+});
 
-export const selectSingleTeaType = (state, ownProps) => {
+export const selectSingleTeaType = React.memo((state, ownProps) => {
   if (state.teaTypes.teaTypeIDs.length > 0) {
     let currentTeaType = state.teaTypes.teaTypeIDs.find(typeID => {
       return (
@@ -14,4 +16,4 @@ export const selectSingleTeaType = (state, ownProps) => {
     });
     return currentTeaType ? state.teaTypes.allTeaTypes[currentTeaType] : {};
   }
-};
+});
