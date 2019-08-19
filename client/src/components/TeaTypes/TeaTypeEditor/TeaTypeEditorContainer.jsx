@@ -103,22 +103,15 @@ export class TeaTypeEditorContainer extends React.Component {
           .then(this.props.editFlash("success"))
           .then(this.props.history.push("/tea-types/"));
       } else {
-        this.props.addTeaType(typeData).then(() => {
-          if (this.props.serverErrors) {
-            return this.setState({
-              ...this.initialState,
-              loadingStatus: "complete"
-            });
-          } else {
-            return this.setState({
-              ...this.initialState,
-              loadingStatus: "complete",
-              flash: {
-                name: this.state.name
-              }
-            });
-          }
-        });
+        this.props.addTeaType(typeData).then(
+          this.setState({
+            ...this.initialState,
+            loadingStatus: "complete",
+            flash: {
+              name: this.state.name
+            }
+          })
+        );
       }
     } else {
       this.setState(state => ({

@@ -52,6 +52,7 @@ describe("teaTypeEditor form success", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
+
     expect(queryByTestId("flash")).toHaveTextContent(/Black/);
   });
 
