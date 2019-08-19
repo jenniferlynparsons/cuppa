@@ -13,60 +13,40 @@ const API_SERVER = `${backendHost}/api`;
 
 var api = axios.create({ baseURL: API_SERVER });
 
+const dispatchError = (errorData, dispatch) => {
+  dispatch({
+    type: errorActionTypes.SERVER_ERRORS,
+    payload: errorData.response.data
+  });
+  throw Error;
+};
+
 function get(path, payload, dispatch) {
   return api
     .get(path, payload)
     .then(response => response.data)
-    .catch(error => {
-      dispatch({
-        type: errorActionTypes.SERVER_ERRORS,
-        payload: error.response.data
-      });
-
-      throw Error;
-    });
+    .catch(error => dispatchError(error, dispatch));
 }
 
 function post(path, payload, dispatch, config = {}) {
   return api
     .post(path, payload, config)
     .then(response => response.data)
-    .catch(error => {
-      dispatch({
-        type: errorActionTypes.SERVER_ERRORS,
-        payload: error.response.data
-      });
-
-      throw Error;
-    });
+    .catch(error => dispatchError(error, dispatch));
 }
 
 function put(path, payload, dispatch, config = {}) {
   return api
     .put(path, payload, config)
     .then(response => response.data)
-    .catch(error => {
-      dispatch({
-        type: errorActionTypes.SERVER_ERRORS,
-        payload: error.response.data
-      });
-
-      throw Error;
-    });
+    .catch(error => dispatchError(error, dispatch));
 }
 
 function deleteRequest(path, payload, dispatch, config = {}) {
   return api
     .delete(path, payload, config)
     .then(response => response.data)
-    .catch(error => {
-      dispatch({
-        type: errorActionTypes.SERVER_ERRORS,
-        payload: error.response.data
-      });
-
-      throw Error;
-    });
+    .catch(error => dispatchError(error, dispatch));
 }
 
 export default {
