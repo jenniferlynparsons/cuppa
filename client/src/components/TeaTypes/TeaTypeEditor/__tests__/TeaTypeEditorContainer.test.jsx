@@ -109,19 +109,16 @@ describe("teaTypeEditor form failure", () => {
       expect(queryAllByTestId("inputerror").length).toEqual(1);
     });
 
-    test("duplicate tea type", () => {
+    test("duplicate tea type", async () => {
       const { queryByTestId } = renderWithRouter(
         <TeaTypeEditorContainerClass
-          teaTypes={teaTypeFixture.teaTypes}
-          userID={dataFixture.mockUserID}
-          currentTeaType={teaTypeFixture.missingDataTeaType}
-          getTeaTypes={mockFunc}
-          editTeaType={mockEdit}
-          editFlash={mockEdit}
-          history={dataFixture.history}
-          serverErrors={{ noDuplicate: "This tea type already exists" }}
+          {...mockDefaultProps}
+          serverErrors={{ duplicate: "This tea type already exists" }}
         />
       );
+      await Promise.resolve();
+
+      expect(queryByTestId("flash")).toBeFalsy();
       expect(queryByTestId("duplicatenotice")).toBeTruthy();
     });
   });
