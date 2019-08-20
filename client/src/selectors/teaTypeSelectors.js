@@ -6,18 +6,17 @@ export const selectTeaTypes = createSelector(
   (teaTypeIDs, allTeaTypes) => teaTypeIDs.map(typeID => allTeaTypes[typeID])
 );
 
-export const selectSingleTeaType = (state, ownProps) => {
-  if (state.teaTypes.teaTypeIDs.length > 0) {
-    let currentTeaType = createSelector(
-      state => state.teaTypes.teaTypeIDs,
-      state => state.teaTypes.allTeaTypes,
-      state => state.teas.allTeas,
-      (teaTypeIDs, allTeaTypes, allTeas) =>
-        teaTypeIDs.find(
-          typeID =>
-            allTeaTypes[typeID].id === allTeas[ownProps.match.params.id].teaType
-        )
-    );
-    return currentTeaType ? state.teaTypes.allTeaTypes[currentTeaType] : {};
+export const selectSingleTeaType = createSelector(
+  state => state.teaTypes.teaTypeIDs,
+  state => state.teaTypes.allTeaTypes,
+  state => state.teas.allTeas,
+  (state, props) => props.match.params.id,
+  (teaTypeIDs, allTeaTypes, allTeas, propsID) => {
+    if (teaTypeIDs.length > 0) {
+      let currentTeaType = teaTypeIDs.find(typeID => {
+        return allTeaTypes[typeID].id === allTeas[propsID].teaType;
+      });
+      return currentTeaType ? allTeaTypes[currentTeaType] : {};
+    }
   }
-};
+);
