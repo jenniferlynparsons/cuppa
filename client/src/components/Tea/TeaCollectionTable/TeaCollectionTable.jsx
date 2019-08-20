@@ -154,11 +154,12 @@ export class TeaCollectionTable extends React.Component {
                       data-testid="makecuppalink"
                       className="button is-primary"
                       disabled={tea.servings <= 0}
-                      onClick={this.props.handleOpenTimer}
+                      onClick={() => this.props.handleOpenTimer(tea.id)}
                     >
                       Make A Cuppa
                     </button>
                     <TimerContainer
+                      id={tea.id}
                       showTimer={this.props.showTimer}
                       tea={tea}
                       teaType={tea.teaType}

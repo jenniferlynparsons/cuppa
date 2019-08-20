@@ -189,8 +189,8 @@ export class TeaCollectionTableContainer extends React.Component {
     });
   };
 
-  handleOpenTimer = () => {
-    this.setState({ showTimer: true });
+  handleOpenTimer = id => {
+    this.setState({ showTimer: id });
   };
   handleCloseTimer = () => {
     this.setState({ showTimer: false });

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { editTea } from "../../actions/teaActions";
 import { convertTimeToMinSec } from "../../lib/timeConverter";
 import { Timer } from "./Timer";
 
-class TimerContainer extends React.Component {
+class TimerContainer extends Component {
   state = {
     loadingStatus: "inprogress",
     timerOn: false,
@@ -117,6 +117,7 @@ class TimerContainer extends React.Component {
     } else {
       return (
         <Timer
+          id={this.props.id}
           teaName={this.state.tea.name}
           timerOn={this.state.timerOn}
           timerTime={this.state.timerTime}
@@ -139,6 +140,7 @@ class TimerContainer extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   const teatype = state.teaTypes.allTeaTypes[ownProps.tea.teaType];
   return {
+    id: ownProps.id,
     brewTime: teatype.brewTime,
     teaType: teatype.name,
     tea: ownProps.tea,

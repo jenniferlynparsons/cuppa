@@ -17,8 +17,8 @@ class TeaDetailsContainer extends Component {
     this.props.editFlash(status);
   };
 
-  handleOpenTimer = () => {
-    this.setState({ showTimer: true });
+  handleOpenTimer = id => {
+    this.setState({ showTimer: id });
   };
   handleCloseTimer = () => {
     this.setState({ showTimer: false });

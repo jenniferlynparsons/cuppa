@@ -6,7 +6,7 @@ export class Timer extends React.Component {
       <div
         data-testid="timermodal"
         className={
-          this.props.showTimer
+          this.props.showTimer === this.props.id
             ? "modal is-active has-text-centered"
             : "modal has-text-centered"
         }
