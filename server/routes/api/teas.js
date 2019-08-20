@@ -44,7 +44,7 @@ router.post("/", (req, res) => {
 // @route PUT api/teas
 // @desc Update tea
 // @access Public
-router.put("/:id", (req, res) => {
+router.patch("/:id", (req, res) => {
   const { errors, isValid } = validateTeaInput(req.body);
 
   // Check validation

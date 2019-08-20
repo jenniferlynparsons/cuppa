@@ -150,7 +150,7 @@ const teaTypePostResponse = {
   }
 };
 
-const teaTypePutResponse = {
+const teaTypePatchResponse = {
   type: "EDIT_TEATYPE",
   payload: {
     id: "5d39dd1f0487d1116140bac1",
@@ -227,7 +227,7 @@ const teaTypeFixture = {
   reducerAddTeaType,
   reducerEditTeaType,
   teaTypePostResponse,
-  teaTypePutResponse,
+  teaTypePatchResponse,
   teaTypeGetResponse,
   getTeaTypesPayload,
   addTeaTypePayload,

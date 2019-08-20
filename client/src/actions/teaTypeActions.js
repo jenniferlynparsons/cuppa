@@ -17,7 +17,7 @@ export const addTeaType = teaType => {
 // Edit TeaType
 export const editTeaType = teaType => {
   return dispatch =>
-    API.put(`/tea-types/${teaType.id}`, teaType, dispatch)
+    API.patch(`/tea-types/${teaType.id}`, teaType, dispatch)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.EDIT_TEATYPE,

@@ -1,7 +1,6 @@
 // Component mock data
 const basicTea = {
   id: "1b1db861-0537-4b69-83d5-d9ee033530f8",
-  teaID: "1b1db861-0537-4b69-83d5-d9ee033530f8",
   name: "Basic Tea",
   brand: "Lipton",
   teaType: "5d39dd1f0487d1116140bac1",
@@ -10,7 +9,6 @@ const basicTea = {
 
 const updatedTea = {
   id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
-  teaID: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
   name: "Green Dragon",
   brand: "Twinnings",
   teaType: "5d48277169b3160191797d14",
@@ -35,7 +33,6 @@ const missingDataTea = {
 
 const servingsUpdatedTea = {
   id: "1b1db861-0537-4b69-83d5-d9ee033530f8",
-  teaID: "1b1db861-0537-4b69-83d5-d9ee033530f8",
   name: "Basic Tea",
   brand: "Lipton",
   teaType: "5d39dd1f0487d1116140bac1",
@@ -46,7 +43,6 @@ const servingsUpdatedTea = {
 
 const reducerAddTea = {
   userID: "5cf18ae7d39d81638810de09",
-  teaID: "3d4a3605-4368-4ee1-abe4-318d7982e491",
   name: "Lapsang Souchang",
   brand: "McNulty's",
   teaType: "5d39dd1f0487d1116140bac1",
@@ -55,7 +51,7 @@ const reducerAddTea = {
 };
 
 const reducerEditTea = {
-  flash: { name: "", teaID: "" },
+  flash: { name: "" },
   touched: { name: false, servings: true },
   userID: "5cf18ae7d39d81638810de09",
   currentTea: {
@@ -65,7 +61,6 @@ const reducerEditTea = {
     teaType: "5d39dd1f0487d1116140bac1",
     servings: 12
   },
-  teaID: "3d4a3605-4368-4ee1-abe4-318d7982e491",
   name: "Lapsang Souchang",
   brand: "McNulty's",
   teaType: "5d39dd1f0487d1116140bac1",
@@ -87,7 +82,7 @@ const teaPostResponse = {
   }
 };
 
-const teaPutResponse = {
+const teaPatchResponse = {
   type: "EDIT_TEA",
   payload: {
     id: "3d4a3605-4368-4ee1-abe4-318d7982e491",
@@ -171,7 +166,7 @@ const teaFixture = {
   reducerAddTea,
   reducerEditTea,
   teaPostResponse,
-  teaPutResponse,
+  teaPatchResponse,
   teaGetResponse,
   getTeasPayload,
   addTeaPayload,

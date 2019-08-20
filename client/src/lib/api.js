@@ -35,9 +35,9 @@ function post(path, payload, dispatch, config = {}) {
     .catch(error => dispatchError(error, dispatch));
 }
 
-function put(path, payload, dispatch, config = {}) {
+function patch(path, payload, dispatch, config = {}) {
   return api
-    .put(path, payload, config)
+    .patch(path, payload, config)
     .then(response => response.data)
     .catch(error => dispatchError(error, dispatch));
 }
@@ -52,6 +52,6 @@ function deleteRequest(path, payload, dispatch, config = {}) {
 export default {
   get,
   post,
-  put,
+  patch,
   delete: deleteRequest
 };

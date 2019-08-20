@@ -13,12 +13,12 @@ const store = makeMockStore(storeFixture.basicStore);
 
 // Required for the API mock scope (must have `mock` prefix)
 const mockteaTypePost = teaTypeFixture.teaPostResponse;
-const mockteaTypePut = teaTypeFixture.teaPutResponse;
+const mockteaTypePatch = teaTypeFixture.teaPatchResponse;
 const mockteaTypeGet = teaTypeFixture.teaGetResponse;
 jest.mock("../../lib/api", () => {
   return {
     post: jest.fn(() => Promise.resolve(mockteaTypePost)),
-    put: jest.fn(() => Promise.resolve(mockteaTypePut)),
+    patch: jest.fn(() => Promise.resolve(mockteaTypePatch)),
     delete: jest.fn(() => Promise.resolve()),
     get: jest.fn(() => Promise.resolve(mockteaTypeGet))
   };
@@ -54,15 +54,15 @@ describe("editTeaType", () => {
       Function
     );
   });
-  test("it calls 'put' on the API with the correct path and the tea type data", () => {
+  test("it calls 'patch' on the API with the correct path and the tea type data", () => {
     store.dispatch(editTeaType(teaTypeFixture.reducerEditTeaType));
-    let spy = jest.spyOn(API, "put");
+    let spy = jest.spyOn(API, "patch");
     expect(spy).toHaveBeenCalled();
   });
   test("it returns the EDIT_TEATYPE action type and payload", async () => {
     await store.dispatch(editTeaType(teaTypeFixture.reducerEditTeaType));
     expect(store.getActions()[0].payload).toEqual(
-      teaTypeFixture.teaPutResponse
+      teaTypeFixture.teaPatchResponse
     );
     expect(store.getActions()[0].type).toEqual("EDIT_TEATYPE");
   });
