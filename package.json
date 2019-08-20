@@ -57,6 +57,7 @@
     "redux": "^4.0.1",
     "redux-api-middleware": "^3.0.1",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "uuid": "^3.3.2",

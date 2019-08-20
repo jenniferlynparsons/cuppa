@@ -1,7 +1,10 @@
-import React from "react";
+import { createSelector } from "reselect";
 
-export const selectBrands = React.memo(state => {
-  return state.teaIDs.map(id => {
-    return state.allTeas[id].brand;
-  });
-});
+const teaIDs = state => state.teaIDs;
+const allTeas = state => state.allTeas;
+
+export const selectBrands = createSelector(
+  teaIDs,
+  allTeas,
+  (teaIDs, allTeas) => teaIDs.map(id => allTeas[id].brand)
+);

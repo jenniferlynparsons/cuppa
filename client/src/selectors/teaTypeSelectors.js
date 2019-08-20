@@ -1,19 +1,23 @@
-import React from "react";
+import { createSelector } from "reselect";
 
-export const selectTeaTypes = React.memo(state => {
-  return state.teaTypeIDs.map(typeID => {
-    return state.allTeaTypes[typeID];
-  });
-});
+export const selectTeaTypes = createSelector(
+  state => state.teaTypeIDs,
+  state => state.allTeaTypes,
+  (teaTypeIDs, allTeaTypes) => teaTypeIDs.map(typeID => allTeaTypes[typeID])
+);
 
-export const selectSingleTeaType = React.memo((state, ownProps) => {
+export const selectSingleTeaType = (state, ownProps) => {
   if (state.teaTypes.teaTypeIDs.length > 0) {
-    let currentTeaType = state.teaTypes.teaTypeIDs.find(typeID => {
-      return (
-        state.teaTypes.allTeaTypes[typeID].id ===
-        state.teas.allTeas[ownProps.match.params.id].teaType
-      );
-    });
+    let currentTeaType = createSelector(
+      state => state.teaTypes.teaTypeIDs,
+      state => state.teaTypes.allTeaTypes,
+      state => state.teas.allTeas,
+      (teaTypeIDs, allTeaTypes, allTeas) =>
+        teaTypeIDs.find(
+          typeID =>
+            allTeaTypes[typeID].id === allTeas[ownProps.match.params.id].teaType
+        )
+    );
     return currentTeaType ? state.teaTypes.allTeaTypes[currentTeaType] : {};
   }
-});
+};
