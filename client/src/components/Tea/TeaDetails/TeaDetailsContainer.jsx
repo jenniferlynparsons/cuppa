@@ -23,9 +23,6 @@ class TeaDetailsContainer extends Component {
   handleCloseTimer = () => {
     this.setState({ showTimer: false });
   };
-  handleTimerUpdateQty = updatedTea => {
-    this.props.editTea(updatedTea);
-  };
 
   componentWillMount() {
     this.setState({ flash: this.props.flash });
@@ -51,13 +48,11 @@ class TeaDetailsContainer extends Component {
         <TeaDetails
           tea={this.props.tea}
           teaType={this.props.teaType}
-          brewTime={this.props.brewTime}
           showTimer={this.state.showTimer}
           flash={this.state.flash}
           updateFlash={this.updateFlash}
           handleOpenTimer={this.handleOpenTimer}
           handleCloseTimer={this.handleCloseTimer}
-          handleTimerUpdateQty={this.handleTimerUpdateQty}
         />
       );
     }
@@ -67,7 +62,6 @@ class TeaDetailsContainer extends Component {
 const mapStateToProps = (state, ownProps) => {
   const teatype = selectSingleTeaType(state, ownProps);
   return {
-    brewTime: teatype && teatype.brewTime,
     teaType: teatype && teatype.name,
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,

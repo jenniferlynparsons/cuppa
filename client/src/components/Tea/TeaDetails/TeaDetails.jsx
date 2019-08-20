@@ -52,9 +52,8 @@ export class TeaDetails extends React.Component {
         <TimerContainer
           showTimer={this.props.showTimer}
           tea={this.props.tea}
-          brewTime={this.props.brewTime}
+          teaType={this.props.teaType}
           handleCloseTimer={this.props.handleCloseTimer}
-          handleTimerUpdateQty={this.props.handleTimerUpdateQty}
         />
       </>
     );

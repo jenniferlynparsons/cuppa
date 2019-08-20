@@ -1,8 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
+import { editTea } from "../../actions/teaActions";
 import { convertTimeToMinSec } from "../../lib/timeConverter";
 import { Timer } from "./Timer";
+
 class TimerContainer extends React.Component {
   state = {
+    loadingStatus: "inprogress",
     timerOn: false,
     timerStart: 0,
     timerTime: this.props.brewTime ? this.props.brewTime : 0,
@@ -44,7 +48,7 @@ class TimerContainer extends React.Component {
         () => {
           this.resetTimer();
           this.props.handleCloseTimer();
-          this.props.handleTimerUpdateQty(this.state.tea);
+          this.props.editTea(this.state.tea);
         }
       );
     }
@@ -93,55 +97,62 @@ class TimerContainer extends React.Component {
 
   componentDidMount() {
     const initialBrewTime = convertTimeToMinSec(this.props.brewTime);
-
     this.setState({
       tea: this.props.tea,
       originalServings: this.props.tea.servings,
       timerTime: this.props.brewTime,
       timerLength: this.props.brewTime,
       minutes: initialBrewTime.minute,
-      seconds: initialBrewTime.seconds
+      seconds: initialBrewTime.seconds,
+      loadingStatus: "complete"
     });
   }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.tea && this.props.tea !== prevProps.tea) {
-      this.setState({
-        tea: this.props.tea,
-        originalServings: this.props.tea.servings
-      });
-    }
-    if (this.props.brewTime && this.props.brewTime !== prevProps.brewTime) {
-      const initialBrewTime = convertTimeToMinSec(this.props.brewTime);
-
-      this.setState({
-        timerTime: this.props.brewTime,
-        timerLength: this.props.brewTime,
-        minutes: initialBrewTime.minute,
-        seconds: initialBrewTime.seconds
-      });
-    }
-  }
-
   render() {
-    return (
-      <Timer
-        teaName={this.state.tea.name}
-        timerOn={this.state.timerOn}
-        timerTime={this.state.timerTime}
-        timerLength={this.state.timerLength}
-        progress={this.state.progress}
-        minutes={this.state.minutes}
-        seconds={this.state.seconds}
-        showTimer={this.props.showTimer}
-        handleStartTimer={this.handleStartTimer}
-        handlePauseTimer={this.handlePauseTimer}
-        handleResumeTimer={this.handleResumeTimer}
-        handleCancelTimer={this.handleCancelTimer}
-        handleFinishTimer={this.handleFinishTimer}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
+        <Timer
+          teaName={this.state.tea.name}
+          timerOn={this.state.timerOn}
+          timerTime={this.state.timerTime}
+          timerLength={this.state.timerLength}
+          progress={this.state.progress}
+          minutes={this.state.minutes}
+          seconds={this.state.seconds}
+          showTimer={this.props.showTimer}
+          handleStartTimer={this.handleStartTimer}
+          handlePauseTimer={this.handlePauseTimer}
+          handleResumeTimer={this.handleResumeTimer}
+          handleCancelTimer={this.handleCancelTimer}
+          handleFinishTimer={this.handleFinishTimer}
+        />
+      );
+    }
   }
 }
 
-export default TimerContainer;
+const mapStateToProps = (state, ownProps) => {
+  const teatype = state.teaTypes.allTeaTypes[ownProps.tea.teaType];
+  return {
+    brewTime: teatype.brewTime,
+    teaType: teatype.name,
+    tea: ownProps.tea,
+    userID: state.auth.user.id
+  };
+};
+
+const mapDispatchToProps = {
+  editTea
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TimerContainer);
+
+export const TimerContainerClass = TimerContainer;
