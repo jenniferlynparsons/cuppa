@@ -29,7 +29,8 @@ export class TeaCollectionTableContainer extends React.Component {
       filterCategory: "Please choose a category",
       filterCriteria: "Please enter a filter term"
     },
-    loadingStatus: "inprogress"
+    loadingStatus: "inprogress",
+    showTimer: false
   };
 
   columnHeaders = [
@@ -188,6 +189,13 @@ export class TeaCollectionTableContainer extends React.Component {
     });
   };
 
+  handleOpenTimer = () => {
+    this.setState({ showTimer: true });
+  };
+  handleCloseTimer = () => {
+    this.setState({ showTimer: false });
+  };
+
   componentDidMount() {
     this.props.getTeas(this.props.userID).then(() =>
       this.setState({
@@ -227,6 +235,7 @@ export class TeaCollectionTableContainer extends React.Component {
           teaTypes={this.props.teaTypes}
           formControls={this.state.formControls}
           filtered={this.state.filtered}
+          showTimer={this.state.showTimer}
           inputValidation={this.state.inputValidation}
           errorMessages={this.state.errorMessages}
           handleDeleteClick={this.handleDeleteClick}
@@ -236,6 +245,8 @@ export class TeaCollectionTableContainer extends React.Component {
           handleFilterDropdownChange={this.handleFilterDropdownChange}
           handleFilterInputChange={this.handleFilterInputChange}
           handleSortColumn={this.handleSortColumn}
+          handleOpenTimer={this.handleOpenTimer}
+          handleCloseTimer={this.handleCloseTimer}
         />
       );
     }

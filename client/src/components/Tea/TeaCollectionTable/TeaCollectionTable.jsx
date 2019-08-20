@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TimerContainer from "../../Timer";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
@@ -125,6 +126,7 @@ export class TeaCollectionTable extends React.Component {
               ))}
               <th />
               <th />
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -147,6 +149,22 @@ export class TeaCollectionTable extends React.Component {
                   <td>{tea.brand}</td>
                   <td>{teaType && teaType.name}</td>
                   <td>{tea.servings}</td>
+                  <td>
+                    <button
+                      data-testid="makecuppalink"
+                      className="button is-primary"
+                      disabled={tea.servings <= 0}
+                      onClick={this.props.handleOpenTimer}
+                    >
+                      Make A Cuppa
+                    </button>
+                    <TimerContainer
+                      showTimer={this.props.showTimer}
+                      tea={tea}
+                      teaType={tea.teaType}
+                      handleCloseTimer={this.props.handleCloseTimer}
+                    />
+                  </td>
                   <td>
                     <Link to={"/update-tea/" + tea.id} data-testid="editlink">
                       Edit
