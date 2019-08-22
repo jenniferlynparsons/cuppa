@@ -1,31 +1,75 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getTeas } from "../../../actions/teaActions";
+import { getTeas, editTea } from "../../../actions/teaActions";
+import { getTeaTypes } from "../../../actions/teaTypeActions";
+import { editFlash, clearFlash } from "../../../actions/flashActions";
+import { selectSingleTeaType } from "../../../selectors/teaTypeSelectors";
 import { TeaDetails } from "./TeaDetails";
-import { editTeaFlash } from "../../../actions/flashActions";
 
 class TeaDetailsContainer extends Component {
-  updateFlash = status => {
-    this.props.editTeaFlash(status);
+  state = {
+    showTimer: false,
+    flash: "off",
+    loadingStatus: "inprogress"
   };
+
+  updateFlash = status => {
+    this.props.editFlash(status);
+  };
+
+  handleOpenTimer = () => {
+    this.setState({ showTimer: true });
+  };
+  handleCloseTimer = () => {
+    this.setState({ showTimer: false });
+  };
+  handleTimerUpdateQty = updatedTea => {
+    this.props.editTea(updatedTea);
+  };
+
+  componentWillMount() {
+    this.setState({ flash: this.props.flash });
+    this.props.clearFlash();
+  }
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
+    this.props
+      .getTeaTypes(this.props.userID)
+      .then(() => this.setState({ loadingStatus: "complete" }));
   }
 
   render() {
-    return !this.props.tea ? null : (
-      <TeaDetails
-        tea={this.props.tea}
-        flash={this.props.flash}
-        updateFlash={this.updateFlash}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
+        <TeaDetails
+          tea={this.props.tea}
+          teaType={this.props.teaType}
+          brewTime={this.props.brewTime}
+          showTimer={this.state.showTimer}
+          flash={this.state.flash}
+          updateFlash={this.updateFlash}
+          handleOpenTimer={this.handleOpenTimer}
+          handleCloseTimer={this.handleCloseTimer}
+          handleTimerUpdateQty={this.handleTimerUpdateQty}
+        />
+      );
+    }
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const teatype = selectSingleTeaType(state, ownProps);
+
   return {
+    brewTime: teatype && teatype.brewTime,
+    teaType: teatype && teatype.name,
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,
     userID: state.auth.user.id
@@ -33,8 +77,11 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = {
-  editTeaFlash,
-  getTeas
+  editFlash,
+  clearFlash,
+  editTea,
+  getTeas,
+  getTeaTypes
 };
 
 export default connect(

@@ -1,34 +1,52 @@
 import setAuthToken from "../lib/setAuthToken";
 import jwt_decode from "jwt-decode";
 import API from "../lib/api";
-import { authActionTypes } from "../lib/actionTypes";
+import { authActionTypes, errorActionTypes } from "../lib/actionTypes";
 
 // Login - get user token
 export const loginAction = userData => {
   return dispatch => {
-    API.post("/users/login", userData).then(response => {
-      const { token } = response;
-      localStorage.setItem("jwtToken", token);
-      setAuthToken(token);
-      const decoded = jwt_decode(token);
-      //check that setCurrentUser is called with decoded
-      dispatch(authActions.setCurrentUser(decoded));
-    });
+    return API.post("/users/login", userData)
+      .then(response => {
+        if (response && response.emailNotFound) {
+          dispatch({
+            type: errorActionTypes.SERVER_ERRORS,
+            payload: response
+          });
+        } else {
+          const { token } = response;
+          localStorage.setItem("jwtToken", token);
+          setAuthToken(token);
+          const decoded = jwt_decode(token);
+          //check that setCurrentUser is called with decoded
+          dispatch(authActions.setCurrentUser(decoded));
+        }
+      })
+      .catch(console.log);
   };
 };
 
 // Register User
 export const registerUser = (userData, history) => {
   return dispatch => {
-    API.post("/users/register", userData).then(response => {
-      const arg = "/login";
-      history.push(arg);
-      const { token } = response;
-      localStorage.setItem("jwtToken", token);
-      setAuthToken(token);
-      const decoded = jwt_decode(token);
-      dispatch(authActions.setCurrentUser(decoded));
-    });
+    return API.post("/users/register", userData)
+      .then(response => {
+        if (response && response.duplicateEmail) {
+          dispatch({
+            type: errorActionTypes.SERVER_ERRORS,
+            payload: response
+          });
+        } else {
+          const arg = "/login";
+          history.push(arg);
+          const { token } = response;
+          localStorage.setItem("jwtToken", token);
+          setAuthToken(token);
+          const decoded = jwt_decode(token);
+          dispatch(authActions.setCurrentUser(decoded));
+        }
+      })
+      .catch(console.log);
   };
 };
 
@@ -46,11 +64,19 @@ export const setCurrentUser = decoded => {
   };
 };
 
+export const setErrorResponse = errorObj => {
+  return {
+    type: authActionTypes.LOGIN_ERRORS,
+    payload: errorObj
+  };
+};
+
 const authActions = {
   loginAction,
   registerUser,
   logoutUser,
-  setCurrentUser
+  setCurrentUser,
+  setErrorResponse
 };
 
 export default authActions;

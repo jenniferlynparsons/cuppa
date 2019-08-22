@@ -2,14 +2,14 @@ import { combineReducers } from "redux";
 import authReducer from "./authReducers";
 import errorReducer from "./errorReducers";
 import teaReducers from "./teaReducers";
-import typesReducer from "./typesReducers";
+import teaTypesReducer from "./teaTypesReducers";
 import flashReducer from "./flashReducers";
 
 const appReducer = combineReducers({
   auth: authReducer,
   errors: errorReducer,
   teas: teaReducers,
-  teaTypes: typesReducer,
+  teaTypes: teaTypesReducer,
   flash: flashReducer
 });
 

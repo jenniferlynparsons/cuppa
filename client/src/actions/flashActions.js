@@ -1,6 +1,10 @@
 import { flashActionTypes } from "../lib/actionTypes";
 
-export const editTeaFlash = status => ({
-  type: flashActionTypes.EDIT_TEA_FLASH,
+export const editFlash = status => ({
+  type: flashActionTypes.EDIT_FLASH,
   payload: status
+});
+
+export const clearFlash = () => ({
+  type: flashActionTypes.CLEAR_FLASH
 });

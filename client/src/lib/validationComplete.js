@@ -1,0 +1,1 @@
+export const validationComplete = inputs => Object.values(inputs).every(Boolean);

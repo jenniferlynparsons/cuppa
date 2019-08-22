@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { validationComplete } from "../../../lib/validationComplete";
 import InputField from "../../FormComponents/InputField/InputField";
 
-export class Login extends React.PureComponent {
+export class Login extends React.Component {
   render() {
     return (
       <div className="container content" data-testid="login">
@@ -11,6 +12,17 @@ export class Login extends React.PureComponent {
         <p>
           Don&apos;t have an account? <Link to="/register">Register</Link>
         </p>
+        {!validationComplete(this.props.inputValidation) && (
+          <p className="notification is-danger" data-testid="incompletenotice">
+            Please provide a valid email address and password
+          </p>
+        )}
+        {!this.props.inputValidation.emailNotFound && (
+          <p className="notification is-danger" data-testid="notfoundnotice">
+            This email does not exist in our system. Please try again or{" "}
+            <Link to="/register">register</Link> for an account.
+          </p>
+        )}
         <form noValidate={true} onSubmit={this.props.onSubmit}>
           <div className="field">
             <label className="label" htmlFor="email">
@@ -22,6 +34,9 @@ export class Login extends React.PureComponent {
               type="email"
               value={this.props.email}
               className="input"
+              valid={this.props.inputValidation.email}
+              errorMessage={this.props.errorMessages.email}
+              errorClass="is-danger"
               onChange={this.props.onChange}
             />
           </div>
@@ -35,6 +50,9 @@ export class Login extends React.PureComponent {
               type="password"
               value={this.props.password}
               className="input"
+              valid={this.props.inputValidation.password}
+              errorMessage={this.props.errorMessages.password}
+              errorClass="is-danger"
               onChange={this.props.onChange}
             />
           </div>

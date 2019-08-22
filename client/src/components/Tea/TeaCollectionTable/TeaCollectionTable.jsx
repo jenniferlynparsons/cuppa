@@ -7,7 +7,7 @@ import InputField from "../../FormComponents/InputField";
 
 library.add(faAngleDown, faAngleUp);
 
-export class TeaCollectionTable extends React.PureComponent {
+export class TeaCollectionTable extends React.Component {
   render() {
     return (
       <div data-testid="teacollection" className="container">
@@ -15,11 +15,18 @@ export class TeaCollectionTable extends React.PureComponent {
           <form onSubmit={this.props.handleFilterClick}>
             <div className="field has-addons">
               <div className="control">
-                <span className="select is-small">
+                <div
+                  className={
+                    !this.props.inputValidation.filterCategory
+                      ? "select is-small is-danger"
+                      : "select is-small"
+                  }
+                >
                   <select
                     data-testid="filterselect"
                     name="filterCategory"
                     value={this.props.formControls.filterCategory}
+                    onChange={this.props.handleFilterDropdownChange}
                     onBlur={this.props.handleFilterDropdownChange}
                   >
                     <option key="category" value="">
@@ -34,7 +41,7 @@ export class TeaCollectionTable extends React.PureComponent {
                       </option>
                     ))}
                   </select>
-                </span>
+                </div>
               </div>
               <InputField
                 datatestid="filterinput"
@@ -45,6 +52,8 @@ export class TeaCollectionTable extends React.PureComponent {
                 placeholder="Filter Text"
                 value={this.props.formControls.filterCriteria}
                 className="input is-small"
+                valid={this.props.inputValidation.filterCriteria}
+                errorClass="input is-small is-danger"
                 onChange={this.props.handleFilterInputChange}
               />
               <div className="control">
@@ -57,6 +66,16 @@ export class TeaCollectionTable extends React.PureComponent {
                 </button>
               </div>
             </div>
+            {!this.props.inputValidation.filterCategory && (
+              <p className="help is-danger" data-testid="inputerror">
+                {this.props.errorMessages.filterCategory}
+              </p>
+            )}
+            {!this.props.inputValidation.filterCriteria && (
+              <p className="help is-danger" data-testid="inputerror">
+                {this.props.errorMessages.filterCriteria}
+              </p>
+            )}
           </form>
           {this.props.filtered && (
             <div className="control">
@@ -111,6 +130,13 @@ export class TeaCollectionTable extends React.PureComponent {
           <tbody>
             {this.props.teaIDs.map(teaID => {
               const tea = this.props.allTeas[teaID];
+              const teaTypeID = this.props.teaTypes.teaTypeIDs.find(typeID => {
+                return (
+                  this.props.teaTypes.allTeaTypes[typeID].id ===
+                  this.props.allTeas[teaID].teaType
+                );
+              });
+              const teaType = this.props.teaTypes.allTeaTypes[teaTypeID];
               return (
                 <tr key={tea.id}>
                   <td>
@@ -119,7 +145,7 @@ export class TeaCollectionTable extends React.PureComponent {
                     </Link>
                   </td>
                   <td>{tea.brand}</td>
-                  <td>{tea.teaType}</td>
+                  <td>{teaType && teaType.name}</td>
                   <td>{tea.servings}</td>
                   <td>
                     <Link to={"/update-tea/" + tea.id} data-testid="editlink">

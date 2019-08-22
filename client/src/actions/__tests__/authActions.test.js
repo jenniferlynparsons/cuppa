@@ -19,9 +19,21 @@ jest.mock("jwt-decode");
 
 // Required for the API mock scope (must have `mock` prefix)
 const mockResponse = dataFixture.response;
+const mockFailResponse = {
+  response: { data: { emailNotFound: "email not found" } }
+};
 
 jest.mock("../../lib/api", () => ({
-  post: jest.fn(() => Promise.resolve(mockResponse))
+  post: jest.fn(
+    (apipath, userData) =>
+      new Promise(function(resolve, reject) {
+        if (userData.email !== "") {
+          resolve(mockResponse);
+        } else {
+          reject(mockFailResponse);
+        }
+      })
+  )
 }));
 
 beforeEach(() => {

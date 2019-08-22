@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { validationComplete } from "../../../lib/validationComplete";
 import InputField from "../../FormComponents/InputField/InputField";
 
-export class Register extends React.PureComponent {
+export class Register extends React.Component {
   render() {
     return (
       <div className="container content" data-testid="register">
@@ -11,66 +12,83 @@ export class Register extends React.PureComponent {
         <p>
           Already have an account? <Link to="/login">Log in</Link>
         </p>
+        {!validationComplete(this.props.inputValidation) && (
+          <p className="notification is-danger" data-testid="incompletenotice">
+            Please provide a valid email address and password.
+          </p>
+        )}
+        {!this.props.inputValidation.duplicateEmail && (
+          <p className="notification is-danger" data-testid="notfoundnotice">
+            This email already exists in our system. Please try again or{" "}
+            <Link to="/login">login</Link> to your account.
+          </p>
+        )}
         <form noValidate={true} onSubmit={this.props.onSubmit}>
           <div className="field">
             <label className="label" htmlFor="name">
               Name
             </label>
-            <div className="control">
-              <InputField
-                datatestid="name"
-                id="name"
-                type="text"
-                value={this.props.name}
-                className="input"
-                onChange={this.props.onChange}
-              />
-            </div>
+            <InputField
+              datatestid="name"
+              id="name"
+              type="text"
+              value={this.props.name}
+              className="input"
+              valid={this.props.inputValidation.name}
+              errorMessage={this.props.errorMessages.name}
+              errorClass="is-danger"
+              onChange={this.props.onChange}
+            />
           </div>
           <div className="field">
             <label className="label" htmlFor="email">
               Email
             </label>
-            <div className="control">
-              <InputField
-                datatestid="email"
-                id="email"
-                type="email"
-                value={this.props.email}
-                className="input"
-                onChange={this.props.onChange}
-              />
-            </div>
+            <InputField
+              datatestid="email"
+              id="email"
+              type="email"
+              value={this.props.email}
+              className="input"
+              valid={this.props.inputValidation.email}
+              errorMessage={this.props.errorMessages.email}
+              errorClass="is-danger"
+              onChange={this.props.onChange}
+            />
           </div>
           <div className="field">
             <label className="label" htmlFor="password">
               Password
             </label>
-            <div className="control">
-              <InputField
-                datatestid="password"
-                id="password"
-                type="password"
-                value={this.props.password}
-                className="input"
-                onChange={this.props.onChange}
-              />
-            </div>
+
+            <InputField
+              datatestid="password"
+              id="password"
+              type="password"
+              value={this.props.password}
+              className="input"
+              valid={this.props.inputValidation.password}
+              errorMessage={this.props.errorMessages.password}
+              errorClass="is-danger"
+              onChange={this.props.onChange}
+            />
           </div>
           <div className="field">
             <label className="label" htmlFor="password2">
               Confirm Password
             </label>
-            <div className="control">
-              <InputField
-                datatestid="password2"
-                id="password2"
-                type="password"
-                value={this.props.password2}
-                className="input"
-                onChange={this.props.onChange}
-              />
-            </div>
+
+            <InputField
+              datatestid="password2"
+              id="password2"
+              type="password"
+              value={this.props.password2}
+              className="input"
+              valid={this.props.inputValidation.password2}
+              errorMessage={this.props.errorMessages.password2}
+              errorClass="is-danger"
+              onChange={this.props.onChange}
+            />
           </div>
           <div className="field">
             <button

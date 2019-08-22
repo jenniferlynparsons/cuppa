@@ -1,12 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { emailSchema, passwordSchema } from "../../../lib/validationSchemas";
 import { loginAction } from "../../../actions/authActions";
 import { Login } from "./Login";
 
 class LoginContainer extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    inputValidation: {
+      email: true,
+      emailNotFound: true,
+      password: true
+    },
+    errorMessages: {
+      email: "Please enter a valid email address",
+      password: "Please enter a valid password"
+    },
+    loadingStatus: "inprogress"
   };
 
   handleInputChange = e => {
@@ -21,35 +32,74 @@ class LoginContainer extends Component {
       password: this.state.password
     };
 
-    this.props.loginAction(userData);
+    const emailvalid = emailSchema.isValidSync(userData);
+    const passvalid = passwordSchema.isValidSync(userData);
+
+    if (emailvalid && passvalid) {
+      this.props.loginAction(userData);
+    } else {
+      this.setState(state => ({
+        inputValidation: {
+          ...state.inputValidation,
+          email: emailvalid,
+          emailNotFound: true,
+          password: passvalid
+        }
+      }));
+    }
   };
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
+    } else {
+      this.setState({ loadingStatus: "complete" });
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+  componentDidUpdate(prevProps) {
+    if (this.props.auth.isAuthenticated && !prevProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
+    }
+    if (
+      this.props.serverErrors &&
+      !prevProps.serverErrors &&
+      this.props.serverErrors.emailNotFound
+    ) {
+      this.setState(state => ({
+        inputValidation: {
+          ...state.inputValidation,
+          emailNotFound: false
+        }
+      }));
     }
   }
 
   render() {
-    return (
-      <Login
-        email={this.state.email}
-        password={this.state.password}
-        onChange={this.handleInputChange}
-        onSubmit={this.handleFormSubmit}
-      />
-    );
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
+        <Login
+          email={this.state.email}
+          password={this.state.password}
+          inputValidation={this.state.inputValidation}
+          errorMessages={this.state.errorMessages}
+          onChange={this.handleInputChange}
+          onSubmit={this.handleFormSubmit}
+        />
+      );
+    }
   }
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  serverErrors: state.errors.serverErrors
 });
 
 export default connect(

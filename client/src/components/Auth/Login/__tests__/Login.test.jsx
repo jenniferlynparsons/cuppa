@@ -18,14 +18,11 @@ describe("Login rendering", () => {
   });
 });
 
-describe("Login form updates", () => {
+describe("Login form success", () => {
   test("onSubmit submits the form with valid data", () => {
-    let mockHandleSubmit = jest.fn();
     const { getByTestId } = renderWithRouter(
       <LoginContainerComponent
         auth={storeFixture.loggedOutStore}
-        errors={""}
-        handleSubmit={mockHandleSubmit}
         loginAction={mockFunc}
       />
     );
@@ -38,5 +35,44 @@ describe("Login form updates", () => {
     });
     fireEvent.click(getByTestId("submit"));
     expect(mockFunc).toHaveBeenCalled();
+  });
+});
+
+describe("Login form failure", () => {
+  describe("onSubmit returns an error message if data is invalid", () => {
+    test("missing email address and password", () => {
+      const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
+        <LoginContainerComponent
+          auth={storeFixture.loggedOutStore}
+          loginAction={mockFunc}
+        />
+      );
+
+      expect(queryByTestId("notfoundnotice")).toBeFalsy();
+
+      fireEvent.click(getByTestId("submit"));
+      expect(queryByTestId("incompletenotice")).toBeTruthy();
+      expect(queryAllByTestId("inputerror")).toBeTruthy();
+    });
+
+    test("invalid email address", () => {
+      const { getByTestId, queryByTestId } = renderWithRouter(
+        <LoginContainerComponent
+          auth={storeFixture.loggedOutStore}
+          loginAction={mockFunc}
+        />
+      );
+
+      expect(queryByTestId("notfoundnotice")).toBeFalsy();
+
+      fireEvent.change(getByTestId("email"), {
+        target: { value: "test" }
+      });
+      fireEvent.change(getByTestId("password"), {
+        target: { value: "testing" }
+      });
+      fireEvent.click(getByTestId("submit"));
+      expect(queryByTestId("inputerror")).toBeTruthy();
+    });
   });
 });

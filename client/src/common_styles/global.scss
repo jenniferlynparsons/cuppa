@@ -1,7 +1,14 @@
+@import "bulma/bulma.sass";
+@import "~bulma-pageloader";
+
 .hero {
   border-bottom: 1px 1px solid rgba(0, 0, 0, 0.12);
   border-top: 0;
   margin-bottom: 16px;
+}
+
+.modal-card-foot.is-centered {
+  justify-content: center;
 }
 footer {
   margin-bottom: 0;
