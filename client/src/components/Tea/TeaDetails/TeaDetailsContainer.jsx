@@ -60,6 +60,7 @@ class TeaDetailsContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state);
   const teatype = selectSingleTeaType(state, ownProps);
   return {
     teaType: teatype && teatype.name,

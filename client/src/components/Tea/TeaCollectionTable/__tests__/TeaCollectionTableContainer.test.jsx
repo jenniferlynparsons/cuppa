@@ -29,7 +29,7 @@ beforeEach(() => {
 
 describe("TeaCollectionTableContainerClass interactions", () => {
   describe("individual tea interactions", () => {
-    test("user clicks delete removes the tea from list", async () => {
+    test.only("user clicks delete removes the tea from list", async () => {
       const { getAllByTestId, queryByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );

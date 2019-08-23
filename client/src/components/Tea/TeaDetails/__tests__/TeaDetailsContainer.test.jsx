@@ -1,10 +1,15 @@
 import React from "react";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import { renderWithRouter } from "../../../../test/routerTestUtils";
+import {
+  renderWithRouter,
+  renderWithRedux
+} from "../../../../test/routerTestUtils";
 import teaFixture from "../../../../test/__fixtures__/teaFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
-import { TeaDetailsContainerClass } from "../TeaDetailsContainer";
+import TeaDetailsContainer, {
+  TeaDetailsContainerClass
+} from "../TeaDetailsContainer";
 
 let mockFunc;
 let mockGetTeas;
@@ -17,24 +22,26 @@ beforeEach(() => {
   mockGetTeaTypes = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockDefaultProps = {
     tea: teaFixture.basicTea,
-    teaTypes: teaFixture.teaTypes,
-    flash: "success",
+    teaTypes: storeFixture.basicStore.teaTypes,
+    flash: "off",
     getTeas: mockGetTeas,
     getTeaTypes: mockGetTeaTypes,
     editTea: mockFunc,
     editFlash: mockFunc,
-    clearFlash: mockFunc
+    clearFlash: mockFunc,
+    match: { params: { id: "25070e52-e635-4883-ae9b-583113573b9f" } }
   };
 });
 
 describe("TeaDetailsContainer flash", () => {
-  test("tea detail renders with flash message after update", async () => {
-    const { queryByTestId } = renderWithRouter(
-      <TeaDetailsContainerClass {...mockDefaultProps} />
+  test.only("tea detail renders with flash message after update", async () => {
+    const { queryByTestId, debug } = renderWithRedux(
+      <TeaDetailsContainer {...mockDefaultProps} />,
+      storeFixture.basicStore
     );
     expect(queryByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();
-
+    debug();
     expect(queryByTestId("flash")).toBeTruthy();
   });
 
