@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { editTea } from "../../actions/teaActions";
 import { convertTimeToMinSec } from "../../lib/timeConverter";
+import { editTea } from "../../actions/teaActions";
 import { Timer } from "./Timer";
 
 class TimerContainer extends Component {
@@ -11,9 +11,6 @@ class TimerContainer extends Component {
     timerStart: 0,
     timerTime: this.props.brewTime ? this.props.brewTime : 0,
     timerLength: this.props.brewTime ? this.props.brewTime : 0,
-    minutes: 0,
-    seconds: 0,
-    progress: 0,
     tea: {
       id: this.props.tea ? this.props.tea.id : "",
       servings: this.props.tea ? this.props.tea.servings : ""
@@ -62,15 +59,8 @@ class TimerContainer extends Component {
     this.timer = setInterval(() => {
       const newTime = this.state.timerTime - 1;
       if (newTime >= 0) {
-        const timerBrewTime = convertTimeToMinSec(newTime);
-        const progressUpdate = Math.abs(
-          100 - ((newTime / this.props.brewTime) * 100).toFixed(1)
-        );
         this.setState({
-          timerTime: newTime,
-          minutes: timerBrewTime.minute,
-          seconds: timerBrewTime.seconds,
-          progress: progressUpdate
+          timerTime: newTime
         });
       } else {
         clearInterval(this.timer);
@@ -85,25 +75,18 @@ class TimerContainer extends Component {
   };
 
   resetTimer = () => {
-    const resetBrewTime = convertTimeToMinSec(this.props.brewTime);
     this.setState({
       timerOn: false,
-      timerTime: this.props.brewTime,
-      progress: 0,
-      minutes: resetBrewTime.minute,
-      seconds: resetBrewTime.seconds
+      timerTime: this.props.brewTime
     });
   };
 
   componentDidMount() {
-    const initialBrewTime = convertTimeToMinSec(this.props.brewTime);
     this.setState({
       tea: this.props.tea,
       originalServings: this.props.tea.servings,
       timerTime: this.props.brewTime,
       timerLength: this.props.brewTime,
-      minutes: initialBrewTime.minute,
-      seconds: initialBrewTime.seconds,
       loadingStatus: "complete"
     });
   }
@@ -119,12 +102,10 @@ class TimerContainer extends Component {
         <Timer
           id={this.props.id}
           teaName={this.state.tea.name}
+          brewTime={this.props.brewTime}
           timerOn={this.state.timerOn}
           timerTime={this.state.timerTime}
           timerLength={this.state.timerLength}
-          progress={this.state.progress}
-          minutes={this.state.minutes}
-          seconds={this.state.seconds}
           showTimer={this.props.showTimer}
           handleStartTimer={this.handleStartTimer}
           handlePauseTimer={this.handlePauseTimer}
