@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
+import { setTimerID } from "../../../actions/timerActions";
 import { selectSingleTeaType } from "../../../selectors/teaTypeSelectors";
 import { TeaDetails } from "./TeaDetails";
 
 class TeaDetailsContainer extends Component {
   state = {
-    showTimer: false,
     flash: "off",
     loadingStatus: "inprogress"
   };
@@ -18,10 +18,10 @@ class TeaDetailsContainer extends Component {
   };
 
   handleOpenTimer = id => {
-    this.setState({ showTimer: id });
+    this.props.setTimerID(id);
   };
   handleCloseTimer = () => {
-    this.setState({ showTimer: false });
+    this.props.setTimerID("");
   };
 
   componentWillMount() {
@@ -34,6 +34,7 @@ class TeaDetailsContainer extends Component {
     this.props
       .getTeaTypes(this.props.userID)
       .then(() => this.setState({ loadingStatus: "complete" }));
+    this.props.setTimerID(this.props.match.params.id);
   }
 
   render() {
@@ -48,7 +49,7 @@ class TeaDetailsContainer extends Component {
         <TeaDetails
           tea={this.props.tea}
           teaType={this.props.teaType}
-          showTimer={this.state.showTimer}
+          timerID={this.props.timerID}
           flash={this.state.flash}
           updateFlash={this.updateFlash}
           handleOpenTimer={this.handleOpenTimer}
@@ -60,13 +61,13 @@ class TeaDetailsContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   const teatype = selectSingleTeaType(state, ownProps);
   return {
     teaType: teatype && teatype.name,
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,
-    userID: state.auth.user.id
+    userID: state.auth.user.id,
+    timerID: state.timer.timerID
   };
 };
 
@@ -75,7 +76,8 @@ const mapDispatchToProps = {
   clearFlash,
   editTea,
   getTeas,
-  getTeaTypes
+  getTeaTypes,
+  setTimerID
 };
 
 export default connect(

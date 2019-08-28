@@ -3,6 +3,17 @@ import { Link } from "react-router-dom";
 import TimerContainer from "../../Timer";
 
 export class TeaDetails extends React.Component {
+  timerRender = props => {
+    if (props) {
+      return (
+        <TimerContainer
+          timerID={this.props.timerID}
+          handleCloseTimer={this.props.handleCloseTimer}
+        />
+      );
+    }
+    return <div />;
+  };
   render() {
     return (
       <>
@@ -49,13 +60,7 @@ export class TeaDetails extends React.Component {
             Edit
           </Link>
         </div>
-        <TimerContainer
-          id={this.props.tea.id}
-          showTimer={this.props.showTimer}
-          tea={this.props.tea}
-          teaType={this.props.teaType}
-          handleCloseTimer={this.props.handleCloseTimer}
-        />
+        {this.timerRender(this.props.timerID)}
       </>
     );
   }

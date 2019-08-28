@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { convertTimeToMinSec } from "../../lib/timeConverter";
 import { editTea } from "../../actions/teaActions";
 import { Timer } from "./Timer";
 
@@ -106,7 +105,7 @@ class TimerContainer extends Component {
           timerOn={this.state.timerOn}
           timerTime={this.state.timerTime}
           timerLength={this.state.timerLength}
-          showTimer={this.props.showTimer}
+          timerID={this.props.timerID}
           handleStartTimer={this.handleStartTimer}
           handlePauseTimer={this.handlePauseTimer}
           handleResumeTimer={this.handleResumeTimer}
@@ -120,11 +119,14 @@ class TimerContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const teatype = state.teaTypes.allTeaTypes[ownProps.tea.teaType];
+  const tea = state.teas.allTeas[ownProps.timerID];
+  const teatype = state.teaTypes.allTeaTypes[tea.teaType];
+
   return {
-    id: ownProps.id,
+    id: ownProps.timerID,
     brewTime: teatype.brewTime,
     teaType: teatype.name,
-    tea: ownProps.tea,
+    tea: tea,
     userID: state.auth.user.id
   };
 };

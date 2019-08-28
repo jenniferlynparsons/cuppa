@@ -9,6 +9,18 @@ import InputField from "../../FormComponents/InputField";
 library.add(faAngleDown, faAngleUp);
 
 export class TeaCollectionTable extends React.Component {
+  timerRender = props => {
+    if (props) {
+      return (
+        <TimerContainer
+          timerID={this.props.timerID}
+          handleCloseTimer={this.props.handleCloseTimer}
+        />
+      );
+    }
+    return <div />;
+  };
+
   render() {
     return (
       <div data-testid="teacollection" className="container">
@@ -158,13 +170,6 @@ export class TeaCollectionTable extends React.Component {
                     >
                       Make A Cuppa
                     </button>
-                    <TimerContainer
-                      id={tea.id}
-                      showTimer={this.props.showTimer}
-                      tea={tea}
-                      teaType={tea.teaType}
-                      handleCloseTimer={this.props.handleCloseTimer}
-                    />
                   </td>
                   <td>
                     <Link to={"/update-tea/" + tea.id} data-testid="editlink">
@@ -200,6 +205,7 @@ export class TeaCollectionTable extends React.Component {
             )}
           </tbody>
         </table>
+        {this.timerRender(this.props.timerID)}
       </div>
     );
   }
