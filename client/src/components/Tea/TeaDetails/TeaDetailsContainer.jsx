@@ -34,7 +34,6 @@ class TeaDetailsContainer extends Component {
     this.props
       .getTeaTypes(this.props.userID)
       .then(() => this.setState({ loadingStatus: "complete" }));
-    this.props.setTimerID(this.props.match.params.id);
   }
 
   render() {

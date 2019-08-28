@@ -118,7 +118,6 @@ class TimerContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const teatype = state.teaTypes.allTeaTypes[ownProps.tea.teaType];
   const tea = state.teas.allTeas[ownProps.timerID];
   const teatype = state.teaTypes.allTeaTypes[tea.teaType];
 
