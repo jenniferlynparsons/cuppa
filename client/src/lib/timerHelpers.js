@@ -1,3 +1,6 @@
+import React from "react";
+import TimerContainer from "../../src/components/Timer";
+
 export const convertTimeToMinSec = totalSeconds => {
   const minute = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
@@ -9,4 +12,16 @@ export const convertTimeToMinSec = totalSeconds => {
 
 export const convertTimeToSec = (min, sec) => {
   return min * 60 + sec;
+};
+
+export const timerRender = props => {
+  if (props.timerID) {
+    return (
+      <TimerContainer
+        timerID={props.timerID}
+        handleCloseTimer={props.handleCloseTimer}
+      />
+    );
+  }
+  return <div />;
 };

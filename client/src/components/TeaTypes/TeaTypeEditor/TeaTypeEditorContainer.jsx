@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   convertTimeToMinSec,
   convertTimeToSec
-} from "../../../lib/timeConverter";
+} from "../../../lib/timerHelpers";
 import {
   nameSchema,
   brewTimeMinSchema,

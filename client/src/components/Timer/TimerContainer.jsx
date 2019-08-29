@@ -9,7 +9,6 @@ class TimerContainer extends Component {
     timerOn: false,
     timerStart: 0,
     timerTime: this.props.brewTime ? this.props.brewTime : 0,
-    timerLength: this.props.brewTime ? this.props.brewTime : 0,
     tea: {
       id: this.props.tea ? this.props.tea.id : "",
       servings: this.props.tea ? this.props.tea.servings : ""
@@ -57,11 +56,10 @@ class TimerContainer extends Component {
     });
     this.timer = setInterval(() => {
       const newTime = this.state.timerTime - 1;
-      if (newTime >= 0) {
-        this.setState({
-          timerTime: newTime
-        });
-      } else {
+      this.setState({
+        timerTime: newTime
+      });
+      if (newTime === 0) {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
       }
@@ -85,7 +83,6 @@ class TimerContainer extends Component {
       tea: this.props.tea,
       originalServings: this.props.tea.servings,
       timerTime: this.props.brewTime,
-      timerLength: this.props.brewTime,
       loadingStatus: "complete"
     });
   }
@@ -99,13 +96,10 @@ class TimerContainer extends Component {
     } else {
       return (
         <Timer
-          id={this.props.id}
           teaName={this.state.tea.name}
           brewTime={this.props.brewTime}
           timerOn={this.state.timerOn}
           timerTime={this.state.timerTime}
-          timerLength={this.state.timerLength}
-          timerID={this.props.timerID}
           handleStartTimer={this.handleStartTimer}
           handlePauseTimer={this.handlePauseTimer}
           handleResumeTimer={this.handleResumeTimer}

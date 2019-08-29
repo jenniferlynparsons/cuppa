@@ -1,5 +1,5 @@
 import React from "react";
-import { convertTimeToMinSec } from "../../lib/timeConverter";
+import { convertTimeToMinSec } from "../../lib/timerHelpers";
 
 export class Timer extends React.Component {
   render() {
@@ -10,11 +10,7 @@ export class Timer extends React.Component {
     return (
       <div
         data-testid="timermodal"
-        className={
-          this.props.timerID === this.props.id
-            ? "modal is-active has-text-centered"
-            : "modal has-text-centered"
-        }
+        className="modal is-active has-text-centered"
       >
         <div className="modal-background"></div>
         <div className="modal-card">
@@ -38,7 +34,7 @@ export class Timer extends React.Component {
               data-testid="starttimer"
               className={
                 !this.props.timerOn &&
-                this.props.timerTime === this.props.timerLength
+                this.props.timerTime === this.props.brewTime
                   ? "button is-success"
                   : "is-hidden"
               }
@@ -52,7 +48,7 @@ export class Timer extends React.Component {
               className={
                 !this.props.timerOn &&
                 this.props.timerTime > 0 &&
-                this.props.timerTime !== this.props.timerLength
+                this.props.timerTime !== this.props.brewTime
                   ? "button is-success"
                   : "is-hidden"
               }

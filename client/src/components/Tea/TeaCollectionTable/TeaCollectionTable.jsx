@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import TimerContainer from "../../Timer";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
@@ -9,18 +8,6 @@ import InputField from "../../FormComponents/InputField";
 library.add(faAngleDown, faAngleUp);
 
 export class TeaCollectionTable extends React.Component {
-  timerRender = props => {
-    if (props) {
-      return (
-        <TimerContainer
-          timerID={this.props.timerID}
-          handleCloseTimer={this.props.handleCloseTimer}
-        />
-      );
-    }
-    return <div />;
-  };
-
   render() {
     return (
       <div data-testid="teacollection" className="container">
@@ -205,7 +192,7 @@ export class TeaCollectionTable extends React.Component {
             )}
           </tbody>
         </table>
-        {this.timerRender(this.props.timerID)}
+        {this.props.timerRender(this.props)}
       </div>
     );
   }

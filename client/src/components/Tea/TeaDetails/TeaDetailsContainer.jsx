@@ -4,6 +4,7 @@ import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
 import { setTimerID } from "../../../actions/timerActions";
+import { timerRender } from "../../../lib/timerHelpers";
 import { selectSingleTeaType } from "../../../selectors/teaTypeSelectors";
 import { TeaDetails } from "./TeaDetails";
 
@@ -49,6 +50,7 @@ class TeaDetailsContainer extends Component {
           tea={this.props.tea}
           teaType={this.props.teaType}
           timerID={this.props.timerID}
+          timerRender={timerRender}
           flash={this.state.flash}
           updateFlash={this.updateFlash}
           handleOpenTimer={this.handleOpenTimer}
