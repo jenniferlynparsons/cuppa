@@ -103,11 +103,11 @@
   "jest": {
     "clearMocks": true,
     "collectCoverageFrom": [
-      "<rootDir>/client/src/components/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/client/src/actions/*.{js,ts,tsx}",
-      "<rootDir>/client/src/reducers/*.{js,ts,tsx}",
-      "<rootDir>/client/src/selectors/*.{js,ts,tsx}",
-      "<rootDir>/client/src/lib/*.{js,ts,tsx}"
+      "<rootDir>/client/src/components/**/*.{js,jsx}",
+      "<rootDir>/client/src/actions/*.{js}",
+      "<rootDir>/client/src/reducers/*.{js}",
+      "<rootDir>/client/src/selectors/*.{js}",
+      "<rootDir>/client/src/lib/*.{js}"
     ],
     "coverageDirectory": "coverage",
     "moduleFileExtensions": [

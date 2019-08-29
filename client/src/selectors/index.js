@@ -11,7 +11,8 @@ export const selectSingleTeaType = createSelector(
   teaTypeIDs,
   allTeaTypes,
   allTeas,
-  (state, props) => props.match.params.id,
+  (state, props) =>
+    props.match.params.id ? props.match.params.id : props.timerID,
   (teaTypeIDs, allTeaTypes, allTeas, propsID) => {
     if (teaTypeIDs.length > 0) {
       let currentTeaType = teaTypeIDs.find(typeID => {
