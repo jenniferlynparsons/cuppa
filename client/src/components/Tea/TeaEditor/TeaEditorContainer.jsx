@@ -196,7 +196,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     teaTypes: allSelectors.teaTypeSelectors.selectTeaTypes(state),
     teas: state.teas,
-    brandList: allSelectors.brandSelectors.selectBrands(state),
+    brandList: allSelectors.teaSelectors.selectBrands(state),
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
     updatedTea: state.teas.updatedTea,

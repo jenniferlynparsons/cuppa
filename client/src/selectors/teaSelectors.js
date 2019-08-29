@@ -15,10 +15,10 @@ export const selectBrands = createSelector(
   (teaIDs, allTeas) => teaIDs.map(id => allTeas[id].brand)
 );
 
-const brandSelectors = {
+const teaSelectors = {
   teaIDsSelector,
   allTeasSelector,
   selectBrands
 };
 
-export default brandSelectors;
+export default teaSelectors;

@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 import teaTypeSelectors from "./teaTypeSelectors";
-import brandSelectors from "./brandSelectors";
+import teaSelectors from "./teaSelectors";
 
 const teaTypeIDs = state => state.teaTypes.teaTypeIDs;
 const allTeaTypes = state => state.teaTypes.allTeaTypes;
@@ -24,7 +24,7 @@ export const selectSingleTeaType = createSelector(
 
 const allSelectors = {
   teaTypeSelectors,
-  brandSelectors,
+  teaSelectors,
   selectSingleTeaType
 };
 
