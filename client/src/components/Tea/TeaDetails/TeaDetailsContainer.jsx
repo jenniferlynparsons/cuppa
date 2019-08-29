@@ -5,7 +5,7 @@ import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
 import { setTimerID } from "../../../actions/timerActions";
 import { timerRender } from "../../../lib/timerHelpers";
-import { selectSingleTeaType } from "../../../selectors/teaTypeSelectors";
+import allSelectors from "../../../selectors";
 import { TeaDetails } from "./TeaDetails";
 
 class TeaDetailsContainer extends Component {
@@ -62,7 +62,7 @@ class TeaDetailsContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const teatype = selectSingleTeaType(state, ownProps);
+  const teatype = allSelectors.selectSingleTeaType(state, ownProps);
   return {
     teaType: teatype && teatype.name,
     tea: state.teas.allTeas[ownProps.match.params.id],

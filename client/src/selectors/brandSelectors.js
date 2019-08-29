@@ -1,10 +1,24 @@
 import { createSelector } from "reselect";
 
-const teaIDs = state => state.teaIDs;
-const allTeas = state => state.allTeas;
+export const teaIDsSelector = createSelector(
+  state => state.teas.teaIDs,
+  teaIDs => teaIDs
+);
+export const allTeasSelector = createSelector(
+  state => state.teas.allTeas,
+  allTeas => allTeas
+);
 
 export const selectBrands = createSelector(
-  teaIDs,
-  allTeas,
+  teaIDsSelector,
+  allTeasSelector,
   (teaIDs, allTeas) => teaIDs.map(id => allTeas[id].brand)
 );
+
+const brandSelectors = {
+  teaIDsSelector,
+  allTeasSelector,
+  selectBrands
+};
+
+export default brandSelectors;
