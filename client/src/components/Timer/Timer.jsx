@@ -5,7 +5,7 @@ export class Timer extends React.Component {
   render() {
     const brewTime = convertTimeToMinSec(this.props.timerTime);
     const progress = Math.abs(
-      100 - ((this.props.timerTime / this.props.brewTime) * 100).toFixed(1)
+      100 - (this.props.timerTime / this.props.brewTime) * 100
     );
     return (
       <div
@@ -26,7 +26,7 @@ export class Timer extends React.Component {
               value={progress}
               max="100"
             >
-              {progress}%
+              {progress.toFixed(0)}%
             </progress>
           </section>
           <div className="modal-card-foot is-centered">
