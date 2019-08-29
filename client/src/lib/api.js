@@ -18,7 +18,7 @@ const dispatchError = (errorData, dispatch) => {
     type: errorActionTypes.SERVER_ERRORS,
     payload: errorData.response.data
   });
-  throw Error;
+  throw new Error(errorData);
 };
 
 function get(path, payload, dispatch) {
