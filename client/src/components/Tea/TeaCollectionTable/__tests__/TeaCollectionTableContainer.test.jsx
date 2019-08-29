@@ -2,14 +2,22 @@ import React from "react";
 import "jest-dom/extend-expect";
 import { fireEvent, wait } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
+import timerHelpers from "../../../../lib/timerHelpers";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import { TeaCollectionTableContainerClass } from "../TeaCollectionTableContainer";
 
+jest.mock("../../../../lib/timerHelpers", () => {
+  return {
+    timerRender: jest.fn()
+  };
+});
+
 let mockGetTeas;
 let mockDeleteTea;
-let mockDefaultProps;
 let mockGetTeaTypes;
+let mockSetTimerID;
+let mockDefaultProps;
 
 beforeEach(() => {
   mockGetTeas = jest.fn(() => Promise.resolve(storeFixture.basicStore));
@@ -17,10 +25,13 @@ beforeEach(() => {
     return storeFixture.deletedStore;
   });
   mockGetTeaTypes = jest.fn(() => Promise.resolve(storeFixture.basicStore));
+  mockSetTimerID = jest.fn();
+
   mockDefaultProps = {
     userID: dataFixture.mockUserID,
     teas: storeFixture.basicStore.teas,
     teaTypes: storeFixture.basicStore.teaTypes,
+    setTimerID: mockSetTimerID,
     getTeas: mockGetTeas,
     deleteTea: mockDeleteTea,
     getTeaTypes: mockGetTeaTypes
@@ -29,7 +40,7 @@ beforeEach(() => {
 
 describe("TeaCollectionTableContainerClass interactions", () => {
   describe("individual tea interactions", () => {
-    test.only("user clicks delete removes the tea from list", async () => {
+    test("user clicks delete removes the tea from list", async () => {
       const { getAllByTestId, queryByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
       );
@@ -210,6 +221,22 @@ describe("TeaCollectionTableContainerClass interactions", () => {
       fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(3);
       expect(queryAllByTestId("inputerror").length).toEqual(1);
+    });
+  });
+
+  describe("timer", () => {
+    test("user can display timer modal", async () => {
+      const { queryByTestId, getAllByTestId } = renderWithRouter(
+        <TeaCollectionTableContainerClass {...mockDefaultProps} />
+      );
+      expect(queryByTestId("loadingmessage")).toBeTruthy();
+      await Promise.resolve();
+
+      fireEvent.click(getAllByTestId("makecuppalink")[0]);
+      expect(mockSetTimerID).toHaveBeenCalled();
+
+      let spy = jest.spyOn(timerHelpers, "timerRender");
+      expect(spy).toHaveBeenCalled();
     });
   });
 });

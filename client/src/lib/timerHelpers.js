@@ -25,3 +25,11 @@ export const timerRender = props => {
   }
   return <div />;
 };
+
+const timerHelpers = {
+  convertTimeToMinSec,
+  convertTimeToSec,
+  timerRender
+};
+
+export default timerHelpers;

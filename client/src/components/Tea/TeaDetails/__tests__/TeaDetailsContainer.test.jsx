@@ -1,28 +1,34 @@
 import React from "react";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import {
-  renderWithRouter,
-  renderWithRedux
-} from "../../../../test/routerTestUtils";
+import { renderWithRouter } from "../../../../test/routerTestUtils";
+import timerHelpers from "../../../../lib/timerHelpers";
 import teaFixture from "../../../../test/__fixtures__/teaFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
-import TeaDetailsContainer, {
-  TeaDetailsContainerClass
-} from "../TeaDetailsContainer";
+import { TeaDetailsContainerClass } from "../TeaDetailsContainer";
+
+jest.mock("../../../../lib/timerHelpers", () => {
+  return {
+    timerRender: jest.fn()
+  };
+});
 
 let mockFunc;
 let mockGetTeas;
 let mockGetTeaTypes;
+let mockSetTimerID;
 let mockDefaultProps;
 
 beforeEach(() => {
   mockFunc = jest.fn();
   mockGetTeas = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockGetTeaTypes = jest.fn(() => Promise.resolve(storeFixture.basicStore));
+  mockSetTimerID = jest.fn();
+
   mockDefaultProps = {
     tea: teaFixture.basicTea,
     teaTypes: storeFixture.basicStore.teaTypes,
+    setTimerID: mockSetTimerID,
     flash: "off",
     getTeas: mockGetTeas,
     getTeaTypes: mockGetTeaTypes,
@@ -33,21 +39,33 @@ beforeEach(() => {
   };
 });
 
-describe("TeaDetailsContainer flash", () => {
-  test.only("tea detail renders with flash message after update", async () => {
-    const { queryByTestId, debug } = renderWithRedux(
-      <TeaDetailsContainer {...mockDefaultProps} />,
-      storeFixture.basicStore
+describe("teaDetails render", () => {
+  test("tea detail renders", async () => {
+    const { queryByTestId } = renderWithRouter(
+      <TeaDetailsContainerClass {...mockDefaultProps} />
     );
     expect(queryByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();
-    debug();
+
+    let spy = jest.spyOn(timerHelpers, "timerRender");
+    expect(spy).toHaveBeenCalled();
+  });
+});
+
+describe("teaDetails flash", () => {
+  test("tea detail renders with flash message after update", async () => {
+    const { queryByTestId } = renderWithRouter(
+      <TeaDetailsContainerClass {...mockDefaultProps} flash="success" />
+    );
+    expect(queryByTestId("loadingmessage")).toBeTruthy();
+    await Promise.resolve();
+
     expect(queryByTestId("flash")).toBeTruthy();
   });
 
   test("user clicks on delete flash fires click handler", async () => {
     const { queryByTestId, getByTestId } = renderWithRouter(
-      <TeaDetailsContainerClass {...mockDefaultProps} />
+      <TeaDetailsContainerClass {...mockDefaultProps} flash="success" />
     );
     expect(queryByTestId("loadingmessage")).toBeTruthy();
     await Promise.resolve();
@@ -79,35 +97,9 @@ describe("tea timer interactions", () => {
     await Promise.resolve();
 
     fireEvent.click(getByTestId("makecuppalink"));
-    expect(queryByTestId("timermodal")).toHaveClass("is-active");
-  });
+    expect(mockSetTimerID).toHaveBeenCalled();
 
-  test("user can hide timer modal", async () => {
-    const { queryByTestId, getByTestId } = renderWithRouter(
-      <TeaDetailsContainerClass {...mockDefaultProps} flash={"off"} />
-    );
-    expect(queryByTestId("loadingmessage")).toBeTruthy();
-    await Promise.resolve();
-
-    fireEvent.click(getByTestId("makecuppalink"));
-    fireEvent.click(getByTestId("canceltimer"));
-    expect(queryByTestId("timermodal")).not.toHaveClass("is-active");
-  });
-
-  test("completed timer updates quantity on hand", async () => {
-    const { queryByTestId, getByTestId } = renderWithRouter(
-      <TeaDetailsContainerClass {...mockDefaultProps} flash={"off"} />
-    );
-    expect(queryByTestId("loadingmessage")).toBeTruthy();
-    await Promise.resolve();
-
-    fireEvent.click(getByTestId("makecuppalink"));
-    fireEvent.click(getByTestId("starttimer"));
-    setTimeout(function() {
-      expect(queryByTestId("donetimer")).toHaveClass("button");
-      fireEvent.click(getByTestId("donetimer"));
-      expect(queryByTestId("timermodal")).not.toHaveClass("is-active");
-      expect(mockFunc).toHaveBeenCalledWith(teaFixture.servingsUpdatedTea);
-    }, 2500);
+    let spy = jest.spyOn(timerHelpers, "timerRender");
+    expect(spy).toHaveBeenCalled();
   });
 });
