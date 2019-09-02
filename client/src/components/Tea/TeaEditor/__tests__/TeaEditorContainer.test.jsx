@@ -45,15 +45,15 @@ describe("teaEditor form success", () => {
       target: { value: teaFixture.basicTea.brand }
     });
     fireEvent.change(getByTestId("teaType"), {
-      target: { value: "5d39dd1f0487d1116140bac1" }
+      target: { value: "5d40b6871f88450253bdbf40" }
     });
     fireEvent.change(getByTestId("servings"), {
-      target: { value: 12 }
+      target: { value: 22 }
     });
     expect(getByTestId("teaeditorform")).toHaveFormValues({
       name: teaFixture.basicTea.name,
       brand: teaFixture.basicTea.brand,
-      servings: 12,
+      servings: 22,
       type: teaFixture.basicTea.teaType
     });
 
@@ -82,7 +82,7 @@ describe("teaEditor form success", () => {
 
     fireEvent.click(getByTestId("submit"));
     expect(dataFixture.history.push).toHaveBeenCalledWith(
-      "/tea/1b1db861-0537-4b69-83d5-d9ee033530f8"
+      "/tea/" + teaFixture.basicTea.id
     );
   });
 });

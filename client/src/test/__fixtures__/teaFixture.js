@@ -1,10 +1,10 @@
 // Component mock data
 const basicTea = {
-  id: "1b1db861-0537-4b69-83d5-d9ee033530f8",
-  name: "Basic Tea",
-  brand: "Lipton",
-  teaType: "5d39dd1f0487d1116140bac1",
-  servings: 12
+  id: "25070e52-e635-4883-ae9b-583113573b9f",
+  name: "Sleepytime",
+  brand: "Celestial Seasonings",
+  teaType: "5d40b6871f88450253bdbf40",
+  servings: 22
 };
 
 const updatedTea = {
@@ -12,31 +12,31 @@ const updatedTea = {
   name: "Green Dragon",
   brand: "Twinnings",
   teaType: "5d48277169b3160191797d14",
-  servings: 21
+  servings: 23
 };
 
 const basicDataTea = {
   userID: "5c6313a4c318bb62298b23d4",
   id: "",
-  name: "Basic Tea",
-  brand: "Lipton",
-  teaType: "5d39dd1f0487d1116140bac1",
-  servings: 12
+  name: "Sleepytime",
+  brand: "Celestial Seasonings",
+  teaType: "5d40b6871f88450253bdbf40",
+  servings: 22
 };
 
 const missingDataTea = {
   name: "",
   brand: "Twinnings",
   teaType: "5d48277169b3160191797d14",
-  servings: 21
+  servings: 23
 };
 
 const servingsUpdatedTea = {
-  id: "1b1db861-0537-4b69-83d5-d9ee033530f8",
-  name: "Basic Tea",
-  brand: "Lipton",
-  teaType: "5d39dd1f0487d1116140bac1",
-  servings: 11
+  id: "25070e52-e635-4883-ae9b-583113573b9f",
+  name: "Sleepytime",
+  brand: "Celestial Seasonings",
+  teaType: "5d40b6871f88450253bdbf40",
+  servings: 21
 };
 
 // Reducer mock data
@@ -45,7 +45,7 @@ const reducerAddTea = {
   userID: "5cf18ae7d39d81638810de09",
   name: "Lapsang Souchang",
   brand: "McNulty's",
-  teaType: "5d39dd1f0487d1116140bac1",
+  teaType: "5d40b6871f88450253bdbf40",
   servings: 12,
   id: "3d4a3605-4368-4ee1-abe4-318d7982e491"
 };
@@ -101,7 +101,7 @@ const teaGetResponse = {
       name: "Sleepytime",
       brand: "Celestial Seasonings",
       teaType: "5d40b6871f88450253bdbf40",
-      servings: 12
+      servings: 22
     },
     {
       id: "3d4a3605-4368-4ee1-abe4-318d7982e491",
@@ -155,6 +155,12 @@ const editTeaPayload = {
 
 const deleteTeaPayload = "dc8a7690-de4a-47e8-8225-5548c0f51669";
 
+const matchTeaID = {
+  match: { params: { id: "25070e52-e635-4883-ae9b-583113573b9f" } }
+};
+
+const teaBrands = ["Celestial Seasonings", "Celestial Seasonings", "McNulty's"];
+
 const emptyState = { allTeas: {}, teaIDs: [] };
 
 const teaFixture = {
@@ -172,6 +178,8 @@ const teaFixture = {
   addTeaPayload,
   editTeaPayload,
   deleteTeaPayload,
+  matchTeaID,
+  teaBrands,
   emptyState
 };
 

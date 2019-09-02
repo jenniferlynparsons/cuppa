@@ -102,13 +102,6 @@
   },
   "jest": {
     "clearMocks": true,
-    "collectCoverageFrom": [
-      "<rootDir>/client/src/components/**/*.{js,jsx}",
-      "<rootDir>/client/src/actions/*.{js}",
-      "<rootDir>/client/src/reducers/*.{js}",
-      "<rootDir>/client/src/selectors/*.{js}",
-      "<rootDir>/client/src/lib/*.{js}"
-    ],
     "coverageDirectory": "coverage",
     "moduleFileExtensions": [
       "js",

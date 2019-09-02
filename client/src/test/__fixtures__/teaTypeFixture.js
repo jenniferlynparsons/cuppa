@@ -212,6 +212,12 @@ const editTeaTypePayload = {
 
 const deleteTeaTypePayload = "5d48277169b3160191797d14";
 
+const singleTeaType = {
+  id: "5d40b6871f88450253bdbf40",
+  name: "Herbal",
+  brewTime: 14400000
+};
+
 const emptyState = { allTeaTypes: {}, teaTypeIDs: [] };
 
 const teaTypeFixture = {
@@ -233,6 +239,7 @@ const teaTypeFixture = {
   addTeaTypePayload,
   editTeaTypePayload,
   deleteTeaTypePayload,
+  singleTeaType,
   emptyState
 };
 
