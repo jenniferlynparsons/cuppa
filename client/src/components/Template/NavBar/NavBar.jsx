@@ -3,23 +3,6 @@ import { Link } from "react-router-dom";
 import "./NavBar.scss";
 
 class NavBar extends React.Component {
-  state = {
-    menuActive: false,
-    dropdownActive: false
-  };
-
-  handleNavToggle = () => {
-    this.setState(prevState => ({
-      menuActive: !prevState.menuActive
-    }));
-  };
-
-  handleDropDownToggle = () => {
-    this.setState(prevState => ({
-      dropdownActive: !prevState.dropdownActive
-    }));
-  };
-
   render() {
     return (
       <nav
