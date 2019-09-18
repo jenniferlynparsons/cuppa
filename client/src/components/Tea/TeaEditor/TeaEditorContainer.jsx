@@ -10,6 +10,7 @@ import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash } from "../../../actions/flashActions";
 import { selectTeaTypes } from "../../../selectors/teaTypeSelectors";
+import { selectBrands } from "../../../selectors/teaSelectors";
 import { TeaEditor } from "./TeaEditor";
 import DataList from "../../FormComponents/DataList";
 
@@ -31,13 +32,11 @@ export class TeaEditorContainer extends React.Component {
     teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
     teaTypes: this.props.teaTypes ? this.props.teaTypes : "",
     servings: this.props.currentTea ? this.props.currentTea.servings : "",
-    brandsDataList: [],
     inputValidation: {
       name: true,
       brand: true,
       teaType: true,
-      servings: true,
-      duplicate: true
+      servings: true
     },
     errorMessages: {
       name: "Please enter a tea name",
@@ -125,9 +124,11 @@ export class TeaEditorContainer extends React.Component {
 
   componentDidMount() {
     this.props.getTeas(this.props.userID);
-    this.props
-      .getTeaTypes(this.props.userID)
-      .then(() => this.setState({ loadingStatus: "complete" }));
+    this.props.getTeaTypes(this.props.userID).then(() =>
+      this.setState({
+        loadingStatus: "complete"
+      })
+    );
   }
 
   componentDidUpdate(prevProps) {
@@ -141,10 +142,7 @@ export class TeaEditorContainer extends React.Component {
         name: this.props.currentTea.name,
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,
-        servings: this.props.currentTea.servings,
-        brandsDataList: this.props.teas.ids.map(id => {
-          return this.props.teas.allTeas[id].brand;
-        })
+        servings: this.props.currentTea.servings
       });
     }
     if (
@@ -158,15 +156,6 @@ export class TeaEditorContainer extends React.Component {
           id: this.props.updatedTea.id
         }
       });
-    }
-    if (this.props.serverErrors && !prevProps.serverErrors) {
-      this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
-          duplicate: false
-        },
-        flash: { name: "", id: "" }
-      }));
     }
   }
 
@@ -184,12 +173,13 @@ export class TeaEditorContainer extends React.Component {
           name={this.state.name}
           brand={this.state.brand}
           brandsDataList={
-            <DataList id="brands" options={this.state.brandsDataList} />
+            <DataList id="brands" options={this.props.brandList} />
           }
           teaType={this.state.teaType}
           servings={this.state.servings}
           flash={this.state.flash}
           inputValidation={this.state.inputValidation}
+          serverErrors={this.props.serverErrors}
           errorMessages={this.state.errorMessages}
           handleBlur={this.handleBlur}
           handleNameChange={this.handleNameChange}
@@ -205,8 +195,9 @@ export class TeaEditorContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    teaTypes: selectTeaTypes(state.teaTypes),
+    teaTypes: selectTeaTypes(state),
     teas: state.teas,
+    brandList: selectBrands(state),
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
     updatedTea: state.teas.updatedTea,

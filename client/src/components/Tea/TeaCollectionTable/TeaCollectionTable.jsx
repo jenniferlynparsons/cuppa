@@ -4,6 +4,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import InputField from "../../FormComponents/InputField";
+import TimerContainer from "../../Timer";
 
 library.add(faAngleDown, faAngleUp);
 
@@ -125,6 +126,7 @@ export class TeaCollectionTable extends React.Component {
               ))}
               <th />
               <th />
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -147,6 +149,16 @@ export class TeaCollectionTable extends React.Component {
                   <td>{tea.brand}</td>
                   <td>{teaType && teaType.name}</td>
                   <td>{tea.servings}</td>
+                  <td>
+                    <button
+                      data-testid="makecuppalink"
+                      className="button is-primary"
+                      disabled={tea.servings <= 0}
+                      onClick={() => this.props.handleOpenTimer(tea.id)}
+                    >
+                      Make A Cuppa
+                    </button>
+                  </td>
                   <td>
                     <Link to={"/update-tea/" + tea.id} data-testid="editlink">
                       Edit
@@ -181,6 +193,12 @@ export class TeaCollectionTable extends React.Component {
             )}
           </tbody>
         </table>
+        {this.props.timerID && (
+          <TimerContainer
+            timerID={this.props.timerID}
+            handleCloseTimer={this.props.handleCloseTimer}
+          />
+        )}
       </div>
     );
   }

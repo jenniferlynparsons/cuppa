@@ -1,15 +1,16 @@
 import React from "react";
+import { convertTimeToMinSec } from "../../lib/timerHelpers";
 
 export class Timer extends React.Component {
   render() {
+    const brewTime = convertTimeToMinSec(this.props.timerTime);
+    const progress = Math.abs(
+      100 - (this.props.timerTime / this.props.brewTime) * 100
+    );
     return (
       <div
         data-testid="timermodal"
-        className={
-          this.props.showTimer
-            ? "modal is-active has-text-centered"
-            : "modal has-text-centered"
-        }
+        className="modal is-active has-text-centered"
       >
         <div className="modal-background"></div>
         <div className="modal-card">
@@ -18,14 +19,14 @@ export class Timer extends React.Component {
           </header>
           <section className="modal-card-body">
             <p className="is-size-3">
-              {this.props.minutes}:{this.props.seconds}
+              {brewTime.minute}:{brewTime.seconds}
             </p>
             <progress
               className="progress is-primary"
-              value={this.props.progress}
+              value={progress}
               max="100"
             >
-              {this.props.progress}%
+              {progress.toFixed(0)}%
             </progress>
           </section>
           <div className="modal-card-foot is-centered">
@@ -33,7 +34,7 @@ export class Timer extends React.Component {
               data-testid="starttimer"
               className={
                 !this.props.timerOn &&
-                this.props.timerTime === this.props.timerLength
+                this.props.timerTime === this.props.brewTime
                   ? "button is-success"
                   : "is-hidden"
               }
@@ -47,7 +48,7 @@ export class Timer extends React.Component {
               className={
                 !this.props.timerOn &&
                 this.props.timerTime > 0 &&
-                this.props.timerTime !== this.props.timerLength
+                this.props.timerTime !== this.props.brewTime
                   ? "button is-success"
                   : "is-hidden"
               }

@@ -10,3 +10,10 @@ export const convertTimeToMinSec = totalSeconds => {
 export const convertTimeToSec = (min, sec) => {
   return min * 60 + sec;
 };
+
+const timerHelpers = {
+  convertTimeToMinSec,
+  convertTimeToSec
+};
+
+export default timerHelpers;

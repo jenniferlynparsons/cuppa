@@ -6,6 +6,7 @@ import {
 } from "../../../lib/validationSchemas";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
+import { setTimerID } from "../../../actions/timerActions";
 import { TeaCollectionTable } from "./TeaCollectionTable";
 import DataList from "../../FormComponents/DataList";
 
@@ -188,6 +189,13 @@ export class TeaCollectionTableContainer extends React.Component {
     });
   };
 
+  handleOpenTimer = id => {
+    this.props.setTimerID(id);
+  };
+  handleCloseTimer = () => {
+    this.props.setTimerID("");
+  };
+
   componentDidMount() {
     this.props.getTeas(this.props.userID).then(() =>
       this.setState({
@@ -227,6 +235,7 @@ export class TeaCollectionTableContainer extends React.Component {
           teaTypes={this.props.teaTypes}
           formControls={this.state.formControls}
           filtered={this.state.filtered}
+          timerID={this.props.timerID}
           inputValidation={this.state.inputValidation}
           errorMessages={this.state.errorMessages}
           handleDeleteClick={this.handleDeleteClick}
@@ -236,6 +245,8 @@ export class TeaCollectionTableContainer extends React.Component {
           handleFilterDropdownChange={this.handleFilterDropdownChange}
           handleFilterInputChange={this.handleFilterInputChange}
           handleSortColumn={this.handleSortColumn}
+          handleOpenTimer={this.handleOpenTimer}
+          handleCloseTimer={this.handleCloseTimer}
         />
       );
     }
@@ -246,14 +257,16 @@ const mapStateToProps = state => {
   return {
     teas: state.teas,
     teaTypes: state.teaTypes,
-    userID: state.auth.user.id
+    userID: state.auth.user.id,
+    timerID: state.timer.timerID
   };
 };
 
 const mapDispatchToProps = {
   deleteTea,
   getTeas,
-  getTeaTypes
+  getTeaTypes,
+  setTimerID
 };
 
 export default connect(

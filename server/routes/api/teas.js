@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
 
   Tea.findOne({ id: req.body.id }).then(tea => {
     if (tea) {
-      return res.json({ duplicate: "This tea already exists" });
+      return res.status(409).json({ duplicate: "This tea already exists" });
     }
 
     const newTea = new Tea({
@@ -36,15 +36,15 @@ router.post("/", (req, res) => {
 
     newTea
       .save()
-      .then(tea => res.json(teaNormalizer(tea)))
-      .catch(err => console.log(err));
+      .then(tea => res.status(200).json(teaNormalizer(tea)))
+      .catch(err => res.status(500, { error: err }));
   });
 });
 
 // @route PUT api/teas
 // @desc Update tea
 // @access Public
-router.put("/:id", (req, res) => {
+router.patch("/:id", (req, res) => {
   const { errors, isValid } = validateTeaInput(req.body);
 
   // Check validation
@@ -57,7 +57,7 @@ router.put("/:id", (req, res) => {
     tea
   ) {
     if (err) return res.send(500, { error: err });
-    return res.json(teaNormalizer(tea));
+    return res.status(200).json(teaNormalizer(tea));
   });
 });
 
@@ -86,12 +86,12 @@ router.delete("/:id", (req, res) => {
 router.get("/:id", (req, res) => {
   Tea.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {
-      res.send(err);
+      return res.status(404).send(err);
     }
     if (tea) {
-      res.json(teaNormalizer(tea));
+      return res.status(200).json(teaNormalizer(tea));
     } else {
-      return res.json({ message: "Tea does not exist." });
+      return res.status(404).json({ teaMissing: "Tea does not exist." });
     }
   });
 });
@@ -101,7 +101,14 @@ router.get("/:id", (req, res) => {
 // @access Public
 router.get("/", function(req, res) {
   Tea.find({ userID: req.query.userID }, function(err, teas) {
-    res.send(teas.map(teaNormalizer));
+    if (err) {
+      return res.status(404).send(err);
+    }
+    if (teas) {
+      return res.status(200).send(teas.map(teaNormalizer));
+    } else {
+      return res.status(404).json({ teasMissing: "Teas do not exist." });
+    }
   });
 });
 

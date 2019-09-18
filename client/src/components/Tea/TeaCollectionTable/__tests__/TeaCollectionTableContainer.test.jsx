@@ -8,8 +8,9 @@ import { TeaCollectionTableContainerClass } from "../TeaCollectionTableContainer
 
 let mockGetTeas;
 let mockDeleteTea;
-let mockDefaultProps;
 let mockGetTeaTypes;
+let mockSetTimerID;
+let mockDefaultProps;
 
 beforeEach(() => {
   mockGetTeas = jest.fn(() => Promise.resolve(storeFixture.basicStore));
@@ -17,10 +18,13 @@ beforeEach(() => {
     return storeFixture.deletedStore;
   });
   mockGetTeaTypes = jest.fn(() => Promise.resolve(storeFixture.basicStore));
+  mockSetTimerID = jest.fn();
+
   mockDefaultProps = {
     userID: dataFixture.mockUserID,
     teas: storeFixture.basicStore.teas,
     teaTypes: storeFixture.basicStore.teaTypes,
+    setTimerID: mockSetTimerID,
     getTeas: mockGetTeas,
     deleteTea: mockDeleteTea,
     getTeaTypes: mockGetTeaTypes
@@ -210,6 +214,19 @@ describe("TeaCollectionTableContainerClass interactions", () => {
       fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(3);
       expect(queryAllByTestId("inputerror").length).toEqual(1);
+    });
+  });
+
+  describe("tea timer interactions", () => {
+    test("user can display timer modal", async () => {
+      const { queryByTestId, getAllByTestId } = renderWithRouter(
+        <TeaCollectionTableContainerClass {...mockDefaultProps} />
+      );
+      expect(queryByTestId("loadingmessage")).toBeTruthy();
+      await Promise.resolve();
+
+      fireEvent.click(getAllByTestId("makecuppalink")[0]);
+      expect(mockSetTimerID).toHaveBeenCalled();
     });
   });
 });

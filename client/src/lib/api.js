@@ -1,4 +1,5 @@
 import axios from "axios";
+import { errorActionTypes } from "./actionTypes";
 
 let backendHost;
 const hostname = window && window.location && window.location.hostname;
@@ -12,37 +13,29 @@ const API_SERVER = `${backendHost}/api`;
 
 var api = axios.create({ baseURL: API_SERVER });
 
-function get(path, payload) {
-  return api
-    .get(path, payload)
-    .then(response => response.data)
-    .catch(console.log);
+const dispatchError = (errorData, dispatch) => {
+  dispatch({
+    type: errorActionTypes.SERVER_ERRORS,
+    payload: errorData.response.data
+  });
+  throw new Error(errorData);
+};
+
+function doAPI(method) {
+  return (path, payload, dispatch, config = {}) =>
+    api[method](path, payload, config)
+      .then(response => response.data)
+      .catch(error => dispatchError(error, dispatch));
 }
 
-function post(path, payload, config = {}) {
-  return api
-    .post(path, payload, config)
-    .then(response => response.data)
-    .catch(console.log);
-}
-
-function put(path, payload, config = {}) {
-  return api
-    .put(path, payload, config)
-    .then(response => response.data)
-    .catch(console.log);
-}
-
-function deleteRequest(path, payload, config = {}) {
-  return api
-    .delete(path, payload, config)
-    .then(response => response.data)
-    .catch(console.log);
-}
+const get = doAPI("get");
+const post = doAPI("post");
+const patch = doAPI("patch");
+const deleteRequest = doAPI("deleteRequest");
 
 export default {
   get,
   post,
-  put,
+  patch,
   delete: deleteRequest
 };

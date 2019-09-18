@@ -105,21 +105,23 @@ const duplicateTeaTypes = {
 const allTeaTypesArray = [
   {
     id: "5d39dd1f0487d1116140bac1",
-    userID: "5ceffe255c871902244da0d1",
     name: "Black",
-    brewTime: 181
+    brewTime: 12360000
   },
   {
-    id: "5d3a23e3c5f99259856fe3aa",
-    userID: "5ceffe255c871902244da0d1",
+    id: "5d48277169b3160191797d14",
+    name: "Green",
+    brewTime: 10800000
+  },
+  {
+    id: "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
     name: "White",
-    brewTime: 120
+    brewTime: 7800000
   },
   {
     id: "5d40b6871f88450253bdbf40",
-    userID: "5ceffe255c871902244da0d1",
     name: "Herbal",
-    brewTime: 63
+    brewTime: 14400000
   }
 ];
 
@@ -150,7 +152,7 @@ const teaTypePostResponse = {
   }
 };
 
-const teaTypePutResponse = {
+const teaTypePatchResponse = {
   type: "EDIT_TEATYPE",
   payload: {
     id: "5d39dd1f0487d1116140bac1",
@@ -212,6 +214,12 @@ const editTeaTypePayload = {
 
 const deleteTeaTypePayload = "5d48277169b3160191797d14";
 
+const singleTeaType = {
+  id: "5d40b6871f88450253bdbf40",
+  name: "Herbal",
+  brewTime: 14400000
+};
+
 const emptyState = { allTeaTypes: {}, teaTypeIDs: [] };
 
 const teaTypeFixture = {
@@ -227,12 +235,13 @@ const teaTypeFixture = {
   reducerAddTeaType,
   reducerEditTeaType,
   teaTypePostResponse,
-  teaTypePutResponse,
+  teaTypePatchResponse,
   teaTypeGetResponse,
   getTeaTypesPayload,
   addTeaTypePayload,
   editTeaTypePayload,
   deleteTeaTypePayload,
+  singleTeaType,
   emptyState
 };
 

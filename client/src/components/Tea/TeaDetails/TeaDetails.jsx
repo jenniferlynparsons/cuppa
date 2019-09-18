@@ -36,7 +36,8 @@ export class TeaDetails extends React.Component {
           <button
             data-testid="makecuppalink"
             className="button is-primary"
-            onClick={this.props.handleOpenTimer}
+            disabled={this.props.tea.servings <= 0}
+            onClick={() => this.props.handleOpenTimer(this.props.tea.id)}
           >
             Make A Cuppa
           </button>
@@ -48,13 +49,12 @@ export class TeaDetails extends React.Component {
             Edit
           </Link>
         </div>
-        <TimerContainer
-          showTimer={this.props.showTimer}
-          tea={this.props.tea}
-          brewTime={this.props.brewTime}
-          handleCloseTimer={this.props.handleCloseTimer}
-          handleTimerUpdateQty={this.props.handleTimerUpdateQty}
-        />
+        {this.props.timerID && (
+          <TimerContainer
+            timerID={this.props.timerID}
+            handleCloseTimer={this.props.handleCloseTimer}
+          />
+        )}
       </>
     );
   }

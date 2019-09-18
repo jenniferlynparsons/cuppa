@@ -8,9 +8,8 @@
     "server": "nodemon server/server.js",
     "client": "webpack-dev-server --config ./webpack.config.js --mode development",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --colors"
+    "watch": "sudo jest --watch",
+    "coverage": "sudo jest --coverage --colors"
   },
   "repository": {
     "type": "git",
@@ -57,6 +56,7 @@
     "redux": "^4.0.1",
     "redux-api-middleware": "^3.0.1",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "uuid": "^3.3.2",
@@ -101,14 +101,16 @@
   },
   "jest": {
     "clearMocks": true,
-    "collectCoverageFrom": [
-      "<rootDir>/client/src/components/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/client/src/actions/*.{js,ts,tsx}",
-      "<rootDir>/client/src/reducers/*.{js,ts,tsx}",
-      "<rootDir>/client/src/selectors/*.{js,ts,tsx}",
-      "<rootDir>/client/src/lib/*.{js,ts,tsx}"
-    ],
     "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "client/src/**/*.{js,jsx}",
+      "!client/src/*.{js,jsx}",
+      "!client/src/test/**",
+      "!client/src/lib/**",
+      "!client/src/components/App/**",
+      "!client/src/components/Auth/PrivateRoute/**",
+      "!**/node_modules/**"
+    ],
     "moduleFileExtensions": [
       "js",
       "json",
@@ -120,11 +122,7 @@
     ],
     "testEnvironment": "jsdom",
     "testMatch": [
-      "**/__tests__/**/*.js?(x)",
-      "**/?(*.)+(spec|test).js?(x)"
-    ],
-    "testPathIgnorePatterns": [
-      "\\\\node_modules\\\\"
+      "**/__tests__/**/*.js?(x)"
     ],
     "testURL": "http://localhost",
     "transformIgnorePatterns": [

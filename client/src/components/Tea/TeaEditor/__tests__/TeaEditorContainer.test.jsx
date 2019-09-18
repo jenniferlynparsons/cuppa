@@ -11,24 +11,30 @@ import { TeaEditorContainerClass } from "../TeaEditorContainer";
 let mockFunc;
 let mockAdd;
 let mockEdit;
+let mockDefaultProps;
 
 beforeEach(() => {
   mockFunc = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
   mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
+  mockDefaultProps = {
+    teaTypes: teaTypeFixture.allTeaTypesArray,
+    userID: dataFixture.mockUserID,
+    currentTea: "",
+    getTeas: mockFunc,
+    getTeaTypes: mockFunc,
+    addTea: mockAdd,
+    editTea: mockEdit,
+    editFlash: mockFunc,
+    clearFlash: mockFunc,
+    history: dataFixture.history
+  };
 });
 
 describe("teaEditor form success", () => {
   test("editor form submit succesfully adds tea", async () => {
     const { getByTestId } = renderWithRouter(
-      <TeaEditorContainerClass
-        teaTypes={teaTypeFixture.allTeaTypesArray}
-        userID={dataFixture.mockUserID}
-        currentTea={""}
-        getTeas={mockFunc}
-        getTeaTypes={mockFunc}
-        addTea={mockAdd}
-      />
+      <TeaEditorContainerClass {...mockDefaultProps} />
     );
     await Promise.resolve();
 
@@ -39,15 +45,15 @@ describe("teaEditor form success", () => {
       target: { value: teaFixture.basicTea.brand }
     });
     fireEvent.change(getByTestId("teaType"), {
-      target: { value: "5d39dd1f0487d1116140bac1" }
+      target: { value: "5d40b6871f88450253bdbf40" }
     });
     fireEvent.change(getByTestId("servings"), {
-      target: { value: 12 }
+      target: { value: 22 }
     });
     expect(getByTestId("teaeditorform")).toHaveFormValues({
       name: teaFixture.basicTea.name,
       brand: teaFixture.basicTea.brand,
-      servings: 12,
+      servings: 22,
       type: teaFixture.basicTea.teaType
     });
 
@@ -59,16 +65,9 @@ describe("teaEditor form success", () => {
   test("editor form succesfully updates tea", async () => {
     const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass
-        teaTypes={teaTypeFixture.allTeaTypesArray}
-        userID={dataFixture.mockUserID}
+        {...mockDefaultProps}
         currentTea={teaFixture.basicTea}
         edit={true}
-        getTeas={mockFunc}
-        getTeaTypes={mockFunc}
-        editTea={mockEdit}
-        editFlash={mockFunc}
-        clearFlash={mockFunc}
-        history={dataFixture.history}
       />
     );
     await Promise.resolve();
@@ -83,7 +82,7 @@ describe("teaEditor form success", () => {
 
     fireEvent.click(getByTestId("submit"));
     expect(dataFixture.history.push).toHaveBeenCalledWith(
-      "/tea/1b1db861-0537-4b69-83d5-d9ee033530f8"
+      "/tea/" + teaFixture.basicTea.id
     );
   });
 });
@@ -92,17 +91,7 @@ describe("teaEditor form failure", () => {
   describe("editor onSubmit returns an error message if data is invalid", () => {
     test("missing information for new tea", async () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
-        <TeaEditorContainerClass
-          teaTypes={teaTypeFixture.allTeaTypesArray}
-          userID={dataFixture.mockUserID}
-          currentTea={""}
-          getTeas={mockFunc}
-          getTeaTypes={mockFunc}
-          editTea={mockEdit}
-          editFlash={mockFunc}
-          clearFlash={mockFunc}
-          history={dataFixture.history}
-        />
+        <TeaEditorContainerClass {...mockDefaultProps} />
       );
       await Promise.resolve();
 
@@ -116,15 +105,8 @@ describe("teaEditor form failure", () => {
     test("missing information for existing tea", async () => {
       const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
         <TeaEditorContainerClass
-          teaTypes={teaTypeFixture.allTeaTypesArray}
-          userID={dataFixture.mockUserID}
+          {...mockDefaultProps}
           currentTea={teaFixture.missingDataTea}
-          getTeas={mockFunc}
-          getTeaTypes={mockFunc}
-          editTea={mockEdit}
-          editFlash={mockFunc}
-          clearFlash={mockFunc}
-          history={dataFixture.history}
         />
       );
       await Promise.resolve();

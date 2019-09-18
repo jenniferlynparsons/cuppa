@@ -18,7 +18,6 @@ class RegisterContainer extends Component {
     inputValidation: {
       name: true,
       email: true,
-      duplicateEmail: true,
       password: true,
       password2: true
     },
@@ -60,7 +59,6 @@ class RegisterContainer extends Component {
           ...state.inputValidation,
           name: namevalid,
           email: emailvalid,
-          duplicateEmail: true,
           password: passvalid,
           password2: pass2valid === passmatch ? pass2valid : false
         }
@@ -80,18 +78,6 @@ class RegisterContainer extends Component {
     if (this.props.auth.isAuthenticated && !prevProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    if (
-      this.props.serverErrors &&
-      !prevProps.serverErrors &&
-      this.props.serverErrors.duplicateEmail
-    ) {
-      this.setState(state => ({
-        inputValidation: {
-          ...state.inputValidation,
-          duplicateEmail: false
-        }
-      }));
-    }
   }
 
   render() {
@@ -108,6 +94,7 @@ class RegisterContainer extends Component {
           password={this.state.password}
           password2={this.state.password2}
           inputValidation={this.state.inputValidation}
+          serverErrors={this.props.serverErrors}
           errorMessages={this.state.errorMessages}
           onChange={this.handleInputChange}
           onSubmit={this.handleFormSubmit}

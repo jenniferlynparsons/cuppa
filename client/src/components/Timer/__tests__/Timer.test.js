@@ -2,22 +2,26 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import teaFixture from "../../../test/__fixtures__/teaFixture";
-import TimerContainer from "../TimerContainer";
+import { TimerContainerClass } from "../TimerContainer";
 
 let mockFunc;
+let mockDefaultProps;
+
 beforeEach(() => {
   mockFunc = jest.fn();
+  mockDefaultProps = {
+    tea: teaFixture.basicTea,
+    brewTime: 16200000,
+    handleCloseTimer: mockFunc,
+    handleTimerUpdateQty: mockFunc,
+    editTea: mockFunc
+  };
 });
 
 describe("Timer interactions", () => {
   test("Clicking the start button starts the timer", () => {
     const { getByTestId, queryByTestId } = render(
-      <TimerContainer
-        tea={teaFixture.basicTea}
-        brewTime={16200000}
-        handleCloseTimer={mockFunc}
-        handleTimerUpdateQty={mockFunc}
-      />
+      <TimerContainerClass {...mockDefaultProps} />
     );
     expect(queryByTestId("starttimer")).toHaveClass("button");
     fireEvent.click(getByTestId("starttimer"));
@@ -27,12 +31,7 @@ describe("Timer interactions", () => {
 
   test("Clicking the pause button stops the timer", () => {
     const { getByTestId, queryByTestId } = render(
-      <TimerContainer
-        tea={teaFixture.basicTea}
-        brewTime={16200000}
-        handleCloseTimer={mockFunc}
-        handleTimerUpdateQty={mockFunc}
-      />
+      <TimerContainerClass {...mockDefaultProps} />
     );
     fireEvent.click(getByTestId("starttimer"));
     fireEvent.click(getByTestId("pausetimer"));
@@ -44,12 +43,7 @@ describe("Timer interactions", () => {
 
   test("Clicking the resume button starts the timer", () => {
     const { getByTestId, queryByTestId } = render(
-      <TimerContainer
-        tea={teaFixture.basicTea}
-        brewTime={16200000}
-        handleCloseTimer={mockFunc}
-        handleTimerUpdateQty={mockFunc}
-      />
+      <TimerContainerClass {...mockDefaultProps} />
     );
     fireEvent.click(getByTestId("starttimer"));
     fireEvent.click(getByTestId("pausetimer"));
@@ -63,12 +57,7 @@ describe("Timer interactions", () => {
 
   test("Clicking the done button updates the servings quantity", () => {
     const { getByTestId, queryByTestId } = render(
-      <TimerContainer
-        tea={teaFixture.basicTea}
-        brewTime={16200000}
-        handleCloseTimer={mockFunc}
-        handleTimerUpdateQty={mockFunc}
-      />
+      <TimerContainerClass {...mockDefaultProps} />
     );
     fireEvent.click(getByTestId("starttimer"));
     setTimeout(function() {

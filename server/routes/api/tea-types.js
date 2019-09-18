@@ -22,7 +22,9 @@ router.post("/", (req, res) => {
 
   TeaType.findOne({ name: req.body.name }).then(teaType => {
     if (teaType) {
-      return res.json({ duplicate: "This tea type already exists" });
+      return res
+        .status(409)
+        .json({ duplicate: "This tea type already exists" });
     }
 
     const newTeaType = new TeaType({
@@ -35,16 +37,16 @@ router.post("/", (req, res) => {
     newTeaType
       .save()
       .then(teaType => {
-        res.json(teaTypeNormalizer(teaType));
+        res.status(200).json(teaTypeNormalizer(teaType));
       })
-      .catch(err => console.log(err));
+      .catch(err => res.status(500, { error: err }));
   });
 });
 
 // @route PUT api/tea-types
 // @desc Edit tea type
 // @access Public
-router.put("/:id", (req, res) => {
+router.patch("/:id", (req, res) => {
   const { errors, isValid } = validateTeaTypeInput(req.body);
 
   // Check validation
@@ -58,7 +60,7 @@ router.put("/:id", (req, res) => {
     { new: true },
     function(err, teaType) {
       if (err) return res.send(500, { error: err });
-      return res.json(teaTypeNormalizer(teaType));
+      return res.status(200).json(teaTypeNormalizer(teaType));
     }
   );
 });
@@ -86,14 +88,16 @@ router.delete("/:id", (req, res) => {
 // @desc Get individual tea type
 // @access Public
 router.get("/:id", (req, res) => {
-  TeaType.findOne({ id: req.params.id }, (err, tea) => {
+  TeaType.findOne({ id: req.params.id }, (err, teaType) => {
     if (err) {
-      res.send(err);
+      return res.status(404).send(err);
     }
-    if (tea) {
-      res.json(teaTypeNormalizer(tea));
+    if (teaType) {
+      return res.status(200).json(teaTypeNormalizer(teaType));
     } else {
-      return res.json({ message: "Tea does not exist." });
+      return res
+        .status(404)
+        .json({ teaTypeMissing: "TeaType does not exist." });
     }
   });
 });
@@ -104,9 +108,15 @@ router.get("/:id", (req, res) => {
 router.get("/", function(req, res) {
   TeaType.find({ userID: req.query.userID }, function(err, teaTypes) {
     if (err) {
-      res.send(err);
+      return res.status(404).send(err);
     }
-    res.send(teaTypes.map(teaTypeNormalizer));
+    if (teaTypes) {
+      return res.status(200).send(teaTypes.map(teaTypeNormalizer));
+    } else {
+      return res
+        .status(404)
+        .json({ teaTypesMissing: "TeaTypes do not exist." });
+    }
   });
 });
 

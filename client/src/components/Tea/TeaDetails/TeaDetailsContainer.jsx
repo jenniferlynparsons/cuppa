@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
-import { selectSingleTeaType } from "../../../selectors/teaTypeSelectors";
+import { setTimerID } from "../../../actions/timerActions";
+import { selectSingleTeaType } from "../../../selectors";
 import { TeaDetails } from "./TeaDetails";
 
 class TeaDetailsContainer extends Component {
   state = {
-    showTimer: false,
     flash: "off",
     loadingStatus: "inprogress"
   };
@@ -17,14 +17,11 @@ class TeaDetailsContainer extends Component {
     this.props.editFlash(status);
   };
 
-  handleOpenTimer = () => {
-    this.setState({ showTimer: true });
+  handleOpenTimer = id => {
+    this.props.setTimerID(id);
   };
   handleCloseTimer = () => {
-    this.setState({ showTimer: false });
-  };
-  handleTimerUpdateQty = updatedTea => {
-    this.props.editTea(updatedTea);
+    this.props.setTimerID("");
   };
 
   componentWillMount() {
@@ -51,13 +48,11 @@ class TeaDetailsContainer extends Component {
         <TeaDetails
           tea={this.props.tea}
           teaType={this.props.teaType}
-          brewTime={this.props.brewTime}
-          showTimer={this.state.showTimer}
+          timerID={this.props.timerID}
           flash={this.state.flash}
           updateFlash={this.updateFlash}
           handleOpenTimer={this.handleOpenTimer}
           handleCloseTimer={this.handleCloseTimer}
-          handleTimerUpdateQty={this.handleTimerUpdateQty}
         />
       );
     }
@@ -66,13 +61,12 @@ class TeaDetailsContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const teatype = selectSingleTeaType(state, ownProps);
-
   return {
-    brewTime: teatype && teatype.brewTime,
     teaType: teatype && teatype.name,
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,
-    userID: state.auth.user.id
+    userID: state.auth.user.id,
+    timerID: state.timer.timerID
   };
 };
 
@@ -81,7 +75,8 @@ const mapDispatchToProps = {
   clearFlash,
   editTea,
   getTeas,
-  getTeaTypes
+  getTeaTypes,
+  setTimerID
 };
 
 export default connect(

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { convertTimeToMinSec } from "../../../lib/timeConverter";
+import { convertTimeToMinSec } from "../../../lib/timerHelpers";
 
 export class TeaTypeCollectionTable extends React.Component {
   render() {
