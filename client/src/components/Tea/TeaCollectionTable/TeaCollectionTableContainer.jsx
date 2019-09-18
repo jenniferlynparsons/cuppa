@@ -9,7 +9,6 @@ import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { setTimerID } from "../../../actions/timerActions";
 import { TeaCollectionTable } from "./TeaCollectionTable";
 import DataList from "../../FormComponents/DataList";
-import { timerRender } from "../../../lib/timerHelpers";
 
 export class TeaCollectionTableContainer extends React.Component {
   state = {
@@ -237,7 +236,6 @@ export class TeaCollectionTableContainer extends React.Component {
           formControls={this.state.formControls}
           filtered={this.state.filtered}
           timerID={this.props.timerID}
-          timerRender={timerRender}
           inputValidation={this.state.inputValidation}
           errorMessages={this.state.errorMessages}
           handleDeleteClick={this.handleDeleteClick}

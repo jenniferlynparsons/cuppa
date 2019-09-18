@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { editTea } from "../../actions/teaActions";
-import allSelectors from "../../selectors";
+import { selectSingleTeaType } from "../../selectors";
+import { selectTimerTea } from "../../selectors/teaSelectors";
 import { Timer } from "./Timer";
 
 class TimerContainer extends Component {
@@ -113,8 +114,8 @@ class TimerContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const tea = allSelectors.teaSelectors.selectTimerTea(state, ownProps);
-  const teatype = allSelectors.selectSingleTeaType(state, ownProps);
+  const tea = selectTimerTea(state, ownProps);
+  const teatype = selectSingleTeaType(state, ownProps);
 
   return {
     id: ownProps.timerID,

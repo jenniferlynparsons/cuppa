@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TimerContainer from "../../Timer";
 
 export class TeaDetails extends React.Component {
   render() {
@@ -48,7 +49,12 @@ export class TeaDetails extends React.Component {
             Edit
           </Link>
         </div>
-        {this.props.timerRender(this.props)}
+        {this.props.timerID && (
+          <TimerContainer
+            timerID={this.props.timerID}
+            handleCloseTimer={this.props.handleCloseTimer}
+          />
+        )}
       </>
     );
   }

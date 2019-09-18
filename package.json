@@ -8,9 +8,8 @@
     "server": "nodemon server/server.js",
     "client": "webpack-dev-server --config ./webpack.config.js --mode development",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --colors"
+    "watch": "sudo jest --watch",
+    "coverage": "sudo jest --coverage --colors"
   },
   "repository": {
     "type": "git",
@@ -118,7 +117,8 @@
       "**/?(*.)+(spec|test).js?(x)"
     ],
     "testPathIgnorePatterns": [
-      "\\\\node_modules\\\\"
+      "\\\\node_modules\\\\",
+      "<rootDir>/client/src/components/App"
     ],
     "testURL": "http://localhost",
     "transformIgnorePatterns": [

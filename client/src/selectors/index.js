@@ -1,18 +1,12 @@
 import { createSelector } from "reselect";
-import teaTypeSelectors from "./teaTypeSelectors";
-import teaSelectors from "./teaSelectors";
-
-const teaTypeIDs = state => state.teaTypes.teaTypeIDs;
-const allTeaTypes = state => state.teaTypes.allTeaTypes;
-const allTeas = state => state.teas.allTeas;
-// const teaIDs = state => state.teas.teaIDs;
+import { teaTypeIDsSelector, allTeaTypesSelector } from "./teaTypeSelectors";
+import { allTeasSelector } from "./teaSelectors";
 
 export const selectSingleTeaType = createSelector(
-  teaTypeIDs,
-  allTeaTypes,
-  allTeas,
-  (state, props) =>
-    props.match ? props.match.params.id : props.timerID,
+  teaTypeIDsSelector,
+  allTeaTypesSelector,
+  allTeasSelector,
+  (state, props) => (props.match ? props.match.params.id : props.timerID),
   (teaTypeIDs, allTeaTypes, allTeas, propsID) => {
     if (teaTypeIDs.length > 0) {
       let currentTeaType = teaTypeIDs.find(typeID => {
@@ -22,11 +16,3 @@ export const selectSingleTeaType = createSelector(
     }
   }
 );
-
-const allSelectors = {
-  teaTypeSelectors,
-  teaSelectors,
-  selectSingleTeaType
-};
-
-export default allSelectors;

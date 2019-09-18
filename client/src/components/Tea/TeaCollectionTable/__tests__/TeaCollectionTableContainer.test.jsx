@@ -2,16 +2,9 @@ import React from "react";
 import "jest-dom/extend-expect";
 import { fireEvent, wait } from "@testing-library/react";
 import { renderWithRouter } from "../../../../test/routerTestUtils";
-import timerHelpers from "../../../../lib/timerHelpers";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import { TeaCollectionTableContainerClass } from "../TeaCollectionTableContainer";
-
-jest.mock("../../../../lib/timerHelpers", () => {
-  return {
-    timerRender: jest.fn()
-  };
-});
 
 let mockGetTeas;
 let mockDeleteTea;
@@ -224,7 +217,7 @@ describe("TeaCollectionTableContainerClass interactions", () => {
     });
   });
 
-  describe("timer", () => {
+  describe("tea timer interactions", () => {
     test("user can display timer modal", async () => {
       const { queryByTestId, getAllByTestId } = renderWithRouter(
         <TeaCollectionTableContainerClass {...mockDefaultProps} />
@@ -234,9 +227,6 @@ describe("TeaCollectionTableContainerClass interactions", () => {
 
       fireEvent.click(getAllByTestId("makecuppalink")[0]);
       expect(mockSetTimerID).toHaveBeenCalled();
-
-      let spy = jest.spyOn(timerHelpers, "timerRender");
-      expect(spy).toHaveBeenCalled();
     });
   });
 });

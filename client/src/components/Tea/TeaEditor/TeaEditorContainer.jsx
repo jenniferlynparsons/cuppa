@@ -9,7 +9,8 @@ import {
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash } from "../../../actions/flashActions";
-import allSelectors from "../../../selectors";
+import { selectTeaTypes } from "../../../selectors/teaTypeSelectors";
+import { selectBrands } from "../../../selectors/teaSelectors";
 import { TeaEditor } from "./TeaEditor";
 import DataList from "../../FormComponents/DataList";
 
@@ -194,9 +195,9 @@ export class TeaEditorContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    teaTypes: allSelectors.teaTypeSelectors.selectTeaTypes(state),
+    teaTypes: selectTeaTypes(state),
     teas: state.teas,
-    brandList: allSelectors.teaSelectors.selectBrands(state),
+    brandList: selectBrands(state),
     userID: state.auth.user.id,
     currentTea: state.teas.allTeas[ownProps.match.params.id],
     updatedTea: state.teas.updatedTea,
