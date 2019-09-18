@@ -17,12 +17,8 @@ export const selectBrands = createSelector(
 
 export const selectTimerTea = createSelector(
   allTeasSelector,
-  (state, props) => {
-    return props.timerID;
-  },
-  (allTeas, id) => {
-    return allTeas[id];
-  }
+  (state, props) => props.timerID,
+  (allTeas, id) => allTeas[id]
 );
 
 const teaSelectors = {
