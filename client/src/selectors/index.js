@@ -1,11 +1,9 @@
 import { createSelector } from "reselect";
-import { teaTypeIDsSelector, allTeaTypesSelector } from "./teaTypeSelectors";
-import { allTeasSelector } from "./teaSelectors";
 
 export const selectSingleTeaType = createSelector(
-  teaTypeIDsSelector,
-  allTeaTypesSelector,
-  allTeasSelector,
+  state => state.teaTypes.teaTypeIDs,
+  state => state.teaTypes.allTeaTypes,
+  state => state.teas.allTeas,
   (state, props) => (props.match ? props.match.params.id : props.timerID),
   (teaTypeIDs, allTeaTypes, allTeas, propsID) => {
     if (teaTypeIDs.length > 0) {
