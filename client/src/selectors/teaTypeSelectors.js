@@ -15,11 +15,3 @@ export const selectTeaTypes = createSelector(
   allTeaTypesSelector,
   (teaTypeIDs, allTeaTypes) => teaTypeIDs.map(typeID => allTeaTypes[typeID])
 );
-
-const teaTypeSelectors = {
-  teaTypeIDsSelector,
-  allTeaTypesSelector,
-  selectTeaTypes
-};
-
-export default teaTypeSelectors;

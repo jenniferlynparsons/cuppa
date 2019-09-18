@@ -20,12 +20,3 @@ export const selectTimerTea = createSelector(
   (state, props) => props.timerID,
   (allTeas, id) => allTeas[id]
 );
-
-const teaSelectors = {
-  teaIDsSelector,
-  allTeasSelector,
-  selectBrands,
-  selectTimerTea
-};
-
-export default teaSelectors;
