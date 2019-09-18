@@ -21,33 +21,17 @@ const dispatchError = (errorData, dispatch) => {
   throw new Error(errorData);
 };
 
-function get(path, payload, dispatch) {
-  return api
-    .get(path, payload)
-    .then(response => response.data)
-    .catch(error => dispatchError(error, dispatch));
+function doAPI(method) {
+  return (path, payload, dispatch, config = {}) =>
+    api[method](path, payload, config)
+      .then(response => response.data)
+      .catch(error => dispatchError(error, dispatch));
 }
 
-function post(path, payload, dispatch, config = {}) {
-  return api
-    .post(path, payload, config)
-    .then(response => response.data)
-    .catch(error => dispatchError(error, dispatch));
-}
-
-function patch(path, payload, dispatch, config = {}) {
-  return api
-    .patch(path, payload, config)
-    .then(response => response.data)
-    .catch(error => dispatchError(error, dispatch));
-}
-
-function deleteRequest(path, payload, dispatch, config = {}) {
-  return api
-    .delete(path, payload, config)
-    .then(response => response.data)
-    .catch(error => dispatchError(error, dispatch));
-}
+const get = doAPI("get");
+const post = doAPI("post");
+const patch = doAPI("patch");
+const deleteRequest = doAPI("deleteRequest");
 
 export default {
   get,
