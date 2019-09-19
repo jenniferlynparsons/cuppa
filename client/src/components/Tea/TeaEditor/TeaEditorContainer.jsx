@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   nameSchema,
   brandSchema,
@@ -220,3 +221,19 @@ export default connect(
 )(TeaEditorContainer);
 
 export const TeaEditorContainerClass = TeaEditorContainer;
+
+TeaEditorContainer.propTypes = {
+  userID: PropTypes.string,
+  currentTea: PropTypes.object,
+  teaTypes: PropTypes.array,
+  history: PropTypes.object,
+  edit: PropTypes.bool,
+  updatedTea: PropTypes.object,
+  brandList: PropTypes.array,
+  serverErrors: PropTypes.object,
+  editTea: PropTypes.func,
+  editFlash: PropTypes.func,
+  addTea: PropTypes.func,
+  getTeas: PropTypes.func,
+  getTeaTypes: PropTypes.func
+};

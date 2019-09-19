@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { validationComplete } from "../../../lib/validationComplete";
 import InputField from "../../FormComponents/InputField/InputField";
 
@@ -104,3 +105,15 @@ export class Register extends React.Component {
     );
   }
 }
+
+Register.propTypes = {
+  inputValidation: PropTypes.object,
+  serverErrors: PropTypes.object,
+  errorMessages: PropTypes.object,
+  name: PropTypes.string,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  password2: PropTypes.string,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func
+};

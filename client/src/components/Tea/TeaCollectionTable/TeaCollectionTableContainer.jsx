@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   filterCategorySchema,
   filterCriteriaSchema
@@ -275,3 +276,14 @@ export default connect(
 )(TeaCollectionTableContainer);
 
 export const TeaCollectionTableContainerClass = TeaCollectionTableContainer;
+
+TeaCollectionTableContainer.propTypes = {
+  teas: PropTypes.array,
+  teaTypes: PropTypes.array,
+  userID: PropTypes.string,
+  timerID: PropTypes.string,
+  deleteTea: PropTypes.func,
+  setTimerID: PropTypes.func,
+  getTeas: PropTypes.func,
+  getTeaTypes: PropTypes.func
+};

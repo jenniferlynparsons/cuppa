@@ -20,6 +20,7 @@ class TeaDetailsContainer extends Component {
   handleOpenTimer = id => {
     this.props.setTimerID(id);
   };
+
   handleCloseTimer = () => {
     this.props.setTimerID("");
   };

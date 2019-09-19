@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { emailSchema, passwordSchema } from "../../../lib/validationSchemas";
 import { loginAction } from "../../../actions/authActions";
 import { Login } from "./Login";
@@ -96,3 +97,10 @@ export default connect(
 )(LoginContainer);
 
 export const LoginContainerComponent = LoginContainer;
+
+LoginContainer.propTypes = {
+  auth: PropTypes.object,
+  history: PropTypes.object,
+  loginAction: PropTypes.func,
+  serverErrors: PropTypes.func
+};

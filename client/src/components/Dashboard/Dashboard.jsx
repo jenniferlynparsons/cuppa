@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export class Dashboard extends React.Component {
   render() {
@@ -33,3 +34,8 @@ export class Dashboard extends React.Component {
     );
   }
 }
+
+Dashboard.propTypes = {
+  auth: PropTypes.object,
+  handleLogoutClick: PropTypes.func
+};

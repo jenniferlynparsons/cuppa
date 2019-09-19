@@ -25,13 +25,8 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "react",
-    "import",
-    "jsx-a11y"
-  ],
+  "plugins": ["react", "import", "jsx-a11y"],
   "rules": {
-    "react/prop-types": 0,
     "jsx-a11y/label-has-for": 0,
     "jsx-a11y/accessible-emoji": 0,
     "import/no-unresolved": "off",

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class DataList extends React.Component {
   render() {
@@ -24,3 +25,9 @@ class DataList extends React.Component {
 }
 
 export default DataList;
+
+DataList.propTypes = {
+  options: PropTypes.array,
+  id: PropTypes.string,
+  processOptions: PropTypes.func
+};

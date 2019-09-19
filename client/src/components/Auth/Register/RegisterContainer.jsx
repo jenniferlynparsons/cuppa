@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   emailSchema,
   passwordSchema,
@@ -115,3 +116,10 @@ export default connect(
 )(RegisterContainer);
 
 export const RegisterContainerComponent = RegisterContainer;
+
+RegisterContainer.propTypes = {
+  history: PropTypes.object,
+  auth: PropTypes.object,
+  registerUser: PropTypes.func,
+  serverErrors: PropTypes.func
+};

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
@@ -203,3 +204,25 @@ export class TeaCollectionTable extends React.Component {
     );
   }
 }
+
+TeaCollectionTable.propTypes = {
+  inputValidation: PropTypes.object,
+  formControls: PropTypes.object,
+  columnHeaders: PropTypes.array,
+  datalist: PropTypes.object,
+  errorMessages: PropTypes.object,
+  filtered: PropTypes.bool,
+  teaIDs: PropTypes.array,
+  allTeas: PropTypes.array,
+  teaTypes: PropTypes.array,
+  timerID: PropTypes.string,
+  handleFilterDropdownChange: PropTypes.func,
+  handleFilterInputChange: PropTypes.func,
+  handleFilterClick: PropTypes.func,
+  handleClearFilterClick: PropTypes.func,
+  handleSortClick: PropTypes.func,
+  handleSortColumn: PropTypes.func,
+  handleOpenTimer: PropTypes.func,
+  handleDeleteClick: PropTypes.func,
+  handleCloseTimer: PropTypes.func
+};

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import TimerContainer from "../../Timer";
 
 export class TeaDetails extends React.Component {
@@ -59,3 +60,13 @@ export class TeaDetails extends React.Component {
     );
   }
 }
+
+TeaDetails.propTypes = {
+  flash: PropTypes.string,
+  tea: PropTypes.object,
+  teaType: PropTypes.string,
+  timerID: PropTypes.string,
+  updateFlash: PropTypes.func,
+  handleOpenTimer: PropTypes.func,
+  handleCloseTimer: PropTypes.func
+};

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { logoutUser } from "../../actions/authActions";
 import { Dashboard } from "./Dashboard";
 
@@ -29,3 +30,8 @@ export default connect(
 )(DashboardContainer);
 
 export const DashboardContainerComponent = DashboardContainer;
+
+DashboardContainer.propTypes = {
+  auth: PropTypes.object,
+  logoutUser: PropTypes.func
+};
