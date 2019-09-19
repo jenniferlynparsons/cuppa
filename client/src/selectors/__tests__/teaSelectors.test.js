@@ -7,12 +7,3 @@ describe("selectBrands", () => {
     expect(selectBrands(storeFixture.basicStore)).toEqual(teaFixture.teaBrands);
   });
 });
-
-describe("selectTimerTea", () => {
-  test("returns expected tea", () => {
-    const mockProps = { timerID: teaFixture.matchTeaID.match.params.id };
-    expect(selectTimerTea(storeFixture.basicStore, mockProps)).toEqual(
-      teaFixture.basicTea
-    );
-  });
-});
