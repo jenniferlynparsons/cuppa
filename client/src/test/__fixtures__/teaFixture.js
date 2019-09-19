@@ -159,6 +159,10 @@ const matchTeaID = {
   match: { params: { id: "25070e52-e635-4883-ae9b-583113573b9f" } }
 };
 
+const matchTimerID = {
+  timerID: "25070e52-e635-4883-ae9b-583113573b9f"
+};
+
 const teaBrands = ["Celestial Seasonings", "Celestial Seasonings", "McNulty's"];
 
 const emptyState = { allTeas: {}, teaIDs: [] };
@@ -179,6 +183,7 @@ const teaFixture = {
   editTeaPayload,
   deleteTeaPayload,
   matchTeaID,
+  matchTimerID,
   teaBrands,
   emptyState
 };

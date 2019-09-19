@@ -22,6 +22,7 @@ export class Timer extends React.Component {
               {brewTime.minute}:{brewTime.seconds}
             </p>
             <progress
+              data-testid="progressbar"
               className="progress is-primary"
               value={progress}
               max="100"
