@@ -56,6 +56,18 @@ if (process.env.NODE_ENV === "production") {
 // 	res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 // });
 
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({
+    error: true,
+    data: {
+      message: err.message,
+      stack: process.env.NODE_ENV !== "production" ? err.stack : undefined
+    }
+  });
+  next(err);
+});
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
