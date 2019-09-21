@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PropTypes } from "prop-types";
 import "./NavBar.scss";
 
 class NavBar extends React.Component {
@@ -110,3 +111,12 @@ class NavBar extends React.Component {
 }
 
 export default NavBar;
+
+NavBar.propTypes = {
+  auth: PropTypes.object,
+  menuActive: PropTypes.bool,
+  dropdownActive: PropTypes.string,
+  handleDropDownToggle: PropTypes.func,
+  handleLogoutClick: PropTypes.func,
+  handleNavToggle: PropTypes.func
+};

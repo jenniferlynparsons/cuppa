@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { PropTypes } from "prop-types";
 import { logoutUser } from "../../../actions/authActions";
 import NavBar from "./NavBar";
 
@@ -51,3 +52,8 @@ export default connect(
 )(NavBarContainer);
 
 export const NavBarContainerComponent = NavBarContainer;
+
+NavBarContainer.propTypes = {
+  auth: PropTypes.object,
+  logoutUser: PropTypes.func
+};

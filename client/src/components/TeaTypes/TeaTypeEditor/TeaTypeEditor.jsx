@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PropTypes } from "prop-types";
 import { validationComplete } from "../../../lib/validationComplete";
 import InputField from "../../FormComponents/InputField";
 
@@ -103,3 +104,17 @@ export class TeaTypeEditor extends React.Component {
     );
   }
 }
+
+TeaTypeEditor.propTypes = {
+  flash: PropTypes.object,
+  inputValidation: PropTypes.object,
+  serverErrors: PropTypes.object,
+  name: PropTypes.string,
+  errorMessages: PropTypes.object,
+  brewTimeMin: PropTypes.number,
+  brewTimeSec: PropTypes.number,
+  handleBrewTimeMinChange: PropTypes.func,
+  handleBrewTimeSecChange: PropTypes.func,
+  handleFormSubmit: PropTypes.func,
+  handleNameChange: PropTypes.func
+};

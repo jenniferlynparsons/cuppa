@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { convertTimeToMinSec } from "../../../lib/timerHelpers";
 
 export class TeaTypeCollectionTable extends React.Component {
@@ -70,3 +71,11 @@ export class TeaTypeCollectionTable extends React.Component {
     );
   }
 }
+
+TeaTypeCollectionTable.propTypes = {
+  flash: PropTypes.string,
+  columnHeaders: PropTypes.array,
+  teaTypeIDs: PropTypes.array,
+  allTeaTypes: PropTypes.array,
+  handleDeleteClick: PropTypes.func
+};

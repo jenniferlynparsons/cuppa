@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { PropTypes } from "prop-types";
 import {
   convertTimeToMinSec,
   convertTimeToSec
@@ -200,3 +201,15 @@ export default connect(
 )(TeaTypeEditorContainer);
 
 export const TeaTypeEditorContainerClass = TeaTypeEditorContainer;
+
+TeaTypeEditorContainer.propTypes = {
+  userID: PropTypes.string,
+  currentTeaType: PropTypes.string,
+  edit: PropTypes.bool,
+  history: PropTypes.object,
+  serverErrors: PropTypes.object,
+  editTeaType: PropTypes.func,
+  editFlash: PropTypes.func,
+  addTeaType: PropTypes.func,
+  getTeaTypes: PropTypes.func
+};

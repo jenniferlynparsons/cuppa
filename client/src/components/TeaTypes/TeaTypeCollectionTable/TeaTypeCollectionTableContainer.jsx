@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { PropTypes } from "prop-types";
 import { deleteTeaType, getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
 import { TeaTypeCollectionTable } from "./TeaTypeCollectionTable";
@@ -79,3 +80,13 @@ export default connect(
 )(TeaTypeCollectionTableContainer);
 
 export const TeaTypeCollectionTableContainerClass = TeaTypeCollectionTableContainer;
+
+TeaTypeCollectionTableContainer.propTypes = {
+  flash: PropTypes.string,
+  userID: PropTypes.string,
+  allTeaTypes: PropTypes.array,
+  teaTypeIDs: PropTypes.array,
+  deleteTeaType: PropTypes.func,
+  clearFlash: PropTypes.func,
+  getTeaTypes: PropTypes.func
+};

@@ -1,4 +1,5 @@
 import React from "react";
+import { PropTypes } from "prop-types";
 import { convertTimeToMinSec } from "../../lib/timerHelpers";
 
 export class Timer extends React.Component {
@@ -88,3 +89,15 @@ export class Timer extends React.Component {
     );
   }
 }
+
+Timer.propTypes = {
+  timerTime: PropTypes.number,
+  brewTime: PropTypes.number,
+  teaName: PropTypes.string,
+  timerOn: PropTypes.bool,
+  handleCancelTimer: PropTypes.func,
+  handleFinishTimer: PropTypes.func,
+  handlePauseTimer: PropTypes.func,
+  handleResumeTimer: PropTypes.func,
+  handleStartTimer: PropTypes.func
+};
