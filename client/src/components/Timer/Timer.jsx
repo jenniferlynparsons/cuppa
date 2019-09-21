@@ -78,7 +78,7 @@ export class Timer extends React.Component {
             </button>
             <button
               data-testid="canceltimer"
-              className={this.props.timerTime !== 0 ? "button" : "is-hidden"}
+              className="button"
               onClick={this.props.handleCancelTimer}
             >
               Cancel
