@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import NavBar from "./NavBar";
 
-class NavBarContainer extends Component {
+class NavBarContainer extends React.Component {
   state = {
     menuActive: false,
     dropdownActive: false

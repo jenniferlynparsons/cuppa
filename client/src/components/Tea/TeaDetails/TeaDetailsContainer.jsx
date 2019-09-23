@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
@@ -7,7 +7,7 @@ import { setTimerID } from "../../../actions/timerActions";
 import { selectSingleTeaType } from "../../../selectors";
 import { TeaDetails } from "./TeaDetails";
 
-class TeaDetailsContainer extends Component {
+class TeaDetailsContainer extends React.Component {
   state = {
     flash: "off",
     loadingStatus: "inprogress"

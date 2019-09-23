@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { editTea } from "../../actions/teaActions";
 import { selectSingleTeaType } from "../../selectors";
 import { Timer } from "./Timer";
 
-class TimerContainer extends Component {
+class TimerContainer extends React.Component {
   state = {
     loadingStatus: "inprogress",
     timerOn: false,
