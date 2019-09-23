@@ -5,7 +5,7 @@ import setAuthToken from "../../lib/setAuthToken";
 import { setCurrentUser, logoutUser } from "../../actions/authActions";
 import { Provider } from "react-redux";
 import store from "../../store";
-import ErrorBoundary from "./ErrorBoundary";
+import ErrorBoundary from "../ErrorBoundary";
 // Routes
 import NavBar from "../Template/NavBar";
 import Footer from "../Template/Footer";
