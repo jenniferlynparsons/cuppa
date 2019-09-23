@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import cuppaLogo from "../../../assets/tea.svg";
 import "./NavBar.scss";
 
 class NavBar extends React.Component {
@@ -17,6 +18,7 @@ class NavBar extends React.Component {
               className="navbar-item"
               to={this.props.auth.isAuthenticated ? "/tea-collection" : "/"}
             >
+              <img src={cuppaLogo} alt="Cuppa Logo" />
               Cuppa
             </Link>
             <a
