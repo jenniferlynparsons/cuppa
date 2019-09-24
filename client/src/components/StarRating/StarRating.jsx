@@ -10,30 +10,92 @@ export class StarRating extends React.Component {
   render() {
     return (
       <div data-testid="starrating">
-        <label className="label" htmlFor="one">
-          1{" "}
-          <span className="icon">
+        <p className="is-size-6 has-text-weight-bold">Rating</p>
+        <label htmlFor="one">
+          <span className="is-hidden" aria-hidden="false">
+            One
+          </span>
+          <span className="icon" aria-hidden="true">
             <i className="fas">
-              <FontAwesomeIcon icon="star" className="star-inactive" />
+              <FontAwesomeIcon icon="star" className="star inactive" />
             </i>
           </span>
-          <input id="one" name="one" type="checkbox" value="1" />
+          <input
+            id="one"
+            name="rating"
+            type="radio"
+            value="one"
+            className="is-hidden"
+            aria-hidden="false"
+          />
         </label>
-        <label className="label" htmlFor="two">
-          2
-          <input id="two" name="two" type="checkbox" value="2" />
+        <label htmlFor="two">
+          <span className="is-hidden" aria-hidden="false">
+            Two
+          </span>
+          <span className="icon" aria-hidden="true">
+            <i className="fas">
+              <FontAwesomeIcon icon="star" className="star inactive" />
+            </i>
+          </span>
+          <input
+            name="rating"
+            type="radio"
+            value="two"
+            className="is-hidden"
+            aria-hidden="false"
+          />
         </label>
-        <label className="label" htmlFor="three">
-          3
-          <input id="three" name="three" type="checkbox" value="3" />
+        <label htmlFor="three">
+          <span className="is-hidden" aria-hidden="false">
+            Three
+          </span>
+          <span className="icon" aria-hidden="true">
+            <i className="fas">
+              <FontAwesomeIcon icon="star" className="star inactive" />
+            </i>
+          </span>
+          <input
+            name="rating"
+            type="radio"
+            value="three"
+            className="is-hidden"
+            aria-hidden="false"
+          />
         </label>
-        <label className="label" htmlFor="four">
-          4
-          <input id="four" name="four" type="checkbox" value="4" />
+        <label htmlFor="four">
+          <span className="is-hidden" aria-hidden="false">
+            Four
+          </span>
+          <span className="icon" aria-hidden="true">
+            <i className="fas">
+              <FontAwesomeIcon icon="star" className="star inactive" />
+            </i>
+          </span>
+          <input
+            name="rating"
+            type="radio"
+            value="four"
+            className="is-hidden"
+            aria-hidden="false"
+          />
         </label>
-        <label className="label" htmlFor="five">
-          5
-          <input id="five" name="five" type="checkbox" value="5" />
+        <label htmlFor="five">
+          <span className="is-hidden" aria-hidden="false">
+            Five
+          </span>
+          <span className="icon" aria-hidden="true">
+            <i className="fas">
+              <FontAwesomeIcon icon="star" className="star inactive" />
+            </i>
+          </span>
+          <input
+            name="rating"
+            type="radio"
+            value="five"
+            className="is-hidden"
+            aria-hidden="false"
+          />
         </label>
       </div>
     );

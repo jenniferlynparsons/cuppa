@@ -25,7 +25,7 @@ const TeaSchema = new Schema({
     type: Number
   },
   rating: {
-    type: Number
+    type: String
   }
 });
 
