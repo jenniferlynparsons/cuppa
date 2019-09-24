@@ -133,7 +133,7 @@ export class TeaEditor extends React.Component {
           <div className="field">
             <StarRating teaID={this.props.id} />
           </div>
-          <div className="control">
+          <div className="control extra-margin">
             <button data-testid="submit" className="button is-primary">
               Submit
             </button>

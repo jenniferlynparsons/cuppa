@@ -20,9 +20,13 @@ button,
 }
 
 .star {
+  color: $grey-light;
+}
+
+.active {
   color: $warning;
 }
 
-.inactive {
-  color: $grey-light;
+.extra-margin {
+  margin-top: 20px;
 }

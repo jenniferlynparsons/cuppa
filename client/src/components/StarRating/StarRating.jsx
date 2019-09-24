@@ -17,7 +17,7 @@ export class StarRating extends React.Component {
           </span>
           <span className="icon" aria-hidden="true">
             <i className="fas">
-              <FontAwesomeIcon icon="star" className="star inactive" />
+              <FontAwesomeIcon icon="star" className="star" />
             </i>
           </span>
           <input
@@ -35,7 +35,7 @@ export class StarRating extends React.Component {
           </span>
           <span className="icon" aria-hidden="true">
             <i className="fas">
-              <FontAwesomeIcon icon="star" className="star inactive" />
+              <FontAwesomeIcon icon="star" className="star" />
             </i>
           </span>
           <input
@@ -52,7 +52,7 @@ export class StarRating extends React.Component {
           </span>
           <span className="icon" aria-hidden="true">
             <i className="fas">
-              <FontAwesomeIcon icon="star" className="star inactive" />
+              <FontAwesomeIcon icon="star" className="star" />
             </i>
           </span>
           <input
@@ -69,7 +69,7 @@ export class StarRating extends React.Component {
           </span>
           <span className="icon" aria-hidden="true">
             <i className="fas">
-              <FontAwesomeIcon icon="star" className="star inactive" />
+              <FontAwesomeIcon icon="star" className="star" />
             </i>
           </span>
           <input
@@ -86,7 +86,7 @@ export class StarRating extends React.Component {
           </span>
           <span className="icon" aria-hidden="true">
             <i className="fas">
-              <FontAwesomeIcon icon="star" className="star inactive" />
+              <FontAwesomeIcon icon="star" className="star" />
             </i>
           </span>
           <input
