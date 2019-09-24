@@ -31,7 +31,8 @@ router.post("/", (req, res) => {
       name: req.body.name,
       brand: req.body.brand,
       teaType: req.body.teaType,
-      servings: req.body.servings
+      servings: req.body.servings,
+      rating: req.body.rating
     });
 
     newTea.save().then(tea => res.status(200).json(teaNormalizer(tea)));

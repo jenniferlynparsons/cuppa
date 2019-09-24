@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { validationComplete } from "../../../lib/validationComplete";
+import StarRating from "../../StarRating";
 import InputField from "../../FormComponents/InputField";
 
 export class TeaEditor extends React.Component {
@@ -128,6 +129,9 @@ export class TeaEditor extends React.Component {
               onChange={this.props.handleServingsChange}
               onBlur={this.props.handleBlur("servings")}
             />
+          </div>
+          <div className="field">
+            <StarRating teaID={this.props.id} />
           </div>
           <div className="control">
             <button data-testid="submit" className="button is-primary">

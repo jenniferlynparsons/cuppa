@@ -9,6 +9,7 @@ module.exports = function validateTeaInput(data) {
   data.brand = !isEmpty(data.brand) ? data.brand : "";
   data.teaType = !isEmpty(data.teaType) ? data.teaType : "";
   data.servings = !isEmpty(data.servings + "") ? data.servings + "" : "";
+  data.rating = !isEmpty(data.rating + "") ? data.rating + "" : "";
 
   // Name checks
   if (Validator.isEmpty(data.name)) {
