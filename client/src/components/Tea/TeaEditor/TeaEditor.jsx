@@ -131,7 +131,10 @@ export class TeaEditor extends React.Component {
             />
           </div>
           <div className="field">
-            <StarRating teaID={this.props.id} />
+            <StarRating
+              rating={this.props.rating}
+              handleRatingClick={this.props.handleRatingClick}
+            />
           </div>
           <div className="control extra-margin">
             <button data-testid="submit" className="button is-primary">

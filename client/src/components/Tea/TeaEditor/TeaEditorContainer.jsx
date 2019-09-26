@@ -32,6 +32,7 @@ export class TeaEditorContainer extends React.Component {
     teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
     teaTypes: this.props.teaTypes ? this.props.teaTypes : "",
     servings: this.props.currentTea ? this.props.currentTea.servings : "",
+    rating: this.props.currentTea ? this.props.currentTea.rating : "",
     inputValidation: {
       name: true,
       brand: true,
@@ -79,6 +80,12 @@ export class TeaEditorContainer extends React.Component {
     });
   };
 
+  handleRatingClick = event => {
+    this.setState({
+      rating: event.target.value
+    });
+  };
+
   handleFormSubmit = event => {
     event.preventDefault();
     const namevalid = nameSchema.isValidSync(this.state);
@@ -92,7 +99,8 @@ export class TeaEditorContainer extends React.Component {
       name: this.state.name,
       brand: this.state.brand,
       teaType: this.state.teaType,
-      servings: this.state.servings
+      servings: this.state.servings,
+      rating: this.state.rating
     };
 
     if (namevalid && brandvalid && teaTypevalid && servingsvalid) {
@@ -142,7 +150,8 @@ export class TeaEditorContainer extends React.Component {
         name: this.props.currentTea.name,
         brand: this.props.currentTea.brand,
         teaType: this.props.currentTea.teaType,
-        servings: this.props.currentTea.servings
+        servings: this.props.currentTea.servings,
+        rating: this.props.currentTea.rating
       });
     }
     if (
@@ -170,6 +179,7 @@ export class TeaEditorContainer extends React.Component {
       return (
         <TeaEditor
           teaTypes={this.props.teaTypes}
+          teaID={this.state.id}
           name={this.state.name}
           brand={this.state.brand}
           brandsDataList={
@@ -177,6 +187,7 @@ export class TeaEditorContainer extends React.Component {
           }
           teaType={this.state.teaType}
           servings={this.state.servings}
+          rating={this.state.rating}
           flash={this.state.flash}
           inputValidation={this.state.inputValidation}
           serverErrors={this.props.serverErrors}
@@ -186,6 +197,7 @@ export class TeaEditorContainer extends React.Component {
           handleBrandChange={this.handleBrandChange}
           handleTypeChange={this.handleTypeChange}
           handleServingsChange={this.handleServingsChange}
+          handleRatingClick={this.handleRatingClick}
           handleFormSubmit={this.handleFormSubmit}
         />
       );
