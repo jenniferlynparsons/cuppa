@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import InputField from "../../FormComponents/InputField";
 import TimerContainer from "../../Timer";
+import StarRating from "../../StarRating";
 
 library.add(faAngleDown, faAngleUp);
 
@@ -149,6 +150,9 @@ export class TeaCollectionTable extends React.Component {
                   <td>{tea.brand}</td>
                   <td>{teaType && teaType.name}</td>
                   <td>{tea.servings}</td>
+                  <td>
+                    <StarRating rating={tea.rating} />
+                  </td>
                   <td>
                     <button
                       data-testid="makecuppalink"

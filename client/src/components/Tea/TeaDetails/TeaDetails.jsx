@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TimerContainer from "../../Timer";
+import StarRating from "../../StarRating";
 
 export class TeaDetails extends React.Component {
   render() {
@@ -30,6 +31,10 @@ export class TeaDetails extends React.Component {
             <li>
               <span className="has-text-grey-light">Servings:</span>{" "}
               {this.props.tea.servings}
+            </li>
+            <li>
+              <span className="has-text-grey-light">Rating:</span>{" "}
+              <StarRating rating={this.props.tea.rating} />
             </li>
           </ul>
 

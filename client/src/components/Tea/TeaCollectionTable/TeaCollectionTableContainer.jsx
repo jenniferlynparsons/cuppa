@@ -37,7 +37,8 @@ export class TeaCollectionTableContainer extends React.Component {
     { colName: "name", colTitle: "Name" },
     { colName: "brand", colTitle: "Brand" },
     { colName: "teaType", colTitle: "Type" },
-    { colName: "servings", colTitle: "Servings" }
+    { colName: "servings", colTitle: "Servings" },
+    { colName: "rating", colTitle: "Rating" }
   ];
 
   handleDeleteClick = tea => this.props.deleteTea(tea);

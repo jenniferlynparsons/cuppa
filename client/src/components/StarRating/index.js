@@ -1,3 +1,3 @@
-import StarRatingContainer from "./StarRatingContainer";
+import StarRating from "./StarRating";
 
-export default StarRatingContainer;
+export default StarRating;
