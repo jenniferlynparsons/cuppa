@@ -110,6 +110,7 @@
       "!client/src/lib/**",
       "!client/src/components/App/**",
       "!client/src/components/Auth/PrivateRoute/**",
+      "!client/src/components/ErrorBoundary/**",
       "!**/node_modules/**"
     ],
     "moduleFileExtensions": [
