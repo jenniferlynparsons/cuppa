@@ -33,7 +33,7 @@ beforeEach(() => {
 
 describe("teaEditor form success", () => {
   test("editor form submit succesfully adds tea", async () => {
-    const { getByTestId } = renderWithRouter(
+    const { getByTestId, debug } = renderWithRouter(
       <TeaEditorContainerClass {...mockDefaultProps} />
     );
     await Promise.resolve();
@@ -50,10 +50,13 @@ describe("teaEditor form success", () => {
     fireEvent.change(getByTestId("servings"), {
       target: { value: 22 }
     });
+    fireEvent.click(getByTestId("starfour"));
+
     expect(getByTestId("teaeditorform")).toHaveFormValues({
       name: teaFixture.basicTea.name,
       brand: teaFixture.basicTea.brand,
       servings: 22,
+      rating: "4",
       type: teaFixture.basicTea.teaType
     });
 

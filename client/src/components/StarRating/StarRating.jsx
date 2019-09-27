@@ -37,6 +37,7 @@ class StarRating extends React.Component {
                   </i>
                 </span>
                 <input
+                  data-testid={"star" + star.name}
                   id={star.name}
                   name="rating"
                   type="radio"

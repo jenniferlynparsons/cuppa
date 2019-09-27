@@ -4,7 +4,8 @@ const basicTea = {
   name: "Sleepytime",
   brand: "Celestial Seasonings",
   teaType: "5d40b6871f88450253bdbf40",
-  servings: 22
+  servings: 22,
+  rating: "4"
 };
 
 const updatedTea = {
@@ -12,7 +13,8 @@ const updatedTea = {
   name: "Green Dragon",
   brand: "Twinnings",
   teaType: "5d48277169b3160191797d14",
-  servings: 23
+  servings: 23,
+  rating: "4"
 };
 
 const basicDataTea = {
@@ -21,14 +23,16 @@ const basicDataTea = {
   name: "Sleepytime",
   brand: "Celestial Seasonings",
   teaType: "5d40b6871f88450253bdbf40",
-  servings: 22
+  servings: 22,
+  rating: "4"
 };
 
 const missingDataTea = {
   name: "",
   brand: "Twinnings",
   teaType: "5d48277169b3160191797d14",
-  servings: 23
+  servings: 23,
+  rating: "4"
 };
 
 const servingsUpdatedTea = {
@@ -36,7 +40,8 @@ const servingsUpdatedTea = {
   name: "Sleepytime",
   brand: "Celestial Seasonings",
   teaType: "5d40b6871f88450253bdbf40",
-  servings: 21
+  servings: 21,
+  rating: "4"
 };
 
 // Reducer mock data
@@ -47,6 +52,7 @@ const reducerAddTea = {
   brand: "McNulty's",
   teaType: "5d40b6871f88450253bdbf40",
   servings: 12,
+  rating: "4",
   id: "3d4a3605-4368-4ee1-abe4-318d7982e491"
 };
 
@@ -59,12 +65,14 @@ const reducerEditTea = {
     name: "Lapsang Souchang",
     brand: "McNulty's",
     teaType: "5d39dd1f0487d1116140bac1",
-    servings: 12
+    servings: 12,
+    rating: "4"
   },
   name: "Lapsang Souchang",
   brand: "McNulty's",
   teaType: "5d39dd1f0487d1116140bac1",
   servings: 14,
+  rating: "4",
   edit: true,
   brands: [],
   brandsDataList: [],
@@ -78,7 +86,8 @@ const teaPostResponse = {
     name: "Lapsang Souchang",
     brand: "McNulty's",
     teaType: "5d39dd1f0487d1116140bac1",
-    servings: 12
+    servings: 12,
+    rating: "4"
   }
 };
 
@@ -89,7 +98,8 @@ const teaPatchResponse = {
     name: "Lapsang Souchang",
     brand: "McNulty's",
     teaType: "5d39dd1f0487d1116140bac1",
-    servings: 14
+    servings: 14,
+    rating: "4"
   }
 };
 
@@ -101,14 +111,16 @@ const teaGetResponse = {
       name: "Sleepytime",
       brand: "Celestial Seasonings",
       teaType: "5d40b6871f88450253bdbf40",
-      servings: 22
+      servings: 22,
+      rating: "4"
     },
     {
       id: "3d4a3605-4368-4ee1-abe4-318d7982e491",
       name: "Lapsang Souchang",
       brand: "McNulty's",
       teaType: "5d39dd1f0487d1116140bac1",
-      servings: 12
+      servings: 12,
+      rating: "4"
     }
   ]
 };
@@ -119,21 +131,24 @@ const getTeasPayload = [
     name: "Sleepytime",
     brand: "Celestial Seasonings",
     teaType: "5d40b6871f88450253bdbf40",
-    servings: 22
+    servings: 22,
+    rating: "4"
   },
   {
     id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
     name: "Green Dragon",
     brand: "Celestial Seasonings",
     teaType: "5d48277169b3160191797d14",
-    servings: 21
+    servings: 21,
+    rating: "4"
   },
   {
     id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
     name: "Lapsang Souchang",
     brand: "McNulty's",
     teaType: "5d39dd1f0487d1116140bac1",
-    servings: 12
+    servings: 12,
+    rating: "4"
   }
 ];
 
@@ -142,7 +157,8 @@ const addTeaPayload = {
   name: "Basic Tea",
   brand: "Lipton",
   teaType: "5d39dd1f0487d1116140bac1",
-  servings: 12
+  servings: 12,
+  rating: "4"
 };
 
 const editTeaPayload = {
@@ -150,7 +166,8 @@ const editTeaPayload = {
   name: "Sleepytime",
   brand: "Celestial Seasonings",
   teaType: "5d40b6871f88450253bdbf40",
-  servings: 22
+  servings: 22,
+  rating: "4"
 };
 
 const deleteTeaPayload = "dc8a7690-de4a-47e8-8225-5548c0f51669";

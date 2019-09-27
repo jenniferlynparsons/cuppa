@@ -49,21 +49,24 @@ const basicStore = {
         name: "Sleepytime",
         brand: "Celestial Seasonings",
         teaType: "5d40b6871f88450253bdbf40",
-        servings: 22
+        servings: 22,
+        rating: "4"
       },
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
         brand: "Celestial Seasonings",
         teaType: "5d48277169b3160191797d14",
-        servings: 21
+        servings: 21,
+        rating: "4"
       },
       "dc8a7690-de4a-47e8-8225-5548c0f51669": {
         id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
         name: "Lapsang Souchang",
         brand: "McNulty's",
         teaType: "5d39dd1f0487d1116140bac1",
-        servings: 12
+        servings: 12,
+        rating: "4"
       }
     },
     teaIDs: [
@@ -124,28 +127,32 @@ const addedStore = {
         name: "Sleepytime",
         brand: "Celestial Seasonings",
         teaType: "5d40b6871f88450253bdbf40",
-        servings: 22
+        servings: 22,
+        rating: "4"
       },
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
         brand: "Celestial Seasonings",
         teaType: "5d48277169b3160191797d14",
-        servings: 21
+        servings: 21,
+        rating: "4"
       },
       "dc8a7690-de4a-47e8-8225-5548c0f51669": {
         id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
         name: "Lapsang Souchang",
         brand: "McNulty's",
         teaType: "5d39dd1f0487d1116140bac1",
-        servings: 12
+        servings: 12,
+        rating: "4"
       },
       "1b1db861-0537-4b69-83d5-d9ee033530f8": {
         id: "1b1db861-0537-4b69-83d5-d9ee033530f8",
         name: "Basic Tea",
         brand: "Lipton",
         teaType: "5d39dd1f0487d1116140bac1",
-        servings: 12
+        servings: 12,
+        rating: "4"
       }
     },
     teaIDs: [
@@ -159,6 +166,7 @@ const addedStore = {
       id: "1b1db861-0537-4b69-83d5-d9ee033530f8",
       name: "Basic Tea",
       servings: 12,
+      rating: "4",
       teaType: "5d39dd1f0487d1116140bac1"
     }
   },
@@ -214,21 +222,24 @@ const updatedStore = {
         name: "Sleepytime",
         brand: "Celestial Seasonings",
         teaType: "5d40b6871f88450253bdbf40",
-        servings: 22
+        servings: 22,
+        rating: "4"
       },
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
         brand: "Celestial Seasonings",
         teaType: "5d48277169b3160191797d14",
-        servings: 21
+        servings: 21,
+        rating: "4"
       },
       "dc8a7690-de4a-47e8-8225-5548c0f51669": {
         id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
         name: "Lapsang Souchang",
         brand: "McNulty's",
         teaType: "5d39dd1f0487d1116140bac1",
-        servings: 12
+        servings: 12,
+        rating: "4"
       }
     },
     teaIDs: [
@@ -241,6 +252,7 @@ const updatedStore = {
       id: "25070e52-e635-4883-ae9b-583113573b9f",
       name: "Sleepytime",
       servings: 22,
+      rating: "4",
       teaType: "5d40b6871f88450253bdbf40"
     }
   },
@@ -296,21 +308,24 @@ const deletedStore = {
         name: "Sleepytime",
         brand: "Celestial Seasonings",
         teaType: "5d40b6871f88450253bdbf40",
-        servings: 22
+        servings: 22,
+        rating: "4"
       },
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
         brand: "Celestial Seasonings",
         teaType: "5d48277169b3160191797d14",
-        servings: 21
+        servings: 21,
+        rating: "4"
       },
       "dc8a7690-de4a-47e8-8225-5548c0f51669": {
         id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
         name: "Lapsang Souchang",
         brand: "McNulty's",
         teaType: "5d39dd1f0487d1116140bac1",
-        servings: 12
+        servings: 12,
+        rating: "4"
       }
     },
     teaIDs: [
@@ -370,21 +385,24 @@ const duplicateErrorStore = {
         name: "Sleepytime",
         brand: "Celestial Seasonings",
         teaType: "5d40b6871f88450253bdbf40",
-        servings: 22
+        servings: 22,
+        rating: "4"
       },
       "044cf8ea-bc71-4d89-a2f6-fa499d43e20d": {
         id: "044cf8ea-bc71-4d89-a2f6-fa499d43e20d",
         name: "Green Dragon",
         brand: "Celestial Seasonings",
         teaType: "5d48277169b3160191797d14",
-        servings: 21
+        servings: 21,
+        rating: "4"
       },
       "dc8a7690-de4a-47e8-8225-5548c0f51669": {
         id: "dc8a7690-de4a-47e8-8225-5548c0f51669",
         name: "Lapsang Souchang",
         brand: "McNulty's",
         teaType: "5d39dd1f0487d1116140bac1",
-        servings: 12
+        servings: 12,
+        rating: "4"
       }
     },
     teaIDs: [
