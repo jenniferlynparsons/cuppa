@@ -36,6 +36,12 @@ export class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  auth: PropTypes.object,
-  handleLogoutClick: PropTypes.func
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool.isRequired,
+    user: PropTypes.shape({
+      name: PropTypes.string,
+      email: PropTypes.string
+    })
+  }),
+  handleLogoutClick: PropTypes.func.isRequired
 };

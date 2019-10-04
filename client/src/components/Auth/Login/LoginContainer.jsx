@@ -99,8 +99,10 @@ export default connect(
 export const LoginContainerComponent = LoginContainer;
 
 LoginContainer.propTypes = {
-  auth: PropTypes.object,
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool.isRequired
+  }),
   history: PropTypes.object,
-  loginAction: PropTypes.func,
-  serverErrors: PropTypes.func
+  loginAction: PropTypes.func.isRequired,
+  serverErrors: PropTypes.object
 };

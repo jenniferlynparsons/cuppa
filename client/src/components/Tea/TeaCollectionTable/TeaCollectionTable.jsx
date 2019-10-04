@@ -206,23 +206,29 @@ export class TeaCollectionTable extends React.Component {
 }
 
 TeaCollectionTable.propTypes = {
-  inputValidation: PropTypes.object,
-  formControls: PropTypes.object,
-  columnHeaders: PropTypes.array,
+  inputValidation: PropTypes.shape({
+    filterCategory: PropTypes.string,
+    filterCriteria: PropTypes.string
+  }),
+  formControls: PropTypes.shape({
+    filterCategory: PropTypes.string.isRequired,
+    filterCriteria: PropTypes.string.isRequired
+  }),
+  columnHeaders: PropTypes.array.isRequired,
   datalist: PropTypes.object,
   errorMessages: PropTypes.object,
-  filtered: PropTypes.bool,
-  teaIDs: PropTypes.array,
-  allTeas: PropTypes.array,
-  teaTypes: PropTypes.array,
-  timerID: PropTypes.string,
-  handleFilterDropdownChange: PropTypes.func,
-  handleFilterInputChange: PropTypes.func,
-  handleFilterClick: PropTypes.func,
-  handleClearFilterClick: PropTypes.func,
-  handleSortClick: PropTypes.func,
-  handleSortColumn: PropTypes.func,
-  handleOpenTimer: PropTypes.func,
-  handleDeleteClick: PropTypes.func,
-  handleCloseTimer: PropTypes.func
+  filtered: PropTypes.bool.isRequired,
+  teaIDs: PropTypes.array.isRequired,
+  allTeas: PropTypes.array.isRequired,
+  teaTypes: PropTypes.array.isRequired,
+  timerID: PropTypes.string.isRequired,
+  handleFilterDropdownChange: PropTypes.func.isRequired,
+  handleFilterInputChange: PropTypes.func.isRequired,
+  handleFilterClick: PropTypes.func.isRequired,
+  handleClearFilterClick: PropTypes.func.isRequired,
+  handleSortClick: PropTypes.func.isRequired,
+  handleSortColumn: PropTypes.func.isRequired,
+  handleOpenTimer: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
+  handleCloseTimer: PropTypes.func.isRequired
 };

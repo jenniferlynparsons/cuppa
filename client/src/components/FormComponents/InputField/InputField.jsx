@@ -38,16 +38,16 @@ class InputField extends React.Component {
 export default InputField;
 
 InputField.propTypes = {
-  datatestid: PropTypes.string,
+  datatestid: PropTypes.string.isRequired,
   className: PropTypes.string,
   valid: PropTypes.bool,
   errorClass: PropTypes.string,
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
   list: PropTypes.string,
   placeholder: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   min: PropTypes.number,
   max: PropTypes.number,
   datalist: PropTypes.object,

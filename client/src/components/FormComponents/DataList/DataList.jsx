@@ -28,6 +28,6 @@ export default DataList;
 
 DataList.propTypes = {
   options: PropTypes.array,
-  id: PropTypes.string,
-  processOptions: PropTypes.func
+  id: PropTypes.string.isRequired,
+  processOptions: PropTypes.func.isRequired
 };

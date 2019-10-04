@@ -118,8 +118,10 @@ export default connect(
 export const RegisterContainerComponent = RegisterContainer;
 
 RegisterContainer.propTypes = {
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool.isRequired
+  }),
   history: PropTypes.object,
-  auth: PropTypes.object,
-  registerUser: PropTypes.func,
-  serverErrors: PropTypes.func
+  registerUser: PropTypes.func.isRequired,
+  serverErrors: PropTypes.object
 };

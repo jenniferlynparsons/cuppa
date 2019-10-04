@@ -107,13 +107,26 @@ export class Register extends React.Component {
 }
 
 Register.propTypes = {
-  inputValidation: PropTypes.object,
-  serverErrors: PropTypes.object,
-  errorMessages: PropTypes.object,
-  name: PropTypes.string,
-  email: PropTypes.string,
-  password: PropTypes.string,
-  password2: PropTypes.string,
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func
+  inputValidation: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    password2: PropTypes.string
+  }),
+  serverErrors: PropTypes.shape({
+    duplicateEmail: PropTypes.string
+  }),
+  errorMessages: PropTypes.shape({
+    passwordIncorrect: PropTypes.string,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    password2: PropTypes.string
+  }),
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  password2: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
