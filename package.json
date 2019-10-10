@@ -9,7 +9,7 @@
     "client": "webpack-dev-server --config ./webpack.config.js --mode development",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "watch": "sudo jest --watch",
-    "coverage": "sudo jest --coverage --colors"
+    "coverage": "jest --coverage --colors"
   },
   "repository": {
     "type": "git",

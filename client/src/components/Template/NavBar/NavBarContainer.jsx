@@ -33,9 +33,9 @@ class NavBarContainer extends React.Component {
         auth={this.props.auth}
         menuActive={this.state.menuActive}
         dropdownActive={this.state.dropdownActive}
-        handleNavToggle={this.handleNavToggle}
-        handleDropDownToggle={this.handleDropDownToggle}
-        handleLogoutClick={this.handleLogoutClick}
+        onHandleNavToggle={this.handleNavToggle}
+        onHandleDropDownToggle={this.handleDropDownToggle}
+        onHandleLogoutClick={this.handleLogoutClick}
       />
     );
   }

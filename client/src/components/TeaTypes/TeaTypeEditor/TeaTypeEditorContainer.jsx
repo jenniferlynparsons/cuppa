@@ -166,12 +166,12 @@ export class TeaTypeEditorContainer extends React.Component {
           inputValidation={this.state.inputValidation}
           serverErrors={this.props.serverErrors}
           errorMessages={this.state.errorMessages}
-          handleBlur={this.handleBlur}
-          handleNameChange={this.handleNameChange}
-          handleBrewTimeMinChange={this.handleBrewTimeMinChange}
-          handleBrewTimeSecChange={this.handleBrewTimeSecChange}
-          handleSubmitButton={this.handleSubmitButton}
-          handleFormSubmit={this.handleFormSubmit}
+          onHandleBlur={this.handleBlur}
+          onHandleNameChange={this.handleNameChange}
+          onHandleBrewTimeMinChange={this.handleBrewTimeMinChange}
+          onHandleBrewTimeSecChange={this.handleBrewTimeSecChange}
+          onHandleSubmitButton={this.handleSubmitButton}
+          onHandleFormSubmit={this.handleFormSubmit}
         />
       );
     }

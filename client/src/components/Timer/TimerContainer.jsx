@@ -101,11 +101,11 @@ class TimerContainer extends React.Component {
           brewTime={this.props.brewTime}
           timerOn={this.state.timerOn}
           timerTime={this.state.timerTime}
-          handleStartTimer={this.handleStartTimer}
-          handlePauseTimer={this.handlePauseTimer}
-          handleResumeTimer={this.handleResumeTimer}
-          handleCancelTimer={this.handleCancelTimer}
-          handleFinishTimer={this.handleFinishTimer}
+          onHandleStartTimer={this.handleStartTimer}
+          onHandlePauseTimer={this.handlePauseTimer}
+          onHandleResumeTimer={this.handleResumeTimer}
+          onHandleCancelTimer={this.handleCancelTimer}
+          onHandleFinishTimer={this.handleFinishTimer}
         />
       );
     }

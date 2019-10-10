@@ -39,7 +39,7 @@ export class Timer extends React.Component {
                   ? "button is-success"
                   : "is-hidden"
               }
-              onClick={this.props.handleStartTimer}
+              onClick={this.props.onHandleStartTimer}
             >
               Start
             </button>
@@ -53,7 +53,7 @@ export class Timer extends React.Component {
                   ? "button is-success"
                   : "is-hidden"
               }
-              onClick={this.props.handleResumeTimer}
+              onClick={this.props.onHandleResumeTimer}
             >
               Resume
             </button>
@@ -61,7 +61,7 @@ export class Timer extends React.Component {
             <button
               data-testid="pausetimer"
               className={this.props.timerOn ? "button is-danger" : "is-hidden"}
-              onClick={this.props.handlePauseTimer}
+              onClick={this.props.onHandlePauseTimer}
             >
               Pause {this.props.timerOn}
             </button>
@@ -72,14 +72,14 @@ export class Timer extends React.Component {
                   ? "button is-primary"
                   : "is-hidden"
               }
-              onClick={this.props.handleFinishTimer}
+              onClick={this.props.onHandleFinishTimer}
             >
               Done!
             </button>
             <button
               data-testid="canceltimer"
               className="button"
-              onClick={this.props.handleCancelTimer}
+              onClick={this.props.onHandleCancelTimer}
             >
               Cancel
             </button>

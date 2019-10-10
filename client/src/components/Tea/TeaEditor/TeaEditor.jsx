@@ -31,7 +31,7 @@ export class TeaEditor extends React.Component {
         )}
 
         <form
-          onSubmit={this.props.handleFormSubmit}
+          onSubmit={this.props.onHandleFormSubmit}
           data-testid="teaeditorform"
         >
           <div className="field">
@@ -49,8 +49,8 @@ export class TeaEditor extends React.Component {
               valid={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
               errorClass="is-danger"
-              onChange={this.props.handleNameChange}
-              onBlur={this.props.handleBlur("name")}
+              onChange={this.props.onHandleNameChange}
+              onBlur={this.props.onHandleBlur("name")}
             />
           </div>
           <div className="field">
@@ -70,7 +70,7 @@ export class TeaEditor extends React.Component {
               valid={this.props.inputValidation.brand}
               errorMessage={this.props.errorMessages.brand}
               errorClass="is-danger"
-              onChange={this.props.handleBrandChange}
+              onChange={this.props.onHandleBrandChange}
             />
           </div>
           <div className="field">
@@ -90,8 +90,8 @@ export class TeaEditor extends React.Component {
                   id="type"
                   value={this.props.teaType}
                   disabled={!this.props.teaTypes.length}
-                  onChange={this.props.handleTypeChange}
-                  onBlur={this.props.handleTypeChange}
+                  onChange={this.props.onHandleTypeChange}
+                  onBlur={this.props.onHandleTypeChange}
                 >
                   <option />
                   {this.props.teaTypes.map(teaType => {
@@ -126,14 +126,14 @@ export class TeaEditor extends React.Component {
               valid={this.props.inputValidation.servings}
               errorMessage={this.props.errorMessages.servings}
               errorClass="is-danger"
-              onChange={this.props.handleServingsChange}
-              onBlur={this.props.handleBlur("servings")}
+              onChange={this.props.onHandleServingsChange}
+              onBlur={this.props.onHandleBlur("servings")}
             />
           </div>
           <div className="field">
             <StarRating
               rating={this.props.rating}
-              handleRatingClick={this.props.handleRatingClick}
+              onHandleRatingClick={this.props.onHandleRatingClick}
             />
           </div>
           <div className="control extra-margin">

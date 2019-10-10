@@ -42,7 +42,7 @@ export class TeaDetails extends React.Component {
             data-testid="makecuppalink"
             className="button is-primary"
             disabled={this.props.tea.servings <= 0}
-            onClick={() => this.props.handleOpenTimer(this.props.tea.id)}
+            onClick={() => this.props.onHandleOpenTimer(this.props.tea.id)}
           >
             Make A Cuppa
           </button>
@@ -57,7 +57,7 @@ export class TeaDetails extends React.Component {
         {this.props.timerID && (
           <TimerContainer
             timerID={this.props.timerID}
-            handleCloseTimer={this.props.handleCloseTimer}
+            onHandleCloseTimer={this.props.onHandleCloseTimer}
           />
         )}
       </>

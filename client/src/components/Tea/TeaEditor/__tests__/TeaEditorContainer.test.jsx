@@ -33,7 +33,7 @@ beforeEach(() => {
 
 describe("teaEditor form success", () => {
   test("editor form submit succesfully adds tea", async () => {
-    const { getByTestId, debug } = renderWithRouter(
+    const { getByTestId } = renderWithRouter(
       <TeaEditorContainerClass {...mockDefaultProps} />
     );
     await Promise.resolve();

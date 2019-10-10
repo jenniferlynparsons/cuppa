@@ -239,15 +239,15 @@ export class TeaCollectionTableContainer extends React.Component {
           timerID={this.props.timerID}
           inputValidation={this.state.inputValidation}
           errorMessages={this.state.errorMessages}
-          handleDeleteClick={this.handleDeleteClick}
-          handleSortClick={this.handleSortClick}
-          handleFilterClick={this.handleFilterClick}
-          handleClearFilterClick={this.handleClearFilterClick}
-          handleFilterDropdownChange={this.handleFilterDropdownChange}
-          handleFilterInputChange={this.handleFilterInputChange}
-          handleSortColumn={this.handleSortColumn}
-          handleOpenTimer={this.handleOpenTimer}
-          handleCloseTimer={this.handleCloseTimer}
+          onHandleDeleteClick={this.handleDeleteClick}
+          onHandleSortClick={this.handleSortClick}
+          onHandleFilterClick={this.handleFilterClick}
+          onHandleClearFilterClick={this.handleClearFilterClick}
+          onHandleFilterDropdownChange={this.handleFilterDropdownChange}
+          onHandleFilterInputChange={this.handleFilterInputChange}
+          onHandleSortColumn={this.handleSortColumn}
+          onHandleOpenTimer={this.handleOpenTimer}
+          onHandleCloseTimer={this.handleCloseTimer}
         />
       );
     }

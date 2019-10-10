@@ -30,7 +30,7 @@ export class TeaTypeEditor extends React.Component {
         )}
 
         <form
-          onSubmit={this.props.handleFormSubmit}
+          onSubmit={this.props.onHandleFormSubmit}
           data-testid="teatypeeditorform"
         >
           <div className="field">
@@ -48,7 +48,7 @@ export class TeaTypeEditor extends React.Component {
               valid={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
               errorClass="is-danger"
-              onChange={this.props.handleNameChange}
+              onChange={this.props.onHandleNameChange}
             />
           </div>
           <div className="field">
@@ -67,7 +67,7 @@ export class TeaTypeEditor extends React.Component {
                   className="input is-one-fifth"
                   valid={this.props.inputValidation.brewTimeMin}
                   errorClass="input is-danger is-one-fifth"
-                  onChange={this.props.handleBrewTimeMinChange}
+                  onChange={this.props.onHandleBrewTimeMinChange}
                 />
               </div>
               <div className="column is-one-quarter">
@@ -83,7 +83,7 @@ export class TeaTypeEditor extends React.Component {
                   className="input is-one-fifth"
                   valid={this.props.inputValidation.brewTimeSec}
                   errorClass="input is-danger is-one-fifth"
-                  onChange={this.props.handleBrewTimeSecChange}
+                  onChange={this.props.onHandleBrewTimeSecChange}
                 />
               </div>
             </div>
