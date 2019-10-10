@@ -61,12 +61,28 @@ export class TeaDetails extends React.Component {
   }
 }
 
+TeaDetails.defaultProps = {
+  tea: {
+    name: "",
+    brand: "",
+    servings: "",
+    id: ""
+  },
+  teaType: "",
+  timerID: ""
+};
+
 TeaDetails.propTypes = {
   flash: PropTypes.string,
-  tea: PropTypes.object,
-  teaType: PropTypes.string,
-  timerID: PropTypes.string,
-  updateFlash: PropTypes.func,
-  handleOpenTimer: PropTypes.func,
-  handleCloseTimer: PropTypes.func
+  tea: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    brand: PropTypes.string.isRequired,
+    servings: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired
+  }),
+  teaType: PropTypes.string.isRequired,
+  timerID: PropTypes.string.isRequired,
+  updateFlash: PropTypes.func.isRequired,
+  handleOpenTimer: PropTypes.func.isRequired,
+  handleCloseTimer: PropTypes.func.isRequired
 };

@@ -48,6 +48,7 @@ export class TeaCollectionTable extends React.Component {
               <InputField
                 datatestid="filterinput"
                 name="filterCriteria"
+                id="filterCriteria"
                 type="text"
                 list="fcriteria"
                 datalist={this.props.datalist}
@@ -207,21 +208,24 @@ export class TeaCollectionTable extends React.Component {
 
 TeaCollectionTable.propTypes = {
   inputValidation: PropTypes.shape({
-    filterCategory: PropTypes.string,
-    filterCriteria: PropTypes.string
+    filterCategory: PropTypes.bool,
+    filterCriteria: PropTypes.bool
   }),
   formControls: PropTypes.shape({
     filterCategory: PropTypes.string.isRequired,
     filterCriteria: PropTypes.string.isRequired
   }),
+  errorMessages: PropTypes.shape({
+    filterCategory: PropTypes.string,
+    filterCriteria: PropTypes.string
+  }),
   columnHeaders: PropTypes.array.isRequired,
   datalist: PropTypes.object,
-  errorMessages: PropTypes.object,
   filtered: PropTypes.bool.isRequired,
   teaIDs: PropTypes.array.isRequired,
-  allTeas: PropTypes.array.isRequired,
-  teaTypes: PropTypes.array.isRequired,
-  timerID: PropTypes.string.isRequired,
+  allTeas: PropTypes.object.isRequired,
+  teaTypes: PropTypes.object.isRequired,
+  timerID: PropTypes.string,
   handleFilterDropdownChange: PropTypes.func.isRequired,
   handleFilterInputChange: PropTypes.func.isRequired,
   handleFilterClick: PropTypes.func.isRequired,

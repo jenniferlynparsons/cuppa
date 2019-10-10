@@ -37,7 +37,7 @@ export class Dashboard extends React.Component {
 
 Dashboard.propTypes = {
   auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool,
     user: PropTypes.shape({
       name: PropTypes.string,
       email: PropTypes.string

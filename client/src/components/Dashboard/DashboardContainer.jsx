@@ -32,6 +32,6 @@ export default connect(
 export const DashboardContainerComponent = DashboardContainer;
 
 DashboardContainer.propTypes = {
-  auth: PropTypes.object,
-  logoutUser: PropTypes.func
+  auth: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired
 };

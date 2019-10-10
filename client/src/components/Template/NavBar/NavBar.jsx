@@ -113,10 +113,12 @@ class NavBar extends React.Component {
 export default NavBar;
 
 NavBar.propTypes = {
-  auth: PropTypes.object,
-  menuActive: PropTypes.bool,
-  dropdownActive: PropTypes.string,
-  handleDropDownToggle: PropTypes.func,
-  handleLogoutClick: PropTypes.func,
-  handleNavToggle: PropTypes.func
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool
+  }),
+  menuActive: PropTypes.bool.isRequired,
+  dropdownActive: PropTypes.bool.isRequired,
+  handleDropDownToggle: PropTypes.func.isRequired,
+  handleLogoutClick: PropTypes.func.isRequired,
+  handleNavToggle: PropTypes.func.isRequired
 };

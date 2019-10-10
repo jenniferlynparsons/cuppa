@@ -142,20 +142,36 @@ export class TeaEditor extends React.Component {
 }
 
 TeaEditor.propTypes = {
-  flash: PropTypes.object,
-  inputValidation: PropTypes.object,
-  serverErrors: PropTypes.object,
-  name: PropTypes.string,
-  brandsDataList: PropTypes.array,
-  brand: PropTypes.string,
-  errorMessages: PropTypes.object,
-  teaType: PropTypes.string,
+  flash: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.string
+  }),
+  inputValidation: PropTypes.shape({
+    name: PropTypes.bool,
+    brand: PropTypes.bool,
+    teaType: PropTypes.bool,
+    servings: PropTypes.bool
+  }),
+  serverErrors: PropTypes.shape({
+    duplicate: PropTypes.string
+  }),
+  name: PropTypes.string.isRequired,
+  brandsDataList: PropTypes.object,
+  brand: PropTypes.string.isRequired,
+  errorMessages: PropTypes.shape({
+    name: PropTypes.string,
+    brand: PropTypes.string,
+    teaType: PropTypes.string,
+    servings: PropTypes.string
+  }),
+  teaType: PropTypes.string.isRequired,
   teaTypes: PropTypes.array,
-  servings: PropTypes.number,
-  handleBlur: PropTypes.func,
-  handleBrandChange: PropTypes.func,
-  handleFormSubmit: PropTypes.func,
-  handleNameChange: PropTypes.func,
-  handleServingsChange: PropTypes.func,
-  handleTypeChange: PropTypes.func
+  servings: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  handleBlur: PropTypes.func.isRequired,
+  handleBrandChange: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
+  handleNameChange: PropTypes.func.isRequired,
+  handleServingsChange: PropTypes.func.isRequired,
+  handleTypeChange: PropTypes.func.isRequired
 };

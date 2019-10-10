@@ -84,8 +84,8 @@ export class Login extends React.Component {
 
 Login.propTypes = {
   inputValidation: PropTypes.shape({
-    email: PropTypes.string,
-    password: PropTypes.string
+    email: PropTypes.bool,
+    password: PropTypes.bool
   }),
   serverErrors: PropTypes.shape({
     emailNotFound: PropTypes.string,

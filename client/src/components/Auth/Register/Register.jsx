@@ -106,12 +106,16 @@ export class Register extends React.Component {
   }
 }
 
+Register.defaultProps = {
+  name: ""
+};
+
 Register.propTypes = {
   inputValidation: PropTypes.shape({
-    name: PropTypes.string,
-    email: PropTypes.string,
-    password: PropTypes.string,
-    password2: PropTypes.string
+    name: PropTypes.bool,
+    email: PropTypes.bool,
+    password: PropTypes.bool,
+    password2: PropTypes.bool
   }),
   serverErrors: PropTypes.shape({
     duplicateEmail: PropTypes.string

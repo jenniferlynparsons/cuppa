@@ -139,8 +139,11 @@ export default connect(
 export const TimerContainerClass = TimerContainer;
 
 TimerContainer.propTypes = {
-  brewTime: PropTypes.number,
-  tea: PropTypes.object,
-  handleCloseTimer: PropTypes.func,
-  editTea: PropTypes.func
+  brewTime: PropTypes.number.isRequired,
+  tea: PropTypes.shape({
+    servings: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired
+  }),
+  handleCloseTimer: PropTypes.func.isRequired,
+  editTea: PropTypes.func.isRequired
 };

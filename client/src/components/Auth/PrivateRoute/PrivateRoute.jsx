@@ -20,7 +20,7 @@ export default connect(mapStateToProps)(PrivateRoute);
 
 PrivateRoute.propTypes = {
   auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool.isRequired
+    isAuthenticated: PropTypes.bool
   }),
   component: PropTypes.object
 };

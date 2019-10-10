@@ -203,13 +203,13 @@ export default connect(
 export const TeaTypeEditorContainerClass = TeaTypeEditorContainer;
 
 TeaTypeEditorContainer.propTypes = {
-  userID: PropTypes.string,
-  currentTeaType: PropTypes.string,
+  userID: PropTypes.string.isRequired,
+  currentTeaType: PropTypes.object,
   edit: PropTypes.bool,
   history: PropTypes.object,
   serverErrors: PropTypes.object,
-  editTeaType: PropTypes.func,
-  editFlash: PropTypes.func,
-  addTeaType: PropTypes.func,
-  getTeaTypes: PropTypes.func
+  editTeaType: PropTypes.func.isRequired,
+  editFlash: PropTypes.func.isRequired,
+  addTeaType: PropTypes.func.isRequired,
+  getTeaTypes: PropTypes.func.isRequired
 };

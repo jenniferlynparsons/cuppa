@@ -278,10 +278,10 @@ export default connect(
 export const TeaCollectionTableContainerClass = TeaCollectionTableContainer;
 
 TeaCollectionTableContainer.propTypes = {
-  teas: PropTypes.array.isRequired,
-  teaTypes: PropTypes.array.isRequired,
+  teas: PropTypes.object.isRequired,
+  teaTypes: PropTypes.object.isRequired,
   userID: PropTypes.string.isRequired,
-  timerID: PropTypes.string.isRequired,
+  timerID: PropTypes.string,
   deleteTea: PropTypes.func.isRequired,
   setTimerID: PropTypes.func.isRequired,
   getTeas: PropTypes.func.isRequired,

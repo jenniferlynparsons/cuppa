@@ -54,6 +54,6 @@ export default connect(
 export const NavBarContainerComponent = NavBarContainer;
 
 NavBarContainer.propTypes = {
-  auth: PropTypes.object,
-  logoutUser: PropTypes.func
+  auth: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired
 };

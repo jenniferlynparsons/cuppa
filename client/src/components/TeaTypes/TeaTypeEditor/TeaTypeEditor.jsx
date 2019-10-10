@@ -106,15 +106,27 @@ export class TeaTypeEditor extends React.Component {
 }
 
 TeaTypeEditor.propTypes = {
-  flash: PropTypes.object,
-  inputValidation: PropTypes.object,
-  serverErrors: PropTypes.object,
+  flash: PropTypes.shape({
+    name: PropTypes.string
+  }),
+  inputValidation: PropTypes.shape({
+    name: PropTypes.bool,
+    brewTimeMin: PropTypes.bool,
+    brewTimeSec: PropTypes.bool,
+    brewTime: PropTypes.bool
+  }),
+  serverErrors: PropTypes.shape({
+    duplicate: PropTypes.string
+  }),
   name: PropTypes.string,
-  errorMessages: PropTypes.object,
-  brewTimeMin: PropTypes.number,
-  brewTimeSec: PropTypes.number,
-  handleBrewTimeMinChange: PropTypes.func,
-  handleBrewTimeSecChange: PropTypes.func,
-  handleFormSubmit: PropTypes.func,
-  handleNameChange: PropTypes.func
+  errorMessages: PropTypes.shape({
+    name: PropTypes.string,
+    brewTime: PropTypes.string
+  }),
+  brewTimeMin: PropTypes.string,
+  brewTimeSec: PropTypes.string,
+  handleBrewTimeMinChange: PropTypes.func.isRequired,
+  handleBrewTimeSecChange: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
+  handleNameChange: PropTypes.func.isRequired
 };

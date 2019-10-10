@@ -224,16 +224,19 @@ export const TeaEditorContainerClass = TeaEditorContainer;
 
 TeaEditorContainer.propTypes = {
   userID: PropTypes.string,
-  currentTea: PropTypes.object,
+  currentTea: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   teaTypes: PropTypes.array,
   history: PropTypes.object,
   edit: PropTypes.bool,
-  updatedTea: PropTypes.object,
+  updatedTea: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string
+  }),
   brandList: PropTypes.array,
   serverErrors: PropTypes.object,
-  editTea: PropTypes.func,
-  editFlash: PropTypes.func,
-  addTea: PropTypes.func,
-  getTeas: PropTypes.func,
-  getTeaTypes: PropTypes.func
+  editTea: PropTypes.func.isRequired,
+  editFlash: PropTypes.func.isRequired,
+  addTea: PropTypes.func.isRequired,
+  getTeas: PropTypes.func.isRequired,
+  getTeaTypes: PropTypes.func.isRequired
 };

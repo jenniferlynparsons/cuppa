@@ -91,13 +91,13 @@ export class Timer extends React.Component {
 }
 
 Timer.propTypes = {
-  timerTime: PropTypes.number,
-  brewTime: PropTypes.number,
-  teaName: PropTypes.string,
-  timerOn: PropTypes.bool,
-  handleCancelTimer: PropTypes.func,
-  handleFinishTimer: PropTypes.func,
-  handlePauseTimer: PropTypes.func,
-  handleResumeTimer: PropTypes.func,
-  handleStartTimer: PropTypes.func
+  timerTime: PropTypes.number.isRequired,
+  brewTime: PropTypes.number.isRequired,
+  teaName: PropTypes.string.isRequired,
+  timerOn: PropTypes.bool.isRequired,
+  handleCancelTimer: PropTypes.func.isRequired,
+  handleFinishTimer: PropTypes.func.isRequired,
+  handlePauseTimer: PropTypes.func.isRequired,
+  handleResumeTimer: PropTypes.func.isRequired,
+  handleStartTimer: PropTypes.func.isRequired
 };

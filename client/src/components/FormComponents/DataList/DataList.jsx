@@ -29,5 +29,5 @@ export default DataList;
 DataList.propTypes = {
   options: PropTypes.array,
   id: PropTypes.string.isRequired,
-  processOptions: PropTypes.func.isRequired
+  processOptions: PropTypes.func
 };

@@ -19,7 +19,7 @@ beforeEach(() => {
   mockDefaultProps = {
     teaTypes: teaTypeFixture.teaTypes,
     userID: dataFixture.mockUserID,
-    currentTeaType: "",
+    currentTeaType: {},
     getTeaTypes: mockFunc,
     addTeaType: mockAdd,
     editTeaType: mockEdit,

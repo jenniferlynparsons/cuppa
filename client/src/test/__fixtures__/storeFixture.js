@@ -4,7 +4,7 @@ const loggedOutStore = {
     user: {},
     loading: false
   },
-  errors: { serverErrors: "" }
+  errors: { serverErrors: {} }
 };
 
 const loggedErrorStore = {

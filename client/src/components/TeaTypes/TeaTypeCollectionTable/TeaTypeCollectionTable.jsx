@@ -73,9 +73,9 @@ export class TeaTypeCollectionTable extends React.Component {
 }
 
 TeaTypeCollectionTable.propTypes = {
-  flash: PropTypes.string,
-  columnHeaders: PropTypes.array,
-  teaTypeIDs: PropTypes.array,
-  allTeaTypes: PropTypes.array,
-  handleDeleteClick: PropTypes.func
+  flash: PropTypes.string.isRequired,
+  columnHeaders: PropTypes.array.isRequired,
+  teaTypeIDs: PropTypes.array.isRequired,
+  allTeaTypes: PropTypes.object.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired
 };

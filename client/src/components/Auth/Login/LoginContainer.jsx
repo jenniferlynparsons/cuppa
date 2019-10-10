@@ -100,7 +100,7 @@ export const LoginContainerComponent = LoginContainer;
 
 LoginContainer.propTypes = {
   auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool.isRequired
+    isAuthenticated: PropTypes.bool
   }),
   history: PropTypes.object,
   loginAction: PropTypes.func.isRequired,

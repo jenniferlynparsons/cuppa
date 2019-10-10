@@ -119,7 +119,7 @@ export const RegisterContainerComponent = RegisterContainer;
 
 RegisterContainer.propTypes = {
   auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool.isRequired
+    isAuthenticated: PropTypes.bool
   }),
   history: PropTypes.object,
   registerUser: PropTypes.func.isRequired,
