@@ -32,7 +32,7 @@ class TimerContainer extends React.Component {
   handleCancelTimer = () => {
     this.stopTimer();
     this.resetTimer();
-    this.props.handleCloseTimer();
+    this.props.onHandleCloseTimer();
   };
 
   handleFinishTimer = () => {
@@ -43,7 +43,7 @@ class TimerContainer extends React.Component {
         },
         () => {
           this.resetTimer();
-          this.props.handleCloseTimer();
+          this.props.onHandleCloseTimer();
           this.props.editTea(this.state.tea);
         }
       );

@@ -14,8 +14,8 @@ beforeEach(() => {
   mockDefaultProps = {
     tea: teaFixture.basicTea,
     brewTime: 16200000,
-    handleCloseTimer: mockHandleCloseTimer,
-    handleTimerUpdateQty: mockFunc,
+    onHandleCloseTimer: mockHandleCloseTimer,
+    onHandleTimerUpdateQty: mockFunc,
     editTea: mockFunc
   };
 });
