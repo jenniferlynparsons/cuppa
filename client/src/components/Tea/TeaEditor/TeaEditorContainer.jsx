@@ -24,15 +24,15 @@ export class TeaEditorContainer extends React.Component {
       name: false,
       servings: false
     },
-    userID: this.props.userID,
-    currentTea: this.props.currentTea || "",
-    id: this.props.currentTea ? this.props.currentTea.id : "",
-    name: this.props.currentTea ? this.props.currentTea.name : "",
-    brand: this.props.currentTea ? this.props.currentTea.brand : "",
-    teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
-    teaTypes: this.props.teaTypes ? this.props.teaTypes : "",
-    servings: this.props.currentTea ? this.props.currentTea.servings : "",
-    rating: this.props.currentTea ? this.props.currentTea.rating : "",
+    activeTea: {
+      id: this.props.currentTea ? this.props.currentTea.id : "",
+      name: this.props.currentTea ? this.props.currentTea.name : "",
+      brand: this.props.currentTea ? this.props.currentTea.brand : "",
+      teaType: this.props.currentTea ? this.props.currentTea.teaType : "",
+      teaTypes: this.props.teaTypes ? this.props.teaTypes : "",
+      servings: this.props.currentTea ? this.props.currentTea.servings : "",
+      rating: this.props.currentTea ? this.props.currentTea.rating : ""
+    },
     inputValidation: {
       name: true,
       brand: true,
@@ -57,50 +57,58 @@ export class TeaEditorContainer extends React.Component {
   };
 
   handleNameChange = event => {
-    this.setState({
-      name: event.currentTarget.value
-    });
+    let newVal = event.currentTarget.value;
+    this.setState(state => ({
+      activeTea: { ...state.activeTea, name: newVal }
+    }));
   };
 
   handleBrandChange = event => {
-    this.setState({
-      brand: event.currentTarget.value
-    });
+    let newVal = event.currentTarget.value;
+    this.setState(state => ({
+      activeTea: { ...state.activeTea, brand: newVal }
+    }));
   };
 
   handleTypeChange = event => {
-    this.setState({
-      teaType: event.currentTarget.value
-    });
+    let newVal = event.currentTarget.value;
+    this.setState(state => ({
+      activeTea: { ...state.activeTea, teaType: newVal }
+    }));
   };
 
   handleServingsChange = event => {
-    this.setState({
-      servings: Number(event.currentTarget.value)
-    });
+    let newVal = event.currentTarget.value;
+    this.setState(state => ({
+      activeTea: {
+        ...state.activeTea,
+        servings: Number(newVal)
+      }
+    }));
   };
 
   handleRatingClick = event => {
-    this.setState({
-      rating: event.target.value
-    });
+    let newVal = event.currentTarget.value;
+    this.setState(state => ({
+      activeTea: { ...state.activeTea, rating: newVal }
+    }));
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    const namevalid = nameSchema.isValidSync(this.state);
-    const brandvalid = brandSchema.isValidSync(this.state);
-    const teaTypevalid = teaTypeSchema.isValidSync(this.state);
-    const servingsvalid = servingsSchema.isValidSync(this.state);
+    const namevalid = nameSchema.isValidSync(this.state.activeTea);
+    const brandvalid = brandSchema.isValidSync(this.state.activeTea);
+    const teaTypevalid = teaTypeSchema.isValidSync(this.state.activeTea);
+    const servingsvalid = servingsSchema.isValidSync(this.state.activeTea);
 
     const teaData = {
-      userID: this.state.userID,
-      id: this.state.id,
-      name: this.state.name,
-      brand: this.state.brand,
-      teaType: this.state.teaType,
-      servings: this.state.servings,
-      rating: this.state.rating
+      userID: this.props.userID,
+      id: this.state.activeTea.id,
+      name: this.state.activeTea.name,
+      brand: this.state.activeTea.brand,
+      teaType: this.state.activeTea.teaType,
+      servings: this.state.activeTea.servings,
+      rating: this.state.activeTea.rating
     };
 
     if (namevalid && brandvalid && teaTypevalid && servingsvalid) {
@@ -108,7 +116,7 @@ export class TeaEditorContainer extends React.Component {
         this.props
           .editTea(teaData)
           .then(this.props.editFlash("success"))
-          .then(this.props.history.push("/tea/" + this.state.id));
+          .then(this.props.history.push("/tea/" + this.state.activeTea.id));
       } else {
         this.props.addTea(teaData).then(
           this.setState({
@@ -146,12 +154,14 @@ export class TeaEditorContainer extends React.Component {
         this.props.currentTea.id !== prevProps.currentTea.id)
     ) {
       this.setState({
-        id: this.props.currentTea.id,
-        name: this.props.currentTea.name,
-        brand: this.props.currentTea.brand,
-        teaType: this.props.currentTea.teaType,
-        servings: this.props.currentTea.servings,
-        rating: this.props.currentTea.rating
+        activeTea: {
+          id: this.props.currentTea.id,
+          name: this.props.currentTea.name,
+          brand: this.props.currentTea.brand,
+          teaType: this.props.currentTea.teaType,
+          servings: this.props.currentTea.servings,
+          rating: this.props.currentTea.rating
+        }
       });
     }
     if (
@@ -179,14 +189,10 @@ export class TeaEditorContainer extends React.Component {
       return (
         <TeaEditor
           teaTypes={this.props.teaTypes}
-          name={this.state.name}
-          brand={this.state.brand}
+          activeTea={this.state.activeTea}
           brandsDataList={
             <DataList id="brands" options={this.props.brandList} />
           }
-          teaType={this.state.teaType}
-          servings={this.state.servings}
-          rating={this.state.rating}
           flash={this.state.flash}
           inputValidation={this.state.inputValidation}
           serverErrors={this.props.serverErrors}

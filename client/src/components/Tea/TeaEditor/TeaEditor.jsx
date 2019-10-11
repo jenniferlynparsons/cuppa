@@ -44,7 +44,7 @@ export class TeaEditor extends React.Component {
               id="name"
               type="text"
               placeholder="Tea Name"
-              value={this.props.name}
+              value={this.props.activeTea.name}
               className="input"
               valid={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
@@ -65,7 +65,7 @@ export class TeaEditor extends React.Component {
               list="brands"
               datalist={this.props.brandsDataList}
               placeholder="Tea Brand"
-              value={this.props.brand}
+              value={this.props.activeTea.brand}
               className="input"
               valid={this.props.inputValidation.brand}
               errorMessage={this.props.errorMessages.brand}
@@ -88,7 +88,7 @@ export class TeaEditor extends React.Component {
                   data-testid="teaType"
                   name="type"
                   id="type"
-                  value={this.props.teaType}
+                  value={this.props.activeTea.teaType}
                   disabled={!this.props.teaTypes.length}
                   onChange={this.props.onHandleTypeChange}
                   onBlur={this.props.onHandleTypeChange}
@@ -120,7 +120,7 @@ export class TeaEditor extends React.Component {
               id="servings"
               type="number"
               placeholder="Servings Available"
-              value={this.props.servings}
+              value={this.props.activeTea.servings}
               min={0}
               className="input"
               valid={this.props.inputValidation.servings}
@@ -132,7 +132,7 @@ export class TeaEditor extends React.Component {
           </div>
           <div className="field">
             <StarRating
-              rating={this.props.rating}
+              rating={this.props.activeTea.rating}
               onHandleRatingClick={this.props.onHandleRatingClick}
             />
           </div>
