@@ -24,12 +24,9 @@ class TeaDetailsContainer extends React.Component {
     this.props.setTimerID("");
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ flash: this.props.flash });
     this.props.clearFlash();
-  }
-
-  componentDidMount() {
     this.props.getTeas(this.props.userID);
     this.props
       .getTeaTypes(this.props.userID)

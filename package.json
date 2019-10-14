@@ -1,5 +1,5 @@
 {
-  "name": "cuppa-webpack",
+  "name": "cuppa",
   "version": "1.0.0",
   "description": "a MERN stack tea collection application",
   "main": "index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jenniferlynparsons/cuppa-webpack.git"
+    "url": "git+https://github.com/jenniferlynparsons/cuppa.git"
   },
   "author": "Jennifer Lyn Parsons",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jenniferlynparsons/cuppa-webpack/issues"
+    "url": "https://github.com/jenniferlynparsons/cuppa/issues"
   },
-  "homepage": "https://github.com/jenniferlynparsons/cuppa-webpack#readme",
+  "homepage": "https://github.com/jenniferlynparsons/cuppa#readme",
   "dependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.5.2",
     "@babel/polyfill": "^7.4.3",

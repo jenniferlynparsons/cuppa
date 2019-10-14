@@ -93,7 +93,7 @@ describe("Timer interactions", () => {
     expect(queryByTestId("pausetimer")).not.toHaveClass("button");
 
     setTimeout(function() {
-      expect(queryByTestId("resumetimer")).toHaveClass("button");
+      expect(queryByTestId("resumetimer")).not.toHaveClass("button");
     }, 100);
 
     fireEvent.click(getByTestId("canceltimer"));
