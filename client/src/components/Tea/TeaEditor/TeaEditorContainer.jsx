@@ -197,13 +197,13 @@ export class TeaEditorContainer extends React.Component {
           inputValidation={this.state.inputValidation}
           serverErrors={this.props.serverErrors}
           errorMessages={this.state.errorMessages}
-          onHandleBlur={this.handleBlur}
-          onHandleNameChange={this.handleNameChange}
-          onHandleBrandChange={this.handleBrandChange}
-          onHandleTypeChange={this.handleTypeChange}
-          onHandleServingsChange={this.handleServingsChange}
-          onHandleRatingClick={this.handleRatingClick}
-          onHandleFormSubmit={this.handleFormSubmit}
+          onBlur={this.handleBlur}
+          onNameChange={this.handleNameChange}
+          onBrandChange={this.handleBrandChange}
+          onTypeChange={this.handleTypeChange}
+          onServingsChange={this.handleServingsChange}
+          onRatingClick={this.handleRatingClick}
+          onFormSubmit={this.handleFormSubmit}
         />
       );
     }

@@ -11,7 +11,7 @@ class StarRating extends React.Component {
   ];
 
   render() {
-    if (this.props.onHandleRatingClick) {
+    if (this.props.onRatingClick) {
       return (
         <div data-testid="starrating">
           <p className="is-size-6 has-text-weight-bold">Rating</p>
@@ -28,7 +28,7 @@ class StarRating extends React.Component {
                   value={star.value}
                   className="is-hidden"
                   aria-hidden="false"
-                  onClick={this.props.onHandleRatingClick}
+                  onClick={this.props.onRatingClick}
                 />
               </label>
             );

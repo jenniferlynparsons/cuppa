@@ -48,8 +48,8 @@ class TeaDetailsContainer extends React.Component {
           timerID={this.props.timerID}
           flash={this.state.flash}
           updateFlash={this.updateFlash}
-          onHandleOpenTimer={this.handleOpenTimer}
-          onHandleCloseTimer={this.handleCloseTimer}
+          onOpenTimer={this.handleOpenTimer}
+          onCloseTimer={this.handleCloseTimer}
         />
       );
     }

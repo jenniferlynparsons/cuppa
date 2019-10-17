@@ -13,7 +13,7 @@ class DashboardContainer extends React.Component {
     return !this.props ? null : (
       <Dashboard
         auth={this.props.auth}
-        onHandleLogoutClick={this.handleLogoutClick}
+        onLogoutClick={this.handleLogoutClick}
       />
     );
   }

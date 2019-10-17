@@ -32,7 +32,7 @@ class TimerContainer extends React.Component {
   handleCancelTimer = () => {
     this.stopTimer();
     this.resetTimer();
-    this.props.onHandleCloseTimer();
+    this.props.onCloseTimer();
   };
 
   handleFinishTimer = () => {
@@ -43,7 +43,7 @@ class TimerContainer extends React.Component {
         },
         () => {
           this.resetTimer();
-          this.props.onHandleCloseTimer();
+          this.props.onCloseTimer();
           this.props.editTea(this.state.tea);
         }
       );
@@ -101,11 +101,11 @@ class TimerContainer extends React.Component {
           brewTime={this.props.brewTime}
           timerOn={this.state.timerOn}
           timerTime={this.state.timerTime}
-          onHandleStartTimer={this.handleStartTimer}
-          onHandlePauseTimer={this.handlePauseTimer}
-          onHandleResumeTimer={this.handleResumeTimer}
-          onHandleCancelTimer={this.handleCancelTimer}
-          onHandleFinishTimer={this.handleFinishTimer}
+          onStartTimer={this.handleStartTimer}
+          onPauseTimer={this.handlePauseTimer}
+          onResumeTimer={this.handleResumeTimer}
+          onCancelTimer={this.handleCancelTimer}
+          onFinishTimer={this.handleFinishTimer}
         />
       );
     }

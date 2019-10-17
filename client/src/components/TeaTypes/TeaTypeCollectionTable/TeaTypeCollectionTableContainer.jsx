@@ -47,7 +47,7 @@ export class TeaTypeCollectionTableContainer extends React.Component {
           columnHeaders={this.columnHeaders}
           allTeaTypes={this.state.allTeaTypes}
           teaTypeIDs={this.state.teaTypeIDs}
-          onHandleDeleteClick={this.handleDeleteClick}
+          onDeleteClick={this.handleDeleteClick}
         />
       )
     );

@@ -27,7 +27,7 @@ class NavBar extends React.Component {
               className="navbar-burger"
               aria-label="menu"
               aria-expanded={this.props.menuActive}
-              onClick={this.props.onHandleNavToggle}
+              onClick={this.props.onNavToggle}
             >
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
@@ -57,7 +57,7 @@ class NavBar extends React.Component {
                   className="navbar-link"
                   aria-label="menu"
                   aria-expanded={this.props.dropdownActive}
-                  onClick={this.props.onHandleDropDownToggle}
+                  onClick={this.props.onDropDownToggle}
                 >
                   My Account
                 </a>
@@ -66,14 +66,14 @@ class NavBar extends React.Component {
                   <Link
                     className="navbar-item"
                     to={"/dashboard"}
-                    onClick={this.props.onHandleDropDownToggle}
+                    onClick={this.props.onDropDownToggle}
                   >
                     Dashboard
                   </Link>
                   <Link
                     className="navbar-item"
                     to={"/tea-types"}
-                    onClick={this.props.onHandleDropDownToggle}
+                    onClick={this.props.onDropDownToggle}
                   >
                     My Tea Types
                   </Link>
@@ -82,7 +82,7 @@ class NavBar extends React.Component {
                     <button
                       data-testid="logout"
                       className="button is-small is-dark"
-                      onClick={this.props.onHandleLogoutClick}
+                      onClick={this.props.onLogoutClick}
                     >
                       Logout
                     </button>

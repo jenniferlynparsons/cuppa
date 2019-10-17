@@ -48,7 +48,7 @@ export class TeaTypeCollectionTable extends React.Component {
                     <button
                       data-testid="deletelink"
                       className="button is-danger is-small"
-                      onClick={() => this.props.onHandleDeleteClick(teaType.id)}
+                      onClick={() => this.props.onDeleteClick(teaType.id)}
                     >
                       X
                     </button>
