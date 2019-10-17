@@ -84,9 +84,7 @@ describe("teaEditor form success", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(dataFixture.history.push).toHaveBeenCalledWith(
-      "/tea/" + teaFixture.basicTea.id
-    );
+    expect(mockEdit).toHaveBeenCalled();
   });
 });
 

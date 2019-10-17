@@ -100,10 +100,10 @@ export class TeaTypeEditorContainer extends React.Component {
       if (this.props.edit === true) {
         this.props
           .editTeaType(typeData)
-          .then(this.props.editFlash("success"))
-          .then(this.props.history.push("/tea-types/"));
+          .then(() => this.props.editFlash("success"))
+          .then(() => this.props.history.push("/tea-types/"));
       } else {
-        this.props.addTeaType(typeData).then(
+        this.props.addTeaType(typeData).then(() =>
           this.setState({
             ...this.initialState,
             loadingStatus: "complete",
