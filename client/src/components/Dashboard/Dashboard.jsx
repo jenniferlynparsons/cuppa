@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { authProps } from "../../../lib/propTypes";
 
 export class Dashboard extends React.Component {
   render() {
@@ -36,12 +37,6 @@ export class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool,
-    user: PropTypes.shape({
-      name: PropTypes.string,
-      email: PropTypes.string
-    })
-  }),
+  auth: authProps.isRequired,
   handleLogoutClick: PropTypes.func.isRequired
 };

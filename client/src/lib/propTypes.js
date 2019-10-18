@@ -1,5 +1,24 @@
 import PropTypes from "prop-types";
 
 export const authProps = PropTypes.shape({
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string
+  }),
+  loading: PropTypes.bool
+});
+
+export const teaProps = PropTypes.shape({
+  name: PropTypes.string,
+  brand: PropTypes.string,
+  servings: PropTypes.number,
+  teaType: PropTypes.string,
+  id: PropTypes.string
+});
+
+export const teaTypeProps = PropTypes.shape({
+  id: PropTypes.string,
+  name: PropTypes.string,
+  brewTime: PropTypes.string
 });

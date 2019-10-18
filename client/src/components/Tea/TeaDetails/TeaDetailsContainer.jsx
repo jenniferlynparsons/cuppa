@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { teaProps } from "../../../lib/propTypes";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
@@ -88,22 +89,10 @@ export default connect(
 
 export const TeaDetailsContainerClass = TeaDetailsContainer;
 
-TeaDetailsContainer.defaultProps = {
-  tea: {
-    name: "",
-    brand: "",
-    servings: "",
-    id: ""
-  },
-  teaType: "",
-  timerID: "",
-  userID: ""
-};
-
 TeaDetailsContainer.propTypes = {
   flash: PropTypes.string,
   userID: PropTypes.string.isRequired,
-  tea: PropTypes.object.isRequired,
+  tea: teaProps.isRequired,
   teaType: PropTypes.string.isRequired,
   timerID: PropTypes.string.isRequired,
   editFlash: PropTypes.func.isRequired,

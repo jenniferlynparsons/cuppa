@@ -82,7 +82,7 @@ export default connect(
 export const TeaTypeCollectionTableContainerClass = TeaTypeCollectionTableContainer;
 
 TeaTypeCollectionTableContainer.propTypes = {
-  flash: PropTypes.string.isRequired,
+  flash: PropTypes.string,
   userID: PropTypes.string.isRequired,
   allTeaTypes: PropTypes.object.isRequired,
   teaTypeIDs: PropTypes.array.isRequired,
