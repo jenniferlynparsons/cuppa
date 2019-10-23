@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { teaProps } from "../../../lib/propTypes";
+import { teaShape } from "../../../lib/propTypes";
 import {
   nameSchema,
   brandSchema,
@@ -229,7 +229,7 @@ TeaEditorContainer.propTypes = {
   teaTypes: PropTypes.array,
   history: PropTypes.object,
   edit: PropTypes.bool,
-  updatedTea: teaProps,
+  updatedTea: teaShape,
   brandList: PropTypes.array,
   serverErrors: PropTypes.object,
   editTea: PropTypes.func.isRequired,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { teaProps } from "../../../lib/propTypes";
+import { teaShape } from "../../../lib/propTypes";
 import TimerContainer from "../../Timer";
 
 export class TeaDetails extends React.Component {
@@ -68,7 +68,7 @@ TeaDetails.defaultProps = {
 
 TeaDetails.propTypes = {
   flash: PropTypes.string,
-  tea: teaProps.isRequired,
+  tea: teaShape.isRequired,
   teaType: PropTypes.string.isRequired,
   timerID: PropTypes.string.isRequired,
   updateFlash: PropTypes.func.isRequired,

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const authProps = PropTypes.shape({
+export const authShape = PropTypes.shape({
   isAuthenticated: PropTypes.bool,
   user: PropTypes.shape({
     name: PropTypes.string,
@@ -9,7 +9,7 @@ export const authProps = PropTypes.shape({
   loading: PropTypes.bool
 });
 
-export const teaProps = PropTypes.shape({
+export const teaShape = PropTypes.shape({
   name: PropTypes.string,
   brand: PropTypes.string,
   servings: PropTypes.number,
@@ -17,7 +17,7 @@ export const teaProps = PropTypes.shape({
   id: PropTypes.string
 });
 
-export const teaTypeProps = PropTypes.shape({
+export const teaTypeShape = PropTypes.shape({
   id: PropTypes.string,
   name: PropTypes.string,
   brewTime: PropTypes.string

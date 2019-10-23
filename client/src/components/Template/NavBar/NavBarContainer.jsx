@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { authProps } from "../../../lib/propTypes";
+import { authShape } from "../../../lib/propTypes";
 import { logoutUser } from "../../../actions/authActions";
 import NavBar from "./NavBar";
 
@@ -55,6 +55,6 @@ export default connect(
 export const NavBarContainerComponent = NavBarContainer;
 
 NavBarContainer.propTypes = {
-  auth: authProps.isRequired,
+  auth: authShape.isRequired,
   logoutUser: PropTypes.func.isRequired
 };

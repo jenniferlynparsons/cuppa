@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { authProps } from "../../../lib/propTypes";
+import { authShape } from "../../../lib/propTypes";
 import { emailSchema, passwordSchema } from "../../../lib/validationSchemas";
 import { loginAction } from "../../../actions/authActions";
 import { Login } from "./Login";
@@ -100,7 +100,7 @@ export default connect(
 export const LoginContainerComponent = LoginContainer;
 
 LoginContainer.propTypes = {
-  auth: authProps.isRequired,
+  auth: authShape.isRequired,
   history: PropTypes.object,
   loginAction: PropTypes.func.isRequired,
   serverErrors: PropTypes.object

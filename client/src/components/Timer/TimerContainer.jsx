@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { teaProps } from "../../../lib/propTypes";
+import { teaShape } from "../../../lib/propTypes";
 import { editTea } from "../../actions/teaActions";
 import { selectSingleTeaType } from "../../selectors";
 import { selectTimerTea } from "../../selectors/teaSelectors";
@@ -141,7 +141,7 @@ export const TimerContainerClass = TimerContainer;
 
 TimerContainer.propTypes = {
   brewTime: PropTypes.number.isRequired,
-  tea: teaProps.isRequired,
+  tea: teaShape.isRequired,
   handleCloseTimer: PropTypes.func.isRequired,
   editTea: PropTypes.func.isRequired
 };

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { authProps } from "../../../lib/propTypes";
+import { authShape } from "../../../lib/propTypes";
 import { logoutUser } from "../../actions/authActions";
 import { Dashboard } from "./Dashboard";
 
@@ -33,6 +33,6 @@ export default connect(
 export const DashboardContainerComponent = DashboardContainer;
 
 DashboardContainer.propTypes = {
-  auth: authProps.isRequired,
+  auth: authShape.isRequired,
   logoutUser: PropTypes.func.isRequired
 };
