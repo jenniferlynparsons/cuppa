@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PropTypes } from "prop-types";
 import { validationComplete } from "../../../lib/validationComplete";
 import InputField from "../../FormComponents/InputField";
 
@@ -103,3 +104,29 @@ export class TeaTypeEditor extends React.Component {
     );
   }
 }
+
+TeaTypeEditor.propTypes = {
+  flash: PropTypes.shape({
+    name: PropTypes.string
+  }),
+  inputValidation: PropTypes.shape({
+    name: PropTypes.bool,
+    brewTimeMin: PropTypes.bool,
+    brewTimeSec: PropTypes.bool,
+    brewTime: PropTypes.bool
+  }),
+  serverErrors: PropTypes.shape({
+    duplicate: PropTypes.string
+  }),
+  name: PropTypes.string,
+  errorMessages: PropTypes.shape({
+    name: PropTypes.string,
+    brewTime: PropTypes.string
+  }),
+  brewTimeMin: PropTypes.string,
+  brewTimeSec: PropTypes.string,
+  handleBrewTimeMinChange: PropTypes.func.isRequired,
+  handleBrewTimeSecChange: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
+  handleNameChange: PropTypes.func.isRequired
+};

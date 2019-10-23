@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { authShape } from "../../../lib/propTypes";
 import {
   emailSchema,
   passwordSchema,
@@ -115,3 +117,10 @@ export default connect(
 )(RegisterContainer);
 
 export const RegisterContainerComponent = RegisterContainer;
+
+RegisterContainer.propTypes = {
+  auth: authShape.isRequired,
+  history: PropTypes.object,
+  registerUser: PropTypes.func.isRequired,
+  serverErrors: PropTypes.object
+};

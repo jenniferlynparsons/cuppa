@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { teaShape } from "../../../lib/propTypes";
 import TimerContainer from "../../Timer";
 import StarRating from "../../StarRating";
 
@@ -64,3 +66,17 @@ export class TeaDetails extends React.Component {
     );
   }
 }
+
+TeaDetails.defaultProps = {
+  timerID: ""
+};
+
+TeaDetails.propTypes = {
+  flash: PropTypes.string,
+  tea: teaShape.isRequired,
+  teaType: PropTypes.string.isRequired,
+  timerID: PropTypes.string.isRequired,
+  updateFlash: PropTypes.func.isRequired,
+  handleOpenTimer: PropTypes.func.isRequired,
+  handleCloseTimer: PropTypes.func.isRequired
+};

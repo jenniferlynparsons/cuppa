@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { authShape } from "../../../lib/propTypes";
 
 export class Dashboard extends React.Component {
   render() {
@@ -33,3 +35,8 @@ export class Dashboard extends React.Component {
     );
   }
 }
+
+Dashboard.propTypes = {
+  auth: authShape.isRequired,
+  handleLogoutClick: PropTypes.func.isRequired
+};

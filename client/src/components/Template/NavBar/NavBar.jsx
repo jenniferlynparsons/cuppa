@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PropTypes } from "prop-types";
 import cuppaLogo from "../../../assets/tea.svg";
 import "./NavBar.scss";
 
@@ -112,3 +113,14 @@ class NavBar extends React.Component {
 }
 
 export default NavBar;
+
+NavBar.propTypes = {
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool
+  }),
+  menuActive: PropTypes.bool.isRequired,
+  dropdownActive: PropTypes.bool.isRequired,
+  handleDropDownToggle: PropTypes.func.isRequired,
+  handleLogoutClick: PropTypes.func.isRequired,
+  handleNavToggle: PropTypes.func.isRequired
+};

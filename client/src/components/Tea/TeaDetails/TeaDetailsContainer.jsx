@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { teaShape } from "../../../lib/propTypes";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
@@ -20,6 +22,7 @@ class TeaDetailsContainer extends React.Component {
   handleOpenTimer = id => {
     this.props.setTimerID(id);
   };
+
   handleCloseTimer = () => {
     this.props.setTimerID("");
   };
@@ -82,3 +85,16 @@ export default connect(
 )(TeaDetailsContainer);
 
 export const TeaDetailsContainerClass = TeaDetailsContainer;
+
+TeaDetailsContainer.propTypes = {
+  flash: PropTypes.string,
+  userID: PropTypes.string.isRequired,
+  tea: teaShape.isRequired,
+  teaType: PropTypes.string.isRequired,
+  timerID: PropTypes.string.isRequired,
+  editFlash: PropTypes.func.isRequired,
+  setTimerID: PropTypes.func.isRequired,
+  clearFlash: PropTypes.func.isRequired,
+  getTeas: PropTypes.func.isRequired,
+  getTeaTypes: PropTypes.func.isRequired
+};

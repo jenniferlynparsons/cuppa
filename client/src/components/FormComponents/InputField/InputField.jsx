@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class InputField extends React.Component {
   render() {
@@ -35,3 +36,27 @@ class InputField extends React.Component {
 }
 
 export default InputField;
+
+InputField.defaultProps = {
+  className: "input",
+  value: ""
+};
+
+InputField.propTypes = {
+  datatestid: PropTypes.string,
+  className: PropTypes.string,
+  valid: PropTypes.bool,
+  errorClass: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  list: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  datalist: PropTypes.object,
+  errorMessage: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func
+};

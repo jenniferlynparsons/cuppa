@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
@@ -48,6 +49,7 @@ export class TeaCollectionTable extends React.Component {
               <InputField
                 datatestid="filterinput"
                 name="filterCriteria"
+                id="filterCriteria"
                 type="text"
                 list="fcriteria"
                 datalist={this.props.datalist}
@@ -207,3 +209,34 @@ export class TeaCollectionTable extends React.Component {
     );
   }
 }
+
+TeaCollectionTable.propTypes = {
+  inputValidation: PropTypes.shape({
+    filterCategory: PropTypes.bool,
+    filterCriteria: PropTypes.bool
+  }),
+  formControls: PropTypes.shape({
+    filterCategory: PropTypes.string.isRequired,
+    filterCriteria: PropTypes.string.isRequired
+  }),
+  errorMessages: PropTypes.shape({
+    filterCategory: PropTypes.string,
+    filterCriteria: PropTypes.string
+  }),
+  columnHeaders: PropTypes.array.isRequired,
+  datalist: PropTypes.object,
+  filtered: PropTypes.bool.isRequired,
+  teaIDs: PropTypes.array.isRequired,
+  allTeas: PropTypes.object.isRequired,
+  teaTypes: PropTypes.object.isRequired,
+  timerID: PropTypes.string,
+  handleFilterDropdownChange: PropTypes.func.isRequired,
+  handleFilterInputChange: PropTypes.func.isRequired,
+  handleFilterClick: PropTypes.func.isRequired,
+  handleClearFilterClick: PropTypes.func.isRequired,
+  handleSortClick: PropTypes.func.isRequired,
+  handleSortColumn: PropTypes.func.isRequired,
+  handleOpenTimer: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
+  handleCloseTimer: PropTypes.func.isRequired
+};
