@@ -17,12 +17,9 @@ export class TeaTypeCollectionTableContainer extends React.Component {
 
   handleDeleteClick = teaType => this.props.deleteTeaType(teaType);
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ flash: this.props.flash });
     this.props.clearFlash();
-  }
-
-  componentDidMount() {
     this.props.getTeaTypes(this.props.userID);
     this.setState({
       allTeaTypes: this.props.allTeaTypes,
@@ -50,7 +47,7 @@ export class TeaTypeCollectionTableContainer extends React.Component {
           columnHeaders={this.columnHeaders}
           allTeaTypes={this.state.allTeaTypes}
           teaTypeIDs={this.state.teaTypeIDs}
-          handleDeleteClick={this.handleDeleteClick}
+          onDeleteClick={this.handleDeleteClick}
         />
       )
     );

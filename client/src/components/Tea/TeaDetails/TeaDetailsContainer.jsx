@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
@@ -7,7 +7,7 @@ import { setTimerID } from "../../../actions/timerActions";
 import { selectSingleTeaType } from "../../../selectors";
 import { TeaDetails } from "./TeaDetails";
 
-class TeaDetailsContainer extends Component {
+class TeaDetailsContainer extends React.Component {
   state = {
     flash: "off",
     loadingStatus: "inprogress"
@@ -24,12 +24,9 @@ class TeaDetailsContainer extends Component {
     this.props.setTimerID("");
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ flash: this.props.flash });
     this.props.clearFlash();
-  }
-
-  componentDidMount() {
     this.props.getTeas(this.props.userID);
     this.props
       .getTeaTypes(this.props.userID)
@@ -51,8 +48,8 @@ class TeaDetailsContainer extends Component {
           timerID={this.props.timerID}
           flash={this.state.flash}
           updateFlash={this.updateFlash}
-          handleOpenTimer={this.handleOpenTimer}
-          handleCloseTimer={this.handleCloseTimer}
+          onOpenTimer={this.handleOpenTimer}
+          onCloseTimer={this.handleCloseTimer}
         />
       );
     }

@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { emailSchema, passwordSchema } from "../../../lib/validationSchemas";
 import { loginAction } from "../../../actions/authActions";
 import { Login } from "./Login";
 
-class LoginContainer extends Component {
+class LoginContainer extends React.Component {
   state = {
     email: "",
     password: "",

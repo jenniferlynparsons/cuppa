@@ -40,30 +40,27 @@ router.post("/register", (req, res) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
-          newUser
-            .save()
-            .then(user => {
-              const payload = {
-                id: user.id,
-                name: user.name
-              };
+          newUser.save().then(user => {
+            const payload = {
+              id: user.id,
+              name: user.name
+            };
 
-              // Sign token
-              jwt.sign(
-                payload,
-                "secret",
-                {
-                  expiresIn: 31556926 // 1 year in seconds
-                },
-                (err, token) => {
-                  res.status(200).json({
-                    success: true,
-                    token: "Bearer " + token
-                  });
-                }
-              );
-            })
-            .catch(err => res.status(500, { error: err }));
+            // Sign token
+            jwt.sign(
+              payload,
+              "secret",
+              {
+                expiresIn: 31556926 // 1 year in seconds
+              },
+              (err, token) => {
+                res.status(200).json({
+                  success: true,
+                  token: "Bearer " + token
+                });
+              }
+            );
+          });
         });
       });
     }

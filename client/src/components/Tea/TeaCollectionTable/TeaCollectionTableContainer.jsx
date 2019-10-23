@@ -37,7 +37,8 @@ export class TeaCollectionTableContainer extends React.Component {
     { colName: "name", colTitle: "Name" },
     { colName: "brand", colTitle: "Brand" },
     { colName: "teaType", colTitle: "Type" },
-    { colName: "servings", colTitle: "Servings" }
+    { colName: "servings", colTitle: "Servings" },
+    { colName: "rating", colTitle: "Rating" }
   ];
 
   handleDeleteClick = tea => this.props.deleteTea(tea);
@@ -238,15 +239,15 @@ export class TeaCollectionTableContainer extends React.Component {
           timerID={this.props.timerID}
           inputValidation={this.state.inputValidation}
           errorMessages={this.state.errorMessages}
-          handleDeleteClick={this.handleDeleteClick}
-          handleSortClick={this.handleSortClick}
-          handleFilterClick={this.handleFilterClick}
-          handleClearFilterClick={this.handleClearFilterClick}
-          handleFilterDropdownChange={this.handleFilterDropdownChange}
-          handleFilterInputChange={this.handleFilterInputChange}
-          handleSortColumn={this.handleSortColumn}
-          handleOpenTimer={this.handleOpenTimer}
-          handleCloseTimer={this.handleCloseTimer}
+          onDeleteClick={this.handleDeleteClick}
+          onSortClick={this.handleSortClick}
+          onFilterClick={this.handleFilterClick}
+          onClearFilterClick={this.handleClearFilterClick}
+          onFilterDropdownChange={this.handleFilterDropdownChange}
+          onFilterInputChange={this.handleFilterInputChange}
+          onSortColumn={this.handleSortColumn}
+          onOpenTimer={this.handleOpenTimer}
+          onCloseTimer={this.handleCloseTimer}
         />
       );
     }

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import NavBar from "./NavBar";
 
-class NavBarContainer extends Component {
+class NavBarContainer extends React.Component {
   state = {
     menuActive: false,
     dropdownActive: false
@@ -33,9 +33,9 @@ class NavBarContainer extends Component {
         auth={this.props.auth}
         menuActive={this.state.menuActive}
         dropdownActive={this.state.dropdownActive}
-        handleNavToggle={this.handleNavToggle}
-        handleDropDownToggle={this.handleDropDownToggle}
-        handleLogoutClick={this.handleLogoutClick}
+        onNavToggle={this.handleNavToggle}
+        onDropDownToggle={this.handleDropDownToggle}
+        onLogoutClick={this.handleLogoutClick}
       />
     );
   }

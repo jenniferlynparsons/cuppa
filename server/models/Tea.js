@@ -23,6 +23,9 @@ const TeaSchema = new Schema({
   },
   servings: {
     type: Number
+  },
+  rating: {
+    type: Number
   }
 });
 
