@@ -8,6 +8,8 @@ import { TeaCollectionTableContainerClass } from "../TeaCollectionTableContainer
 
 let mockGetTeas;
 let mockDeleteTea;
+let mockGetTeaTypes;
+let mockSetTimerID;
 let mockDefaultProps;
 let mockGetTeaTypes;
 
@@ -210,6 +212,19 @@ describe("TeaCollectionTableContainerClass interactions", () => {
       fireEvent.click(getByTestId("filterbutton"));
       expect(queryAllByTestId("detailslink").length).toEqual(3);
       expect(queryAllByTestId("inputerror").length).toEqual(1);
+    });
+  });
+
+  describe("tea timer interactions", () => {
+    test("user can display timer modal", async () => {
+      const { queryByTestId, getAllByTestId } = renderWithRouter(
+        <TeaCollectionTableContainerClass {...mockDefaultProps} />
+      );
+      expect(queryByTestId("loadingmessage")).toBeTruthy();
+      await Promise.resolve();
+
+      fireEvent.click(getAllByTestId("makecuppalink")[0]);
+      expect(mockSetTimerID).toHaveBeenCalled();
     });
   });
 });

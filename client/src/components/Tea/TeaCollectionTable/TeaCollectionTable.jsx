@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import InputField from "../../FormComponents/InputField";
+import TimerContainer from "../../Timer";
+import StarRating from "../../StarRating";
 
 library.add(faAngleDown, faAngleUp);
 
@@ -12,7 +15,7 @@ export class TeaCollectionTable extends React.Component {
     return (
       <div data-testid="teacollection" className="container">
         <div className="columns is-pulled-right">
-          <form onSubmit={this.props.handleFilterClick}>
+          <form onSubmit={this.props.onFilterClick}>
             <div className="field has-addons">
               <div className="control">
                 <div
@@ -46,6 +49,7 @@ export class TeaCollectionTable extends React.Component {
               <InputField
                 datatestid="filterinput"
                 name="filterCriteria"
+                id="filterCriteria"
                 type="text"
                 list="fcriteria"
                 datalist={this.props.datalist}
@@ -82,7 +86,7 @@ export class TeaCollectionTable extends React.Component {
               <button
                 data-testid="clearfilterbutton"
                 className="button is-primary is-small"
-                onClick={this.props.handleClearFilterClick}
+                onClick={this.props.onClearFilterClick}
               >
                 Clear Filter
               </button>
@@ -101,9 +105,9 @@ export class TeaCollectionTable extends React.Component {
                     className="button is-small"
                     aria-pressed="false"
                     onClick={() =>
-                      this.props.handleSortClick(
+                      this.props.onSortClick(
                         colHeaderObj.colName,
-                        this.props.handleSortColumn(colHeaderObj.colName)
+                        this.props.onSortColumn(colHeaderObj.colName)
                           ? "desc"
                           : "asc"
                       )
@@ -113,7 +117,7 @@ export class TeaCollectionTable extends React.Component {
                       <i className="fas">
                         <FontAwesomeIcon
                           icon={
-                            this.props.handleSortColumn(colHeaderObj.colName)
+                            this.props.onSortColumn(colHeaderObj.colName)
                               ? "angle-up"
                               : "angle-down"
                           }
@@ -123,6 +127,7 @@ export class TeaCollectionTable extends React.Component {
                   </button>
                 </th>
               ))}
+              <th />
               <th />
               <th />
             </tr>
@@ -148,6 +153,19 @@ export class TeaCollectionTable extends React.Component {
                   <td>{teaType && teaType.name}</td>
                   <td>{tea.servings}</td>
                   <td>
+                    <StarRating rating={tea.rating} />
+                  </td>
+                  <td>
+                    <button
+                      data-testid="makecuppalink"
+                      className="button is-primary"
+                      disabled={tea.servings <= 0}
+                      onClick={() => this.props.onOpenTimer(tea.id)}
+                    >
+                      Make A Cuppa
+                    </button>
+                  </td>
+                  <td>
                     <Link to={"/update-tea/" + tea.id} data-testid="editlink">
                       Edit
                     </Link>
@@ -156,7 +174,7 @@ export class TeaCollectionTable extends React.Component {
                     <button
                       data-testid="deletelink"
                       className="button is-danger is-small"
-                      onClick={() => this.props.handleDeleteClick(tea.id)}
+                      onClick={() => this.props.onDeleteClick(tea.id)}
                     >
                       X
                     </button>
@@ -181,7 +199,44 @@ export class TeaCollectionTable extends React.Component {
             )}
           </tbody>
         </table>
+        {this.props.timerID && (
+          <TimerContainer
+            timerID={this.props.timerID}
+            onCloseTimer={this.props.onCloseTimer}
+          />
+        )}
       </div>
     );
   }
 }
+
+TeaCollectionTable.propTypes = {
+  inputValidation: PropTypes.shape({
+    filterCategory: PropTypes.bool,
+    filterCriteria: PropTypes.bool
+  }),
+  formControls: PropTypes.shape({
+    filterCategory: PropTypes.string.isRequired,
+    filterCriteria: PropTypes.string.isRequired
+  }),
+  errorMessages: PropTypes.shape({
+    filterCategory: PropTypes.string,
+    filterCriteria: PropTypes.string
+  }),
+  columnHeaders: PropTypes.array.isRequired,
+  datalist: PropTypes.object,
+  filtered: PropTypes.bool.isRequired,
+  teaIDs: PropTypes.array.isRequired,
+  allTeas: PropTypes.object.isRequired,
+  teaTypes: PropTypes.object.isRequired,
+  timerID: PropTypes.string,
+  handleFilterDropdownChange: PropTypes.func.isRequired,
+  handleFilterInputChange: PropTypes.func.isRequired,
+  handleFilterClick: PropTypes.func.isRequired,
+  handleClearFilterClick: PropTypes.func.isRequired,
+  handleSortClick: PropTypes.func.isRequired,
+  handleSortColumn: PropTypes.func.isRequired,
+  handleOpenTimer: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
+  handleCloseTimer: PropTypes.func.isRequired
+};

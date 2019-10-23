@@ -46,7 +46,6 @@ const servingsUpdatedTea = {
 
 const reducerAddTea = {
   userID: "5cf18ae7d39d81638810de09",
-  teaID: "3d4a3605-4368-4ee1-abe4-318d7982e491",
   name: "Lapsang Souchang",
   brand: "McNulty's",
   teaType: "5d39dd1f0487d1116140bac1",
@@ -55,7 +54,7 @@ const reducerAddTea = {
 };
 
 const reducerEditTea = {
-  flash: { name: "", teaID: "" },
+  flash: { name: "" },
   touched: { name: false, servings: true },
   userID: "5cf18ae7d39d81638810de09",
   currentTea: {
@@ -65,7 +64,6 @@ const reducerEditTea = {
     teaType: "5d39dd1f0487d1116140bac1",
     servings: 12
   },
-  teaID: "3d4a3605-4368-4ee1-abe4-318d7982e491",
   name: "Lapsang Souchang",
   brand: "McNulty's",
   teaType: "5d39dd1f0487d1116140bac1",
@@ -87,7 +85,7 @@ const teaPostResponse = {
   }
 };
 
-const teaPutResponse = {
+const teaPatchResponse = {
   type: "EDIT_TEA",
   payload: {
     id: "3d4a3605-4368-4ee1-abe4-318d7982e491",
@@ -160,6 +158,16 @@ const editTeaPayload = {
 
 const deleteTeaPayload = "dc8a7690-de4a-47e8-8225-5548c0f51669";
 
+const matchTeaID = {
+  match: { params: { id: "25070e52-e635-4883-ae9b-583113573b9f" } }
+};
+
+const matchTimerID = {
+  timerID: "25070e52-e635-4883-ae9b-583113573b9f"
+};
+
+const teaBrands = ["Celestial Seasonings", "Celestial Seasonings", "McNulty's"];
+
 const emptyState = { allTeas: {}, teaIDs: [] };
 
 const teaFixture = {
@@ -171,12 +179,15 @@ const teaFixture = {
   reducerAddTea,
   reducerEditTea,
   teaPostResponse,
-  teaPutResponse,
+  teaPatchResponse,
   teaGetResponse,
   getTeasPayload,
   addTeaPayload,
   editTeaPayload,
   deleteTeaPayload,
+  matchTeaID,
+  matchTimerID,
+  teaBrands,
   emptyState
 };
 

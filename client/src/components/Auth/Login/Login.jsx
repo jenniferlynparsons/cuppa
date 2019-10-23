@@ -72,3 +72,23 @@ export class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  inputValidation: PropTypes.shape({
+    email: PropTypes.bool,
+    password: PropTypes.bool
+  }),
+  serverErrors: PropTypes.shape({
+    emailNotFound: PropTypes.string,
+    passwordIncorrect: PropTypes.string
+  }),
+  errorMessages: PropTypes.shape({
+    passwordIncorrect: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string
+  }),
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
+};

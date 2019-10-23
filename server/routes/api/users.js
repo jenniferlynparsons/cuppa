@@ -40,14 +40,11 @@ router.post("/register", (req, res) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
-          newUser
-            .save()
-            .then(user => {
-              // res.json(user)
-              const payload = {
-                id: user.id,
-                name: user.name
-              };
+          newUser.save().then(user => {
+            const payload = {
+              id: user.id,
+              name: user.name
+            };
 
               // Sign token
               jwt.sign(
@@ -112,7 +109,7 @@ router.post("/login", (req, res) => {
             expiresIn: 31556926 // 1 year in seconds
           },
           (err, token) => {
-            res.json({
+            res.status(200).json({
               success: true,
               token: "Bearer " + token
             });
@@ -121,7 +118,7 @@ router.post("/login", (req, res) => {
       } else {
         return res
           .status(400)
-          .json({ passwordincorrect: "Password incorrect" });
+          .send({ passwordInCorrect: "Password incorrect" });
       }
     });
   });
@@ -134,7 +131,7 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.json({
+    res.status(200).json({
       id: req.user.id,
       name: req.user.name,
       email: req.user.email

@@ -4,6 +4,7 @@ import errorReducer from "./errorReducers";
 import teaReducers from "./teaReducers";
 import teaTypesReducer from "./teaTypesReducers";
 import flashReducer from "./flashReducers";
+import timerReducer from "./timerReducers";
 
 const appReducer = combineReducers({
   auth: authReducer,

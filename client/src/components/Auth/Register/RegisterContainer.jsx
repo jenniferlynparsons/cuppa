@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import {
   emailSchema,
@@ -9,7 +9,7 @@ import {
 import { registerUser } from "../../../actions/authActions";
 import { Register } from "./Register";
 
-class RegisterContainer extends Component {
+class RegisterContainer extends React.Component {
   state = {
     name: "",
     email: "",
@@ -128,3 +128,10 @@ export default connect(
 )(RegisterContainer);
 
 export const RegisterContainerComponent = RegisterContainer;
+
+RegisterContainer.propTypes = {
+  auth: authShape.isRequired,
+  history: PropTypes.object,
+  registerUser: PropTypes.func.isRequired,
+  serverErrors: PropTypes.object
+};

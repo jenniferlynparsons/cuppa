@@ -104,3 +104,32 @@ export class Register extends React.Component {
     );
   }
 }
+
+Register.defaultProps = {
+  name: ""
+};
+
+Register.propTypes = {
+  inputValidation: PropTypes.shape({
+    name: PropTypes.bool,
+    email: PropTypes.bool,
+    password: PropTypes.bool,
+    password2: PropTypes.bool
+  }),
+  serverErrors: PropTypes.shape({
+    duplicateEmail: PropTypes.string
+  }),
+  errorMessages: PropTypes.shape({
+    passwordIncorrect: PropTypes.string,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    password2: PropTypes.string
+  }),
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  password2: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
+};

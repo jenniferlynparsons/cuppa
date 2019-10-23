@@ -31,13 +31,11 @@ router.post("/", (req, res) => {
       name: req.body.name,
       brand: req.body.brand,
       teaType: req.body.teaType,
-      servings: req.body.servings
+      servings: req.body.servings,
+      rating: req.body.rating
     });
 
-    newTea
-      .save()
-      .then(tea => res.json(teaNormalizer(tea)))
-      .catch(err => console.log(err));
+    newTea.save().then(tea => res.status(200).json(teaNormalizer(tea)));
   });
 });
 
@@ -57,7 +55,7 @@ router.put("/:id", (req, res) => {
     tea
   ) {
     if (err) return res.send(500, { error: err });
-    return res.json(teaNormalizer(tea));
+    return res.status(200).json(teaNormalizer(tea));
   });
 });
 
@@ -86,12 +84,12 @@ router.delete("/:id", (req, res) => {
 router.get("/:id", (req, res) => {
   Tea.findOne({ id: req.params.id }, (err, tea) => {
     if (err) {
-      res.send(err);
+      return res.status(404).send(err);
     }
     if (tea) {
-      res.json(teaNormalizer(tea));
+      return res.status(200).json(teaNormalizer(tea));
     } else {
-      return res.json({ message: "Tea does not exist." });
+      return res.status(404).json({ teaMissing: "Tea does not exist." });
     }
   });
 });

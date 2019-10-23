@@ -36,7 +36,8 @@ export class TeaCollectionTableContainer extends React.Component {
     { colName: "name", colTitle: "Name" },
     { colName: "brand", colTitle: "Brand" },
     { colName: "teaType", colTitle: "Type" },
-    { colName: "servings", colTitle: "Servings" }
+    { colName: "servings", colTitle: "Servings" },
+    { colName: "rating", colTitle: "Rating" }
   ];
 
   handleDeleteClick = tea => this.props.deleteTea(tea);
@@ -188,6 +189,13 @@ export class TeaCollectionTableContainer extends React.Component {
     });
   };
 
+  handleOpenTimer = id => {
+    this.props.setTimerID(id);
+  };
+  handleCloseTimer = () => {
+    this.props.setTimerID("");
+  };
+
   componentDidMount() {
     this.props.getTeas(this.props.userID).then(() =>
       this.setState({
@@ -246,7 +254,8 @@ const mapStateToProps = state => {
   return {
     teas: state.teas,
     teaTypes: state.teaTypes,
-    userID: state.auth.user.id
+    userID: state.auth.user.id,
+    timerID: state.timer.timerID
   };
 };
 
@@ -262,3 +271,14 @@ export default connect(
 )(TeaCollectionTableContainer);
 
 export const TeaCollectionTableContainerClass = TeaCollectionTableContainer;
+
+TeaCollectionTableContainer.propTypes = {
+  teas: PropTypes.object.isRequired,
+  teaTypes: PropTypes.object.isRequired,
+  userID: PropTypes.string.isRequired,
+  timerID: PropTypes.string,
+  deleteTea: PropTypes.func.isRequired,
+  setTimerID: PropTypes.func.isRequired,
+  getTeas: PropTypes.func.isRequired,
+  getTeaTypes: PropTypes.func.isRequired
+};

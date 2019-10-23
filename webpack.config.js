@@ -34,15 +34,12 @@ module.exports = {
         use: "babel-loader"
       },
       {
-        test: /\.svg$/,
+        test: /\.(jpg|png|gif|svg|pdf|ico)$/,
         use: [
           {
-            loader: "babel-loader"
-          },
-          {
-            loader: "react-svg-loader",
+            loader: "file-loader",
             options: {
-              jsx: true // true outputs JSX tags
+              name: "[path][name]-[hash:8].[ext]"
             }
           }
         ]

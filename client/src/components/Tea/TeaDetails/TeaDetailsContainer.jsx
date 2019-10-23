@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
@@ -33,6 +33,8 @@ class TeaDetailsContainer extends Component {
   }
 
   componentDidMount() {
+    this.setState({ flash: this.props.flash });
+    this.props.clearFlash();
     this.props.getTeas(this.props.userID);
     this.props
       .getTeaTypes(this.props.userID)
@@ -72,7 +74,8 @@ const mapStateToProps = (state, ownProps) => {
     teaType: teatype && teatype.name,
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,
-    userID: state.auth.user.id
+    userID: state.auth.user.id,
+    timerID: state.timer.timerID
   };
 };
 
@@ -90,3 +93,16 @@ export default connect(
 )(TeaDetailsContainer);
 
 export const TeaDetailsContainerClass = TeaDetailsContainer;
+
+TeaDetailsContainer.propTypes = {
+  flash: PropTypes.string,
+  userID: PropTypes.string.isRequired,
+  tea: teaShape.isRequired,
+  teaType: PropTypes.string.isRequired,
+  timerID: PropTypes.string.isRequired,
+  editFlash: PropTypes.func.isRequired,
+  setTimerID: PropTypes.func.isRequired,
+  clearFlash: PropTypes.func.isRequired,
+  getTeas: PropTypes.func.isRequired,
+  getTeaTypes: PropTypes.func.isRequired
+};

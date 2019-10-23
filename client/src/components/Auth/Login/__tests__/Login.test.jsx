@@ -5,7 +5,16 @@ import { renderWithRouter } from "../../../../test/routerTestUtils";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import LoginContainer, { LoginContainerComponent } from "../LoginContainer";
 
-const mockFunc = jest.fn();
+let mockFunc;
+let mockDefaultProps;
+
+beforeEach(() => {
+  mockFunc = jest.fn();
+  mockDefaultProps = {
+    auth: storeFixture.loggedOutStore,
+    loginAction: mockFunc
+  };
+});
 
 describe("Login rendering", () => {
   test("login renders without error", () => {

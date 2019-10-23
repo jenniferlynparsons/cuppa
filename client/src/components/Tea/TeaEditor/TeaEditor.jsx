@@ -138,3 +138,38 @@ export class TeaEditor extends React.Component {
     );
   }
 }
+
+TeaEditor.propTypes = {
+  flash: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.string
+  }),
+  inputValidation: PropTypes.shape({
+    name: PropTypes.bool,
+    brand: PropTypes.bool,
+    teaType: PropTypes.bool,
+    servings: PropTypes.bool
+  }),
+  serverErrors: PropTypes.shape({
+    duplicate: PropTypes.string
+  }),
+  name: PropTypes.string.isRequired,
+  brandsDataList: PropTypes.object,
+  brand: PropTypes.string.isRequired,
+  errorMessages: PropTypes.shape({
+    name: PropTypes.string,
+    brand: PropTypes.string,
+    teaType: PropTypes.string,
+    servings: PropTypes.string
+  }),
+  teaType: PropTypes.string.isRequired,
+  teaTypes: PropTypes.array,
+  servings: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  handleBlur: PropTypes.func.isRequired,
+  handleBrandChange: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
+  handleNameChange: PropTypes.func.isRequired,
+  handleServingsChange: PropTypes.func.isRequired,
+  handleTypeChange: PropTypes.func.isRequired
+};

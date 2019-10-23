@@ -57,21 +57,24 @@ export class TeaEditorContainer extends React.Component {
   };
 
   handleNameChange = event => {
-    this.setState({
-      name: event.currentTarget.value
-    });
+    let newVal = event.currentTarget.value;
+    this.setState(state => ({
+      activeTea: { ...state.activeTea, name: newVal }
+    }));
   };
 
   handleBrandChange = event => {
-    this.setState({
-      brand: event.currentTarget.value
-    });
+    let newVal = event.currentTarget.value;
+    this.setState(state => ({
+      activeTea: { ...state.activeTea, brand: newVal }
+    }));
   };
 
   handleTypeChange = event => {
-    this.setState({
-      teaType: event.currentTarget.value
-    });
+    let newVal = event.currentTarget.value;
+    this.setState(state => ({
+      activeTea: { ...state.activeTea, teaType: newVal }
+    }));
   };
 
   handleServingsChange = event => {
@@ -229,3 +232,19 @@ export default connect(
 )(TeaEditorContainer);
 
 export const TeaEditorContainerClass = TeaEditorContainer;
+
+TeaEditorContainer.propTypes = {
+  userID: PropTypes.string.isRequired,
+  currentTea: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  teaTypes: PropTypes.array,
+  history: PropTypes.object,
+  edit: PropTypes.bool,
+  updatedTea: teaShape,
+  brandList: PropTypes.array,
+  serverErrors: PropTypes.object,
+  editTea: PropTypes.func.isRequired,
+  editFlash: PropTypes.func.isRequired,
+  addTea: PropTypes.func.isRequired,
+  getTeas: PropTypes.func.isRequired,
+  getTeaTypes: PropTypes.func.isRequired
+};

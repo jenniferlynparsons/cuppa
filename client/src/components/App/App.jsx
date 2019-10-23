@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../../lib/setAuthToken";
 import { setCurrentUser, logoutUser } from "../../actions/authActions";
 import { Provider } from "react-redux";
 import store from "../../store";
+import ErrorBoundary from "../ErrorBoundary";
 // Routes
 import NavBar from "../Template/NavBar";
 import Footer from "../Template/Footer";
@@ -41,7 +42,7 @@ if (localStorage.jwtToken) {
     window.location.href = "./login";
   }
 }
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
