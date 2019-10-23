@@ -8,5 +8,9 @@ describe("selectSingleTeaType", () => {
     expect(
       selectSingleTeaType(storeFixture.basicStore, teaFixture.matchTeaID)
     ).toEqual(teaTypeFixture.singleTeaType);
+
+    expect(
+      selectSingleTeaType(storeFixture.basicStore, teaFixture.matchTimerID)
+    ).toEqual(teaTypeFixture.singleTeaType);
   });
 });

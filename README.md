@@ -47,7 +47,7 @@ TODO: fill in this information
 ## Contributing
 This is a personal project, so I'm unlikely to accept PRs but you're welcome to fork the project.
 
-Please follow the [coding standards.](https://github.com/jenniferlynparsons/cuppa-webpack/blob/master/coding-standards.md)
+Please follow the [coding standards.](https://github.com/jenniferlynparsons/cuppa/blob/master/coding-standards.md)
 
 Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 

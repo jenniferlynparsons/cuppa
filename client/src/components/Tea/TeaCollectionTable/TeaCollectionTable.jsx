@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import InputField from "../../FormComponents/InputField";
 import TimerContainer from "../../Timer";
+import StarRating from "../../StarRating";
 
 library.add(faAngleDown, faAngleUp);
 
@@ -14,7 +15,7 @@ export class TeaCollectionTable extends React.Component {
     return (
       <div data-testid="teacollection" className="container">
         <div className="columns is-pulled-right">
-          <form onSubmit={this.props.handleFilterClick}>
+          <form onSubmit={this.props.onFilterClick}>
             <div className="field has-addons">
               <div className="control">
                 <div
@@ -28,8 +29,8 @@ export class TeaCollectionTable extends React.Component {
                     data-testid="filterselect"
                     name="filterCategory"
                     value={this.props.formControls.filterCategory}
-                    onChange={this.props.handleFilterDropdownChange}
-                    onBlur={this.props.handleFilterDropdownChange}
+                    onChange={this.props.onFilterDropdownChange}
+                    onBlur={this.props.onFilterDropdownChange}
                   >
                     <option key="category" value="">
                       Filter by
@@ -57,7 +58,7 @@ export class TeaCollectionTable extends React.Component {
                 className="input is-small"
                 valid={this.props.inputValidation.filterCriteria}
                 errorClass="input is-small is-danger"
-                onChange={this.props.handleFilterInputChange}
+                onChange={this.props.onFilterInputChange}
               />
               <div className="control">
                 <button
@@ -85,7 +86,7 @@ export class TeaCollectionTable extends React.Component {
               <button
                 data-testid="clearfilterbutton"
                 className="button is-primary is-small"
-                onClick={this.props.handleClearFilterClick}
+                onClick={this.props.onClearFilterClick}
               >
                 Clear Filter
               </button>
@@ -104,9 +105,9 @@ export class TeaCollectionTable extends React.Component {
                     className="button is-small"
                     aria-pressed="false"
                     onClick={() =>
-                      this.props.handleSortClick(
+                      this.props.onSortClick(
                         colHeaderObj.colName,
-                        this.props.handleSortColumn(colHeaderObj.colName)
+                        this.props.onSortColumn(colHeaderObj.colName)
                           ? "desc"
                           : "asc"
                       )
@@ -116,7 +117,7 @@ export class TeaCollectionTable extends React.Component {
                       <i className="fas">
                         <FontAwesomeIcon
                           icon={
-                            this.props.handleSortColumn(colHeaderObj.colName)
+                            this.props.onSortColumn(colHeaderObj.colName)
                               ? "angle-up"
                               : "angle-down"
                           }
@@ -152,11 +153,14 @@ export class TeaCollectionTable extends React.Component {
                   <td>{teaType && teaType.name}</td>
                   <td>{tea.servings}</td>
                   <td>
+                    <StarRating rating={tea.rating} />
+                  </td>
+                  <td>
                     <button
                       data-testid="makecuppalink"
                       className="button is-primary"
                       disabled={tea.servings <= 0}
-                      onClick={() => this.props.handleOpenTimer(tea.id)}
+                      onClick={() => this.props.onOpenTimer(tea.id)}
                     >
                       Make A Cuppa
                     </button>
@@ -170,7 +174,7 @@ export class TeaCollectionTable extends React.Component {
                     <button
                       data-testid="deletelink"
                       className="button is-danger is-small"
-                      onClick={() => this.props.handleDeleteClick(tea.id)}
+                      onClick={() => this.props.onDeleteClick(tea.id)}
                     >
                       X
                     </button>
@@ -198,7 +202,7 @@ export class TeaCollectionTable extends React.Component {
         {this.props.timerID && (
           <TimerContainer
             timerID={this.props.timerID}
-            handleCloseTimer={this.props.handleCloseTimer}
+            onCloseTimer={this.props.onCloseTimer}
           />
         )}
       </div>

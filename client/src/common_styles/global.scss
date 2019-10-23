@@ -18,3 +18,15 @@ button,
 .button {
   margin-right: 8px;
 }
+
+.star {
+  color: $grey-light;
+}
+
+.active {
+  color: $warning;
+}
+
+.extra-margin {
+  margin-top: 20px;
+}

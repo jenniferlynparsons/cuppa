@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
+import cuppaLogo from "../../../assets/tea.svg";
 import "./NavBar.scss";
 
 class NavBar extends React.Component {
@@ -18,6 +19,7 @@ class NavBar extends React.Component {
               className="navbar-item"
               to={this.props.auth.isAuthenticated ? "/tea-collection" : "/"}
             >
+              <img src={cuppaLogo} alt="Cuppa Logo" />
               Cuppa
             </Link>
             <a
@@ -26,7 +28,7 @@ class NavBar extends React.Component {
               className="navbar-burger"
               aria-label="menu"
               aria-expanded={this.props.menuActive}
-              onClick={this.props.handleNavToggle}
+              onClick={this.props.onNavToggle}
             >
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
@@ -56,7 +58,7 @@ class NavBar extends React.Component {
                   className="navbar-link"
                   aria-label="menu"
                   aria-expanded={this.props.dropdownActive}
-                  onClick={this.props.handleDropDownToggle}
+                  onClick={this.props.onDropDownToggle}
                 >
                   My Account
                 </a>
@@ -65,14 +67,14 @@ class NavBar extends React.Component {
                   <Link
                     className="navbar-item"
                     to={"/dashboard"}
-                    onClick={this.props.handleDropDownToggle}
+                    onClick={this.props.onDropDownToggle}
                   >
                     Dashboard
                   </Link>
                   <Link
                     className="navbar-item"
                     to={"/tea-types"}
-                    onClick={this.props.handleDropDownToggle}
+                    onClick={this.props.onDropDownToggle}
                   >
                     My Tea Types
                   </Link>
@@ -81,7 +83,7 @@ class NavBar extends React.Component {
                     <button
                       data-testid="logout"
                       className="button is-small is-dark"
-                      onClick={this.props.handleLogoutClick}
+                      onClick={this.props.onLogoutClick}
                     >
                       Logout
                     </button>

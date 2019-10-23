@@ -4,7 +4,8 @@ const teaNormalizer = rawTeaData => {
     name: rawTeaData.name,
     brand: rawTeaData.brand,
     teaType: rawTeaData.teaType,
-    servings: rawTeaData.servings
+    servings: rawTeaData.servings,
+    rating: rawTeaData.rating
   };
 };
 

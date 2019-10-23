@@ -23,6 +23,7 @@ export class Timer extends React.Component {
               {brewTime.minute}:{brewTime.seconds}
             </p>
             <progress
+              data-testid="progressbar"
               className="progress is-primary"
               value={progress}
               max="100"
@@ -39,7 +40,7 @@ export class Timer extends React.Component {
                   ? "button is-success"
                   : "is-hidden"
               }
-              onClick={this.props.handleStartTimer}
+              onClick={this.props.onStartTimer}
             >
               Start
             </button>
@@ -53,7 +54,7 @@ export class Timer extends React.Component {
                   ? "button is-success"
                   : "is-hidden"
               }
-              onClick={this.props.handleResumeTimer}
+              onClick={this.props.onResumeTimer}
             >
               Resume
             </button>
@@ -61,7 +62,7 @@ export class Timer extends React.Component {
             <button
               data-testid="pausetimer"
               className={this.props.timerOn ? "button is-danger" : "is-hidden"}
-              onClick={this.props.handlePauseTimer}
+              onClick={this.props.onPauseTimer}
             >
               Pause {this.props.timerOn}
             </button>
@@ -72,14 +73,14 @@ export class Timer extends React.Component {
                   ? "button is-primary"
                   : "is-hidden"
               }
-              onClick={this.props.handleFinishTimer}
+              onClick={this.props.onFinishTimer}
             >
               Done!
             </button>
             <button
               data-testid="canceltimer"
-              className={this.props.timerTime !== 0 ? "button" : "is-hidden"}
-              onClick={this.props.handleCancelTimer}
+              className="button"
+              onClick={this.props.onCancelTimer}
             >
               Cancel
             </button>
