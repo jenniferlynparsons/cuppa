@@ -53,7 +53,7 @@ describe("teaTypeEditor form success", () => {
 
     fireEvent.click(getByTestId("submit"));
 
-    expect(queryByTestId("flash")).toHaveTextContent(/Black/);
+    expect(mockAdd).toHaveBeenCalled();
   });
 
   test("editor form succesfully updates tea type", async () => {
@@ -75,7 +75,7 @@ describe("teaTypeEditor form success", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(dataFixture.history.push).toHaveBeenCalledWith("/tea-types/");
+    expect(mockEdit).toHaveBeenCalled();
   });
 });
 

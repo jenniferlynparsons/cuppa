@@ -102,10 +102,10 @@ export class TeaTypeEditorContainer extends React.Component {
       if (this.props.edit === true) {
         this.props
           .editTeaType(typeData)
-          .then(this.props.editFlash("success"))
-          .then(this.props.history.push("/tea-types/"));
+          .then(() => this.props.editFlash("success"))
+          .then(() => this.props.history.push("/tea-types/"));
       } else {
-        this.props.addTeaType(typeData).then(
+        this.props.addTeaType(typeData).then(() =>
           this.setState({
             ...this.initialState,
             loadingStatus: "complete",
@@ -168,12 +168,12 @@ export class TeaTypeEditorContainer extends React.Component {
           inputValidation={this.state.inputValidation}
           serverErrors={this.props.serverErrors}
           errorMessages={this.state.errorMessages}
-          handleBlur={this.handleBlur}
-          handleNameChange={this.handleNameChange}
-          handleBrewTimeMinChange={this.handleBrewTimeMinChange}
-          handleBrewTimeSecChange={this.handleBrewTimeSecChange}
-          handleSubmitButton={this.handleSubmitButton}
-          handleFormSubmit={this.handleFormSubmit}
+          onBlur={this.handleBlur}
+          onNameChange={this.handleNameChange}
+          onBrewTimeMinChange={this.handleBrewTimeMinChange}
+          onBrewTimeSecChange={this.handleBrewTimeSecChange}
+          onSubmitButton={this.handleSubmitButton}
+          onFormSubmit={this.handleFormSubmit}
         />
       );
     }

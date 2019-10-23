@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-class Landing extends Component {
+class Landing extends React.Component {
   state = {
     loadingStatus: "inprogress"
   };

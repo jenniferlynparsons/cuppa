@@ -1,13 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { teaShape } from "../../../lib/propTypes";
 import { editTea } from "../../actions/teaActions";
 import { selectSingleTeaType } from "../../selectors";
-import { selectTimerTea } from "../../selectors/teaSelectors";
 import { Timer } from "./Timer";
 
-class TimerContainer extends Component {
+class TimerContainer extends React.Component {
   state = {
     loadingStatus: "inprogress",
     timerOn: false,
@@ -35,7 +34,7 @@ class TimerContainer extends Component {
   handleCancelTimer = () => {
     this.stopTimer();
     this.resetTimer();
-    this.props.handleCloseTimer();
+    this.props.onCloseTimer();
   };
 
   handleFinishTimer = () => {
@@ -46,7 +45,7 @@ class TimerContainer extends Component {
         },
         () => {
           this.resetTimer();
-          this.props.handleCloseTimer();
+          this.props.onCloseTimer();
           this.props.editTea(this.state.tea);
         }
       );
@@ -104,11 +103,11 @@ class TimerContainer extends Component {
           brewTime={this.props.brewTime}
           timerOn={this.state.timerOn}
           timerTime={this.state.timerTime}
-          handleStartTimer={this.handleStartTimer}
-          handlePauseTimer={this.handlePauseTimer}
-          handleResumeTimer={this.handleResumeTimer}
-          handleCancelTimer={this.handleCancelTimer}
-          handleFinishTimer={this.handleFinishTimer}
+          onStartTimer={this.handleStartTimer}
+          onPauseTimer={this.handlePauseTimer}
+          onResumeTimer={this.handleResumeTimer}
+          onCancelTimer={this.handleCancelTimer}
+          onFinishTimer={this.handleFinishTimer}
         />
       );
     }
@@ -116,7 +115,7 @@ class TimerContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const tea = selectTimerTea(state, ownProps);
+  const tea = state.teas.allTeas[ownProps.timerID];
   const teatype = selectSingleTeaType(state, ownProps);
 
   return {

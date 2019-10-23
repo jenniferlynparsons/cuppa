@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { authShape } from "../../../lib/propTypes";
@@ -6,7 +6,7 @@ import { emailSchema, passwordSchema } from "../../../lib/validationSchemas";
 import { loginAction } from "../../../actions/authActions";
 import { Login } from "./Login";
 
-class LoginContainer extends Component {
+class LoginContainer extends React.Component {
   state = {
     email: "",
     password: "",

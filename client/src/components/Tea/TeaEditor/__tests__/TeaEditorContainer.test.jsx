@@ -50,10 +50,13 @@ describe("teaEditor form success", () => {
     fireEvent.change(getByTestId("servings"), {
       target: { value: 22 }
     });
+    fireEvent.click(getByTestId("starfour"));
+
     expect(getByTestId("teaeditorform")).toHaveFormValues({
       name: teaFixture.basicTea.name,
       brand: teaFixture.basicTea.brand,
       servings: 22,
+      rating: "4",
       type: teaFixture.basicTea.teaType
     });
 
@@ -81,9 +84,7 @@ describe("teaEditor form success", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(dataFixture.history.push).toHaveBeenCalledWith(
-      "/tea/" + teaFixture.basicTea.id
-    );
+    expect(mockEdit).toHaveBeenCalled();
   });
 });
 

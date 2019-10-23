@@ -24,7 +24,7 @@ export class Dashboard extends React.Component {
               <button
                 data-testid="logout"
                 className="button"
-                onClick={this.props.handleLogoutClick}
+                onClick={this.props.onLogoutClick}
               >
                 Logout
               </button>

@@ -31,7 +31,7 @@ function doAPI(method) {
 const get = doAPI("get");
 const post = doAPI("post");
 const patch = doAPI("patch");
-const deleteRequest = doAPI("deleteRequest");
+const deleteRequest = doAPI("delete");
 
 export default {
   get,

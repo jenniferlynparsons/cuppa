@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../../lib/setAuthToken";
 import { setCurrentUser, logoutUser } from "../../actions/authActions";
 import { Provider } from "react-redux";
 import store from "../../store";
+import ErrorBoundary from "../ErrorBoundary";
 // Routes
 import NavBar from "../Template/NavBar";
 import Footer from "../Template/Footer";
@@ -41,7 +42,7 @@ if (localStorage.jwtToken) {
     window.location.href = "./login";
   }
 }
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
@@ -50,51 +51,53 @@ class App extends Component {
             <NavBar data-testid="navbar" />
             <section className="section">
               <div className="App">
-                <Route exact={true} path="/" component={Landing} />
-                <Route exact={true} path="/register" component={Register} />
-                <Route exact={true} path="/login" component={Login} />
-                <Switch>
-                  <PrivateRoute
-                    exact={true}
-                    path="/tea-collection"
-                    component={TeaCollectionTable}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/new-tea"
-                    component={TeaEditor}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/update-tea/:id"
-                    component={TeaEditor}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/tea/:id"
-                    component={TeaDetails}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/tea-types"
-                    component={TeaTypeCollectionTable}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/new-tea-type"
-                    component={TeaTypeEditor}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/update-tea-type/:id"
-                    component={TeaTypeEditor}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/dashboard"
-                    component={Dashboard}
-                  />
-                </Switch>
+                <ErrorBoundary>
+                  <Route exact={true} path="/" component={Landing} />
+                  <Route exact={true} path="/register" component={Register} />
+                  <Route exact={true} path="/login" component={Login} />
+                  <Switch>
+                    <PrivateRoute
+                      exact={true}
+                      path="/tea-collection"
+                      component={TeaCollectionTable}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/new-tea"
+                      component={TeaEditor}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/update-tea/:id"
+                      component={TeaEditor}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/tea/:id"
+                      component={TeaDetails}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/tea-types"
+                      component={TeaTypeCollectionTable}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/new-tea-type"
+                      component={TeaTypeEditor}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/update-tea-type/:id"
+                      component={TeaTypeEditor}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/dashboard"
+                      component={Dashboard}
+                    />
+                  </Switch>
+                </ErrorBoundary>
               </div>
             </section>
             <Footer />
