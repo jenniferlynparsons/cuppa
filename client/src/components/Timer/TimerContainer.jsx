@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { teaShape } from "../../../lib/propTypes";
+import { teaShape } from "../../lib/propTypes";
 import { editTea } from "../../actions/teaActions";
 import { selectSingleTeaType } from "../../selectors";
 import { Timer } from "./Timer";
