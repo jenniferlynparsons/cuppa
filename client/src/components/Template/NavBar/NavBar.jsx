@@ -73,7 +73,7 @@ class NavBar extends React.Component {
                   </Link>
                   <Link
                     className="navbar-item"
-                    to={"/tea-types"}
+                    to={"/teaTypes"}
                     onClick={this.props.onDropDownToggle}
                   >
                     My Tea Types

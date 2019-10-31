@@ -11,7 +11,7 @@ export class TeaTypeEditor extends React.Component {
         {this.props.flash.name && (
           <p className="notification is-success" data-testid="flash">
             {this.props.flash.name} has been succesfully saved.{" "}
-            <Link to={"/tea-types/"}>View all types.</Link>
+            <Link to={"/teaTypes/"}>View all types.</Link>
           </p>
         )}
 

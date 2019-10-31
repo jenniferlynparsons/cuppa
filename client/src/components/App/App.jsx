@@ -78,7 +78,7 @@ class App extends React.Component {
                     />
                     <PrivateRoute
                       exact={true}
-                      path="/tea-types"
+                      path="/teaTypes"
                       component={TeaTypeCollectionTable}
                     />
                     <PrivateRoute

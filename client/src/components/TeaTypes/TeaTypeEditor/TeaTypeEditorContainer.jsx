@@ -103,7 +103,7 @@ export class TeaTypeEditorContainer extends React.Component {
         this.props
           .editTeaType(typeData)
           .then(() => this.props.editFlash("success"))
-          .then(() => this.props.history.push("/tea-types/"));
+          .then(() => this.props.history.push("/teaTypes/"));
       } else {
         this.props.addTeaType(typeData).then(() =>
           this.setState({
