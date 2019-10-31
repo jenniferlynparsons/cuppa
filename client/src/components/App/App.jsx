@@ -51,51 +51,53 @@ class App extends React.Component {
             <NavBar data-testid="navbar" />
             <section className="section">
               <div className="App">
-                <Route exact={true} path="/" component={Landing} />
-                <Route exact={true} path="/register" component={Register} />
-                <Route exact={true} path="/login" component={Login} />
-                <Switch>
-                  <PrivateRoute
-                    exact={true}
-                    path="/tea-collection"
-                    component={TeaCollectionTable}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/new-tea"
-                    component={TeaEditor}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/update-tea/:id"
-                    component={TeaEditor}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/tea/:id"
-                    component={TeaDetails}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/tea-types"
-                    component={TeaTypeCollectionTable}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/new-tea-type"
-                    component={TeaTypeEditor}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/update-tea-type/:id"
-                    component={TeaTypeEditor}
-                  />
-                  <PrivateRoute
-                    exact={true}
-                    path="/dashboard"
-                    component={Dashboard}
-                  />
-                </Switch>
+                <ErrorBoundary>
+                  <Route exact={true} path="/" component={Landing} />
+                  <Route exact={true} path="/register" component={Register} />
+                  <Route exact={true} path="/login" component={Login} />
+                  <Switch>
+                    <PrivateRoute
+                      exact={true}
+                      path="/tea-collection"
+                      component={TeaCollectionTable}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/new-tea"
+                      component={TeaEditor}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/update-tea/:id"
+                      component={TeaEditor}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/tea/:id"
+                      component={TeaDetails}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/tea-types"
+                      component={TeaTypeCollectionTable}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/new-tea-type"
+                      component={TeaTypeEditor}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/update-tea-type/:id"
+                      component={TeaTypeEditor}
+                    />
+                    <PrivateRoute
+                      exact={true}
+                      path="/dashboard"
+                      component={Dashboard}
+                    />
+                  </Switch>
+                </ErrorBoundary>
               </div>
             </section>
             <Footer />

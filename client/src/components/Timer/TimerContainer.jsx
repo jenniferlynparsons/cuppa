@@ -1,6 +1,11 @@
 import React from "react";
-import { convertTimeToMinSec } from "../../lib/timeConverter";
+import { connect } from "react-redux";
+import { PropTypes } from "prop-types";
+import { teaShape } from "../../lib/propTypes";
+import { editTea } from "../../actions/teaActions";
+import { selectSingleTeaType } from "../../selectors";
 import { Timer } from "./Timer";
+
 class TimerContainer extends React.Component {
   state = {
     timerOn: false,
@@ -36,7 +41,7 @@ class TimerContainer extends React.Component {
   handleCancelTimer = () => {
     this.stopTimer();
     this.resetTimer();
-    this.props.handleCloseTimer();
+    this.props.onCloseTimer();
   };
 
   handleFinishTimer = () => {
@@ -47,8 +52,8 @@ class TimerContainer extends React.Component {
         },
         () => {
           this.resetTimer();
-          this.props.handleCloseTimer();
-          this.props.handleTimerUpdateQty(this.state.tea);
+          this.props.onCloseTimer();
+          this.props.editTea(this.state.tea);
         }
       );
     }
@@ -107,13 +112,27 @@ class TimerContainer extends React.Component {
       seconds: initialBrewTime.seconds
     });
   }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.tea && this.props.tea !== prevProps.tea) {
-      this.setState({
-        tea: this.props.tea,
-        originalServings: this.props.tea.servings
-      });
+  render() {
+    if (this.state.loadingStatus !== "complete") {
+      return (
+        <div data-testid="loadingmessage" className="pageloader is-active">
+          <span className="title">Loading</span>
+        </div>
+      );
+    } else {
+      return (
+        <Timer
+          teaName={this.state.tea.name}
+          brewTime={this.props.brewTime}
+          timerOn={this.state.timerOn}
+          timerTime={this.state.timerTime}
+          onStartTimer={this.handleStartTimer}
+          onPauseTimer={this.handlePauseTimer}
+          onResumeTimer={this.handleResumeTimer}
+          onCancelTimer={this.handleCancelTimer}
+          onFinishTimer={this.handleFinishTimer}
+        />
+      );
     }
     if (this.props.brewTime && this.props.brewTime !== prevProps.brewTime) {
       const initialBrewTime = convertTimeToMinSec(this.props.brewTime);
@@ -148,4 +167,33 @@ class TimerContainer extends React.Component {
   }
 }
 
-export default TimerContainer;
+const mapStateToProps = (state, ownProps) => {
+  const tea = state.teas.allTeas[ownProps.timerID];
+  const teatype = selectSingleTeaType(state, ownProps);
+
+  return {
+    id: ownProps.timerID,
+    brewTime: teatype.brewTime,
+    teaType: teatype.name,
+    tea: tea,
+    userID: state.auth.user.id
+  };
+};
+
+const mapDispatchToProps = {
+  editTea
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TimerContainer);
+
+export const TimerContainerClass = TimerContainer;
+
+TimerContainer.propTypes = {
+  brewTime: PropTypes.number.isRequired,
+  tea: teaShape.isRequired,
+  handleCloseTimer: PropTypes.func.isRequired,
+  editTea: PropTypes.func.isRequired
+};

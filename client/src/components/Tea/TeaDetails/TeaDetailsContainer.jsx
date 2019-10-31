@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { teaShape } from "../../../lib/propTypes";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
 import { selectSingleTeaType } from "../../../selectors/teaTypeSelectors";
 import { TeaDetails } from "./TeaDetails";
 
-class TeaDetailsContainer extends Component {
+class TeaDetailsContainer extends React.Component {
   state = {
     showTimer: false,
     flash: "off",
@@ -20,17 +22,13 @@ class TeaDetailsContainer extends Component {
   handleOpenTimer = () => {
     this.setState({ showTimer: true });
   };
+
   handleCloseTimer = () => {
     this.setState({ showTimer: false });
   };
   handleTimerUpdateQty = updatedTea => {
     this.props.editTea(updatedTea);
   };
-
-  componentWillMount() {
-    this.setState({ flash: this.props.flash });
-    this.props.clearFlash();
-  }
 
   componentDidMount() {
     this.setState({ flash: this.props.flash });
@@ -57,9 +55,8 @@ class TeaDetailsContainer extends Component {
           showTimer={this.state.showTimer}
           flash={this.state.flash}
           updateFlash={this.updateFlash}
-          handleOpenTimer={this.handleOpenTimer}
-          handleCloseTimer={this.handleCloseTimer}
-          handleTimerUpdateQty={this.handleTimerUpdateQty}
+          onOpenTimer={this.handleOpenTimer}
+          onCloseTimer={this.handleCloseTimer}
         />
       );
     }

@@ -26,12 +26,10 @@ function post(path, payload, config = {}) {
     .catch(console.log);
 }
 
-function put(path, payload, config = {}) {
-  return api
-    .put(path, payload, config)
-    .then(response => response.data)
-    .catch(console.log);
-}
+const get = doAPI("get");
+const post = doAPI("post");
+const patch = doAPI("patch");
+const deleteRequest = doAPI("delete");
 
 function deleteRequest(path, payload, config = {}) {
   return api

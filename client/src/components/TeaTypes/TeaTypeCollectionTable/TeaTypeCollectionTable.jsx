@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { convertTimeToMinSec } from "../../../lib/timeConverter";
+import PropTypes from "prop-types";
+import { convertTimeToMinSec } from "../../../lib/timerHelpers";
 
 export class TeaTypeCollectionTable extends React.Component {
   render() {
@@ -48,7 +49,7 @@ export class TeaTypeCollectionTable extends React.Component {
                     <button
                       data-testid="deletelink"
                       className="button is-danger is-small"
-                      onClick={() => this.props.handleDeleteClick(teaType.id)}
+                      onClick={() => this.props.onDeleteClick(teaType.id)}
                     >
                       X
                     </button>
@@ -70,3 +71,11 @@ export class TeaTypeCollectionTable extends React.Component {
     );
   }
 }
+
+TeaTypeCollectionTable.propTypes = {
+  flash: PropTypes.string.isRequired,
+  columnHeaders: PropTypes.array.isRequired,
+  teaTypeIDs: PropTypes.array.isRequired,
+  allTeaTypes: PropTypes.object.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired
+};

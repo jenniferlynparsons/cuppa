@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   filterCategorySchema,
   filterCriteriaSchema
@@ -237,13 +238,15 @@ export class TeaCollectionTableContainer extends React.Component {
           filtered={this.state.filtered}
           inputValidation={this.state.inputValidation}
           errorMessages={this.state.errorMessages}
-          handleDeleteClick={this.handleDeleteClick}
-          handleSortClick={this.handleSortClick}
-          handleFilterClick={this.handleFilterClick}
-          handleClearFilterClick={this.handleClearFilterClick}
-          handleFilterDropdownChange={this.handleFilterDropdownChange}
-          handleFilterInputChange={this.handleFilterInputChange}
-          handleSortColumn={this.handleSortColumn}
+          onDeleteClick={this.handleDeleteClick}
+          onSortClick={this.handleSortClick}
+          onFilterClick={this.handleFilterClick}
+          onClearFilterClick={this.handleClearFilterClick}
+          onFilterDropdownChange={this.handleFilterDropdownChange}
+          onFilterInputChange={this.handleFilterInputChange}
+          onSortColumn={this.handleSortColumn}
+          onOpenTimer={this.handleOpenTimer}
+          onCloseTimer={this.handleCloseTimer}
         />
       );
     }

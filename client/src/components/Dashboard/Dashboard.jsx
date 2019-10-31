@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { authShape } from "../../../lib/propTypes";
+import { authShape } from "../../lib/propTypes";
 
 export class Dashboard extends React.Component {
   render() {

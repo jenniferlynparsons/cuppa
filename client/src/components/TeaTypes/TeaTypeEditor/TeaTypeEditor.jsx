@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PropTypes } from "prop-types";
 import { validationComplete } from "../../../lib/validationComplete";
 import InputField from "../../FormComponents/InputField";
 
@@ -30,7 +31,7 @@ export class TeaTypeEditor extends React.Component {
         )}
 
         <form
-          onSubmit={this.props.handleFormSubmit}
+          onSubmit={this.props.onFormSubmit}
           data-testid="teatypeeditorform"
         >
           <div className="field">
@@ -48,7 +49,7 @@ export class TeaTypeEditor extends React.Component {
               valid={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
               errorClass="is-danger"
-              onChange={this.props.handleNameChange}
+              onChange={this.props.onNameChange}
             />
           </div>
           <div className="field">
@@ -67,7 +68,7 @@ export class TeaTypeEditor extends React.Component {
                   className="input is-one-fifth"
                   valid={this.props.inputValidation.brewTimeMin}
                   errorClass="input is-danger is-one-fifth"
-                  onChange={this.props.handleBrewTimeMinChange}
+                  onChange={this.props.onBrewTimeMinChange}
                 />
               </div>
               <div className="column is-one-quarter">
@@ -83,7 +84,7 @@ export class TeaTypeEditor extends React.Component {
                   className="input is-one-fifth"
                   valid={this.props.inputValidation.brewTimeSec}
                   errorClass="input is-danger is-one-fifth"
-                  onChange={this.props.handleBrewTimeSecChange}
+                  onChange={this.props.onBrewTimeSecChange}
                 />
               </div>
             </div>
@@ -103,3 +104,29 @@ export class TeaTypeEditor extends React.Component {
     );
   }
 }
+
+TeaTypeEditor.propTypes = {
+  flash: PropTypes.shape({
+    name: PropTypes.string
+  }),
+  inputValidation: PropTypes.shape({
+    name: PropTypes.bool,
+    brewTimeMin: PropTypes.bool,
+    brewTimeSec: PropTypes.bool,
+    brewTime: PropTypes.bool
+  }),
+  serverErrors: PropTypes.shape({
+    duplicate: PropTypes.string
+  }),
+  name: PropTypes.string,
+  errorMessages: PropTypes.shape({
+    name: PropTypes.string,
+    brewTime: PropTypes.string
+  }),
+  brewTimeMin: PropTypes.string,
+  brewTimeSec: PropTypes.string,
+  handleBrewTimeMinChange: PropTypes.func.isRequired,
+  handleBrewTimeSecChange: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
+  handleNameChange: PropTypes.func.isRequired
+};

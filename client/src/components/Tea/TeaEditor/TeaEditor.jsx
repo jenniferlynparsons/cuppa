@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { validationComplete } from "../../../lib/validationComplete";
+import StarRating from "../../StarRating";
 import InputField from "../../FormComponents/InputField";
 
 export class TeaEditor extends React.Component {
@@ -30,7 +32,7 @@ export class TeaEditor extends React.Component {
         )}
 
         <form
-          onSubmit={this.props.handleFormSubmit}
+          onSubmit={this.props.onFormSubmit}
           data-testid="teaeditorform"
         >
           <div className="field">
@@ -43,13 +45,13 @@ export class TeaEditor extends React.Component {
               id="name"
               type="text"
               placeholder="Tea Name"
-              value={this.props.name}
+              value={this.props.activeTea.name}
               className="input"
               valid={this.props.inputValidation.name}
               errorMessage={this.props.errorMessages.name}
               errorClass="is-danger"
-              onChange={this.props.handleNameChange}
-              onBlur={this.props.handleBlur("name")}
+              onChange={this.props.onNameChange}
+              onBlur={this.props.onBlur("name")}
             />
           </div>
           <div className="field">
@@ -64,12 +66,12 @@ export class TeaEditor extends React.Component {
               list="brands"
               datalist={this.props.brandsDataList}
               placeholder="Tea Brand"
-              value={this.props.brand}
+              value={this.props.activeTea.brand}
               className="input"
               valid={this.props.inputValidation.brand}
               errorMessage={this.props.errorMessages.brand}
               errorClass="is-danger"
-              onChange={this.props.handleBrandChange}
+              onChange={this.props.onBrandChange}
             />
           </div>
           <div className="field">
@@ -87,10 +89,10 @@ export class TeaEditor extends React.Component {
                   data-testid="teaType"
                   name="type"
                   id="type"
-                  value={this.props.teaType}
+                  value={this.props.activeTea.teaType}
                   disabled={!this.props.teaTypes.length}
-                  onChange={this.props.handleTypeChange}
-                  onBlur={this.props.handleTypeChange}
+                  onChange={this.props.onTypeChange}
+                  onBlur={this.props.onTypeChange}
                 >
                   <option />
                   {this.props.teaTypes.map(teaType => {
@@ -119,16 +121,23 @@ export class TeaEditor extends React.Component {
               id="servings"
               type="number"
               placeholder="Servings Available"
-              value={this.props.servings}
+              value={this.props.activeTea.servings}
+              min={0}
               className="input"
               valid={this.props.inputValidation.servings}
               errorMessage={this.props.errorMessages.servings}
               errorClass="is-danger"
-              onChange={this.props.handleServingsChange}
-              onBlur={this.props.handleBlur("servings")}
+              onChange={this.props.onServingsChange}
+              onBlur={this.props.onBlur("servings")}
             />
           </div>
-          <div className="control">
+          <div className="field">
+            <StarRating
+              rating={this.props.activeTea.rating}
+              onRatingClick={this.props.onRatingClick}
+            />
+          </div>
+          <div className="control extra-margin">
             <button data-testid="submit" className="button is-primary">
               Submit
             </button>

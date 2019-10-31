@@ -5,8 +5,19 @@ import teaFixture from "../../../test/__fixtures__/teaFixture";
 import TimerContainer from "../TimerContainer";
 
 let mockFunc;
+let mockHandleCloseTimer;
+let mockDefaultProps;
+
 beforeEach(() => {
   mockFunc = jest.fn();
+  mockHandleCloseTimer = jest.fn();
+  mockDefaultProps = {
+    tea: teaFixture.basicTea,
+    brewTime: 16200000,
+    onCloseTimer: mockHandleCloseTimer,
+    onTimerUpdateQty: mockFunc,
+    editTea: mockFunc
+  };
 });
 
 describe("Timer interactions", () => {
@@ -19,8 +30,11 @@ describe("Timer interactions", () => {
         handleTimerUpdateQty={mockFunc}
       />
     );
+
     expect(queryByTestId("starttimer")).toHaveClass("button");
+
     fireEvent.click(getByTestId("starttimer"));
+
     expect(queryByTestId("starttimer")).not.toHaveClass("button");
     expect(queryByTestId("pausetimer")).toHaveClass("button");
   });
@@ -34,8 +48,10 @@ describe("Timer interactions", () => {
         handleTimerUpdateQty={mockFunc}
       />
     );
+
     fireEvent.click(getByTestId("starttimer"));
     fireEvent.click(getByTestId("pausetimer"));
+
     expect(queryByTestId("pausetimer")).not.toHaveClass("button");
     setTimeout(function() {
       expect(queryByTestId("resumetimer")).toHaveClass("button");
@@ -51,12 +67,16 @@ describe("Timer interactions", () => {
         handleTimerUpdateQty={mockFunc}
       />
     );
+
     fireEvent.click(getByTestId("starttimer"));
     fireEvent.click(getByTestId("pausetimer"));
+
     setTimeout(function() {
       expect(queryByTestId("resumetimer")).toHaveClass("button");
     }, 100);
+
     fireEvent.click(getByTestId("resumetimer"));
+
     expect(queryByTestId("resumetimer")).not.toHaveClass("button");
     expect(queryByTestId("pausetimer")).toHaveClass("button");
   });
@@ -70,11 +90,33 @@ describe("Timer interactions", () => {
         handleTimerUpdateQty={mockFunc}
       />
     );
+
     fireEvent.click(getByTestId("starttimer"));
+
     setTimeout(function() {
       expect(queryByTestId("donetimer")).toHaveClass("button");
     }, 3000);
+
     fireEvent.click(getByTestId("donetimer"));
+
     expect(mockFunc).toHaveBeenCalledWith(teaFixture.servingsUpdatedTea);
+  });
+
+  test("Clicking the cancel button resets the timer", () => {
+    const { getByTestId, queryByTestId } = render(
+      <TimerContainerClass {...mockDefaultProps} />
+    );
+
+    fireEvent.click(getByTestId("starttimer"));
+    fireEvent.click(getByTestId("pausetimer"));
+
+    expect(queryByTestId("pausetimer")).not.toHaveClass("button");
+
+    setTimeout(function() {
+      expect(queryByTestId("resumetimer")).not.toHaveClass("button");
+    }, 100);
+
+    fireEvent.click(getByTestId("canceltimer"));
+    expect(mockHandleCloseTimer).toHaveBeenCalled();
   });
 });

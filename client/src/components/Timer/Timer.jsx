@@ -1,4 +1,6 @@
 import React from "react";
+import { PropTypes } from "prop-types";
+import { convertTimeToMinSec } from "../../lib/timerHelpers";
 
 export class Timer extends React.Component {
   render() {
@@ -21,6 +23,7 @@ export class Timer extends React.Component {
               {this.props.minutes}:{this.props.seconds}
             </p>
             <progress
+              data-testid="progressbar"
               className="progress is-primary"
               value={this.props.progress}
               max="100"
@@ -37,7 +40,7 @@ export class Timer extends React.Component {
                   ? "button is-success"
                   : "is-hidden"
               }
-              onClick={this.props.handleStartTimer}
+              onClick={this.props.onStartTimer}
             >
               Start
             </button>
@@ -51,7 +54,7 @@ export class Timer extends React.Component {
                   ? "button is-success"
                   : "is-hidden"
               }
-              onClick={this.props.handleResumeTimer}
+              onClick={this.props.onResumeTimer}
             >
               Resume
             </button>
@@ -59,7 +62,7 @@ export class Timer extends React.Component {
             <button
               data-testid="pausetimer"
               className={this.props.timerOn ? "button is-danger" : "is-hidden"}
-              onClick={this.props.handlePauseTimer}
+              onClick={this.props.onPauseTimer}
             >
               Pause {this.props.timerOn}
             </button>
@@ -70,14 +73,14 @@ export class Timer extends React.Component {
                   ? "button is-primary"
                   : "is-hidden"
               }
-              onClick={this.props.handleFinishTimer}
+              onClick={this.props.onFinishTimer}
             >
               Done!
             </button>
             <button
               data-testid="canceltimer"
-              className={this.props.timerTime !== 0 ? "button" : "is-hidden"}
-              onClick={this.props.handleCancelTimer}
+              className="button"
+              onClick={this.props.onCancelTimer}
             >
               Cancel
             </button>
@@ -87,3 +90,15 @@ export class Timer extends React.Component {
     );
   }
 }
+
+Timer.propTypes = {
+  timerTime: PropTypes.number.isRequired,
+  brewTime: PropTypes.number.isRequired,
+  teaName: PropTypes.string.isRequired,
+  timerOn: PropTypes.bool.isRequired,
+  handleCancelTimer: PropTypes.func.isRequired,
+  handleFinishTimer: PropTypes.func.isRequired,
+  handlePauseTimer: PropTypes.func.isRequired,
+  handleResumeTimer: PropTypes.func.isRequired,
+  handleStartTimer: PropTypes.func.isRequired
+};

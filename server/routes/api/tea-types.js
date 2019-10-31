@@ -32,12 +32,9 @@ router.post("/", (req, res) => {
       brewTime: req.body.brewTime
     });
 
-    newTeaType
-      .save()
-      .then(teaType => {
-        res.json(teaTypeNormalizer(teaType));
-      })
-      .catch(err => console.log(err));
+    newTeaType.save().then(teaType => {
+      res.status(200).json(teaTypeNormalizer(teaType));
+    });
   });
 });
 

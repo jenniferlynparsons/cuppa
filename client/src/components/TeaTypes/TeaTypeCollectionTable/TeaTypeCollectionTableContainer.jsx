@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { PropTypes } from "prop-types";
 import { deleteTeaType, getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
 import { TeaTypeCollectionTable } from "./TeaTypeCollectionTable";
@@ -17,12 +18,9 @@ export class TeaTypeCollectionTableContainer extends React.Component {
 
   handleDeleteClick = teaType => this.props.deleteTeaType(teaType);
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ flash: this.props.flash });
     this.props.clearFlash();
-  }
-
-  componentDidMount() {
     this.props.getTeaTypes(this.props.userID);
     this.setState({
       allTeaTypes: this.props.allTeaTypes,
@@ -50,7 +48,7 @@ export class TeaTypeCollectionTableContainer extends React.Component {
           columnHeaders={this.columnHeaders}
           allTeaTypes={this.state.allTeaTypes}
           teaTypeIDs={this.state.teaTypeIDs}
-          handleDeleteClick={this.handleDeleteClick}
+          onDeleteClick={this.handleDeleteClick}
         />
       )
     );
@@ -79,3 +77,13 @@ export default connect(
 )(TeaTypeCollectionTableContainer);
 
 export const TeaTypeCollectionTableContainerClass = TeaTypeCollectionTableContainer;
+
+TeaTypeCollectionTableContainer.propTypes = {
+  flash: PropTypes.string,
+  userID: PropTypes.string.isRequired,
+  allTeaTypes: PropTypes.object.isRequired,
+  teaTypeIDs: PropTypes.array.isRequired,
+  deleteTeaType: PropTypes.func.isRequired,
+  clearFlash: PropTypes.func.isRequired,
+  getTeaTypes: PropTypes.func.isRequired
+};

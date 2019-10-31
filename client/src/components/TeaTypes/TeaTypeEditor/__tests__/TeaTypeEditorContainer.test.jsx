@@ -15,6 +15,16 @@ beforeEach(() => {
   mockFunc = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
   mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
+  mockDefaultProps = {
+    teaTypes: teaTypeFixture.teaTypes,
+    userID: dataFixture.mockUserID,
+    currentTeaType: {},
+    getTeaTypes: mockFunc,
+    addTeaType: mockAdd,
+    editTeaType: mockEdit,
+    editFlash: mockEdit,
+    history: dataFixture.history
+  };
 });
 
 describe("teaTypeEditor form success", () => {
@@ -46,7 +56,8 @@ describe("teaTypeEditor form success", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(queryByTestId("flash")).toHaveTextContent(/Black/);
+
+    expect(mockAdd).toHaveBeenCalled();
   });
 
   test("editor form succesfully updates tea type", async () => {
@@ -73,7 +84,7 @@ describe("teaTypeEditor form success", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(dataFixture.history.push).toHaveBeenCalledWith("/tea-types/");
+    expect(mockEdit).toHaveBeenCalled();
   });
 });
 

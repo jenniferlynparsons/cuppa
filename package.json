@@ -105,11 +105,14 @@
     "clearMocks": true,
     "coverageDirectory": "coverage",
     "collectCoverageFrom": [
-      "<rootDir>/client/src/components/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/client/src/actions/*.{js,ts,tsx}",
-      "<rootDir>/client/src/reducers/*.{js,ts,tsx}",
-      "<rootDir>/client/src/selectors/*.{js,ts,tsx}",
-      "<rootDir>/client/src/lib/*.{js,ts,tsx}"
+      "client/src/**/*.{js,jsx}",
+      "!client/src/*.{js,jsx}",
+      "!client/src/test/**",
+      "!client/src/lib/**",
+      "!client/src/components/App/**",
+      "!client/src/components/Auth/PrivateRoute/**",
+      "!client/src/components/ErrorBoundary/**",
+      "!**/node_modules/**"
     ],
     "moduleFileExtensions": [
       "js",

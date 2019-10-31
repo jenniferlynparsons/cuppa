@@ -46,22 +46,21 @@ router.post("/register", (req, res) => {
               name: user.name
             };
 
-              // Sign token
-              jwt.sign(
-                payload,
-                "secret",
-                {
-                  expiresIn: 31556926 // 1 year in seconds
-                },
-                (err, token) => {
-                  res.json({
-                    success: true,
-                    token: "Bearer " + token
-                  });
-                }
-              );
-            })
-            .catch(err => console.log(err));
+            // Sign token
+            jwt.sign(
+              payload,
+              "secret",
+              {
+                expiresIn: 31556926 // 1 year in seconds
+              },
+              (err, token) => {
+                res.status(200).json({
+                  success: true,
+                  token: "Bearer " + token
+                });
+              }
+            );
+          });
         });
       });
     }

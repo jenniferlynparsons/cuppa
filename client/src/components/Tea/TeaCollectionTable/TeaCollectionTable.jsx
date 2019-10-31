@@ -29,8 +29,8 @@ export class TeaCollectionTable extends React.Component {
                     data-testid="filterselect"
                     name="filterCategory"
                     value={this.props.formControls.filterCategory}
-                    onChange={this.props.handleFilterDropdownChange}
-                    onBlur={this.props.handleFilterDropdownChange}
+                    onChange={this.props.onFilterDropdownChange}
+                    onBlur={this.props.onFilterDropdownChange}
                   >
                     <option key="category" value="">
                       Filter by
@@ -58,7 +58,7 @@ export class TeaCollectionTable extends React.Component {
                 className="input is-small"
                 valid={this.props.inputValidation.filterCriteria}
                 errorClass="input is-small is-danger"
-                onChange={this.props.handleFilterInputChange}
+                onChange={this.props.onFilterInputChange}
               />
               <div className="control">
                 <button

@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { PropTypes } from "prop-types";
+import { teaTypeShape } from "../../../lib/propTypes";
 import {
   convertTimeToMinSec,
   convertTimeToSec
@@ -101,10 +103,10 @@ export class TeaTypeEditorContainer extends React.Component {
       if (this.props.edit === true) {
         this.props
           .editTeaType(typeData)
-          .then(this.props.editFlash("success"))
-          .then(this.props.history.push("/tea-types/"));
+          .then(() => this.props.editFlash("success"))
+          .then(() => this.props.history.push("/tea-types/"));
       } else {
-        this.props.addTeaType(typeData).then(
+        this.props.addTeaType(typeData).then(() =>
           this.setState({
             ...this.initialState,
             loadingStatus: "complete",
@@ -176,12 +178,12 @@ export class TeaTypeEditorContainer extends React.Component {
           flash={this.state.flash}
           inputValidation={this.state.inputValidation}
           errorMessages={this.state.errorMessages}
-          handleBlur={this.handleBlur}
-          handleNameChange={this.handleNameChange}
-          handleBrewTimeMinChange={this.handleBrewTimeMinChange}
-          handleBrewTimeSecChange={this.handleBrewTimeSecChange}
-          handleSubmitButton={this.handleSubmitButton}
-          handleFormSubmit={this.handleFormSubmit}
+          onBlur={this.handleBlur}
+          onNameChange={this.handleNameChange}
+          onBrewTimeMinChange={this.handleBrewTimeMinChange}
+          onBrewTimeSecChange={this.handleBrewTimeSecChange}
+          onSubmitButton={this.handleSubmitButton}
+          onFormSubmit={this.handleFormSubmit}
         />
       );
     }
@@ -210,3 +212,15 @@ export default connect(
 )(TeaTypeEditorContainer);
 
 export const TeaTypeEditorContainerClass = TeaTypeEditorContainer;
+
+TeaTypeEditorContainer.propTypes = {
+  userID: PropTypes.string.isRequired,
+  currentTeaType: teaTypeShape,
+  edit: PropTypes.bool,
+  history: PropTypes.object,
+  serverErrors: PropTypes.object,
+  editTeaType: PropTypes.func.isRequired,
+  editFlash: PropTypes.func.isRequired,
+  addTeaType: PropTypes.func.isRequired,
+  getTeaTypes: PropTypes.func.isRequired
+};
