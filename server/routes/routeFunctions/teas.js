@@ -13,7 +13,7 @@ module.exports = {
 
     if (!isValid) return res.status(400).json(errors);
 
-    Tea.findOne({ id: req.body.id }).then(tea => {
+    Tea.findOne({ id: req.params.teaID }).then(tea => {
       if (tea) {
         return res.status(409).json({ duplicate: "This tea already exists" });
       }
@@ -49,7 +49,7 @@ module.exports = {
   },
 
   deleteTea: (req, res) => {
-    Tea.findOneAndDelete({ id: req.params.id }, {}, err => {
+    Tea.findOneAndDelete({ id: req.params.teaID }, {}, err => {
       if (err) return res.status(500).send(err);
       const response = {
         message: "Tea successfully deleted",
@@ -60,7 +60,7 @@ module.exports = {
   },
 
   getTea: (req, res) => {
-    Tea.findOne({ id: req.params.id }, (err, tea) => {
+    Tea.findOne({ id: req.params.teaID }, (err, tea) => {
       if (err) return res.status(404).send(err);
 
       if (tea) {
@@ -72,7 +72,8 @@ module.exports = {
   },
 
   getTeas: (req, res) => {
-    Tea.find({ userID: req.query.userID }, (err, teas) => {
+    console.log(req.params);
+    Tea.find({ userID: req.params.userID }, (err, teas) => {
       if (err) return res.status(404).send(err);
 
       if (teas) {

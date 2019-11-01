@@ -42,7 +42,7 @@ export class TeaCollectionTableContainer extends React.Component {
     { colName: "rating", colTitle: "Rating" }
   ];
 
-  handleDeleteClick = tea => this.props.deleteTea(tea);
+  handleDeleteClick = tea => this.props.deleteTea(this.props.userID, tea);
 
   handleSortClick = (columnName, sortOrder) => {
     let newState = {

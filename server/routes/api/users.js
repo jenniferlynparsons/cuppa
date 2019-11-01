@@ -1,7 +1,8 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const passport = require("passport");
 const userServices = require("../routeFunctions/users");
+const teas = require("./teas");
 
 // @route POST api/users/register
 // @desc Register user
@@ -21,5 +22,8 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   userServices.getUser
 );
+
+// Tea routes
+router.use("/:userID/teas", teas);
 
 module.exports = router;

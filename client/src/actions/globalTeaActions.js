@@ -2,9 +2,9 @@ import API from "../lib/api";
 import { teaActionTypes } from "../lib/actionTypes";
 
 // Add Tea
-export const addTea = (listOwner, tea) => {
+export const addTea = tea => {
   return dispatch => {
-    return API.post(`/users/${listOwner}/teas`, tea, dispatch)
+    return API.post("/teas", tea, dispatch)
       .then(response => {
         dispatch({
           type: teaActionTypes.ADD_TEA,
@@ -16,9 +16,9 @@ export const addTea = (listOwner, tea) => {
 };
 
 // Edit Tea
-export const editTea = (listOwner, tea) => {
+export const editTea = tea => {
   return dispatch => {
-    return API.patch(`/users/${listOwner}/teas/${tea.id}`, tea, dispatch)
+    return API.patch(`/teas/${tea.id}`, tea, dispatch)
       .then(response => {
         dispatch({
           type: teaActionTypes.EDIT_TEA,
@@ -30,9 +30,9 @@ export const editTea = (listOwner, tea) => {
 };
 
 // Delete Tea
-export const deleteTea = (listOwner, teaID) => {
+export const deleteTea = teaID => {
   return dispatch => {
-    return API.delete(`/users/${listOwner}/teas/${teaID}`, dispatch)
+    return API.delete(`/teas/${teaID}`, dispatch)
       .then(() => {
         dispatch({
           type: teaActionTypes.DELETE_TEA,
@@ -46,7 +46,7 @@ export const deleteTea = (listOwner, teaID) => {
 // Get Teas
 export const getTeas = listOwner => {
   return dispatch => {
-    return API.get(`/users/${listOwner}/teas`, dispatch)
+    return API.get(`/teas?userID=${listOwner}`, dispatch)
       .then(response => {
         dispatch({
           type: teaActionTypes.GET_TEAS,
