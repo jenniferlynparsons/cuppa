@@ -2,9 +2,9 @@ import API from "../lib/api";
 import { teaTypeActionTypes } from "../lib/actionTypes";
 
 // Add TeaType
-export const addTeaType = (userID, teaType) => {
+export const addTeaType = teaType => {
   return dispatch =>
-    API.post(`/users/${userID}/teaTypes`, teaType, dispatch)
+    API.post("/teaTypes", teaType, dispatch)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.ADD_TEATYPE,
@@ -15,9 +15,9 @@ export const addTeaType = (userID, teaType) => {
 };
 
 // Edit TeaType
-export const editTeaType = (userID, teaType) => {
+export const editTeaType = teaType => {
   return dispatch =>
-    API.patch(`/users/${userID}/teaTypes/${teaType.id}`, teaType, dispatch)
+    API.patch(`/teaTypes/${teaType.id}`, teaType, dispatch)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.EDIT_TEATYPE,
@@ -28,9 +28,9 @@ export const editTeaType = (userID, teaType) => {
 };
 
 // Delete TeaType
-export const deleteTeaType = (userID, teaTypeID) => {
+export const deleteTeaType = teaTypeID => {
   return dispatch => {
-    return API.delete(`/users/${userID}/teaTypes/${teaTypeID}`, dispatch)
+    return API.delete(`/teaTypes/${teaTypeID}`, dispatch)
       .then(() => {
         dispatch({
           type: teaTypeActionTypes.DELETE_TEATYPE,
@@ -44,7 +44,7 @@ export const deleteTeaType = (userID, teaTypeID) => {
 // Get TeaTypes
 export const getTeaTypes = userID => {
   return dispatch =>
-    API.get(`/users/${userID}/teaTypes`, dispatch)
+    API.get(`/teaTypes?userID=${userID}`, dispatch)
       .then(response => {
         dispatch({
           type: teaTypeActionTypes.GET_TEATYPES,

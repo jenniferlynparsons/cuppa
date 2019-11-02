@@ -16,7 +16,8 @@ export class TeaTypeCollectionTableContainer extends React.Component {
     { colName: "brewTime", colTitle: "Brew Time" }
   ];
 
-  handleDeleteClick = teaType => this.props.deleteTeaType(teaType);
+  handleDeleteClick = teaType =>
+    this.props.deleteTeaType(this.props.userID, teaType);
 
   componentDidMount() {
     this.setState({ flash: this.props.flash });

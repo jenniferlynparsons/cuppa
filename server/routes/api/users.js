@@ -3,6 +3,7 @@ const router = express.Router({ mergeParams: true });
 const passport = require("passport");
 const userServices = require("../routeFunctions/users");
 const teas = require("./teas");
+const teaTypes = require("./teaTypes");
 
 // @route POST api/users/register
 // @desc Register user
@@ -25,5 +26,8 @@ router.get(
 
 // Tea routes
 router.use("/:userID/teas", teas);
+
+// Tea Type routes
+router.use("/:userID/teaTypes", teaTypes);
 
 module.exports = router;

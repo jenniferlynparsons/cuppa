@@ -70,7 +70,7 @@ module.exports = {
     });
   },
   getTeaTypes: (req, res) => {
-    TeaType.find({ userID: req.query.userID }, function(err, teaTypes) {
+    TeaType.find({ userID: req.params.userID }, function(err, teaTypes) {
       if (err) return res.status(404).send(err);
 
       if (teaTypes) {

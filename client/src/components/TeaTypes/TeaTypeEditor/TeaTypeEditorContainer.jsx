@@ -101,11 +101,11 @@ export class TeaTypeEditorContainer extends React.Component {
     if (namevalid && brewtimevalid) {
       if (this.props.edit === true) {
         this.props
-          .editTeaType(typeData)
+          .editTeaType(this.props.userID, typeData)
           .then(() => this.props.editFlash("success"))
           .then(() => this.props.history.push("/teaTypes/"));
       } else {
-        this.props.addTeaType(typeData).then(() =>
+        this.props.addTeaType(this.props.userID, typeData).then(() =>
           this.setState({
             ...this.initialState,
             loadingStatus: "complete",

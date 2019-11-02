@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const teaTypeServices = require("../routeFunctions/teaTypes");
 
 // @route POST api/teaTypes
