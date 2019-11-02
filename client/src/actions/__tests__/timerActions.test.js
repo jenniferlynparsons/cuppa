@@ -3,7 +3,7 @@ import { setTimerID } from "../timerActions";
 
 const store = makeMockStore({});
 
-const mockID = "5c6313a4c318bb62298b23d4";
+const mockID = "5c63123a4c318b298b23d4";
 
 beforeEach(() => {
   store.clearActions();

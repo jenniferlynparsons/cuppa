@@ -62,7 +62,10 @@ describe("teaEditor form success", () => {
 
     fireEvent.click(getByTestId("submit"));
 
-    expect(mockAdd).toHaveBeenCalledWith(teaFixture.basicDataTea);
+    expect(mockAdd).toHaveBeenCalledWith(
+      storeFixture.loggedInStore.auth.user.id,
+      teaFixture.basicDataTea
+    );
   });
 
   test("editor form succesfully updates tea", async () => {

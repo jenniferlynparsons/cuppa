@@ -1,6 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
+import storeFixture from "../../../test/__fixtures__/storeFixture";
 import teaFixture from "../../../test/__fixtures__/teaFixture";
 import { TimerContainerClass } from "../TimerContainer";
 
@@ -16,7 +17,8 @@ beforeEach(() => {
     brewTime: 16200000,
     onCloseTimer: mockHandleCloseTimer,
     onTimerUpdateQty: mockFunc,
-    editTea: mockFunc
+    editTea: mockFunc,
+    userID: "5c63123a4c318b298b23d4"
   };
 });
 
@@ -79,7 +81,10 @@ describe("Timer interactions", () => {
 
     fireEvent.click(getByTestId("donetimer"));
 
-    expect(mockFunc).toHaveBeenCalledWith(teaFixture.servingsUpdatedTea);
+    expect(mockFunc).toHaveBeenCalledWith(
+      storeFixture.loggedInStore.auth.user.id,
+      teaFixture.servingsUpdatedTea
+    );
   });
 
   test("Clicking the cancel button resets the timer", () => {
