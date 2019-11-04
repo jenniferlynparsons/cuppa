@@ -72,8 +72,9 @@ module.exports = {
   },
 
   getTeas: (req, res) => {
-    console.log(req.params);
-    Tea.find({ userID: req.params.userID }, (err, teas) => {
+    const userID = req.params.userID ? req.params.userID : req.query.userID;
+
+    Tea.find({ userID: userID }, (err, teas) => {
       if (err) return res.status(404).send(err);
 
       if (teas) {

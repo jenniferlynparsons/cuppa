@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
-const TeaTypeSchema = new Schema({
+const SourceSchema = new Schema({
   id: {
     type: String,
     required: true
@@ -19,14 +19,10 @@ const TeaTypeSchema = new Schema({
     type: String,
     required: true
   },
-  brewTime: {
-    type: Number,
-    required: true
-  },
   visible: {
     type: Boolean,
     required: true
   }
 });
 
-module.exports = TeaType = mongoose.model("teaTypes", TeaTypeSchema);
+module.exports = Source = mongoose.model("sources", SourceSchema);
