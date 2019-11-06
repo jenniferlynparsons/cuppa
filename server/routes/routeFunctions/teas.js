@@ -49,7 +49,7 @@ module.exports = {
   },
 
   deleteTea: (req, res) => {
-    Tea.findOneAndDelete({ id: req.params.teaID }, {}, err => {
+    Tea.findOneAndRemove({ id: req.params.teaID }, {}, err => {
       if (err) return res.status(500).send(err);
       const response = {
         message: "Tea successfully deleted",

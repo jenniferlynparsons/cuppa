@@ -4,6 +4,7 @@ const passport = require("passport");
 const userServices = require("../routeFunctions/users");
 const teas = require("./teas");
 const teaTypes = require("./teaTypes");
+const servingStyles = require("./servingStyles");
 
 // @route POST api/users/register
 // @desc Register user
@@ -29,5 +30,8 @@ router.use("/:userID/teas", teas);
 
 // Tea Type routes
 router.use("/:userID/teaTypes", teaTypes);
+
+// Serving Style routes
+router.use("/:userID/servingStyles", servingStyles);
 
 module.exports = router;

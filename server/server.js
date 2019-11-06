@@ -9,6 +9,7 @@ const path = require("path");
 const users = require("./routes/api/users");
 const teas = require("./routes/api/teas");
 const teaTypes = require("./routes/api/teaTypes");
+const servingStyles = require("./routes/api/servingStyles");
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use(express.static("client/dist"));
 app.use("/api/users", users);
 app.use("/api/teas", teas);
 app.use("/api/teaTypes", teaTypes);
+app.use("/api/servingStyles", servingStyles);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/dist"));
