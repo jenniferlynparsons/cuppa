@@ -5,6 +5,7 @@ const TeaType = require("../../models/TeaType");
 
 module.exports = {
   postTeaType: (req, res) => {
+    console.log(req.body);
     const { errors, isValid } = validateTeaTypeInput(req.body);
 
     if (!isValid) return res.status(400).json(errors);
@@ -19,8 +20,10 @@ module.exports = {
       const newTeaType = new TeaType({
         id: new mongoose.mongo.ObjectId(),
         userID: req.body.userID,
+        globalID: req.body.globalID,
         name: req.body.name,
-        brewTime: req.body.brewTime
+        brewTime: req.body.brewTime,
+        visible: req.body.visible
       });
 
       newTeaType.save().then(teaType => {
@@ -70,7 +73,9 @@ module.exports = {
     });
   },
   getTeaTypes: (req, res) => {
-    TeaType.find({ userID: req.params.userID }, function(err, teaTypes) {
+    const userID = req.params.userID ? req.params.userID : req.query.userID;
+
+    TeaType.find({ userID: userID }, function(err, teaTypes) {
       if (err) return res.status(404).send(err);
 
       if (teaTypes) {
