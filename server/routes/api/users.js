@@ -5,6 +5,9 @@ const userServices = require("../routeFunctions/users");
 const teas = require("./teas");
 const teaTypes = require("./teaTypes");
 const servingStyles = require("./servingStyles");
+const brands = require("./brands");
+const sources = require("./sources");
+const purchaseLocations = require("./purchaseLocations");
 
 // @route POST api/users/register
 // @desc Register user
@@ -33,5 +36,14 @@ router.use("/:userID/teaTypes", teaTypes);
 
 // Serving Style routes
 router.use("/:userID/servingStyles", servingStyles);
+
+// Brand routes
+router.use("/:userID/brands", brands);
+
+// Source routes
+router.use("/:userID/sources", sources);
+
+// Purchase Location routes
+router.use("/:userID/purchaseLocations", purchaseLocations);
 
 module.exports = router;

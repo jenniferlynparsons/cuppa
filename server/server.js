@@ -10,6 +10,9 @@ const users = require("./routes/api/users");
 const teas = require("./routes/api/teas");
 const teaTypes = require("./routes/api/teaTypes");
 const servingStyles = require("./routes/api/servingStyles");
+const brands = require("./routes/api/brands");
+const sources = require("./routes/api/sources");
+const purchaseLocations = require("./routes/api/purchaseLocations");
 
 const app = express();
 
@@ -45,6 +48,9 @@ app.use("/api/users", users);
 app.use("/api/teas", teas);
 app.use("/api/teaTypes", teaTypes);
 app.use("/api/servingStyles", servingStyles);
+app.use("/api/brands", brands);
+app.use("/api/sources", sources);
+app.use("/api/purchaseLocations", purchaseLocations);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/dist"));
