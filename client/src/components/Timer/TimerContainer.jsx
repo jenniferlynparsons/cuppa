@@ -141,6 +141,6 @@ export const TimerContainerClass = TimerContainer;
 TimerContainer.propTypes = {
   brewTime: PropTypes.number.isRequired,
   tea: teaShape.isRequired,
-  handleCloseTimer: PropTypes.func.isRequired,
+  onCloseTimer: PropTypes.func.isRequired,
   editTea: PropTypes.func.isRequired
 };

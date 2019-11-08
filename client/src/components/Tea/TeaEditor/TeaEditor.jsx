@@ -31,10 +31,7 @@ export class TeaEditor extends React.Component {
           </div>
         )}
 
-        <form
-          onSubmit={this.props.onFormSubmit}
-          data-testid="teaeditorform"
-        >
+        <form onSubmit={this.props.onFormSubmit} data-testid="teaeditorform">
           <div className="field">
             <label className="label" htmlFor="name">
               Tea Name
@@ -175,10 +172,10 @@ TeaEditor.propTypes = {
   teaTypes: PropTypes.array,
   servings: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  handleBrandChange: PropTypes.func.isRequired,
-  handleFormSubmit: PropTypes.func.isRequired,
-  handleNameChange: PropTypes.func.isRequired,
-  handleServingsChange: PropTypes.func.isRequired,
-  handleTypeChange: PropTypes.func.isRequired
+  onBlur: PropTypes.func.isRequired,
+  onBrandChange: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
+  onNameChange: PropTypes.func.isRequired,
+  onServingsChange: PropTypes.func.isRequired,
+  onTypeChange: PropTypes.func.isRequired
 };

@@ -125,8 +125,8 @@ TeaTypeEditor.propTypes = {
   }),
   brewTimeMin: PropTypes.string,
   brewTimeSec: PropTypes.string,
-  handleBrewTimeMinChange: PropTypes.func.isRequired,
-  handleBrewTimeSecChange: PropTypes.func.isRequired,
-  handleFormSubmit: PropTypes.func.isRequired,
-  handleNameChange: PropTypes.func.isRequired
+  onBrewTimeMinChange: PropTypes.func.isRequired,
+  onBrewTimeSecChange: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
+  onNameChange: PropTypes.func.isRequired
 };
