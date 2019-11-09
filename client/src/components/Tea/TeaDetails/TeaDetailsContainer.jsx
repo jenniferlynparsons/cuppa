@@ -5,7 +5,7 @@ import { teaShape } from "../../../lib/propTypes";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
-import { setTimerID } from "../../../actions/timerActions";
+import { setTimerID } from "../../../actions/modalActions";
 import { selectSingleTeaType } from "../../../selectors";
 import { TeaDetails } from "./TeaDetails";
 
@@ -66,7 +66,7 @@ const mapStateToProps = (state, ownProps) => {
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,
     userID: state.auth.user.id,
-    timerID: state.timer.timerID
+    timerID: state.modal.timerID
   };
 };
 

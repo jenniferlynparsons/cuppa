@@ -27,6 +27,6 @@ export const errorActionTypes = {
   SERVER_ERRORS: "SERVER_ERRORS"
 };
 
-export const timerActionTypes = {
+export const modalActionTypes = {
   SET_TIMER_ID: "SET_TIMER_ID"
 };

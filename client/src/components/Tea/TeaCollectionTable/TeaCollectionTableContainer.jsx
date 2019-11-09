@@ -7,7 +7,7 @@ import {
 } from "../../../lib/validationSchemas";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
-import { setTimerID } from "../../../actions/timerActions";
+import { setTimerID } from "../../../actions/modalActions";
 import { TeaCollectionTable } from "./TeaCollectionTable";
 import DataList from "../../FormComponents/DataList";
 

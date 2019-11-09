@@ -1,5 +1,5 @@
 import { makeMockStore } from "../../test/testUtils";
-import { setTimerID } from "../timerActions";
+import { setTimerID } from "../modalActions";
 
 const store = makeMockStore({});
 
