@@ -109,7 +109,7 @@ describe("TeaCollectionTableContainerClass interactions", () => {
       fireEvent.click(getByTestId("teaType"));
       // expect "Lapsang Souchang" to be the first tea
       expect(queryAllByTestId("detailslink")[0].textContent).toEqual(
-        "Lapsang Souchang"
+        "Sleepytime"
       );
     });
   });

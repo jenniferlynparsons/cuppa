@@ -19,8 +19,11 @@ beforeEach(() => {
   mockSetModalID = jest.fn();
 
   mockDefaultProps = {
+    userID: teaFixture.basicTea.userID,
     tea: teaFixture.basicTea,
     teaTypes: storeFixture.basicStore.teaTypes,
+    teaType: teaFixture.basicTea.teaType,
+    timerID: "",
     setModalID: mockSetModalID,
     flash: "off",
     getTeas: mockGetTeas,
@@ -88,6 +91,6 @@ describe("tea timer interactions", () => {
     await Promise.resolve();
 
     fireEvent.click(getByTestId("makecuppalink"));
-    expect(mockSetTimerID).toHaveBeenCalled();
+    expect(mockSetModalID).toHaveBeenCalled();
   });
 });

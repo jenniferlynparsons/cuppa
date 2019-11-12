@@ -159,23 +159,27 @@ TeaEditor.propTypes = {
   serverErrors: PropTypes.shape({
     duplicate: PropTypes.string
   }),
-  name: PropTypes.string.isRequired,
+  activeTea: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    brand: PropTypes.string.isRequired,
+    teaType: PropTypes.string.isRequired,
+    servings: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      .isRequired,
+    rating: PropTypes.string.isRequired
+  }),
   brandsDataList: PropTypes.object,
-  brand: PropTypes.string.isRequired,
   errorMessages: PropTypes.shape({
     name: PropTypes.string,
     brand: PropTypes.string,
     teaType: PropTypes.string,
     servings: PropTypes.string
   }),
-  teaType: PropTypes.string.isRequired,
   teaTypes: PropTypes.array,
-  servings: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
   onBlur: PropTypes.func.isRequired,
   onBrandChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
   onNameChange: PropTypes.func.isRequired,
   onServingsChange: PropTypes.func.isRequired,
-  onTypeChange: PropTypes.func.isRequired
+  onTypeChange: PropTypes.func.isRequired,
+  onRatingClick: PropTypes.func.isRequired
 };

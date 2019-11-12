@@ -10,7 +10,7 @@ export class TeaTypeCollectionTable extends React.Component {
       <div data-testid="teatypecollection" className="container">
         {this.props.flash === "success" && (
           <p data-testid="flash" className="notification is-success">
-            Tea type has been succesfully updated.
+            Tea type has been successfully updated.
           </p>
         )}
         <button className="button is-primary" onClick={this.props.onModalOpen}>
@@ -85,6 +85,9 @@ TeaTypeCollectionTable.propTypes = {
   flash: PropTypes.string.isRequired,
   columnHeaders: PropTypes.array.isRequired,
   teaTypeIDs: PropTypes.array.isRequired,
+  teaTypeID: PropTypes.string.isRequired,
   allTeaTypes: PropTypes.object.isRequired,
-  handleDeleteClick: PropTypes.func.isRequired
+  onDeleteClick: PropTypes.func.isRequired,
+  onModalOpen: PropTypes.func.isRequired,
+  onModalClose: PropTypes.func.isRequired
 };

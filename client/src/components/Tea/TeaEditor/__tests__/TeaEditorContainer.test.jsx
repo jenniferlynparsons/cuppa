@@ -45,7 +45,7 @@ describe("teaEditor form success", () => {
       target: { value: teaFixture.basicTea.brand }
     });
     fireEvent.change(getByTestId("teaType"), {
-      target: { value: "5d40b6871f88450253bdbf40" }
+      target: { value: "5c63123a4c318b298b23d4" }
     });
     fireEvent.change(getByTestId("servings"), {
       target: { value: 22 }

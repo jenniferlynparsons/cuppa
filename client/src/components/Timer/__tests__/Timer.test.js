@@ -1,7 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import storeFixture from "../../../test/__fixtures__/storeFixture";
 import teaFixture from "../../../test/__fixtures__/teaFixture";
 import { TimerContainerClass } from "../TimerContainer";
 
@@ -82,7 +81,7 @@ describe("Timer interactions", () => {
     fireEvent.click(getByTestId("donetimer"));
 
     expect(mockFunc).toHaveBeenCalledWith(
-      storeFixture.loggedInStore.auth.user.id,
+      mockDefaultProps.userID,
       teaFixture.servingsUpdatedTea
     );
   });

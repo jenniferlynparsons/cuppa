@@ -284,13 +284,14 @@ export class TeaTypeEditorModal extends React.Component {
                   )}
                 </div>
                 <div className="is-centered">
-                  {/* <button
+                  <button
                     data-testid="canceltimer"
                     className="button"
-                    onClick={this.handleModalOpen}
+                    type="button"
+                    onClick={this.props.onModalClose}
                   >
                     Cancel
-                  </button> */}
+                  </button>
                   <button data-testid="submit" className="button is-primary">
                     Submit
                   </button>
@@ -336,5 +337,5 @@ TeaTypeEditorModal.propTypes = {
   editTeaType: PropTypes.func.isRequired,
   editFlash: PropTypes.func.isRequired,
   addTeaType: PropTypes.func.isRequired,
-  getTeaTypes: PropTypes.func.isRequired
+  onModalClose: PropTypes.func.isRequired
 };

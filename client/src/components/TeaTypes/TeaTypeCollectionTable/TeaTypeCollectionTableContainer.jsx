@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { deleteTeaType, getTeaTypes } from "../../../actions/teaTypeActions";
@@ -100,6 +99,7 @@ TeaTypeCollectionTableContainer.propTypes = {
   userID: PropTypes.string.isRequired,
   allTeaTypes: PropTypes.object.isRequired,
   teaTypeIDs: PropTypes.array.isRequired,
+  teaTypeID: PropTypes.string,
   deleteTeaType: PropTypes.func.isRequired,
   clearFlash: PropTypes.func.isRequired,
   getTeaTypes: PropTypes.func.isRequired,
