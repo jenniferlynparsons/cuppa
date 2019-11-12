@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { convertTimeToMinSec } from "../../../lib/timerHelpers";
+import TeaTypeEditorModal from "../TeaTypeEditorModal";
 
 export class TeaTypeCollectionTable extends React.Component {
   render() {
@@ -12,9 +13,16 @@ export class TeaTypeCollectionTable extends React.Component {
             Tea type has been succesfully updated.
           </p>
         )}
-        <Link to={"/new-tea-type"} className="button is-primary">
+        <button className="button is-primary" onClick={this.props.onModalOpen}>
           Add A New Type
-        </Link>
+        </button>
+
+        {this.props.teaTypeID && (
+          <TeaTypeEditorModal
+            teaTypeID={this.props.teaTypeID}
+            onModalClose={this.props.onModalClose}
+          />
+        )}
         <table className="table is-striped is-fullwidth">
           <thead>
             <tr>
@@ -38,12 +46,13 @@ export class TeaTypeCollectionTable extends React.Component {
                     {brewTime.minute}:{brewTime.seconds}
                   </td>
                   <td>
-                    <Link
-                      to={"/update-tea-type/" + teaType.id}
+                    <button
                       data-testid="editlink"
+                      className="button is-primary is-small"
+                      onClick={() => this.props.onModalOpen(teaType.id)}
                     >
                       Edit
-                    </Link>
+                    </button>
                   </td>
                   <td>
                     <button

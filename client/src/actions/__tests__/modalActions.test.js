@@ -1,5 +1,5 @@
 import { makeMockStore } from "../../test/testUtils";
-import { setTimerID } from "../modalActions";
+import { setModalID } from "../modalActions";
 
 const store = makeMockStore({});
 
@@ -9,12 +9,12 @@ beforeEach(() => {
   store.clearActions();
 });
 
-describe("setTimerID", () => {
+describe("setModalID", () => {
   test("returns an object", () => {
-    expect(setTimerID(mockID)).toBeInstanceOf(Object);
+    expect(setModalID(mockID)).toBeInstanceOf(Object);
   });
   test("it returns the SET_TIMER_ID action type and payload", () => {
-    store.dispatch(setTimerID(mockID));
+    store.dispatch(setModalID("SET_TIMER_ID", mockID));
     expect(store.getActions()[0].payload).toEqual(mockID);
     expect(store.getActions()[0].type).toEqual("SET_TIMER_ID");
   });

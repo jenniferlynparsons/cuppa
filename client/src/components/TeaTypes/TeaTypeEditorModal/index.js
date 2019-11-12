@@ -1,3 +1,3 @@
-import TeaTypeEditorModalContainer from "./TeaTypeEditorModalContainer";
+import TeaTypeEditorModal from "./TeaTypeEditorModal";
 
-export default TeaTypeEditorModalContainer;
+export default TeaTypeEditorModal;

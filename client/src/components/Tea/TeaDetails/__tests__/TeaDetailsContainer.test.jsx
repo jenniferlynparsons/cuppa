@@ -9,19 +9,19 @@ import { TeaDetailsContainerClass } from "../TeaDetailsContainer";
 let mockFunc;
 let mockGetTeas;
 let mockGetTeaTypes;
-let mockSetTimerID;
+let mockSetModalID;
 let mockDefaultProps;
 
 beforeEach(() => {
   mockFunc = jest.fn();
   mockGetTeas = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockGetTeaTypes = jest.fn(() => Promise.resolve(storeFixture.basicStore));
-  mockSetTimerID = jest.fn();
+  mockSetModalID = jest.fn();
 
   mockDefaultProps = {
     tea: teaFixture.basicTea,
     teaTypes: storeFixture.basicStore.teaTypes,
-    setTimerID: mockSetTimerID,
+    setModalID: mockSetModalID,
     flash: "off",
     getTeas: mockGetTeas,
     getTeaTypes: mockGetTeaTypes,

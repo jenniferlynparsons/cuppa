@@ -6,6 +6,7 @@ export const addTeaType = (userID, teaType) => {
   return dispatch =>
     API.post(`/users/${userID}/teaTypes`, teaType, dispatch)
       .then(response => {
+        console.log(response);
         dispatch({
           type: teaTypeActionTypes.ADD_TEATYPE,
           payload: response
