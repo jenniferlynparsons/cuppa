@@ -23,6 +23,7 @@ beforeEach(() => {
   mockDefaultProps = {
     allTeaTypes: teaTypeFixture.teaTypes.allTeaTypes,
     teaTypeIDs: teaTypeFixture.teaTypes.teaTypeIDs,
+    teaTypeID: "",
     modal: teaTypeFixture.modalTeaType,
     userID: dataFixture.mockUserID,
     setModalID: mockSetModalID,
