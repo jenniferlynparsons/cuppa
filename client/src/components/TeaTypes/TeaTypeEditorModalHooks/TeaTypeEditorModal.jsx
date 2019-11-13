@@ -101,12 +101,12 @@ export default function TeaTypeEditorModal(props) {
       if (edit === true) {
         // useDispatch
         dispatch(editTeaType(userID, typeData))
-          .then(dispatch(editFlash("success")))
-          .then(dispatch(props.onModalClose()));
+          .then(() => dispatch(editFlash("success")))
+          .then(() => dispatch(props.onModalClose()));
       } else {
         dispatch(addTeaType(userID, typeData))
-          .then(dispatch(editFlash("success")))
-          .then(dispatch(props.onModalClose()));
+          .then(() => dispatch(editFlash("success")))
+          .then(() => dispatch(props.onModalClose()));
       }
     } else {
       setInputValidation({
