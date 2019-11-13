@@ -1,7 +1,7 @@
 {
   "env": {
     "test": {
-      "plugins": ["@babel/transform-runtime"]
+      "plugins": ["@babel/plugin-transform-runtime"]
     },
     "production": {
       "plugins": ["babel-plugin-jsx-remove-data-test-id"]
@@ -10,6 +10,16 @@
   "presets": ["@babel/env", "@babel/react"],
   "plugins": [
     "@babel/proposal-class-properties",
-    "@babel/plugin-proposal-object-rest-spread"
+    "@babel/plugin-proposal-object-rest-spread",
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "absoluteRuntime": false,
+        "corejs": false,
+        "helpers": true,
+        "regenerator": true,
+        "useESModules": false
+      }
+    ]
   ]
 }
