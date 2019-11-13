@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { convertTimeToMinSec } from "../../../lib/timerHelpers";
-import TeaTypeEditorModal from "../TeaTypeEditorModal";
+import TeaTypeEditorModal from "../TeaTypeEditorModalHooks";
 
 export class TeaTypeCollectionTable extends React.Component {
   render() {
