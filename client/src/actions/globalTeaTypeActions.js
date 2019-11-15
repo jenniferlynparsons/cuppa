@@ -2,7 +2,7 @@ import API from "../lib/api";
 import { teaTypeActionTypes } from "../lib/actionTypes";
 
 // Add TeaType
-export const addTeaType = teaType => {
+export const globalAddTeaType = teaType => {
   return dispatch =>
     API.post("/teaTypes", teaType, dispatch)
       .then(response => {
@@ -15,7 +15,7 @@ export const addTeaType = teaType => {
 };
 
 // Edit TeaType
-export const editTeaType = teaType => {
+export const globalEditTeaType = teaType => {
   return dispatch =>
     API.patch(`/teaTypes/${teaType.id}`, teaType, dispatch)
       .then(response => {
@@ -28,7 +28,7 @@ export const editTeaType = teaType => {
 };
 
 // Delete TeaType
-export const deleteTeaType = teaTypeID => {
+export const globalDeleteTeaType = teaTypeID => {
   return dispatch => {
     return API.delete(`/teaTypes/${teaTypeID}`, dispatch)
       .then(() => {
@@ -42,7 +42,7 @@ export const deleteTeaType = teaTypeID => {
 };
 
 // Get TeaTypes
-export const getTeaTypes = userID => {
+export const globalGetTeaTypes = userID => {
   return dispatch =>
     API.get(`/teaTypes?userID=${userID}`, dispatch)
       .then(response => {
@@ -55,10 +55,10 @@ export const getTeaTypes = userID => {
 };
 
 const teaActions = {
-  addTeaType,
-  editTeaType,
-  deleteTeaType,
-  getTeaTypes
+  globalAddTeaType,
+  globalEditTeaType,
+  globalDeleteTeaType,
+  globalGetTeaTypes
 };
 
 export default teaActions;

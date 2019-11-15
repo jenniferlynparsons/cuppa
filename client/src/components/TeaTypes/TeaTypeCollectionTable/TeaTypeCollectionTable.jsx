@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { convertTimeToMinSec } from "../../../lib/timerHelpers";
-import TeaTypeEditorModal from "../TeaTypeEditorModalHooks";
+import TeaTypeEditor from "../TeaTypeEditor";
 
 export class TeaTypeCollectionTable extends React.Component {
   render() {
@@ -18,10 +18,7 @@ export class TeaTypeCollectionTable extends React.Component {
         </button>
 
         {this.props.teaTypeID && (
-          <TeaTypeEditorModal
-            teaTypeID={this.props.teaTypeID}
-            onModalClose={this.props.onModalClose}
-          />
+          <TeaTypeEditor teaTypeID={this.props.teaTypeID} />
         )}
         <table className="table is-striped is-fullwidth">
           <thead>
@@ -85,9 +82,8 @@ TeaTypeCollectionTable.propTypes = {
   flash: PropTypes.string.isRequired,
   columnHeaders: PropTypes.array.isRequired,
   teaTypeIDs: PropTypes.array.isRequired,
-  teaTypeID: PropTypes.string.isRequired,
+  teaTypeID: PropTypes.string,
   allTeaTypes: PropTypes.object.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
-  onModalOpen: PropTypes.func.isRequired,
-  onModalClose: PropTypes.func.isRequired
+  onModalOpen: PropTypes.func.isRequired
 };

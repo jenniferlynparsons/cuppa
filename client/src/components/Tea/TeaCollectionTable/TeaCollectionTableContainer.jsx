@@ -192,10 +192,10 @@ export class TeaCollectionTableContainer extends React.Component {
   };
 
   handleOpenTimer = id => {
-    this.props.setModalID("SET_TIMER_ID", id);
+    this.props.setModalID("SET_MODAL_ID", id);
   };
   handleCloseTimer = () => {
-    this.props.setModalID("SET_TIMER_ID", "");
+    this.props.setModalID("SET_MODAL_ID", "");
   };
 
   componentDidMount() {
@@ -260,7 +260,7 @@ const mapStateToProps = state => {
     teas: state.teas,
     teaTypes: state.teaTypes,
     userID: state.auth.user.id,
-    timerID: state.modal.timerID
+    timerID: state.modal.modalID
   };
 };
 

@@ -21,11 +21,7 @@ export class TeaTypeCollectionTableContainer extends React.Component {
     this.props.deleteTeaType(this.props.userID, teaType);
 
   handleModalOpen = id => {
-    this.props.setModalID("SET_TEATYPE_ID", id);
-  };
-
-  handleModalClose = () => {
-    this.props.setModalID("SET_TEATYPE_ID", "");
+    this.props.setModalID(id);
   };
 
   componentDidMount() {
@@ -62,7 +58,6 @@ export class TeaTypeCollectionTableContainer extends React.Component {
           teaTypeID={this.props.teaTypeID}
           onDeleteClick={this.handleDeleteClick}
           onModalOpen={this.handleModalOpen}
-          onModalClose={this.handleModalClose}
         />
       )
     );
@@ -73,7 +68,7 @@ const mapStateToProps = state => {
   return {
     allTeaTypes: state.teaTypes.allTeaTypes,
     teaTypeIDs: state.teaTypes.teaTypeIDs,
-    teaTypeID: state.modal.teaTypeID,
+    teaTypeID: state.modal.modalID,
     userID: state.auth.user.id,
     flash: state.flash
   };

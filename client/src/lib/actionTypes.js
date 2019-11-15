@@ -28,6 +28,5 @@ export const errorActionTypes = {
 };
 
 export const modalActionTypes = {
-  SET_TIMER_ID: "SET_TIMER_ID",
-  SET_TEATYPE_ID: "SET_TEATYPE_ID"
+  SET_MODAL_ID: "SET_MODAL_ID"
 };

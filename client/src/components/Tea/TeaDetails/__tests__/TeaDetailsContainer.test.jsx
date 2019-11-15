@@ -23,7 +23,7 @@ beforeEach(() => {
     tea: teaFixture.basicTea,
     teaTypes: storeFixture.basicStore.teaTypes,
     teaType: teaFixture.basicTea.teaType,
-    timerID: "",
+    modalID: "",
     setModalID: mockSetModalID,
     flash: "off",
     getTeas: mockGetTeas,

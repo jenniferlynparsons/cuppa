@@ -13,9 +13,9 @@ describe("setModalID", () => {
   test("returns an object", () => {
     expect(setModalID(mockID)).toBeInstanceOf(Object);
   });
-  test("it returns the SET_TIMER_ID action type and payload", () => {
-    store.dispatch(setModalID("SET_TIMER_ID", mockID));
+  test("it returns the SET_MODAL_ID action type and payload", () => {
+    store.dispatch(setModalID(mockID));
     expect(store.getActions()[0].payload).toEqual(mockID);
-    expect(store.getActions()[0].type).toEqual("SET_TIMER_ID");
+    expect(store.getActions()[0].type).toEqual("SET_MODAL_ID");
   });
 });

@@ -107,7 +107,7 @@ const basicStore = {
   },
   flash: "off",
   modal: {
-    teaTypeID: "5d39dd1f0487d1116140bac1"
+    modalID: "5d39dd1f0487d1116140bac1"
   }
 };
 
@@ -380,7 +380,6 @@ const duplicateErrorStore = {
       exp: 1592014358
     }
   },
-
   teas: {
     allTeas: {
       "25070e52-e635-4883-ae9b-583113573b9f": {
@@ -444,7 +443,8 @@ const duplicateErrorStore = {
       "5c63123a4c318b298b23d4"
     ]
   },
-  flash: "off"
+  flash: "off",
+  errors: { serverErrors: { duplicate: "This tea type already exists" } }
 };
 
 const storeFixture = {

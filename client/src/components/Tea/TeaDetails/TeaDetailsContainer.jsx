@@ -20,20 +20,18 @@ class TeaDetailsContainer extends React.Component {
   };
 
   handleOpenTimer = id => {
-    this.props.setModalID("SET_TIMER_ID", id);
+    this.props.setModalID("SET_MODAL_ID", id);
   };
 
   handleCloseTimer = () => {
-    this.props.setModalID("SET_TIMER_ID", "");
+    this.props.setModalID("SET_MODAL_ID", "");
   };
 
   componentDidMount() {
     this.setState({ flash: this.props.flash });
     this.props.clearFlash();
     this.props.getTeas(this.props.userID);
-    this.props
-      .getTeaTypes(this.props.userID)
-      .then(() => this.setState({ loadingStatus: "complete" }));
+    this.props.getTeaTypes(this.props.userID).then(() => this.setState({ loadingStatus: "complete" }));
   }
 
   render() {
@@ -44,17 +42,7 @@ class TeaDetailsContainer extends React.Component {
         </div>
       );
     } else {
-      return (
-        <TeaDetails
-          tea={this.props.tea}
-          teaType={this.props.teaType}
-          timerID={this.props.timerID}
-          flash={this.state.flash}
-          updateFlash={this.updateFlash}
-          onOpenTimer={this.handleOpenTimer}
-          onCloseTimer={this.handleCloseTimer}
-        />
-      );
+      return <TeaDetails tea={this.props.tea} teaType={this.props.teaType} timerID={this.props.modalID} flash={this.state.flash} updateFlash={this.updateFlash} onOpenTimer={this.handleOpenTimer} onCloseTimer={this.handleCloseTimer} />;
     }
   }
 }
@@ -66,7 +54,7 @@ const mapStateToProps = (state, ownProps) => {
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,
     userID: state.auth.user.id,
-    timerID: state.modal.timerID
+    timerID: state.modal.modalID
   };
 };
 
@@ -79,10 +67,7 @@ const mapDispatchToProps = {
   setModalID
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TeaDetailsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TeaDetailsContainer);
 
 export const TeaDetailsContainerClass = TeaDetailsContainer;
 

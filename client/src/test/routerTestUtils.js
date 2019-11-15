@@ -23,7 +23,7 @@ export const renderWithRouter = (
 export const renderWithRedux = (ui, mockedStore, route = "/") => {
   const history = createMemoryHistory({ initialEntries: [route] });
   const store = makeMockStore(mockedStore);
-  console.log(mockedStore);
+
   return {
     ...render(
       <Provider store={store}>

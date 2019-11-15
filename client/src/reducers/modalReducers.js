@@ -1,10 +1,7 @@
 export default (state = {}, action) => {
   switch (action.type) {
-    case "SET_TIMER_ID": {
-      return { ...state, timerID: action.payload };
-    }
-    case "SET_TEATYPE_ID": {
-      return { ...state, teaTypeID: action.payload };
+    case "SET_MODAL_ID": {
+      return { ...state, modalID: action.payload };
     }
     default:
       return state;

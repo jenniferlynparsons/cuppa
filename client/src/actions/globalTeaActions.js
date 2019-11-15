@@ -2,7 +2,7 @@ import API from "../lib/api";
 import { teaActionTypes } from "../lib/actionTypes";
 
 // Add Tea
-export const addTea = tea => {
+export const globalAddTea = tea => {
   return dispatch => {
     return API.post("/teas", tea, dispatch)
       .then(response => {
@@ -16,7 +16,7 @@ export const addTea = tea => {
 };
 
 // Edit Tea
-export const editTea = tea => {
+export const globalEditTea = tea => {
   return dispatch => {
     return API.patch(`/teas/${tea.id}`, tea, dispatch)
       .then(response => {
@@ -30,7 +30,7 @@ export const editTea = tea => {
 };
 
 // Delete Tea
-export const deleteTea = teaID => {
+export const globalDeleteTea = teaID => {
   return dispatch => {
     return API.delete(`/teas/${teaID}`, dispatch)
       .then(() => {
@@ -44,7 +44,7 @@ export const deleteTea = teaID => {
 };
 
 // Get Teas
-export const getTeas = userID => {
+export const globalGetTeas = userID => {
   return dispatch => {
     return API.get(`/teas?userID=${userID}`, dispatch)
       .then(response => {
@@ -57,7 +57,7 @@ export const getTeas = userID => {
   };
 };
 
-export const setErrorResponse = errorObj => {
+export const globalSetErrorResponse = errorObj => {
   return {
     type: teaActionTypes.SERVER_ERRORS,
     payload: errorObj
@@ -65,10 +65,10 @@ export const setErrorResponse = errorObj => {
 };
 
 const teaActions = {
-  addTea,
-  editTea,
-  deleteTea,
-  getTeas
+  globalAddTea,
+  globalEditTea,
+  globalDeleteTea,
+  globalGetTeas
 };
 
 export default teaActions;

@@ -13,10 +13,11 @@ import {
 } from "../../../lib/validationSchemas";
 import { editTeaType, addTeaType } from "../../../actions/teaTypeActions";
 import { editFlash } from "../../../actions/flashActions";
+import { setModalID } from "../../../actions/modalActions";
 import { validationComplete } from "../../../lib/validationComplete";
 import InputField from "../../FormComponents/InputField";
 
-export default function TeaTypeEditorModal(props) {
+export default function TeaTypeEditor(props) {
   const [teaTypeState, setTeaTypeState] = useState({
     id: "",
     globalID: "",
@@ -99,14 +100,13 @@ export default function TeaTypeEditorModal(props) {
 
     if (namevalid && brewtimevalid) {
       if (edit === true) {
-        // useDispatch
         dispatch(editTeaType(userID, typeData))
           .then(() => dispatch(editFlash("success")))
-          .then(() => dispatch(props.onModalClose()));
+          .then(() => dispatch(setModalID("")));
       } else {
         dispatch(addTeaType(userID, typeData))
           .then(() => dispatch(editFlash("success")))
-          .then(() => dispatch(props.onModalClose()));
+          .then(() => dispatch(setModalID("")));
       }
     } else {
       setInputValidation({
@@ -117,7 +117,7 @@ export default function TeaTypeEditorModal(props) {
         brewTimeSec: brewtimesecvalid
       });
     }
-  };
+  }
 
   return (
     <div
@@ -211,7 +211,7 @@ export default function TeaTypeEditorModal(props) {
                 data-testid="canceltimer"
                 className="button"
                 type="button"
-                onClick={props.onModalClose}
+                onClick={() => dispatch(setModalID(""))}
               >
                 Cancel
               </button>
@@ -226,17 +226,10 @@ export default function TeaTypeEditorModal(props) {
   );
 }
 
-export const TeaTypeEditorModalClass = TeaTypeEditorModal;
-
-TeaTypeEditorModal.propTypes = {
-  userID: PropTypes.string.isRequired,
+TeaTypeEditor.propTypes = {
   currentTeaType: teaTypeShape,
   teaTypeID: PropTypes.string.isRequired,
   edit: PropTypes.bool,
   history: PropTypes.object,
-  serverErrors: PropTypes.object,
-  editTeaType: PropTypes.func.isRequired,
-  editFlash: PropTypes.func.isRequired,
-  addTeaType: PropTypes.func.isRequired,
-  onModalClose: PropTypes.func.isRequired
+  serverErrors: PropTypes.object
 };

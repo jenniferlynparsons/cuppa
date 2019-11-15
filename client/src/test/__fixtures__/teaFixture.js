@@ -181,7 +181,7 @@ const matchTeaID = {
 };
 
 const matchTimerID = {
-  timerID: "25070e52-e635-4883-ae9b-583113573b9f"
+  modalID: "25070e52-e635-4883-ae9b-583113573b9f"
 };
 
 const teaBrands = ["Celestial Seasonings", "Celestial Seasonings", "McNulty's"];

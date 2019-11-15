@@ -1,9 +1,9 @@
 import { modalActionTypes } from "../lib/actionTypes";
 
-export const setModalID = (reducerName, id) => {
+export const setModalID = (id) => {
   return dispatch => {
     return dispatch({
-      type: modalActionTypes[reducerName],
+      type: modalActionTypes.SET_MODAL_ID,
       payload: id
     });
   };
