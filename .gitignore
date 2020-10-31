@@ -32,5 +32,4 @@ jspm_packages/
 .env
 
 .cache/
-package-lock.json
 coverage/

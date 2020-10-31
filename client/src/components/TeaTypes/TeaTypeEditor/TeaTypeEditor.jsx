@@ -117,7 +117,7 @@ export default function TeaTypeEditor(props) {
         brewTimeSec: brewtimesecvalid
       });
     }
-  }
+  };
 
   return (
     <div
