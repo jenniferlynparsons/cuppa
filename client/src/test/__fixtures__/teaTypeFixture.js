@@ -38,6 +38,10 @@ const missingDataTeaType = {
   brewTime: 12360000
 };
 
+const modalTeaType = {
+  teaTypeID: "5d39dd1f0487d1116140bac1"
+};
+
 const teaTypes = {
   allTeaTypes: {
     "5d39dd1f0487d1116140bac1": {
@@ -55,8 +59,8 @@ const teaTypes = {
       name: "White",
       brewTime: 7800000
     },
-    "5d40b6871f88450253bdbf40": {
-      id: "5d40b6871f88450253bdbf40",
+    "5c63123a4c318b298b23d4": {
+      id: "5c63123a4c318b298b23d4",
       name: "Herbal",
       brewTime: 14400000
     }
@@ -65,7 +69,7 @@ const teaTypes = {
     "5d39dd1f0487d1116140bac1",
     "5d48277169b3160191797d14",
     "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-    "5d40b6871f88450253bdbf40"
+    "5c63123a4c318b298b23d4"
   ],
   flash: "off"
 };
@@ -87,8 +91,8 @@ const duplicateTeaTypes = {
       name: "White",
       brewTime: 7800000
     },
-    "5d40b6871f88450253bdbf40": {
-      id: "5d40b6871f88450253bdbf40",
+    "5c63123a4c318b298b23d4": {
+      id: "5c63123a4c318b298b23d4",
       name: "Herbal",
       brewTime: 14400000
     }
@@ -97,7 +101,7 @@ const duplicateTeaTypes = {
     "5d39dd1f0487d1116140bac1",
     "5d48277169b3160191797d14",
     "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-    "5d40b6871f88450253bdbf40"
+    "5c63123a4c318b298b23d4"
   ],
   errors: { serverErrors: { duplicate: "This tea type already exists" } }
 };
@@ -116,8 +120,7 @@ const allTeaTypesArray = [
     brewTime: 120
   },
   {
-    id: "5d40b6871f88450253bdbf40",
-    userID: "5ceffe255c871902244da0d1",
+    id: "5c63123a4c318b298b23d4",
     name: "Herbal",
     brewTime: 63
   }
@@ -192,7 +195,7 @@ const getTeaTypesPayload = [
     brewTime: 7800000
   },
   {
-    id: "5d40b6871f88450253bdbf40",
+    id: "5c63123a4c318b298b23d4",
     name: "Herbal",
     brewTime: 14400000
   }
@@ -212,6 +215,12 @@ const editTeaTypePayload = {
 
 const deleteTeaTypePayload = "5d48277169b3160191797d14";
 
+const singleTeaType = {
+  id: "5c63123a4c318b298b23d4",
+  name: "Herbal",
+  brewTime: 14400000
+};
+
 const emptyState = { allTeaTypes: {}, teaTypeIDs: [] };
 
 const teaTypeFixture = {
@@ -221,6 +230,7 @@ const teaTypeFixture = {
   updatedTeaType,
   missingDataTeaTypeFormValues,
   missingDataTeaType,
+  modalTeaType,
   teaTypes,
   duplicateTeaTypes,
   allTeaTypesArray,

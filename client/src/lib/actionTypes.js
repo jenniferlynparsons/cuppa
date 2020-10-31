@@ -26,3 +26,7 @@ export const teaTypeActionTypes = {
 export const errorActionTypes = {
   SERVER_ERRORS: "SERVER_ERRORS"
 };
+
+export const modalActionTypes = {
+  SET_MODAL_ID: "SET_MODAL_ID"
+};

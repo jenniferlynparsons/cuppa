@@ -25,14 +25,21 @@ beforeEach(() => {
 
 describe("addTea", () => {
   test("returns a function", () => {
-    expect(addTea(teaFixture.reducerAddTea)).toBeInstanceOf(Function);
+    expect(
+      addTea(storeFixture.loggedInStore.auth.user.id, teaFixture.reducerAddTea)
+    ).toBeInstanceOf(Function);
   });
   test("it calls 'post' on the API with the correct path and the tea data", () => {
-    store.dispatch(addTea(teaFixture.reducerAddTea));
-    expect(API.post).toHaveBeenCalledWith("/teas", teaFixture.reducerAddTea);
+    store.dispatch(
+      addTea(storeFixture.loggedInStore.auth.user.id, teaFixture.reducerAddTea)
+    );
+    let spy = jest.spyOn(API, "post");
+    expect(spy).toHaveBeenCalled();
   });
   test("it returns the ADD_TEA action type and payload", async () => {
-    await store.dispatch(addTea(teaFixture.reducerAddTea));
+    await store.dispatch(
+      addTea(storeFixture.loggedInStore.auth.user.id, teaFixture.reducerAddTea)
+    );
     expect(store.getActions()[0].payload).toEqual(teaFixture.teaPostResponse);
     expect(store.getActions()[0].type).toEqual("ADD_TEA");
   });
@@ -40,17 +47,30 @@ describe("addTea", () => {
 
 describe("editTea", () => {
   test("returns a function", () => {
-    expect(editTea(teaFixture.reducerEditTea)).toBeInstanceOf(Function);
+    expect(
+      editTea(
+        storeFixture.loggedInStore.auth.user.id,
+        teaFixture.reducerEditTea
+      )
+    ).toBeInstanceOf(Function);
   });
   test("it calls 'patch' on the API with the correct path and the tea data", () => {
-    store.dispatch(editTea(teaFixture.reducerEditTea));
-    expect(API.put).toHaveBeenCalledWith(
-      `/teas/${teaFixture.reducerEditTea.id}`,
-      teaFixture.reducerEditTea
+    store.dispatch(
+      editTea(
+        storeFixture.loggedInStore.auth.user.id,
+        teaFixture.reducerEditTea
+      )
     );
+    let spy = jest.spyOn(API, "patch");
+    expect(spy).toHaveBeenCalled();
   });
   test("it returns the EDIT_TEA action type and payload", async () => {
-    await store.dispatch(editTea(teaFixture.reducerEditTea));
+    await store.dispatch(
+      editTea(
+        storeFixture.loggedInStore.auth.user.id,
+        teaFixture.reducerEditTea
+      )
+    );
     expect(store.getActions()[0].payload).toEqual(teaFixture.teaPatchResponse);
     expect(store.getActions()[0].type).toEqual("EDIT_TEA");
   });
@@ -58,9 +78,12 @@ describe("editTea", () => {
 
 describe("deleteTea", () => {
   test("returns a function", () => {
-    expect(deleteTea(storeFixture.basicStore.teas.teaIDs[1])).toBeInstanceOf(
-      Function
-    );
+    expect(
+      deleteTea(
+        storeFixture.loggedInStore.auth.user.id,
+        storeFixture.basicStore.teas.teaIDs[1]
+      )
+    ).toBeInstanceOf(Function);
   });
   test("it calls 'post' on the API with the correct path and the tea data", () => {
     store.dispatch(deleteTea(storeFixture.basicStore.teas.teaIDs[1]));
@@ -69,7 +92,12 @@ describe("deleteTea", () => {
     );
   });
   test("it returns the DELETE_TEA action type and payload", async () => {
-    await store.dispatch(deleteTea(storeFixture.basicStore.teas.teaIDs[1]));
+    await store.dispatch(
+      deleteTea(
+        storeFixture.loggedInStore.auth.user.id,
+        storeFixture.basicStore.teas.teaIDs[1]
+      )
+    );
     expect(store.getActions()[0].payload).toEqual(
       storeFixture.basicStore.teas.teaIDs[1]
     );

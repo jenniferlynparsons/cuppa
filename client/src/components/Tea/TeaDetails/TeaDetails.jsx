@@ -77,6 +77,6 @@ TeaDetails.propTypes = {
   teaType: PropTypes.string.isRequired,
   timerID: PropTypes.string.isRequired,
   updateFlash: PropTypes.func.isRequired,
-  handleOpenTimer: PropTypes.func.isRequired,
-  handleCloseTimer: PropTypes.func.isRequired
+  onOpenTimer: PropTypes.func.isRequired,
+  onCloseTimer: PropTypes.func.isRequired
 };

@@ -116,13 +116,13 @@ export class TeaEditorContainer extends React.Component {
     if (namevalid && brandvalid && teaTypevalid && servingsvalid) {
       if (this.props.edit === true) {
         this.props
-          .editTea(teaData)
+          .editTea(this.props.userID, teaData)
           .then(() => this.props.editFlash("success"))
           .then(() =>
             this.props.history.push("/tea/" + this.state.activeTea.id)
           );
       } else {
-        this.props.addTea(teaData).then(() =>
+        this.props.addTea(this.props.userID, teaData).then(() =>
           this.setState({
             ...this.initialState,
             loadingStatus: "complete"

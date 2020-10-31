@@ -2,9 +2,9 @@ import API from "../lib/api";
 import { teaActionTypes, errorActionTypes } from "../lib/actionTypes";
 
 // Add Tea
-export const addTea = tea => {
+export const addTea = (userID, tea) => {
   return dispatch => {
-    return API.post("/teas", tea)
+    return API.post(`/users/${userID}/teas`, tea, dispatch)
       .then(response => {
         if (response && response.duplicate) {
           dispatch({
@@ -23,9 +23,9 @@ export const addTea = tea => {
 };
 
 // Edit Tea
-export const editTea = tea => {
+export const editTea = (userID, tea) => {
   return dispatch => {
-    return API.put(`/teas/${tea.id}`, tea)
+    return API.patch(`/users/${userID}/teas/${tea.id}`, tea, dispatch)
       .then(response => {
         dispatch({
           type: teaActionTypes.EDIT_TEA,
@@ -37,9 +37,9 @@ export const editTea = tea => {
 };
 
 // Delete Tea
-export const deleteTea = teaID => {
+export const deleteTea = (userID, teaID) => {
   return dispatch => {
-    return API.delete(`/teas/${teaID}`)
+    return API.delete(`/users/${userID}/teas/${teaID}`, dispatch)
       .then(() => {
         dispatch({
           type: teaActionTypes.DELETE_TEA,
@@ -51,9 +51,9 @@ export const deleteTea = teaID => {
 };
 
 // Get Teas
-export const getTeas = listOwner => {
+export const getTeas = userID => {
   return dispatch => {
-    return API.get(`/teas?userID=${listOwner}`)
+    return API.get(`/users/${userID}/teas`, dispatch)
       .then(response => {
         dispatch({
           type: teaActionTypes.GET_TEAS,

@@ -2,8 +2,10 @@ const teaTypeNormalizer = rawTeaTypeData => {
   return {
     id: rawTeaTypeData.id,
     userID: rawTeaTypeData.userID,
+    globalID: rawTeaTypeData.globalID,
     name: rawTeaTypeData.name,
-    brewTime: rawTeaTypeData.brewTime
+    brewTime: rawTeaTypeData.brewTime,
+    visible: rawTeaTypeData.visible
   };
 };
 

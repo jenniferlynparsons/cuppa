@@ -53,7 +53,7 @@ class TimerContainer extends React.Component {
         () => {
           this.resetTimer();
           this.props.onCloseTimer();
-          this.props.editTea(this.state.tea);
+          this.props.editTea(this.props.userID, this.state.tea);
         }
       );
     }
@@ -194,6 +194,6 @@ export const TimerContainerClass = TimerContainer;
 TimerContainer.propTypes = {
   brewTime: PropTypes.number.isRequired,
   tea: teaShape.isRequired,
-  handleCloseTimer: PropTypes.func.isRequired,
+  onCloseTimer: PropTypes.func.isRequired,
   editTea: PropTypes.func.isRequired
 };

@@ -9,11 +9,30 @@ import { TeaDetailsContainerClass } from "../TeaDetailsContainer";
 let mockFunc;
 let mockGetTeas;
 let mockGetTeaTypes;
+let mockSetModalID;
+let mockDefaultProps;
 
 beforeEach(() => {
   mockFunc = jest.fn();
   mockGetTeas = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockGetTeaTypes = jest.fn(() => Promise.resolve(storeFixture.basicStore));
+  mockSetModalID = jest.fn();
+
+  mockDefaultProps = {
+    userID: teaFixture.basicTea.userID,
+    tea: teaFixture.basicTea,
+    teaTypes: storeFixture.basicStore.teaTypes,
+    teaType: teaFixture.basicTea.teaType,
+    modalID: "",
+    setModalID: mockSetModalID,
+    flash: "off",
+    getTeas: mockGetTeas,
+    getTeaTypes: mockGetTeaTypes,
+    editTea: mockFunc,
+    editFlash: mockFunc,
+    clearFlash: mockFunc,
+    match: { params: { id: "25070e52-e635-4883-ae9b-583113573b9f" } }
+  };
 });
 
 describe("TeaDetailsContainer flash", () => {
@@ -93,7 +112,7 @@ describe("tea timer interactions", () => {
     await Promise.resolve();
 
     fireEvent.click(getByTestId("makecuppalink"));
-    expect(queryByTestId("timermodal")).toHaveClass("is-active");
+    expect(mockSetModalID).toHaveBeenCalled();
   });
 
   test("user can hide timer modal", async () => {

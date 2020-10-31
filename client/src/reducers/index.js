@@ -4,14 +4,15 @@ import errorReducer from "./errorReducers";
 import teaReducers from "./teaReducers";
 import teaTypesReducer from "./teaTypesReducers";
 import flashReducer from "./flashReducers";
-import timerReducer from "./timerReducers";
+import modalReducer from "./modalReducers";
 
 const appReducer = combineReducers({
   auth: authReducer,
   errors: errorReducer,
   teas: teaReducers,
   teaTypes: teaTypesReducer,
-  flash: flashReducer
+  flash: flashReducer,
+  modal: modalReducer
 });
 
 export const rootReducer = (state, action) => {

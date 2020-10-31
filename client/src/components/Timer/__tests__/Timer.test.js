@@ -16,7 +16,8 @@ beforeEach(() => {
     brewTime: 16200000,
     onCloseTimer: mockHandleCloseTimer,
     onTimerUpdateQty: mockFunc,
-    editTea: mockFunc
+    editTea: mockFunc,
+    userID: "5c63123a4c318b298b23d4"
   };
 });
 
@@ -99,7 +100,10 @@ describe("Timer interactions", () => {
 
     fireEvent.click(getByTestId("donetimer"));
 
-    expect(mockFunc).toHaveBeenCalledWith(teaFixture.servingsUpdatedTea);
+    expect(mockFunc).toHaveBeenCalledWith(
+      mockDefaultProps.userID,
+      teaFixture.servingsUpdatedTea
+    );
   });
 
   test("Clicking the cancel button resets the timer", () => {
