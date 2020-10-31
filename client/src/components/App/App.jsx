@@ -17,7 +17,6 @@ import Dashboard from "../Dashboard";
 import TeaEditor from "../Tea/TeaEditor";
 import TeaCollectionTable from "../Tea/TeaCollectionTable";
 import TeaDetails from "../Tea/TeaDetails";
-import TeaTypeEditor from "../TeaTypes/TeaTypeEditor";
 import TeaTypeCollectionTable from "../TeaTypes/TeaTypeCollectionTable";
 // Styles
 import "../../common_styles/global.scss";
@@ -78,18 +77,8 @@ class App extends React.Component {
                     />
                     <PrivateRoute
                       exact={true}
-                      path="/tea-types"
+                      path="/teaTypes"
                       component={TeaTypeCollectionTable}
-                    />
-                    <PrivateRoute
-                      exact={true}
-                      path="/new-tea-type"
-                      component={TeaTypeEditor}
-                    />
-                    <PrivateRoute
-                      exact={true}
-                      path="/update-tea-type/:id"
-                      component={TeaTypeEditor}
                     />
                     <PrivateRoute
                       exact={true}

@@ -7,7 +7,7 @@ import {
 } from "../../../lib/validationSchemas";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
-import { setTimerID } from "../../../actions/timerActions";
+import { setModalID } from "../../../actions/modalActions";
 import { TeaCollectionTable } from "./TeaCollectionTable";
 import DataList from "../../FormComponents/DataList";
 
@@ -42,7 +42,7 @@ export class TeaCollectionTableContainer extends React.Component {
     { colName: "rating", colTitle: "Rating" }
   ];
 
-  handleDeleteClick = tea => this.props.deleteTea(tea);
+  handleDeleteClick = tea => this.props.deleteTea(this.props.userID, tea);
 
   handleSortClick = (columnName, sortOrder) => {
     let newState = {
@@ -192,10 +192,10 @@ export class TeaCollectionTableContainer extends React.Component {
   };
 
   handleOpenTimer = id => {
-    this.props.setTimerID(id);
+    this.props.setModalID("SET_MODAL_ID", id);
   };
   handleCloseTimer = () => {
-    this.props.setTimerID("");
+    this.props.setModalID("SET_MODAL_ID", "");
   };
 
   componentDidMount() {
@@ -260,7 +260,7 @@ const mapStateToProps = state => {
     teas: state.teas,
     teaTypes: state.teaTypes,
     userID: state.auth.user.id,
-    timerID: state.timer.timerID
+    timerID: state.modal.modalID
   };
 };
 
@@ -268,7 +268,7 @@ const mapDispatchToProps = {
   deleteTea,
   getTeas,
   getTeaTypes,
-  setTimerID
+  setModalID
 };
 
 export default connect(
@@ -284,7 +284,7 @@ TeaCollectionTableContainer.propTypes = {
   userID: PropTypes.string.isRequired,
   timerID: PropTypes.string,
   deleteTea: PropTypes.func.isRequired,
-  setTimerID: PropTypes.func.isRequired,
+  setModalID: PropTypes.func.isRequired,
   getTeas: PropTypes.func.isRequired,
   getTeaTypes: PropTypes.func.isRequired
 };

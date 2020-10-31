@@ -1,39 +1,29 @@
 import React from "react";
 import "jest-dom/extend-expect";
 import { fireEvent } from "@testing-library/react";
-import { renderWithRouter } from "../../../../test/routerTestUtils";
+import { renderWithRedux } from "../../../../test/routerTestUtils";
 import dataFixture from "../../../../test/__fixtures__/dataFixture";
 import storeFixture from "../../../../test/__fixtures__/storeFixture";
 import teaTypeFixture from "../../../../test/__fixtures__/teaTypeFixture";
-import { TeaTypeEditorContainerClass } from "../TeaTypeEditorContainer";
+import TeaTypeEditor from "../TeaTypeEditor";
 
-let mockFunc;
-let mockAdd;
-let mockEdit;
 let mockDefaultProps;
 
 beforeEach(() => {
-  mockFunc = jest.fn(() => Promise.resolve(storeFixture.basicStore));
-  mockAdd = jest.fn(() => Promise.resolve(storeFixture.addedStore));
-  mockEdit = jest.fn(() => Promise.resolve(storeFixture.updatedStore));
   mockDefaultProps = {
-    teaTypes: teaTypeFixture.teaTypes,
     userID: dataFixture.mockUserID,
-    currentTeaType: {},
-    getTeaTypes: mockFunc,
-    addTeaType: mockAdd,
-    editTeaType: mockEdit,
-    editFlash: mockEdit,
-    history: dataFixture.history
+    teaTypes: teaTypeFixture.teaTypes,
+    teaTypeID: teaTypeFixture.basicTeaType.id
   };
 });
 
 describe("teaTypeEditor form success", () => {
-  test("editor form submit succesfully adds tea type", async () => {
-    const { getByTestId, queryByTestId } = renderWithRouter(
-      <TeaTypeEditorContainerClass {...mockDefaultProps} />
+  test("editor form submits succesfully", async () => {
+    const { getByTestId, queryByText } = renderWithRedux(
+      <TeaTypeEditor {...mockDefaultProps} />,
+      storeFixture.basicStore
     );
-    expect(queryByTestId("loadingmessage")).toBeTruthy();
+
     await Promise.resolve();
 
     fireEvent.change(getByTestId("name"), {
@@ -53,16 +43,14 @@ describe("teaTypeEditor form success", () => {
 
     fireEvent.click(getByTestId("submit"));
 
-    expect(mockAdd).toHaveBeenCalled();
+    expect(queryByText("Please enter a tea type name")).toBeFalsy();
+    expect(queryByText("Please enter a tea brew time")).toBeFalsy();
   });
 
   test("editor form succesfully updates tea type", async () => {
-    const { getByTestId } = renderWithRouter(
-      <TeaTypeEditorContainerClass
-        {...mockDefaultProps}
-        currentTeaType={teaTypeFixture.basicTeaType}
-        edit={true}
-      />
+    const { getByTestId, queryByText } = renderWithRedux(
+      <TeaTypeEditor {...mockDefaultProps} />,
+      storeFixture.basicStore
     );
     await Promise.resolve();
 
@@ -75,15 +63,17 @@ describe("teaTypeEditor form success", () => {
     });
 
     fireEvent.click(getByTestId("submit"));
-    expect(mockEdit).toHaveBeenCalled();
+    expect(queryByText("Please enter a tea type name")).toBeFalsy();
+    expect(queryByText("Please enter a tea brew time")).toBeFalsy();
   });
 });
 
 describe("teaTypeEditor form failure", () => {
   describe("editor onSubmit returns an error message if data is invalid", () => {
     test("missing information for new tea type", async () => {
-      const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
-        <TeaTypeEditorContainerClass {...mockDefaultProps} />
+      const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRedux(
+        <TeaTypeEditor {...mockDefaultProps} />,
+        storeFixture.basicStore
       );
       await Promise.resolve();
 
@@ -95,11 +85,9 @@ describe("teaTypeEditor form failure", () => {
     });
 
     test("missing information for existing tea type", async () => {
-      const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRouter(
-        <TeaTypeEditorContainerClass
-          {...mockDefaultProps}
-          currentTeaType={teaTypeFixture.missingDataTeaType}
-        />
+      const { getByTestId, queryByTestId, queryAllByTestId } = renderWithRedux(
+        <TeaTypeEditor {...mockDefaultProps} />,
+        storeFixture.basicStore
       );
       await Promise.resolve();
 
@@ -111,15 +99,12 @@ describe("teaTypeEditor form failure", () => {
     });
 
     test("duplicate tea type", async () => {
-      const { queryByTestId } = renderWithRouter(
-        <TeaTypeEditorContainerClass
-          {...mockDefaultProps}
-          serverErrors={{ duplicate: "This tea type already exists" }}
-        />
+      const { queryByTestId } = renderWithRedux(
+        <TeaTypeEditor {...mockDefaultProps} />,
+        storeFixture.duplicateErrorStore
       );
       await Promise.resolve();
 
-      expect(queryByTestId("flash")).toBeFalsy();
       expect(queryByTestId("duplicatenotice")).toBeTruthy();
     });
   });

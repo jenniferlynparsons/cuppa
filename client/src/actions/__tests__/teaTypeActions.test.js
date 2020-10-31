@@ -30,17 +30,30 @@ beforeEach(() => {
 
 describe("addTeaType", () => {
   test("returns a function", () => {
-    expect(addTeaType(teaTypeFixture.reducerAddTeaType)).toBeInstanceOf(
-      Function
-    );
+    expect(
+      addTeaType(
+        storeFixture.loggedInStore.auth.user.id,
+        teaTypeFixture.reducerAddTeaType
+      )
+    ).toBeInstanceOf(Function);
   });
   test("it calls 'post' on the API with the correct path and the tea type data", () => {
-    store.dispatch(addTeaType(teaTypeFixture.reducerAddTeaType));
+    store.dispatch(
+      addTeaType(
+        storeFixture.loggedInStore.auth.user.id,
+        teaTypeFixture.reducerAddTeaType
+      )
+    );
     let spy = jest.spyOn(API, "post");
     expect(spy).toHaveBeenCalled();
   });
   test("it returns the ADD_TEATYPE action type and payload", async () => {
-    await store.dispatch(addTeaType(teaTypeFixture.reducerAddTeaType));
+    await store.dispatch(
+      addTeaType(
+        storeFixture.loggedInStore.auth.user.id,
+        teaTypeFixture.reducerAddTeaType
+      )
+    );
     expect(store.getActions()[0].payload).toEqual(
       teaTypeFixture.teaPostResponse
     );
@@ -50,17 +63,30 @@ describe("addTeaType", () => {
 
 describe("editTeaType", () => {
   test("returns a function", () => {
-    expect(editTeaType(teaTypeFixture.reducerEditTeaType)).toBeInstanceOf(
-      Function
-    );
+    expect(
+      editTeaType(
+        storeFixture.loggedInStore.auth.user.id,
+        teaTypeFixture.reducerEditTeaType
+      )
+    ).toBeInstanceOf(Function);
   });
   test("it calls 'patch' on the API with the correct path and the tea type data", () => {
-    store.dispatch(editTeaType(teaTypeFixture.reducerEditTeaType));
+    store.dispatch(
+      editTeaType(
+        storeFixture.loggedInStore.auth.user.id,
+        teaTypeFixture.reducerEditTeaType
+      )
+    );
     let spy = jest.spyOn(API, "patch");
     expect(spy).toHaveBeenCalled();
   });
   test("it returns the EDIT_TEATYPE action type and payload", async () => {
-    await store.dispatch(editTeaType(teaTypeFixture.reducerEditTeaType));
+    await store.dispatch(
+      editTeaType(
+        storeFixture.loggedInStore.auth.user.id,
+        teaTypeFixture.reducerEditTeaType
+      )
+    );
     expect(store.getActions()[0].payload).toEqual(
       teaTypeFixture.teaPatchResponse
     );
@@ -71,17 +97,28 @@ describe("editTeaType", () => {
 describe("deleteTeaType", () => {
   test("returns a function", () => {
     expect(
-      deleteTeaType(storeFixture.basicStore.teas.teaIDs[1])
+      deleteTeaType(
+        storeFixture.loggedInStore.auth.user.id,
+        storeFixture.basicStore.teas.teaIDs[1]
+      )
     ).toBeInstanceOf(Function);
   });
   test("it calls 'post' on the API with the correct path and the tea type data", () => {
-    store.dispatch(deleteTeaType(storeFixture.basicStore.teas.teaIDs[1]));
+    store.dispatch(
+      deleteTeaType(
+        storeFixture.loggedInStore.auth.user.id,
+        storeFixture.basicStore.teas.teaIDs[1]
+      )
+    );
     let spy = jest.spyOn(API, "delete");
     expect(spy).toHaveBeenCalled();
   });
   test("it returns the DELETE_TEATYPE action type and payload", async () => {
     await store.dispatch(
-      deleteTeaType(storeFixture.basicStore.teaTypes.teaTypeIDs[1])
+      deleteTeaType(
+        storeFixture.loggedInStore.auth.user.id,
+        storeFixture.basicStore.teaTypes.teaTypeIDs[1]
+      )
     );
     expect(store.getActions()[0].payload).toEqual(
       storeFixture.basicStore.teaTypes.teaTypeIDs[1]

@@ -5,7 +5,7 @@ import { teaShape } from "../../../lib/propTypes";
 import { getTeas, editTea } from "../../../actions/teaActions";
 import { getTeaTypes } from "../../../actions/teaTypeActions";
 import { editFlash, clearFlash } from "../../../actions/flashActions";
-import { setTimerID } from "../../../actions/timerActions";
+import { setModalID } from "../../../actions/modalActions";
 import { selectSingleTeaType } from "../../../selectors";
 import { TeaDetails } from "./TeaDetails";
 
@@ -20,20 +20,18 @@ class TeaDetailsContainer extends React.Component {
   };
 
   handleOpenTimer = id => {
-    this.props.setTimerID(id);
+    this.props.setModalID("SET_MODAL_ID", id);
   };
 
   handleCloseTimer = () => {
-    this.props.setTimerID("");
+    this.props.setModalID("SET_MODAL_ID", "");
   };
 
   componentDidMount() {
     this.setState({ flash: this.props.flash });
     this.props.clearFlash();
     this.props.getTeas(this.props.userID);
-    this.props
-      .getTeaTypes(this.props.userID)
-      .then(() => this.setState({ loadingStatus: "complete" }));
+    this.props.getTeaTypes(this.props.userID).then(() => this.setState({ loadingStatus: "complete" }));
   }
 
   render() {
@@ -44,17 +42,7 @@ class TeaDetailsContainer extends React.Component {
         </div>
       );
     } else {
-      return (
-        <TeaDetails
-          tea={this.props.tea}
-          teaType={this.props.teaType}
-          timerID={this.props.timerID}
-          flash={this.state.flash}
-          updateFlash={this.updateFlash}
-          onOpenTimer={this.handleOpenTimer}
-          onCloseTimer={this.handleCloseTimer}
-        />
-      );
+      return <TeaDetails tea={this.props.tea} teaType={this.props.teaType} timerID={this.props.modalID} flash={this.state.flash} updateFlash={this.updateFlash} onOpenTimer={this.handleOpenTimer} onCloseTimer={this.handleCloseTimer} />;
     }
   }
 }
@@ -66,7 +54,7 @@ const mapStateToProps = (state, ownProps) => {
     tea: state.teas.allTeas[ownProps.match.params.id],
     flash: state.flash,
     userID: state.auth.user.id,
-    timerID: state.timer.timerID
+    timerID: state.modal.modalID
   };
 };
 
@@ -76,13 +64,10 @@ const mapDispatchToProps = {
   editTea,
   getTeas,
   getTeaTypes,
-  setTimerID
+  setModalID
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TeaDetailsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TeaDetailsContainer);
 
 export const TeaDetailsContainerClass = TeaDetailsContainer;
 
@@ -93,7 +78,7 @@ TeaDetailsContainer.propTypes = {
   teaType: PropTypes.string.isRequired,
   timerID: PropTypes.string.isRequired,
   editFlash: PropTypes.func.isRequired,
-  setTimerID: PropTypes.func.isRequired,
+  setModalID: PropTypes.func.isRequired,
   clearFlash: PropTypes.func.isRequired,
   getTeas: PropTypes.func.isRequired,
   getTeaTypes: PropTypes.func.isRequired

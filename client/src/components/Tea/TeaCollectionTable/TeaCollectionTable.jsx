@@ -230,13 +230,13 @@ TeaCollectionTable.propTypes = {
   allTeas: PropTypes.object.isRequired,
   teaTypes: PropTypes.object.isRequired,
   timerID: PropTypes.string,
-  handleFilterDropdownChange: PropTypes.func.isRequired,
-  handleFilterInputChange: PropTypes.func.isRequired,
-  handleFilterClick: PropTypes.func.isRequired,
-  handleClearFilterClick: PropTypes.func.isRequired,
-  handleSortClick: PropTypes.func.isRequired,
-  handleSortColumn: PropTypes.func.isRequired,
-  handleOpenTimer: PropTypes.func.isRequired,
-  handleDeleteClick: PropTypes.func.isRequired,
-  handleCloseTimer: PropTypes.func.isRequired
+  onFilterDropdownChange: PropTypes.func.isRequired,
+  onFilterInputChange: PropTypes.func.isRequired,
+  onFilterClick: PropTypes.func.isRequired,
+  onClearFilterClick: PropTypes.func.isRequired,
+  onSortClick: PropTypes.func.isRequired,
+  onSortColumn: PropTypes.func.isRequired,
+  onOpenTimer: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
+  onCloseTimer: PropTypes.func.isRequired
 };

@@ -1,3 +1,3 @@
-import TeaTypeEditorContainer from "./TeaTypeEditorContainer";
+import TeaTypeEditor from "./TeaTypeEditor";
 
-export default TeaTypeEditorContainer;
+export default TeaTypeEditor;

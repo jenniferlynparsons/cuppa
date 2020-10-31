@@ -9,7 +9,11 @@ const TeaTypeSchema = new Schema({
   },
   userID: {
     type: String,
-    required: true
+    required: false
+  },
+  globalID: {
+    type: String,
+    required: false
   },
   name: {
     type: String,
@@ -17,6 +21,10 @@ const TeaTypeSchema = new Schema({
   },
   brewTime: {
     type: Number,
+    required: true
+  },
+  visible: {
+    type: Boolean,
     required: true
   }
 });

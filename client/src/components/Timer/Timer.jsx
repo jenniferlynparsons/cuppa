@@ -96,9 +96,9 @@ Timer.propTypes = {
   brewTime: PropTypes.number.isRequired,
   teaName: PropTypes.string.isRequired,
   timerOn: PropTypes.bool.isRequired,
-  handleCancelTimer: PropTypes.func.isRequired,
-  handleFinishTimer: PropTypes.func.isRequired,
-  handlePauseTimer: PropTypes.func.isRequired,
-  handleResumeTimer: PropTypes.func.isRequired,
-  handleStartTimer: PropTypes.func.isRequired
+  onCancelTimer: PropTypes.func.isRequired,
+  onFinishTimer: PropTypes.func.isRequired,
+  onPauseTimer: PropTypes.func.isRequired,
+  onResumeTimer: PropTypes.func.isRequired,
+  onStartTimer: PropTypes.func.isRequired
 };

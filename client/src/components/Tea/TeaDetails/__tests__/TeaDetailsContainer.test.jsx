@@ -9,19 +9,22 @@ import { TeaDetailsContainerClass } from "../TeaDetailsContainer";
 let mockFunc;
 let mockGetTeas;
 let mockGetTeaTypes;
-let mockSetTimerID;
+let mockSetModalID;
 let mockDefaultProps;
 
 beforeEach(() => {
   mockFunc = jest.fn();
   mockGetTeas = jest.fn(() => Promise.resolve(storeFixture.basicStore));
   mockGetTeaTypes = jest.fn(() => Promise.resolve(storeFixture.basicStore));
-  mockSetTimerID = jest.fn();
+  mockSetModalID = jest.fn();
 
   mockDefaultProps = {
+    userID: teaFixture.basicTea.userID,
     tea: teaFixture.basicTea,
     teaTypes: storeFixture.basicStore.teaTypes,
-    setTimerID: mockSetTimerID,
+    teaType: teaFixture.basicTea.teaType,
+    modalID: "",
+    setModalID: mockSetModalID,
     flash: "off",
     getTeas: mockGetTeas,
     getTeaTypes: mockGetTeaTypes,
@@ -88,6 +91,6 @@ describe("tea timer interactions", () => {
     await Promise.resolve();
 
     fireEvent.click(getByTestId("makecuppalink"));
-    expect(mockSetTimerID).toHaveBeenCalled();
+    expect(mockSetModalID).toHaveBeenCalled();
   });
 });

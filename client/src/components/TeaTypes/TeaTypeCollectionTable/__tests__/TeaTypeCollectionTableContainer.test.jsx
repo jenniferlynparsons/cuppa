@@ -11,6 +11,7 @@ import { TeaTypeCollectionTableContainerClass } from "../TeaTypeCollectionTableC
 
 let mockGetTeaTypes;
 let mockDeleteTeaType;
+let mockSetModalID;
 let mockDefaultProps;
 
 beforeEach(() => {
@@ -18,10 +19,14 @@ beforeEach(() => {
   mockDeleteTeaType = jest.fn(() => {
     return storeFixture.deletedStore;
   });
+  mockSetModalID = jest.fn();
   mockDefaultProps = {
     allTeaTypes: teaTypeFixture.teaTypes.allTeaTypes,
     teaTypeIDs: teaTypeFixture.teaTypes.teaTypeIDs,
+    teaTypeID: "",
+    modal: teaTypeFixture.modalTeaType,
     userID: dataFixture.mockUserID,
+    setModalID: mockSetModalID,
     getTeaTypes: mockGetTeaTypes,
     deleteTeaType: mockDeleteTeaType,
     flash: "success",
@@ -30,15 +35,6 @@ beforeEach(() => {
 });
 
 describe("TeaTypeCollectionContainer rendering", () => {
-  test("renders the component with redux without errors", () => {
-    let store = makeMockStore(storeFixture.basicStore);
-    const { queryByTestId } = renderWithRouter(
-      <TeaTypeCollectionContainer store={store} />
-    );
-
-    expect(queryByTestId("teatypecollection")).toBeTruthy();
-  });
-
   test("renders the component with flash message", () => {
     const { queryByTestId } = renderWithRouter(
       <TeaTypeCollectionTableContainerClass {...mockDefaultProps} />
@@ -59,15 +55,15 @@ describe("TeaTypeCollectionTableContainerClass interactions", () => {
       expect(mockDeleteTeaType).toHaveBeenCalled();
     });
 
-    test("user clicks edit link redirects to tea type editor", () => {
-      const { getAllByTestId, history } = renderWithRouter(
+    test("user can display teaType editor modal", async () => {
+      const { queryByTestId, getAllByTestId } = renderWithRouter(
         <TeaTypeCollectionTableContainerClass {...mockDefaultProps} />
       );
+      // expect(queryByTestId("loadingmessage")).toBeTruthy();
+      // await Promise.resolve();
 
-      fireEvent.click(getAllByTestId("editlink")[2]);
-      expect(history.entries[1].pathname).toEqual(
-        "/update-tea-type/425ba4a6-fc19-4a53-813c-7957e72aa0ad"
-      );
+      fireEvent.click(getAllByTestId("editlink")[0]);
+      expect(mockSetModalID).toHaveBeenCalled();
     });
   });
 });

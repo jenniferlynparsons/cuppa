@@ -35,7 +35,7 @@ const basicStore = {
     isAuthenticated: true,
     loading: false,
     user: {
-      id: "5c6313a4c318bb62298b23d4",
+      id: "5c63123a4c318b298b23d4",
       name: "Jennifer",
       iat: 1560457432,
       exp: 1592014358
@@ -48,7 +48,7 @@ const basicStore = {
         id: "25070e52-e635-4883-ae9b-583113573b9f",
         name: "Sleepytime",
         brand: "Celestial Seasonings",
-        teaType: "5d40b6871f88450253bdbf40",
+        teaType: "5c63123a4c318b298b23d4",
         servings: 22,
         rating: "4"
       },
@@ -92,8 +92,8 @@ const basicStore = {
         name: "White",
         brewTime: 7800000
       },
-      "5d40b6871f88450253bdbf40": {
-        id: "5d40b6871f88450253bdbf40",
+      "5c63123a4c318b298b23d4": {
+        id: "5c63123a4c318b298b23d4",
         name: "Herbal",
         brewTime: 14400000
       }
@@ -102,17 +102,20 @@ const basicStore = {
       "5d39dd1f0487d1116140bac1",
       "5d48277169b3160191797d14",
       "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-      "5d40b6871f88450253bdbf40"
+      "5c63123a4c318b298b23d4"
     ]
   },
-  flash: "off"
+  flash: "off",
+  modal: {
+    modalID: "5d39dd1f0487d1116140bac1"
+  }
 };
 
 const addedStore = {
   auth: {
     isAuthenticated: true,
     user: {
-      id: "5c6313a4c318bb62298b23d4",
+      id: "5c63123a4c318b298b23d4",
       name: "Jennifer",
       iat: 1560457432,
       exp: 1592014358
@@ -126,7 +129,7 @@ const addedStore = {
         id: "25070e52-e635-4883-ae9b-583113573b9f",
         name: "Sleepytime",
         brand: "Celestial Seasonings",
-        teaType: "5d40b6871f88450253bdbf40",
+        teaType: "5c63123a4c318b298b23d4",
         servings: 22,
         rating: "4"
       },
@@ -187,8 +190,8 @@ const addedStore = {
         name: "White",
         brewTime: 7800000
       },
-      "5d40b6871f88450253bdbf40": {
-        id: "5d40b6871f88450253bdbf40",
+      "5c63123a4c318b298b23d4": {
+        id: "5c63123a4c318b298b23d4",
         name: "Herbal",
         brewTime: 14400000
       }
@@ -197,7 +200,7 @@ const addedStore = {
       "5d39dd1f0487d1116140bac1",
       "5d48277169b3160191797d14",
       "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-      "5d40b6871f88450253bdbf40"
+      "5c63123a4c318b298b23d4"
     ]
   },
   flash: "success"
@@ -207,7 +210,7 @@ const updatedStore = {
   auth: {
     isAuthenticated: true,
     user: {
-      id: "5c6313a4c318bb62298b23d4",
+      id: "5c63123a4c318b298b23d4",
       name: "Jennifer",
       iat: 1560457432,
       exp: 1592014358
@@ -221,7 +224,7 @@ const updatedStore = {
         id: "25070e52-e635-4883-ae9b-583113573b9f",
         name: "Sleepytime",
         brand: "Celestial Seasonings",
-        teaType: "5d40b6871f88450253bdbf40",
+        teaType: "5c63123a4c318b298b23d4",
         servings: 22,
         rating: "4"
       },
@@ -253,7 +256,7 @@ const updatedStore = {
       name: "Sleepytime",
       servings: 22,
       rating: "4",
-      teaType: "5d40b6871f88450253bdbf40"
+      teaType: "5c63123a4c318b298b23d4"
     }
   },
   teaTypes: {
@@ -273,8 +276,8 @@ const updatedStore = {
         name: "White",
         brewTime: 7800000
       },
-      "5d40b6871f88450253bdbf40": {
-        id: "5d40b6871f88450253bdbf40",
+      "5c63123a4c318b298b23d4": {
+        id: "5c63123a4c318b298b23d4",
         name: "Herbal",
         brewTime: 14400000
       }
@@ -283,7 +286,7 @@ const updatedStore = {
       "5d39dd1f0487d1116140bac1",
       "5d48277169b3160191797d14",
       "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-      "5d40b6871f88450253bdbf40"
+      "5c63123a4c318b298b23d4"
     ]
   },
   flash: "off"
@@ -293,7 +296,7 @@ const deletedStore = {
   auth: {
     isAuthenticated: true,
     user: {
-      id: "5c6313a4c318bb62298b23d4",
+      id: "5c63123a4c318b298b23d4",
       name: "Jennifer",
       iat: 1560457432,
       exp: 1592014358
@@ -307,7 +310,7 @@ const deletedStore = {
         id: "25070e52-e635-4883-ae9b-583113573b9f",
         name: "Sleepytime",
         brand: "Celestial Seasonings",
-        teaType: "5d40b6871f88450253bdbf40",
+        teaType: "5c63123a4c318b298b23d4",
         servings: 22,
         rating: "4"
       },
@@ -351,8 +354,8 @@ const deletedStore = {
         name: "White",
         brewTime: 7800000
       },
-      "5d40b6871f88450253bdbf40": {
-        id: "5d40b6871f88450253bdbf40",
+      "5c63123a4c318b298b23d4": {
+        id: "5c63123a4c318b298b23d4",
         name: "Herbal",
         brewTime: 14400000
       }
@@ -360,7 +363,7 @@ const deletedStore = {
     teaTypeIDs: [
       "5d39dd1f0487d1116140bac1",
       "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-      "5d40b6871f88450253bdbf40"
+      "5c63123a4c318b298b23d4"
     ]
   },
   flash: "off"
@@ -371,20 +374,19 @@ const duplicateErrorStore = {
     isAuthenticated: true,
     loading: false,
     user: {
-      id: "5c6313a4c318bb62298b23d4",
+      id: "5c63123a4c318b298b23d4",
       name: "Jennifer",
       iat: 1560457432,
       exp: 1592014358
     }
   },
-
   teas: {
     allTeas: {
       "25070e52-e635-4883-ae9b-583113573b9f": {
         id: "25070e52-e635-4883-ae9b-583113573b9f",
         name: "Sleepytime",
         brand: "Celestial Seasonings",
-        teaType: "5d40b6871f88450253bdbf40",
+        teaType: "5c63123a4c318b298b23d4",
         servings: 22,
         rating: "4"
       },
@@ -428,8 +430,8 @@ const duplicateErrorStore = {
         name: "White",
         brewTime: 7800000
       },
-      "5d40b6871f88450253bdbf40": {
-        id: "5d40b6871f88450253bdbf40",
+      "5c63123a4c318b298b23d4": {
+        id: "5c63123a4c318b298b23d4",
         name: "Herbal",
         brewTime: 14400000
       }
@@ -438,10 +440,11 @@ const duplicateErrorStore = {
       "5d39dd1f0487d1116140bac1",
       "5d48277169b3160191797d14",
       "425ba4a6-fc19-4a53-813c-7957e72aa0ad",
-      "5d40b6871f88450253bdbf40"
+      "5c63123a4c318b298b23d4"
     ]
   },
-  flash: "off"
+  flash: "off",
+  errors: { serverErrors: { duplicate: "This tea type already exists" } }
 };
 
 const storeFixture = {

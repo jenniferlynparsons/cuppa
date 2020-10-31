@@ -73,7 +73,7 @@ class NavBar extends React.Component {
                   </Link>
                   <Link
                     className="navbar-item"
-                    to={"/tea-types"}
+                    to={"/teaTypes"}
                     onClick={this.props.onDropDownToggle}
                   >
                     My Tea Types
@@ -120,7 +120,7 @@ NavBar.propTypes = {
   }),
   menuActive: PropTypes.bool.isRequired,
   dropdownActive: PropTypes.bool.isRequired,
-  handleDropDownToggle: PropTypes.func.isRequired,
-  handleLogoutClick: PropTypes.func.isRequired,
-  handleNavToggle: PropTypes.func.isRequired
+  onDropDownToggle: PropTypes.func.isRequired,
+  onLogoutClick: PropTypes.func.isRequired,
+  onNavToggle: PropTypes.func.isRequired
 };

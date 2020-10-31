@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { convertTimeToMinSec } from "../../../lib/timerHelpers";
+import TeaTypeEditor from "../TeaTypeEditor";
 
 export class TeaTypeCollectionTable extends React.Component {
   render() {
@@ -9,12 +10,16 @@ export class TeaTypeCollectionTable extends React.Component {
       <div data-testid="teatypecollection" className="container">
         {this.props.flash === "success" && (
           <p data-testid="flash" className="notification is-success">
-            Tea type has been succesfully updated.
+            Tea type has been successfully updated.
           </p>
         )}
-        <Link to={"/new-tea-type"} className="button is-primary">
+        <button className="button is-primary" onClick={this.props.onModalOpen}>
           Add A New Type
-        </Link>
+        </button>
+
+        {this.props.teaTypeID && (
+          <TeaTypeEditor teaTypeID={this.props.teaTypeID} />
+        )}
         <table className="table is-striped is-fullwidth">
           <thead>
             <tr>
@@ -38,12 +43,13 @@ export class TeaTypeCollectionTable extends React.Component {
                     {brewTime.minute}:{brewTime.seconds}
                   </td>
                   <td>
-                    <Link
-                      to={"/update-tea-type/" + teaType.id}
+                    <button
                       data-testid="editlink"
+                      className="button is-primary is-small"
+                      onClick={() => this.props.onModalOpen(teaType.id)}
                     >
                       Edit
-                    </Link>
+                    </button>
                   </td>
                   <td>
                     <button
@@ -76,6 +82,8 @@ TeaTypeCollectionTable.propTypes = {
   flash: PropTypes.string.isRequired,
   columnHeaders: PropTypes.array.isRequired,
   teaTypeIDs: PropTypes.array.isRequired,
+  teaTypeID: PropTypes.string,
   allTeaTypes: PropTypes.object.isRequired,
-  handleDeleteClick: PropTypes.func.isRequired
+  onDeleteClick: PropTypes.func.isRequired,
+  onModalOpen: PropTypes.func.isRequired
 };
